@@ -9,6 +9,6 @@
   <path id="svg_1" d="m110.85125,128l110.85125,64l-110.85125,64l-110.85125,-64l110.85125,-64z" fill="#2366d1"/>
   <path id="svg_2" d="m110.85125,64l110.85125,64l-110.85125,64l-110.85125,-64l110.85125,-64z" fill="#609dff"/>
   <path id="svg_3" d="m110.85125,0l110.85125,64l-110.85125,64l-110.85125,-64l110.85125,-64z" fill="#a4c7ff"/>
-  <text stroke="null" transform="matrix(10.355811023839367,0,0,9.526966303966317,-6380.104647423611,-1948.9347739704024) " xml:space="preserve" text-anchor="start" font-family="Euphoria, sans-serif" font-size="24" id="svg_6" y="223.029173" x="643.021811" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">Acamy</text>
+  <text stroke="#000" transform="matrix(8.579307250641207,0,0,7.761884435481182,-3089.6944755358218,-402.5953128634064) " xml:space="preserve" text-anchor="start" font-family="'Times New Roman', Times, serif" font-size="24" id="svg_6" y="74.633814" x="393.88344" stroke-width="0" fill="#000000">Acamy</text>
  </g>
 </svg>
