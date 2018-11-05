@@ -8,6 +8,7 @@
 
 
     <meta name="description" content="以前对线程池的理解大多处于理论阶段，知道为什么要用以及怎么用，各个参数的含意设置及原理，也明白submit和excute的区别，但是在实际工作时遇到对异步任务处理时却不知道怎么先批量提交到线程池，利用线程池批量处理后再批量获取返回结果，通过同事指点再知道invokeAll方法，因此看了一下源码并写了一个简单的demo  invokeAll是AbstractExecutorService抽象类下">
+<meta name="keywords" content="线程池,优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="采用线程池处理异步任务并获取最终结果">
 <meta property="og:url" content="http://yoursite.com/2018/11/03/采用线程池处理异步任务并获取最终结果/index.html">
@@ -15,7 +16,7 @@
 <meta property="og:description" content="以前对线程池的理解大多处于理论阶段，知道为什么要用以及怎么用，各个参数的含意设置及原理，也明白submit和excute的区别，但是在实际工作时遇到对异步任务处理时却不知道怎么先批量提交到线程池，利用线程池批量处理后再批量获取返回结果，通过同事指点再知道invokeAll方法，因此看了一下源码并写了一个简单的demo  invokeAll是AbstractExecutorService抽象类下">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-8226a98f00cacec3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-03T15:48:13.019Z">
+<meta property="og:updated_time" content="2018-11-05T13:09:19.192Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="采用线程池处理异步任务并获取最终结果">
 <meta name="twitter:description" content="以前对线程池的理解大多处于理论阶段，知道为什么要用以及怎么用，各个参数的含意设置及原理，也明白submit和excute的区别，但是在实际工作时遇到对异步任务处理时却不知道怎么先批量提交到线程池，利用线程池批量处理后再批量获取返回结果，通过同事指点再知道invokeAll方法，因此看了一下源码并写了一个简单的demo  invokeAll是AbstractExecutorService抽象类下">
@@ -152,11 +153,21 @@
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+        </span>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/编程/">编程</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                </div>
                 
                 
                 <span class="level-item has-text-grey">
@@ -185,6 +196,15 @@
 
         </div>
         
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/优化/">优化</a>, <a class="has-link-grey -link" href="/tags/线程池/">线程池</a>
+                </div>
+            </div>
+        </div>
+        
         
         
     </div>
@@ -209,7 +229,7 @@
 
 <div class="card">
     <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">Comentarios</h3>
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
         
 <div id="SOHUCS" sid="2018/11/03/采用线程池处理异步任务并获取最终结果/"></div>
 <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
@@ -259,7 +279,7 @@ window.changyan.api.config({
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Entradas
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
                         3
@@ -269,27 +289,27 @@ window.changyan.api.config({
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categorias
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        0
+                        2
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Etiquetas
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        0
+                        2
                     </p>
                 </div>
             </div>
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="http://github.com/Acamy">
-                SEGUIR</a>
+                Follow</a>
         </div>
         
         
@@ -376,16 +396,41 @@ window.changyan.api.config({
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categorias
+                Categories
             </h3>
             <ul class="menu-list">
-            
+            <li>
+        <a class="level is-marginless" href="/categories/编程/">
+            <span class="level-start">
+                <span class="level-item">编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/编程/java/">
+            <span class="level-start">
+                <span class="level-item">java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li>
             </ul>
         </div>
     </div>
 </div>
     
         
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+    </div>
+</div>
+
     
     
         <div class="card card-transparent is-hidden-widescreen">
@@ -394,14 +439,14 @@ window.changyan.api.config({
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
         
         <article class="media">
             
             <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
@@ -410,7 +455,7 @@ window.changyan.api.config({
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
                     <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
                     </p>
                 </div>
             </div>
@@ -462,7 +507,7 @@ window.changyan.api.config({
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
         
@@ -486,9 +531,31 @@ window.changyan.api.config({
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
                 
             </ul>
         </div>
@@ -509,14 +576,14 @@ window.changyan.api.config({
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
         
         <article class="media">
             
             <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
@@ -525,7 +592,7 @@ window.changyan.api.config({
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
                     <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
                     </p>
                 </div>
             </div>
@@ -577,7 +644,7 @@ window.changyan.api.config({
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
         
@@ -601,9 +668,31 @@ window.changyan.api.config({
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
                 
             </ul>
         </div>
@@ -820,10 +909,10 @@ window.changyan.api.config({
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Entradas',
+                POSTS: 'Posts',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categorias',
-                TAGS: 'Etiquetas',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',

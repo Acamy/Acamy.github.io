@@ -2,15 +2,14 @@
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Tags - Hexo</title>
+<title>Category: 编程 - Hexo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="keywords" content="线程池,优化">
-<meta property="og:type" content="website">
+    <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:url" content="http://yoursite.com/categories/编程/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -115,7 +114,7 @@
                 
                 <a class="navbar-item" href="/categories">Categories</a>
                 
-                <a class="navbar-item is-active" href="/tags">Tags</a>
+                <a class="navbar-item" href="/tags">Tags</a>
                 
                 <a class="navbar-item" href="/about">About</a>
                 
@@ -145,40 +144,73 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card widget">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                Tags
-            </h3>
-            <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-            </ul>
-        </div>
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/categories">Categories</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">编程</a></li>
+        </ul>
+        </nav>
     </div>
-</div></div>
+</div>
+
+    <div class="card">
+    
+    <div class="card-image">
+        <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="image is-7by1">
+            <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/编程/">编程</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 minutes read (About 642 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/11/03/采用线程池处理异步任务并获取最终结果/">采用线程池处理异步任务并获取最终结果</a>
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p> 以前对线程池的理解大多处于理论阶段，知道为什么要用以及怎么用，各个参数的含意设置及原理，也明白submit和excute的区别，但是在实际工作时遇到对异步任务处理时却不知道怎么先批量提交到线程池，利用线程池批量处理后再批量获取返回结果，通过同事指点再知道invokeAll方法，因此看了一下源码并写了一个简单的demo</p>
+</blockquote>
+<p>invokeAll是AbstractExecutorService抽象类下的一个方法，源码如下, 该方法主要是接受一个异步任务列表，这段代码主要是有两个for循环，第一个for循环是将列表中的任务添加到线程池运行起来，第二个for循环是通过f.get来阻塞所有未完成的任务直到完成，最后finally里面尝试取消出现异常完成的任务。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public &lt;T&gt; List&lt;Future&lt;T&gt;&gt; invokeAll(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks)</span><br><span class="line">    throws InterruptedException &#123;</span><br><span class="line">    if (tasks == null)</span><br><span class="line">        throw new NullPointerException();</span><br><span class="line">    ArrayList&lt;Future&lt;T&gt;&gt; futures = new ArrayList&lt;Future&lt;T&gt;&gt;(tasks.size());</span><br><span class="line">    boolean done = false;</span><br><span class="line">    try &#123;</span><br><span class="line">        for (Callable&lt;T&gt; t : tasks) &#123;</span><br><span class="line">            RunnableFuture&lt;T&gt; f = newTaskFor(t);</span><br><span class="line">            futures.add(f);</span><br><span class="line">            execute(f);</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0, size = futures.size(); i &lt; size; i++) &#123;</span><br><span class="line">            Future&lt;T&gt; f = futures.get(i);</span><br><span class="line">            if (!f.isDone()) &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    f.get();</span><br><span class="line">                &#125; catch (CancellationException ignore) &#123;</span><br><span class="line">                &#125; catch (ExecutionException ignore) &#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        done = true;</span><br><span class="line">        return futures;</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        if (!done)</span><br><span class="line">            for (int i = 0, size = futures.size(); i &lt; size; i++)</span><br><span class="line">                futures.get(i).cancel(true);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用线程池调用invokeAll的demo：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.concurrent.*;</span><br><span class="line"></span><br><span class="line">public class ThreadPoolDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        new ThreadPoolDemo().execute();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void execute()&#123;</span><br><span class="line">        ThreadPoolExecutor executor =  new ThreadPoolExecutor(12, 12, 2000, TimeUnit.MICROSECONDS,</span><br><span class="line">                new ArrayBlockingQueue&lt;Runnable&gt;(1000));</span><br><span class="line"></span><br><span class="line">        List&lt;Handler&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        for(int i = 0; i &lt; 100; i++)&#123;</span><br><span class="line">            list.add(new Handler(String.valueOf(i)));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            //会按照添加到List的次序返回，该方法阻塞至所有任务完成</span><br><span class="line">            List&lt;Future&lt;String&gt;&gt; results = executor.invokeAll(list);</span><br><span class="line">            results.stream().forEach( future -&gt; &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    System.out.println(future.get());</span><br><span class="line">                &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125; catch (ExecutionException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //关闭线程池</span><br><span class="line">        executor.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private class Handler implements Callable&lt;String&gt; &#123;</span><br><span class="line">        //模拟传参，实际可为对象类型</span><br><span class="line">        String value;</span><br><span class="line">        public Handler(String value)&#123;</span><br><span class="line">            this.value = value;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public String call()&#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                //模拟任务的处理过程0-1000ms</span><br><span class="line">                Thread.sleep((int)(Math.random()*1000));</span><br><span class="line">            &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            //模拟返回参数，实际可为对象类型</span><br><span class="line">            System.out.println(value);</span><br><span class="line">            return value + &quot;value&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果:<br><img src="https://upload-images.jianshu.io/upload_images/5990755-8226a98f00cacec3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>如上图所示，所有任务添加到线程池后执行并没有次序，但最后返回的结果是按照最初添加list的顺序，即利用了线程池并发处理的特点，又有序获取到了所有异步任务的最终执行结果。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+</div>
                 
 
 
