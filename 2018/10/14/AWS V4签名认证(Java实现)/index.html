@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>AWS V4签名认证(Java实现) - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认证参数进行对比，如果一致才能请求成功，否则返回401码(未被授权)。亚马逊提供的这套认证算法最后需要往">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS V4签名认证(Java实现)">
+<meta property="og:url" content="http://yoursite.com/2018/10/14/AWS V4签名认证(Java实现)/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认证参数进行对比，如果一致才能请求成功，否则返回401码(未被授权)。亚马逊提供的这套认证算法最后需要往">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-05T15:47:17.552Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AWS V4签名认证(Java实现)">
+<meta name="twitter:description" content="最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认证参数进行对比，如果一致才能请求成功，否则返回401码(未被授权)。亚马逊提供的这套认证算法最后需要往">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    17 minutes read (About 2581 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                AWS V4签名认证(Java实现)
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认证参数进行对比，如果一致才能请求成功，否则返回401码(未被授权)。亚马逊提供的这套认证算法最后需要往headers字段中添加Authorization标头, 具体可以查看如下示例。</p>
+</blockquote>
+<p>如果没有认证你发送的请求是这样的话：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /?Param2=value2&amp;Param1=value1 HTTP/1.1</span><br><span class="line">Host:example.amazonaws.com</span><br><span class="line">X-Amz-Date:20150830T123600Z</span><br></pre></td></tr></table></figure></p>
+<p>添加认证后就应该是这样：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET /?Param2=value2&amp;Param1=value1 HTTP/1.1</span><br><span class="line">Host:example.amazonaws.com</span><br><span class="line">X-Amz-Date:20150830T123600Z</span><br><span class="line">Authorization: AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request, SignedHeaders=host;x-amz-date, Signature=b97d918cfa904a5beff61c982a1b6f458b799221646efd99d3219ec94cdf2500</span><br></pre></td></tr></table></figure></p>
+<p>Authorization标头包含如下信息：</p>
+<ul>
+<li>用于签名的算法 (AWS4-HMAC-SHA256)</li>
+<li>凭证范围（包含您的访问密钥 ID）</li>
+<li>已签名标头的列表</li>
+<li>计算签名。该签名基于您的请求信息，由您使用 AWS 秘密访问密钥生成。该签名用于向 AWS 确认您的身份。该部分也是最关键的部分。</li>
+</ul>
+<h3 id="1-认证流程"><a href="#1-认证流程" class="headerlink" title="1. 认证流程"></a>1. 认证流程</h3><blockquote>
+<p>创建规范请求-&gt;创建待签字符串-&gt;计算签名-&gt;将签名信息添加到请求，下面以官方提供的测试套件说明文档进行列举。</p>
+</blockquote>
+<p>首先需要知道：</p>
+<ul>
+<li>凭证范围：<code>AKIDEXAMPLE/20150830/us-east-1/service/aws4_request</code></li>
+<li>私有密钥：<code>wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY</code></li>
+</ul>
+<p>原始请求：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /?Param2=value2&amp;Param1=value1 HTTP/1.1</span><br><span class="line">Host:example.amazonaws.com</span><br><span class="line">X-Amz-Date:20150830T123600Z</span><br></pre></td></tr></table></figure></p>
+<p>####1.1 创建规范请求<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET</span><br><span class="line">/</span><br><span class="line">Param1=value1&amp;Param2=value2</span><br><span class="line">host:example.amazonaws.com</span><br><span class="line">x-amz-date:20150830T123600Z</span><br><span class="line"></span><br><span class="line">host;x-amz-date</span><br><span class="line">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span><br></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<ul>
+<li>参数按字母顺序（依据字符代码）进行排序。</li>
+<li>标头名称小写。</li>
+<li>在 x-amz-date 标头与已签名标头之间有一个换行符。</li>
+<li>负载的哈希是空字符串的哈希。</li>
+</ul>
+<p>####1.2 创建待签字符串<br>规范请求的哈希值返回以下值：<br><code>816cd5b414d056048ba4f7c5386d6e0533120fb1fcfa93762cf0fc39e2cf19e0</code><br>添加算法、请求日期、凭证范围和规范请求哈希以创建待签字符串：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AWS4-HMAC-SHA256</span><br><span class="line">20150830T123600Z</span><br><span class="line">20150830/us-east-1/service/aws4_request</span><br><span class="line">816cd5b414d056048ba4f7c5386d6e0533120fb1fcfa93762cf0fc39e2cf19e0</span><br></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<ul>
+<li>第二行的日期与 x-amz-date 标头以及凭证范围的第一个元素匹配。</li>
+<li>最后一行为规范请求的十六进制编码哈希值。</li>
+</ul>
+<h4 id="1-3-计算签名"><a href="#1-3-计算签名" class="headerlink" title="1.3 计算签名"></a>1.3 计算签名</h4><p>用签名密钥和待签名字符串创建签名<br><code>AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request, SignedHeaders=host;x-amz-date, Signature=b97d918cfa904a5beff61c982a1b6f458b799221646efd99d3219ec94cdf2500</code></p>
+<p>####1.4 将签名信息添加到请求<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET /?Param2=value2&amp;Param1=value1 HTTP/1.1</span><br><span class="line">Host:example.amazonaws.com</span><br><span class="line">X-Amz-Date:20150830T123600Z</span><br><span class="line">Authorization: AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request, SignedHeaders=host;x-amz-date, Signature=b97d918cfa904a5beff61c982a1b6f458b799221646efd99d3219ec94cdf2500</span><br></pre></td></tr></table></figure></p>
+<p>上述的示例将用下面实现的算法来进行举例说明。</p>
+<h3 id="2-Java实现"><a href="#2-Java实现" class="headerlink" title="2. Java实现"></a>2. Java实现</h3><h4 id="2-1-工具类"><a href="#2-1-工具类" class="headerlink" title="2.1 工具类"></a>2.1 工具类</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br></pre></td><td class="code"><pre><span class="line">import java.io.UnsupportedEncodingException;</span><br><span class="line">import java.net.URLEncoder;</span><br><span class="line">import java.security.MessageDigest;</span><br><span class="line">import java.security.NoSuchAlgorithmException;</span><br><span class="line">import java.text.DateFormat;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.TimeZone;</span><br><span class="line">import java.util.TreeMap;</span><br><span class="line">import javax.crypto.Mac;</span><br><span class="line">import javax.crypto.spec.SecretKeySpec;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * AWS V4 签名处理工具</span><br><span class="line"> *</span><br><span class="line"> * 参考链接：https://docs.aws.amazon.com/zh_cn/general/latest/gr/sigv4_signing.html</span><br><span class="line"> */</span><br><span class="line">public class AWSV4Auth &#123;</span><br><span class="line"></span><br><span class="line">    private AWSV4Auth() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static class Builder &#123;</span><br><span class="line"></span><br><span class="line">        private String accessKeyID;</span><br><span class="line">        private String secretAccessKey;</span><br><span class="line">        private String regionName;</span><br><span class="line">        private String serviceName;</span><br><span class="line">        private String httpMethodName;</span><br><span class="line">        private String canonicalURI;</span><br><span class="line">        private TreeMap&lt;String, String&gt; queryParametes;</span><br><span class="line">        private TreeMap&lt;String, String&gt; awsHeaders;</span><br><span class="line">        private String payload;</span><br><span class="line">        private boolean debug = false;</span><br><span class="line"></span><br><span class="line">        public Builder(String accessKeyID, String secretAccessKey) &#123;</span><br><span class="line">            this.accessKeyID = accessKeyID;</span><br><span class="line">            this.secretAccessKey = secretAccessKey;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder regionName(String regionName) &#123;</span><br><span class="line">            this.regionName = regionName;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder serviceName(String serviceName) &#123;</span><br><span class="line">            this.serviceName = serviceName;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder httpMethodName(String httpMethodName) &#123;</span><br><span class="line">            this.httpMethodName = httpMethodName;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder canonicalURI(String canonicalURI) &#123;</span><br><span class="line">            this.canonicalURI = canonicalURI;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder queryParametes(TreeMap&lt;String, String&gt; queryParametes) &#123;</span><br><span class="line">            this.queryParametes = queryParametes;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder awsHeaders(TreeMap&lt;String, String&gt; awsHeaders) &#123;</span><br><span class="line">            this.awsHeaders = awsHeaders;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder payload(String payload) &#123;</span><br><span class="line">            this.payload = payload;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder debug() &#123;</span><br><span class="line">            this.debug = true;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public AWSV4Auth build() &#123;</span><br><span class="line">            return new AWSV4Auth(this);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private String accessKeyID;</span><br><span class="line">    private String secretAccessKey;</span><br><span class="line">    private String regionName;</span><br><span class="line">    private String serviceName;</span><br><span class="line">    private String httpMethodName;</span><br><span class="line">    private String canonicalURI;</span><br><span class="line">    private TreeMap&lt;String, String&gt; queryParametes;</span><br><span class="line">    private TreeMap&lt;String, String&gt; awsHeaders;</span><br><span class="line">    private String payload;</span><br><span class="line">    private boolean debug = false;</span><br><span class="line"></span><br><span class="line">    /* Other variables */</span><br><span class="line">    private final String HMACAlgorithm = &quot;AWS4-HMAC-SHA256&quot;;</span><br><span class="line">    private final String aws4Request = &quot;aws4_request&quot;;</span><br><span class="line">    private String strSignedHeader;</span><br><span class="line">    private String xAmzDate;</span><br><span class="line">    private String currentDate;</span><br><span class="line"></span><br><span class="line">    private AWSV4Auth(Builder builder) &#123;</span><br><span class="line">        accessKeyID = builder.accessKeyID;</span><br><span class="line">        secretAccessKey = builder.secretAccessKey;</span><br><span class="line">        regionName = builder.regionName;</span><br><span class="line">        serviceName = builder.serviceName;</span><br><span class="line">        httpMethodName = builder.httpMethodName;</span><br><span class="line">        canonicalURI = builder.canonicalURI;</span><br><span class="line">        queryParametes = builder.queryParametes;</span><br><span class="line">        awsHeaders = builder.awsHeaders;</span><br><span class="line">        payload = builder.payload;</span><br><span class="line">        debug = builder.debug;</span><br><span class="line"></span><br><span class="line">        /* Get current timestamp value.(UTC) */</span><br><span class="line">        xAmzDate = getTimeStamp();</span><br><span class="line">        currentDate = getDate();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 任务 1：针对签名版本 4 创建规范请求</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String prepareCanonicalRequest() &#123;</span><br><span class="line">        StringBuilder canonicalURL = new StringBuilder(&quot;&quot;);</span><br><span class="line"></span><br><span class="line">        /* Step 1.1 以HTTP方法(GET, PUT, POST, etc.)开头, 然后换行. */</span><br><span class="line">        canonicalURL.append(httpMethodName).append(&quot;\n&quot;);</span><br><span class="line"></span><br><span class="line">        /* Step 1.2 添加URI参数，换行. */</span><br><span class="line">        canonicalURI = canonicalURI == null || canonicalURI.trim().isEmpty() ? &quot;/&quot; : canonicalURI;</span><br><span class="line">        canonicalURL.append(canonicalURI).append(&quot;\n&quot;);</span><br><span class="line"></span><br><span class="line">        /* Step 1.3 添加查询参数，换行. */</span><br><span class="line">        StringBuilder queryString = new StringBuilder(&quot;&quot;);</span><br><span class="line">        if (queryParametes != null &amp;&amp; !queryParametes.isEmpty()) &#123;</span><br><span class="line">            for (Map.Entry&lt;String, String&gt; entrySet : queryParametes.entrySet()) &#123;</span><br><span class="line">                String key = entrySet.getKey();</span><br><span class="line">                String value = entrySet.getValue();</span><br><span class="line">                queryString.append(key).append(&quot;=&quot;).append(encodeParameter(value)).append(&quot;&amp;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            queryString.deleteCharAt(queryString.lastIndexOf(&quot;&amp;&quot;));</span><br><span class="line"></span><br><span class="line">            queryString.append(&quot;\n&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            queryString.append(&quot;\n&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        canonicalURL.append(queryString);</span><br><span class="line"></span><br><span class="line">        /* Step 1.4 添加headers, 每个header都需要换行. */</span><br><span class="line">        StringBuilder signedHeaders = new StringBuilder(&quot;&quot;);</span><br><span class="line">        if (awsHeaders != null &amp;&amp; !awsHeaders.isEmpty()) &#123;</span><br><span class="line">            for (Map.Entry&lt;String, String&gt; entrySet : awsHeaders.entrySet()) &#123;</span><br><span class="line">                String key = entrySet.getKey();</span><br><span class="line">                String value = entrySet.getValue();</span><br><span class="line">                signedHeaders.append(key).append(&quot;;&quot;);</span><br><span class="line">                canonicalURL.append(key).append(&quot;:&quot;).append(value).append(&quot;\n&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            canonicalURL.append(&quot;\n&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            canonicalURL.append(&quot;\n&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /* Step 1.5 添加签名的headers并换行. */</span><br><span class="line">        strSignedHeader = signedHeaders.substring(0, signedHeaders.length() - 1); // 删掉最后的 &quot;;&quot;</span><br><span class="line">        canonicalURL.append(strSignedHeader).append(&quot;\n&quot;);</span><br><span class="line"></span><br><span class="line">        /* Step 1.6 对HTTP或HTTPS的body进行SHA256处理. */</span><br><span class="line">        payload = payload == null ? &quot;&quot; : payload;</span><br><span class="line">        canonicalURL.append(generateHex(payload));</span><br><span class="line"></span><br><span class="line">        if (debug) &#123;</span><br><span class="line">            System.out.println(&quot;##Canonical Request:\n&quot; + canonicalURL.toString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return canonicalURL.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 任务 2：创建签名版本 4 的待签字符串</span><br><span class="line">     *</span><br><span class="line">     * @param canonicalURL</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String prepareStringToSign(String canonicalURL) &#123;</span><br><span class="line">        String stringToSign = &quot;&quot;;</span><br><span class="line"></span><br><span class="line">        /* Step 2.1 以算法名称开头，并换行. */</span><br><span class="line">        stringToSign = HMACAlgorithm + &quot;\n&quot;;</span><br><span class="line"></span><br><span class="line">        /* Step 2.2 添加日期，并换行. */</span><br><span class="line">        stringToSign += xAmzDate + &quot;\n&quot;;</span><br><span class="line"></span><br><span class="line">        /* Step 2.3 添加认证范围，并换行. */</span><br><span class="line">        stringToSign += currentDate + &quot;/&quot; + regionName + &quot;/&quot; + serviceName + &quot;/&quot; + aws4Request + &quot;\n&quot;;</span><br><span class="line"></span><br><span class="line">        /* Step 2.4 添加任务1返回的规范URL哈希处理结果，然后换行. */</span><br><span class="line">        stringToSign += generateHex(canonicalURL);</span><br><span class="line"></span><br><span class="line">        if (debug) &#123;</span><br><span class="line">            System.out.println(&quot;##String to sign:\n&quot; + stringToSign);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return stringToSign;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 任务 3：为 AWS Signature 版本 4 计算签名</span><br><span class="line">     *</span><br><span class="line">     * @param stringToSign</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String calculateSignature(String stringToSign) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            /* Step 3.1 生成签名的key */</span><br><span class="line">            byte[] signatureKey = getSignatureKey(secretAccessKey, currentDate, regionName, serviceName);</span><br><span class="line"></span><br><span class="line">            /* Step 3.2 计算签名. */</span><br><span class="line">            byte[] signature = HmacSHA256(signatureKey, stringToSign);</span><br><span class="line"></span><br><span class="line">            /* Step 3.2.1 对签名编码处理 */</span><br><span class="line">            String strHexSignature = bytesToHex(signature);</span><br><span class="line">            return strHexSignature;</span><br><span class="line">        &#125; catch (Exception ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     *任务 4：将签名信息添加到请求并返回headers</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public Map&lt;String, String&gt; getHeaders() &#123;</span><br><span class="line">        awsHeaders.put(&quot;x-amz-date&quot;, xAmzDate);</span><br><span class="line"></span><br><span class="line">        /* 执行任务 1: 创建aws v4签名的规范请求字符串. */</span><br><span class="line">        String canonicalURL = prepareCanonicalRequest();</span><br><span class="line"></span><br><span class="line">        /* 执行任务 2: 创建用来认证的字符串 4. */</span><br><span class="line">        String stringToSign = prepareStringToSign(canonicalURL);</span><br><span class="line"></span><br><span class="line">        /* 执行任务 3: 计算签名. */</span><br><span class="line">        String signature = calculateSignature(stringToSign);</span><br><span class="line"></span><br><span class="line">        if (signature != null) &#123;</span><br><span class="line">            Map&lt;String, String&gt; header = new HashMap&lt;String, String&gt;(0);</span><br><span class="line">            header.put(&quot;x-amz-date&quot;, xAmzDate);</span><br><span class="line">            header.put(&quot;Authorization&quot;, buildAuthorizationString(signature));</span><br><span class="line"></span><br><span class="line">            if (debug) &#123;</span><br><span class="line">                System.out.println(&quot;##Signature:\n&quot; + signature);</span><br><span class="line">                System.out.println(&quot;##Header:&quot;);</span><br><span class="line">                for (Map.Entry&lt;String, String&gt; entrySet : header.entrySet()) &#123;</span><br><span class="line">                    System.out.println(entrySet.getKey() + &quot; = &quot; + entrySet.getValue());</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(&quot;================================&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            return header;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            if (debug) &#123;</span><br><span class="line">                System.out.println(&quot;##Signature:\n&quot; + signature);</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 连接前几步处理的字符串生成Authorization header值.</span><br><span class="line">     *</span><br><span class="line">     * @param strSignature</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String buildAuthorizationString(String strSignature) &#123;</span><br><span class="line">        return HMACAlgorithm + &quot; &quot;</span><br><span class="line">                + &quot;Credential=&quot; + accessKeyID + &quot;/&quot; + getDate() + &quot;/&quot; + regionName + &quot;/&quot; + serviceName + &quot;/&quot; + aws4Request + &quot;, &quot;</span><br><span class="line">                + &quot;SignedHeaders=&quot; + strSignedHeader + &quot;, &quot;</span><br><span class="line">                + &quot;Signature=&quot; + strSignature;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 将字符串16进制化.</span><br><span class="line">     *</span><br><span class="line">     * @param data</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String generateHex(String data) &#123;</span><br><span class="line">        MessageDigest messageDigest;</span><br><span class="line">        try &#123;</span><br><span class="line">            messageDigest = MessageDigest.getInstance(&quot;SHA-256&quot;);</span><br><span class="line">            messageDigest.update(data.getBytes(&quot;UTF-8&quot;));</span><br><span class="line">            byte[] digest = messageDigest.digest();</span><br><span class="line">            return String.format(&quot;%064x&quot;, new java.math.BigInteger(1, digest));</span><br><span class="line">        &#125; catch (NoSuchAlgorithmException | UnsupportedEncodingException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 以给定的key应用HmacSHA256算法处理数据.</span><br><span class="line">     *</span><br><span class="line">     * @param data</span><br><span class="line">     * @param key</span><br><span class="line">     * @return</span><br><span class="line">     * @throws Exception</span><br><span class="line">     * @reference:</span><br><span class="line">     * http://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html#signature-v4-examples-java</span><br><span class="line">     */</span><br><span class="line">    private byte[] HmacSHA256(byte[] key, String data) throws Exception &#123;</span><br><span class="line">        String algorithm = &quot;HmacSHA256&quot;;</span><br><span class="line">        Mac mac = Mac.getInstance(algorithm);</span><br><span class="line">        mac.init(new SecretKeySpec(key, algorithm));</span><br><span class="line">        return mac.doFinal(data.getBytes(&quot;UTF8&quot;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 生成AWS 签名</span><br><span class="line">     *</span><br><span class="line">     * @param key</span><br><span class="line">     * @param date</span><br><span class="line">     * @param regionName</span><br><span class="line">     * @param serviceName</span><br><span class="line">     * @return</span><br><span class="line">     * @throws Exception</span><br><span class="line">     * @reference</span><br><span class="line">     * http://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html#signature-v4-examples-java</span><br><span class="line">     */</span><br><span class="line">    private byte[] getSignatureKey(String key, String date, String regionName, String serviceName) throws Exception &#123;</span><br><span class="line">        byte[] kSecret = (&quot;AWS4&quot; + key).getBytes(&quot;UTF8&quot;);</span><br><span class="line">        byte[] kDate = HmacSHA256(kSecret, date);</span><br><span class="line">        byte[] kRegion = HmacSHA256(kDate, regionName);</span><br><span class="line">        byte[] kService = HmacSHA256(kRegion, serviceName);</span><br><span class="line">        byte[] kSigning = HmacSHA256(kService, aws4Request);</span><br><span class="line">        return kSigning;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    final protected static char[] hexArray = &quot;0123456789ABCDEF&quot;.toCharArray();</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 将字节数组转换为16进制字符串</span><br><span class="line">     *</span><br><span class="line">     * @param bytes</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String bytesToHex(byte[] bytes) &#123;</span><br><span class="line">        char[] hexChars = new char[bytes.length * 2];</span><br><span class="line">        for (int j = 0; j &lt; bytes.length; j++) &#123;</span><br><span class="line">            int v = bytes[j] &amp; 0xFF;</span><br><span class="line">            hexChars[j * 2] = hexArray[v &gt;&gt;&gt; 4];</span><br><span class="line">            hexChars[j * 2 + 1] = hexArray[v &amp; 0x0F];</span><br><span class="line">        &#125;</span><br><span class="line">        return new String(hexChars).toLowerCase();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取yyyyMMdd&apos;T&apos;HHmmss&apos;Z&apos;格式的当前时间</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String getTimeStamp() &#123;</span><br><span class="line">        DateFormat dateFormat = new SimpleDateFormat(&quot;yyyyMMdd&apos;T&apos;HHmmss&apos;Z&apos;&quot;);</span><br><span class="line">        dateFormat.setTimeZone(TimeZone.getTimeZone(&quot;UTC&quot;));//server timezone</span><br><span class="line">        return dateFormat.format(new Date());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取yyyyMMdd格式的当前日期</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String getDate() &#123;</span><br><span class="line">        DateFormat dateFormat = new SimpleDateFormat(&quot;yyyyMMdd&quot;);</span><br><span class="line">        dateFormat.setTimeZone(TimeZone.getTimeZone(&quot;UTC&quot;));//server timezone</span><br><span class="line">        return dateFormat.format(new Date());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * UTF-8编码</span><br><span class="line">     * @param param</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String encodeParameter(String param)&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return URLEncoder.encode(param, &quot;UTF-8&quot;);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            return URLEncoder.encode(param);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-Example"><a href="#2-2-Example" class="headerlink" title="2.2 Example"></a>2.2 Example</h4><p>首先要有一点小改造，为了验证算法的准确信，必须保证参数的一致。因此可以对工具类中的getDate方法和getTimeStamp进行直接返回，实际中不必这么做。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">private String getTimeStamp() &#123;</span><br><span class="line">    DateFormat dateFormat = new SimpleDateFormat(&quot;yyyyMMdd&apos;T&apos;HHmmss&apos;Z&apos;&quot;);</span><br><span class="line">    dateFormat.setTimeZone(TimeZone.getTimeZone(&quot;UTC&quot;));//server timezone</span><br><span class="line">    //return dateFormat.format(new Date());</span><br><span class="line">    return &quot;20150830T123600Z&quot;;</span><br><span class="line">&#125;</span><br><span class="line">private String getDate() &#123;</span><br><span class="line">    DateFormat dateFormat = new SimpleDateFormat(&quot;yyyyMMdd&quot;);</span><br><span class="line">    dateFormat.setTimeZone(TimeZone.getTimeZone(&quot;UTC&quot;));//server timezone</span><br><span class="line">    //return dateFormat.format(new Date());</span><br><span class="line">    return &quot;20150830&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试类：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">import com.example.aws4vauth.AWSV4Auth;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.TreeMap;</span><br><span class="line"></span><br><span class="line">public class AWSV4AuthTest &#123;</span><br><span class="line">    private static final String host = &quot;example.amazonaws.com&quot;;</span><br><span class="line">    private static final String accessKey = &quot;AKIDEXAMPLE&quot;;</span><br><span class="line">    private static final String secretKey = &quot;wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY&quot;;</span><br><span class="line"></span><br><span class="line">    private static final String region = &quot;us-east-1&quot;;</span><br><span class="line">    private static final String service = &quot;service&quot;;</span><br><span class="line"></span><br><span class="line">    public Map&lt;String, String&gt; auth(String uri, String method, TreeMap&lt;String, String&gt; params, String data)&#123;</span><br><span class="line">        TreeMap&lt;String, String&gt; awsHeaders = new TreeMap&lt;String, String&gt;();</span><br><span class="line">        awsHeaders.put(&quot;host&quot;, host);</span><br><span class="line"></span><br><span class="line">        return new AWSV4Auth.Builder(accessKey, secretKey)</span><br><span class="line">                .regionName(region)</span><br><span class="line">                .serviceName(service)</span><br><span class="line">                .httpMethodName(method)</span><br><span class="line">                .canonicalURI(uri)</span><br><span class="line">                .queryParametes(params)</span><br><span class="line">                .awsHeaders(awsHeaders)</span><br><span class="line">                .payload(data)</span><br><span class="line">                .debug()</span><br><span class="line">                .build()</span><br><span class="line">                .getHeaders();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void Test()&#123;</span><br><span class="line">        String uri = &quot;/&quot;;</span><br><span class="line">        TreeMap&lt;String, String&gt; awsHeaders = new TreeMap&lt;String, String&gt;();</span><br><span class="line">        awsHeaders.put(&quot;host&quot;, host);</span><br><span class="line"></span><br><span class="line">        TreeMap&lt;String, String&gt; params = new TreeMap&lt;String, String&gt;();</span><br><span class="line">        params.put(&quot;Param1&quot;,&quot;value1&quot;);</span><br><span class="line">        params.put(&quot;Param2&quot;,&quot;value2&quot;);</span><br><span class="line">        Map&lt;String, String&gt; header = auth(uri, &quot;GET&quot;, params, null);</span><br><span class="line">        for (Map.Entry&lt;String, String&gt; entrySet : header.entrySet()) &#123;</span><br><span class="line">            String key = entrySet.getKey();</span><br><span class="line">            String value = entrySet.getValue();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">##Canonical Request:</span><br><span class="line">GET</span><br><span class="line">/</span><br><span class="line">Param1=value1&amp;Param2=value2</span><br><span class="line">host:example.amazonaws.com</span><br><span class="line">x-amz-date:20150830T123600Z</span><br><span class="line"></span><br><span class="line">host;x-amz-date</span><br><span class="line">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span><br><span class="line">##String to sign:</span><br><span class="line">AWS4-HMAC-SHA256</span><br><span class="line">20150830T123600Z</span><br><span class="line">20150830/us-east-1/service/aws4_request</span><br><span class="line">816cd5b414d056048ba4f7c5386d6e0533120fb1fcfa93762cf0fc39e2cf19e0</span><br><span class="line">##Signature:</span><br><span class="line">b97d918cfa904a5beff61c982a1b6f458b799221646efd99d3219ec94cdf2500</span><br><span class="line">##Header:</span><br><span class="line">x-amz-date = 20150830T123600Z</span><br><span class="line">Authorization = AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request, SignedHeaders=host;x-amz-date, Signature=b97d918cfa904a5beff61c982a1b6f458b799221646efd99d3219ec94cdf2500</span><br><span class="line">================================</span><br></pre></td></tr></table></figure></p>
+<p>可以看到生成的签名与官方地完全一致，验证了算法实现的准确性。另也支持POST, DELETE, PATCH等请求，这里就不一一列举了，需要注意的如果有body话传入的paykload字符串应该为json格式。</p>
+<p>参考链接：<br><a href="https://docs.aws.amazon.com/zh_cn/general/latest/gr/sigv4_signing.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/zh_cn/general/latest/gr/sigv4_signing.html</a><br><a href="https://docs.aws.amazon.com/zh_cn/general/latest/gr/signature-v4-test-suite.html#signature-v4-test-suite-derived-creds" target="_blank" rel="noopener">https://docs.aws.amazon.com/zh_cn/general/latest/gr/signature-v4-test-suite.html#signature-v4-test-suite-derived-creds</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/10/19/mac下编译OpenJDK10/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">mac下编译OpenJDK10</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/10/10/git常用命令/">
+                <span class="level-item">git常用命令</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<div id="SOHUCS" sid="2018/10/14/AWS V4签名认证(Java实现)/"></div>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+    appid: 'cytoOY6km',
+    conf: 'prod_256dd977beeed0de5b2626a6127e098d'
+});
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png">
+                    
+                    <p class="is-size-4 is-block">
+                        Acamy
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Stay Hungry, Stay foolish
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>HangZhou China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        79
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/Acamy">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/Acamy">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ElasticSearch/">
+            <span class="level-start">
+                <span class="level-item">ElasticSearch</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Git/">
+            <span class="level-start">
+                <span class="level-item">Git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hadoop/">
+            <span class="level-start">
+                <span class="level-item">Hadoop</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA基础系列/">
+            <span class="level-start">
+                <span class="level-item">JAVA基础系列</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JVM/">
+            <span class="level-start">
+                <span class="level-item">JVM</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb框架/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb框架</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Oracle/">
+            <span class="level-start">
+                <span class="level-item">Oracle</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/SpringBoot2-0/">
+            <span class="level-start">
+                <span class="level-item">SpringBoot2.0</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/flowable/">
+            <span class="level-start">
+                <span class="level-item">flowable</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/在线编程/">
+            <span class="level-start">
+                <span class="level-item">在线编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构与算法/">
+            <span class="level-start">
+                <span class="level-item">数据结构与算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/源码/">
+            <span class="level-start">
+                <span class="level-item">源码</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/编程/">
+            <span class="level-start">
+                <span class="level-item">编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/编程/java/">
+            <span class="level-start">
+                <span class="level-item">java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/计算机网络/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/设计模式/">
+            <span class="level-start">
+                <span class="level-item">设计模式</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+<script src="/js/back-to-top.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

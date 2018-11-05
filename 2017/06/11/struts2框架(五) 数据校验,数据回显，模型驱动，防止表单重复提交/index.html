@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交 - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="1.数据校验 Struts数据效验， 通过拦截器完成  &amp;lt;interceptor name=&amp;quot;validation&amp;quot; class=&amp;quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&amp;quot;/&amp;gt; 1.1 Struts2进行表单验证(手工方式)a.配置表单12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交">
+<meta property="og:url" content="http://yoursite.com/2017/06/11/struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.数据校验 Struts数据效验， 通过拦截器完成  &amp;lt;interceptor name=&amp;quot;validation&amp;quot; class=&amp;quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&amp;quot;/&amp;gt; 1.1 Struts2进行表单验证(手工方式)a.配置表单12">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-4c89b961f465f189.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-5b1cc34cae47d4cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-07373ec190f4f2c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-11-05T15:47:04.064Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交">
+<meta name="twitter:description" content="1.数据校验 Struts数据效验， 通过拦截器完成  &amp;lt;interceptor name=&amp;quot;validation&amp;quot; class=&amp;quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&amp;quot;/&amp;gt; 1.1 Struts2进行表单验证(手工方式)a.配置表单12">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-4c89b961f465f189.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-06-11T11:45:51.000Z">2017-06-11</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    15 minutes read (About 2207 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交
+            
+        </h1>
+        <div class="content">
+            <h2 id="1-数据校验"><a href="#1-数据校验" class="headerlink" title="1.数据校验"></a>1.数据校验</h2><blockquote>
+<p>Struts数据效验， 通过拦截器完成</p>
+</blockquote>
+<p><code>&lt;interceptor name=&quot;validation&quot; class=&quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&quot;/&gt;</code></p>
+<h3 id="1-1-Struts2进行表单验证-手工方式"><a href="#1-1-Struts2进行表单验证-手工方式" class="headerlink" title="1.1 Struts2进行表单验证(手工方式)"></a>1.1 Struts2进行表单验证(手工方式)</h3><p>a.配置表单<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   &lt;form method=&quot;post&quot; action=&quot;$&#123;pageContext.request.contextPath &#125;/user_register.action&quot;&gt;</span><br><span class="line">	用户名：&lt;input type=&quot;text&quot; name=&quot;user.userName&quot;&gt;</span><br><span class="line">	 		&lt;s:fielderror fieldName=&quot;user.userName&quot;&gt;&lt;/s:fielderror&gt;</span><br><span class="line">	&lt;br/&gt;</span><br><span class="line">	密码：&lt;input type=&quot;text&quot; name=&quot;user.pwd&quot;&gt;</span><br><span class="line">			&lt;s:fielderror fieldName=&quot;user.pwd&quot;&gt;&lt;/s:fielderror&gt;</span><br><span class="line">	&lt;br/&gt;</span><br><span class="line">	邮箱：&lt;input type=&quot;text&quot; name=&quot;user.email&quot;&gt;&lt;br/&gt;</span><br><span class="line">	生日：&lt;input type=&quot;text&quot; name=&quot;user.birth&quot;&gt;&lt;br/&gt;</span><br><span class="line">	&lt;input type=&quot;submit&quot; value=&quot;注册&quot;&gt;&lt;br/&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure></p>
+<p>b.UserAction.java</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//b.1 代码方式验证Action中所有的方法</span><br><span class="line">//注意：如果要想用struts的数据效验功能，必须继承ActionSupport或实现相关接口</span><br><span class="line">public class UserAction extends ActionSupport &#123;</span><br><span class="line">	</span><br><span class="line">	// 封装请求数据</span><br><span class="line">	private User user = new User();</span><br><span class="line">	public void setUser(User user) &#123;</span><br><span class="line">		this.user = user;</span><br><span class="line">	&#125;</span><br><span class="line">	public User getUser() &#123;</span><br><span class="line">		return user;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 重写数据验证的方法</span><br><span class="line">	@Override</span><br><span class="line">	public void validate() &#123;</span><br><span class="line">		// 用户名非空</span><br><span class="line">		if (user.getUserName() == null || &quot;&quot;.equals(user.getUserName())) &#123;</span><br><span class="line">			// 保存错误信息</span><br><span class="line">			super.addFieldError(&quot;userName&quot;, &quot;用户名必须填写！&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		// 密码</span><br><span class="line">		if (user.getPwd() == null || &quot;&quot;.equals(user.getPwd())) &#123;</span><br><span class="line">			super.addFieldError(&quot;pwd&quot;, &quot;密码必填&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">b.2 代码方式验证Action中指定的方法</span><br><span class="line">写验证方法命名规则：</span><br><span class="line">	validate + 要验证的方法名</span><br><span class="line">如：</span><br><span class="line">	public void validateRegister() &#123;&#125;</span><br><span class="line">    只会验证当前action的register方法！</span><br></pre></td></tr></table></figure>
+<p>总结代码方式验证：<br>    繁琐，设计很多重复的验证逻辑！例如：非空验证、数值验证、email、日期等。</p>
+<h3 id="1-2-XML方式验证Action中所有的方法"><a href="#1-2-XML方式验证Action中所有的方法" class="headerlink" title="1.2 XML方式验证Action中所有的方法"></a>1.2 XML方式验证Action中所有的方法</h3><blockquote>
+<p>Struts对于常用的验证，进行了封装，即提供了验证器， 验证指定的常用业务逻辑！</p>
+</blockquote>
+<p>Struts提供的所有验证器<br>路径：<code>xwork-core-2.3.4.1.jar/com.opensymphony.xwork2.validator.validators/default.xml</code><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE validators PUBLIC</span><br><span class="line">        &quot;-//Apache Struts//XWork Validator Definition 1.0//EN&quot;</span><br><span class="line">        &quot;http://struts.apache.org/dtds/xwork-validator-definition-1.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- START SNIPPET: validators-default --&gt;</span><br><span class="line">&lt;validators&gt;</span><br><span class="line">    &lt;validator name=&quot;required&quot; class=&quot;com.opensymphony.xwork2.validator.validators.RequiredFieldValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;requiredstring&quot; class=&quot;com.opensymphony.xwork2.validator.validators.RequiredStringValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;int&quot; class=&quot;com.opensymphony.xwork2.validator.validators.IntRangeFieldValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;long&quot; class=&quot;com.opensymphony.xwork2.validator.validators.LongRangeFieldValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;short&quot; class=&quot;com.opensymphony.xwork2.validator.validators.ShortRangeFieldValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;double&quot; class=&quot;com.opensymphony.xwork2.validator.validators.DoubleRangeFieldValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;date&quot; class=&quot;com.opensymphony.xwork2.validator.validators.DateRangeFieldValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;expression&quot; class=&quot;com.opensymphony.xwork2.validator.validators.ExpressionValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;fieldexpression&quot; class=&quot;com.opensymphony.xwork2.validator.validators.FieldExpressionValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;email&quot; class=&quot;com.opensymphony.xwork2.validator.validators.EmailValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;url&quot; class=&quot;com.opensymphony.xwork2.validator.validators.URLValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;visitor&quot; class=&quot;com.opensymphony.xwork2.validator.validators.VisitorFieldValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;conversion&quot; class=&quot;com.opensymphony.xwork2.validator.validators.ConversionErrorFieldValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;stringlength&quot; class=&quot;com.opensymphony.xwork2.validator.validators.StringLengthFieldValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;regex&quot; class=&quot;com.opensymphony.xwork2.validator.validators.RegexFieldValidator&quot;/&gt;</span><br><span class="line">    &lt;validator name=&quot;conditionalvisitor&quot; class=&quot;com.opensymphony.xwork2.validator.validators.ConditionalVisitorFieldValidator&quot;/&gt;</span><br><span class="line">&lt;/validators&gt;</span><br><span class="line">&lt;!--  END SNIPPET: validators-default --&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如果写xml，从而定义验证规则：<br>    1）XML文件名称语法： ActionClassName-validation.xml<br>        注意：此xml需要与当期要验证的action在同一个目录：<br>        举例：UserAction-validation.xml<br>    2） 写XML</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE validators PUBLIC</span><br><span class="line"> 		&quot;-//Apache Struts//XWork Validator 1.0.3//EN&quot;</span><br><span class="line"> 		&quot;http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;validators&gt;	</span><br><span class="line">	&lt;!-- 验证的每一个字段用field表示 --&gt;</span><br><span class="line">	&lt;field name=&quot;user.userName&quot;&gt;</span><br><span class="line">		&lt;!-- 指定使用的验证器 --&gt;</span><br><span class="line">		&lt;field-validator type=&quot;requiredstring&quot;&gt;</span><br><span class="line">			&lt;!-- 验证失败的错误提示信息 --&gt;</span><br><span class="line">			&lt;message&gt;用户名不能为空！&lt;/message&gt;</span><br><span class="line">		&lt;/field-validator&gt;</span><br><span class="line">	&lt;/field&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 验证pwd --&gt;</span><br><span class="line">	&lt;field name=&quot;user.pwd&quot;&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 非空 --&gt;</span><br><span class="line">		&lt;field-validator type=&quot;requiredstring&quot;&gt;</span><br><span class="line">			&lt;message&gt;密码不能为空！&lt;/message&gt;</span><br><span class="line">		&lt;/field-validator&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 长度 --&gt;</span><br><span class="line">		&lt;field-validator type=&quot;stringlength&quot;&gt;</span><br><span class="line">			&lt;param name=&quot;minLength&quot;&gt;6&lt;/param&gt;</span><br><span class="line">			&lt;param name=&quot;maxLength&quot;&gt;8&lt;/param&gt;</span><br><span class="line">			&lt;message&gt;密码必须为6-8位！&lt;/message&gt;</span><br><span class="line">		&lt;/field-validator&gt;</span><br><span class="line">	&lt;/field&gt;	</span><br><span class="line">	&lt;!-- 验证日期 --&gt;</span><br><span class="line">	&lt;field name=&quot;user.birth&quot;&gt;</span><br><span class="line">		&lt;field-validator type=&quot;date&quot;&gt;</span><br><span class="line">			&lt;message&gt;日期格式不对！&lt;/message&gt;</span><br><span class="line">		&lt;/field-validator&gt;</span><br><span class="line">	&lt;/field&gt;	</span><br><span class="line">	&lt;!-- 验证Email --&gt;</span><br><span class="line">	&lt;field name=&quot;user.email&quot;&gt;</span><br><span class="line">		&lt;field-validator type=&quot;email&quot;&gt;</span><br><span class="line">			&lt;message&gt;邮箱格式错误！&lt;/message&gt;</span><br><span class="line">		&lt;/field-validator&gt;</span><br><span class="line">	&lt;/field&gt;	</span><br><span class="line">&lt;/validators&gt;</span><br></pre></td></tr></table></figure>
+<p>如果验证Action中指定的方法:<br>与上面xml验证方式大致相同： 验证xml文件内容不变；<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  文件命名：</span><br><span class="line">语法：ActionClassName-ActionName-validation.xml</span><br><span class="line">举例：UserAction-user_register-validation.xml</span><br><span class="line">	  验证UserAction中的register方法</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-数据回显"><a href="#2-数据回显" class="headerlink" title="2.数据回显"></a>2.数据回显</h2><blockquote>
+<p>数据回显，必须要用struts标签！</p>
+</blockquote>
+<p>Action中：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 进入修改页面</span><br><span class="line">	public String viewUpdate() &#123;</span><br><span class="line">		// 模拟一个对象(先获取一个id，再根据id调用service查询，把查到的结果保存到域)</span><br><span class="line">		User userInfo = new User();</span><br><span class="line">		userInfo.setUserName(&quot;Jack&quot;);</span><br><span class="line">		userInfo.setEmail(&quot;yuanjie@itcast.cn&quot;);</span><br><span class="line">		</span><br><span class="line">		ActionContext ac = ActionContext.getContext();</span><br><span class="line">//		Map&lt;String,Object&gt; request = (Map&lt;String, Object&gt;) ac.get(&quot;request&quot;);</span><br><span class="line">//		request.put(&quot;userInfo&quot;, userInfo);</span><br><span class="line">		</span><br><span class="line">		/************* 数据回显***************/</span><br><span class="line">		// 获取值栈</span><br><span class="line">		ValueStack vs = ac.getValueStack();</span><br><span class="line">		vs.pop();// 移除栈顶元素</span><br><span class="line">		vs.push(userInfo);  // 入栈		</span><br><span class="line">		</span><br><span class="line">		// 进入修改页面</span><br><span class="line">		return &quot;viewUpdate&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">```	</span><br><span class="line">JSP页面：</span><br></pre></td></tr></table></figure></p>
+<p><body><br>      &lt;%@taglib uri=”/struts-tags” prefix=”s” %&gt;<br>      <br><br>      <!-- 在页面文本框内，显示要修改记录的数据 --></body></p>
+<pre><code>&lt;!-- 手动通过value设置显示的值 
+&lt;s:form action=&quot;#&quot;&gt;          
+    用户名： &lt;s:textfield name=&quot;user.userName&quot; value=&quot;%{#request.userInfo.userName}&quot;&gt;&lt;/s:textfield&gt;   &lt;br/&gt;          
+    邮箱： &lt;s:textfield name=&quot;user.email&quot; value=&quot;%{#request.userInfo.email}&quot;&gt;&lt;/s:textfield&gt;     &lt;br/&gt;
+&lt;/s:form&gt;
+--&gt;
+
+&lt;!-- 数据回显技术：s:textfield会自动查找根元素数据(Ognl表达式语言取值)  --&gt;
+&lt;s:form action=&quot;#&quot;&gt;          
+    用户名： &lt;s:textfield name=&quot;userName&quot;&gt;&lt;/s:textfield&gt;   &lt;br/&gt;          
+    邮箱： &lt;s:textfield name=&quot;email&quot;&gt;&lt;/s:textfield&gt;     &lt;br/&gt;
+&lt;/s:form&gt;
+
+&lt;s:debug&gt;&lt;/s:debug&gt;
+</code></pre><p><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 3. 模型驱动</span><br></pre></td></tr></table></figure></p>
+<p>Struts运行时候，会执行默认的拦截器栈，其中有一个拦截器，模型驱动拦截器，可以把请求数据自动填充的action的属性中</p>
+<p><interceptor name="modelDriven" class="com.opensymphony.xwork2.interceptor.ModelDrivenInterceptor"><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">实例：</span><br><span class="line">JSP</span><br></pre></td></tr></table></figure></interceptor></p>
+<p>   <input type="text" name="userName"><br>   <input type="text" name="pwd"><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Action</span><br><span class="line">1. 实现ModelDriver接口</span><br><span class="line">2. 实现接口方法： 接口方法返回的就是要封装的对象</span><br><span class="line">3. 对象一定要实例化。</span><br></pre></td></tr></table></figure></p>
+<p>public class UserAction extends ActionSupport implements ModelDriven<user> {</user></p>
+<pre><code>// 封装请求数据
+private User user = new User();
+public void setUser(User user) {
+    this.user = user;
+}
+public User getUser() {
+    return user;
+}
+
+// 实现模型驱动接口方法
+@Override
+public User getModel() {
+    return user;
+}
+
+
+public String add() {
+    // 测试： 使用了模型驱动，是否数据正常？ Ok
+    System.out.println(user);
+    return &quot;success&quot;;
+}
+</code></pre><p>}<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 4.防止表单重复提交</span><br><span class="line">&gt; Struts提供了防止表单重复提交拦截器：</span><br><span class="line">&lt;interceptor name=&quot;token&quot; class=&quot;org.apache.struts2.interceptor.TokenInterceptor&quot;/&gt;</span><br><span class="line">用户重复提交表单在某些场合将会造成非常严重的后果。例如，在使用信用卡进行在线支付的时候，如果服务器的响应速度太慢，用户有可能会多次点击提交按钮，而这可能导致那张信用卡上的金额被消费了多次。因此，重复提交表单会对你的系统带来逻辑影响，必须采取一些措施防止这类情况的发生。</span><br><span class="line">用户重复提交同一个HTML表单的原因有：</span><br><span class="line"> 一、快速多次点击了提交按钮；</span><br><span class="line">二、提交表单后按下浏览器的刷新按钮。</span><br><span class="line"> Struts 2已经内置了能够防止用户重复提交同一个HTML表单的功能。它的工作原理：让服务器生成一个唯一标记，并在服务器和表单里各保存一份这个标记的副本。此后，在用户提交表单的时候，表单里的标记将随着其他请求参数一起发送到服务器，服务器将对他收到的标记和它留存的标记进行比较。如果两者匹配，这次提交的表单被认为是有效的，服务器将对之做出必要的处理并重新设置一个新标记。随后，提交相同的表单就会失败，因为服务器上的标记已经重置。 </span><br><span class="line">　　Struts 2标签中的token标签，可以用来生成一个独一无二的标记。这个标记必须嵌套在form标签中使用，它会在表单里插入一个隐藏字段并把标记保存到HttpSession对象里。toke标签必须与Token或Token Session拦截器配合使用，两个拦截器都能对token标签进行处理。Token拦截器遇到重复提交表单的情况，会返回一个&quot;invalid.token&quot;结果并加上一个动作级别的错误。Token Session拦截器扩展了Token拦截器并提供了一种更复杂的服务，它采取的做法与Token拦截器不同，它只是阻断了后续的提交，这样用户不提交多少次，就好像只是提交了一次。 </span><br><span class="line"></span><br><span class="line">示例：使用Token拦截器预防表单重复提交</span><br><span class="line">### 4.1  配置struts.xml文件，声明动作</span><br></pre></td></tr></table></figure></p>
+<p>&lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;<br>&lt;!DOCTYPE struts PUBLIC<br>    “-//Apache Software Foundation//DTD Struts Configuration 2.0//EN”<br>    “<a href="http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;" target="_blank" rel="noopener">http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;</a></p>
+<p><struts><br>    <package name="avoidPackage" extends="struts-default"><br>        <action name="avoid" class="struts2.action.AvoidAction"><br>            <interceptor-ref name="token"></interceptor-ref><br>            <interceptor-ref name="defaultStack"></interceptor-ref></action></package></struts></p>
+<pre><code>        &lt;result name=&quot;invalid.token&quot;&gt;/error.jsp&lt;/result&gt;
+        &lt;result name=&quot;input&quot;&gt;/input.jsp&lt;/result&gt;
+        &lt;result name=&quot;success&quot;&gt;/output.jsp&lt;/result&gt;
+    &lt;/action&gt;
+&lt;/package&gt;
+</code></pre><p><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">此时，需要在动作的声明中，为动作添加token拦截器，因为token拦截器不在defaultStack拦截器栈中，注意，需要将拦截器放在拦截器栈的第一位，这是因为判断表单是否被重复提交的逻辑应该在表单处理前。</span><br><span class="line"></span><br><span class="line">### 4.2  创建动作类</span><br></pre></td></tr></table></figure></p>
+<p>public class AvoidAction extends ActionSupport {<br>    private static final long serialVersionUID = 2676453800249807631L;</p>
+<pre><code>private String username;
+private Date birthday;
+
+public String getUsername() {
+    return username;
+}
+public void setUsername(String username) {
+    this.username = username;
+}
+public Date getBirthday() {
+    return birthday;
+}
+public void setBirthday(Date birthday) {
+    this.birthday = birthday;
+}
+
+@Override
+public String execute()
+{
+    try {
+        Thread.sleep(4000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+
+    return SUCCESS;
+}
+</code></pre><p>}<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这个动作逻辑处理为挂起4秒钟，让我们有机会多次点击提交按钮，测试效果。</span><br><span class="line"></span><br><span class="line">### 4.4 创建页面：</span><br><span class="line">input.jsp</span><br></pre></td></tr></table></figure></p>
+<p>&lt;s:form action=”avoid”&gt;<br>    &lt;s:token&gt;&lt;/s:token&gt;<br>    &lt;s:textfield name=”username” label=”Enter your name”&gt;&lt;/s:textfield&gt;<br>    &lt;s:textfield name=”birthday” label=”Enter your birthday”&gt;&lt;/s:textfield&gt;<br>    &lt;s:submit value=”submit”&gt;&lt;/s:submit&gt;<br>&lt;/s:form&gt;<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">要使用Struts 2的防止表单重复提交功能，需要在form标签中使用token标签，他会产生一个唯一的标识符，与其他参数一起提交到服务器，服务器会根据token标签所产生的标识符判断表单是否为重复提交的表单，这个功能是由Token拦截器完成的。</span><br><span class="line"></span><br><span class="line">error.jsp</span><br></pre></td></tr></table></figure></p>
+<p><body><br>    do not duplicate submissions form!<br></body><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">当表单重复提交，Token拦截器会返回一个&quot;invalid.token&quot;结果，结果将页面转到这个页面，提示用户错误信息。</span><br><span class="line"></span><br><span class="line">output.jsp</span><br></pre></td></tr></table></figure></p>
+<p><body><br>    Your Name : &lt;s:property value=”username”/&gt;<br>    <br><br>    Your Birthday : &lt;s:property value=”birthday”/&gt;<br></body><br><code>`</code></p>
+<h3 id="4-5-测试"><a href="#4-5-测试" class="headerlink" title="4.5 测试"></a>4.5 测试</h3><p>在浏览器中输入：<a href="http://localhost:8080/struts04/input.jsp，输入信息得到如下界面" target="_blank" rel="noopener">http://localhost:8080/struts04/input.jsp，输入信息得到如下界面</a></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-4c89b961f465f189.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>连续多次点击”submit”按钮，查看效果</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-5b1cc34cae47d4cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>可以看到，token拦截器的设置生效了，他阻止了表单的重复提交，并给出了错误提示<br>这次我们只点击一次提交(请重新输入URL，或后退到输入页面后刷新一下，这是因为token的标示在提交一次后已被修改，不刷新标示符是不可能与服务器存留的标示符一致的)</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-07373ec190f4f2c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>可以看到，表单被正确的处理了。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2017/06/11/Hibernate构架(一) 初探/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Hibernate构架(一) 初探</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2017/06/11/struts2框架(一) 初探/">
+                <span class="level-item">struts2框架(一) 初探</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<div id="SOHUCS" sid="2017/06/11/struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交/"></div>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+    appid: 'cytoOY6km',
+    conf: 'prod_256dd977beeed0de5b2626a6127e098d'
+});
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png">
+                    
+                    <p class="is-size-4 is-block">
+                        Acamy
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Stay Hungry, Stay foolish
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>HangZhou China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        79
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/Acamy">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/Acamy">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ElasticSearch/">
+            <span class="level-start">
+                <span class="level-item">ElasticSearch</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Git/">
+            <span class="level-start">
+                <span class="level-item">Git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hadoop/">
+            <span class="level-start">
+                <span class="level-item">Hadoop</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA基础系列/">
+            <span class="level-start">
+                <span class="level-item">JAVA基础系列</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JVM/">
+            <span class="level-start">
+                <span class="level-item">JVM</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb框架/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb框架</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Oracle/">
+            <span class="level-start">
+                <span class="level-item">Oracle</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/SpringBoot2-0/">
+            <span class="level-start">
+                <span class="level-item">SpringBoot2.0</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/flowable/">
+            <span class="level-start">
+                <span class="level-item">flowable</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/在线编程/">
+            <span class="level-start">
+                <span class="level-item">在线编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构与算法/">
+            <span class="level-start">
+                <span class="level-item">数据结构与算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/源码/">
+            <span class="level-start">
+                <span class="level-item">源码</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/编程/">
+            <span class="level-start">
+                <span class="level-item">编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/编程/java/">
+            <span class="level-start">
+                <span class="level-item">java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/计算机网络/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/设计模式/">
+            <span class="level-start">
+                <span class="level-item">设计模式</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+<script src="/js/back-to-top.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

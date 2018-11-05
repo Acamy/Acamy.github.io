@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Category: 随笔 - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/categories/随笔/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/categories">Categories</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">随笔</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    17 minutes read (About 2581 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/10/14/AWS V4签名认证(Java实现)/">AWS V4签名认证(Java实现)</a>
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认证参数进行对比，如果一致才能请求成功，否则返回401码(未被授权)。亚马逊提供的这套认证算法最后需要往headers字段中添加Authorization标头, 具体可以查看如下示例。</p>
+</blockquote>
+<p>如果没有认证你发送的请求是这样的话：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /?Param2=value2&amp;Param1=value1 HTTP/1.1</span><br><span class="line">Host:example.amazonaws.com</span><br><span class="line">X-Amz-Date:20150830T123600Z</span><br></pre></td></tr></table></figure></p>
+<p>添加认证后就应该是这样：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET /?Param2=value2&amp;Param1=value1 HTTP/1.1</span><br><span class="line">Host:example.amazonaws.com</span><br><span class="line">X-Amz-Date:20150830T123600Z</span><br><span class="line">Authorization: AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request, SignedHeaders=host;x-amz-date, Signature=b97d918cfa904a5beff61c982a1b6f458b799221646efd99d3219ec94cdf2500</span><br></pre></td></tr></table></figure></p>
+<p>Authorization标头包含如下信息：</p>
+<ul>
+<li>用于签名的算法 (AWS4-HMAC-SHA256)</li>
+<li>凭证范围（包含您的访问密钥 ID）</li>
+<li>已签名标头的列表</li>
+<li>计算签名。该签名基于您的请求信息，由您使用 AWS 秘密访问密钥生成。该签名用于向 AWS 确认您的身份。该部分也是最关键的部分。</li>
+</ul>
+<h3 id="1-认证流程"><a href="#1-认证流程" class="headerlink" title="1. 认证流程"></a>1. 认证流程</h3><blockquote>
+<p>创建规范请求-&gt;创建待签字符串-&gt;计算签名-&gt;将签名信息添加到请求，下面以官方提供的测试套件说明文档进行列举。</p>
+</blockquote>
+<p>首先需要知道：</p>
+<ul>
+<li>凭证范围：<code>AKIDEXAMPLE/20150830/us-east-1/service/aws4_request</code></li>
+<li>私有密钥：<code>wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY</code></li>
+</ul>
+<p>原始请求：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /?Param2=value2&amp;Param1=value1 HTTP/1.1</span><br><span class="line">Host:example.amazonaws.com</span><br><span class="line">X-Amz-Date:20150830T123600Z</span><br></pre></td></tr></table></figure></p>
+<p>####1.1 创建规范请求<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET</span><br><span class="line">/</span><br><span class="line">Param1=value1&amp;Param2=value2</span><br><span class="line">host:example.amazonaws.com</span><br><span class="line">x-amz-date:20150830T123600Z</span><br><span class="line"></span><br><span class="line">host;x-amz-date</span><br><span class="line">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span><br></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<ul>
+<li>参数按字母顺序（依据字符代码）进行排序。</li>
+<li>标头名称小写。</li>
+<li>在 x-amz-date 标头与已签名标头之间有一个换行符。</li>
+<li>负载的哈希是空字符串的哈希。</li>
+</ul>
+<p>####1.2 创建待签字符串<br>规范请求的哈希值返回以下值：<br><code>816cd5b414d056048ba4f7c5386d6e0533120fb1fcfa93762cf0fc39e2cf19e0</code><br>添加算法、请求日期、凭证范围和规范请求哈希以创建待签字符串：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AWS4-HMAC-SHA256</span><br><span class="line">20150830T123600Z</span><br><span class="line">20150830/us-east-1/service/aws4_request</span><br><span class="line">816cd5b414d056048ba4f7c5386d6e0533120fb1fcfa93762cf0fc39e2cf19e0</span><br></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<ul>
+<li>第二行的日期与 x-amz-date 标头以及凭证范围的第一个元素匹配。</li>
+<li>最后一行为规范请求的十六进制编码哈希值。</li>
+</ul>
+<h4 id="1-3-计算签名"><a href="#1-3-计算签名" class="headerlink" title="1.3 计算签名"></a>1.3 计算签名</h4><p>用签名密钥和待签名字符串创建签名<br><code>AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request, SignedHeaders=host;x-amz-date, Signature=b97d918cfa904a5beff61c982a1b6f458b799221646efd99d3219ec94cdf2500</code></p>
+<p>####1.4 将签名信息添加到请求<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET /?Param2=value2&amp;Param1=value1 HTTP/1.1</span><br><span class="line">Host:example.amazonaws.com</span><br><span class="line">X-Amz-Date:20150830T123600Z</span><br><span class="line">Authorization: AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request, SignedHeaders=host;x-amz-date, Signature=b97d918cfa904a5beff61c982a1b6f458b799221646efd99d3219ec94cdf2500</span><br></pre></td></tr></table></figure></p>
+<p>上述的示例将用下面实现的算法来进行举例说明。</p>
+<h3 id="2-Java实现"><a href="#2-Java实现" class="headerlink" title="2. Java实现"></a>2. Java实现</h3><h4 id="2-1-工具类"><a href="#2-1-工具类" class="headerlink" title="2.1 工具类"></a>2.1 工具类</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br></pre></td><td class="code"><pre><span class="line">import java.io.UnsupportedEncodingException;</span><br><span class="line">import java.net.URLEncoder;</span><br><span class="line">import java.security.MessageDigest;</span><br><span class="line">import java.security.NoSuchAlgorithmException;</span><br><span class="line">import java.text.DateFormat;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.TimeZone;</span><br><span class="line">import java.util.TreeMap;</span><br><span class="line">import javax.crypto.Mac;</span><br><span class="line">import javax.crypto.spec.SecretKeySpec;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * AWS V4 签名处理工具</span><br><span class="line"> *</span><br><span class="line"> * 参考链接：https://docs.aws.amazon.com/zh_cn/general/latest/gr/sigv4_signing.html</span><br><span class="line"> */</span><br><span class="line">public class AWSV4Auth &#123;</span><br><span class="line"></span><br><span class="line">    private AWSV4Auth() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static class Builder &#123;</span><br><span class="line"></span><br><span class="line">        private String accessKeyID;</span><br><span class="line">        private String secretAccessKey;</span><br><span class="line">        private String regionName;</span><br><span class="line">        private String serviceName;</span><br><span class="line">        private String httpMethodName;</span><br><span class="line">        private String canonicalURI;</span><br><span class="line">        private TreeMap&lt;String, String&gt; queryParametes;</span><br><span class="line">        private TreeMap&lt;String, String&gt; awsHeaders;</span><br><span class="line">        private String payload;</span><br><span class="line">        private boolean debug = false;</span><br><span class="line"></span><br><span class="line">        public Builder(String accessKeyID, String secretAccessKey) &#123;</span><br><span class="line">            this.accessKeyID = accessKeyID;</span><br><span class="line">            this.secretAccessKey = secretAccessKey;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder regionName(String regionName) &#123;</span><br><span class="line">            this.regionName = regionName;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder serviceName(String serviceName) &#123;</span><br><span class="line">            this.serviceName = serviceName;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder httpMethodName(String httpMethodName) &#123;</span><br><span class="line">            this.httpMethodName = httpMethodName;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder canonicalURI(String canonicalURI) &#123;</span><br><span class="line">            this.canonicalURI = canonicalURI;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder queryParametes(TreeMap&lt;String, String&gt; queryParametes) &#123;</span><br><span class="line">            this.queryParametes = queryParametes;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder awsHeaders(TreeMap&lt;String, String&gt; awsHeaders) &#123;</span><br><span class="line">            this.awsHeaders = awsHeaders;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder payload(String payload) &#123;</span><br><span class="line">            this.payload = payload;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder debug() &#123;</span><br><span class="line">            this.debug = true;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public AWSV4Auth build() &#123;</span><br><span class="line">            return new AWSV4Auth(this);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private String accessKeyID;</span><br><span class="line">    private String secretAccessKey;</span><br><span class="line">    private String regionName;</span><br><span class="line">    private String serviceName;</span><br><span class="line">    private String httpMethodName;</span><br><span class="line">    private String canonicalURI;</span><br><span class="line">    private TreeMap&lt;String, String&gt; queryParametes;</span><br><span class="line">    private TreeMap&lt;String, String&gt; awsHeaders;</span><br><span class="line">    private String payload;</span><br><span class="line">    private boolean debug = false;</span><br><span class="line"></span><br><span class="line">    /* Other variables */</span><br><span class="line">    private final String HMACAlgorithm = &quot;AWS4-HMAC-SHA256&quot;;</span><br><span class="line">    private final String aws4Request = &quot;aws4_request&quot;;</span><br><span class="line">    private String strSignedHeader;</span><br><span class="line">    private String xAmzDate;</span><br><span class="line">    private String currentDate;</span><br><span class="line"></span><br><span class="line">    private AWSV4Auth(Builder builder) &#123;</span><br><span class="line">        accessKeyID = builder.accessKeyID;</span><br><span class="line">        secretAccessKey = builder.secretAccessKey;</span><br><span class="line">        regionName = builder.regionName;</span><br><span class="line">        serviceName = builder.serviceName;</span><br><span class="line">        httpMethodName = builder.httpMethodName;</span><br><span class="line">        canonicalURI = builder.canonicalURI;</span><br><span class="line">        queryParametes = builder.queryParametes;</span><br><span class="line">        awsHeaders = builder.awsHeaders;</span><br><span class="line">        payload = builder.payload;</span><br><span class="line">        debug = builder.debug;</span><br><span class="line"></span><br><span class="line">        /* Get current timestamp value.(UTC) */</span><br><span class="line">        xAmzDate = getTimeStamp();</span><br><span class="line">        currentDate = getDate();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 任务 1：针对签名版本 4 创建规范请求</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String prepareCanonicalRequest() &#123;</span><br><span class="line">        StringBuilder canonicalURL = new StringBuilder(&quot;&quot;);</span><br><span class="line"></span><br><span class="line">        /* Step 1.1 以HTTP方法(GET, PUT, POST, etc.)开头, 然后换行. */</span><br><span class="line">        canonicalURL.append(httpMethodName).append(&quot;\n&quot;);</span><br><span class="line"></span><br><span class="line">        /* Step 1.2 添加URI参数，换行. */</span><br><span class="line">        canonicalURI = canonicalURI == null || canonicalURI.trim().isEmpty() ? &quot;/&quot; : canonicalURI;</span><br><span class="line">        canonicalURL.append(canonicalURI).append(&quot;\n&quot;);</span><br><span class="line"></span><br><span class="line">        /* Step 1.3 添加查询参数，换行. */</span><br><span class="line">        StringBuilder queryString = new StringBuilder(&quot;&quot;);</span><br><span class="line">        if (queryParametes != null &amp;&amp; !queryParametes.isEmpty()) &#123;</span><br><span class="line">            for (Map.Entry&lt;String, String&gt; entrySet : queryParametes.entrySet()) &#123;</span><br><span class="line">                String key = entrySet.getKey();</span><br><span class="line">                String value = entrySet.getValue();</span><br><span class="line">                queryString.append(key).append(&quot;=&quot;).append(encodeParameter(value)).append(&quot;&amp;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            queryString.deleteCharAt(queryString.lastIndexOf(&quot;&amp;&quot;));</span><br><span class="line"></span><br><span class="line">            queryString.append(&quot;\n&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            queryString.append(&quot;\n&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        canonicalURL.append(queryString);</span><br><span class="line"></span><br><span class="line">        /* Step 1.4 添加headers, 每个header都需要换行. */</span><br><span class="line">        StringBuilder signedHeaders = new StringBuilder(&quot;&quot;);</span><br><span class="line">        if (awsHeaders != null &amp;&amp; !awsHeaders.isEmpty()) &#123;</span><br><span class="line">            for (Map.Entry&lt;String, String&gt; entrySet : awsHeaders.entrySet()) &#123;</span><br><span class="line">                String key = entrySet.getKey();</span><br><span class="line">                String value = entrySet.getValue();</span><br><span class="line">                signedHeaders.append(key).append(&quot;;&quot;);</span><br><span class="line">                canonicalURL.append(key).append(&quot;:&quot;).append(value).append(&quot;\n&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            canonicalURL.append(&quot;\n&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            canonicalURL.append(&quot;\n&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /* Step 1.5 添加签名的headers并换行. */</span><br><span class="line">        strSignedHeader = signedHeaders.substring(0, signedHeaders.length() - 1); // 删掉最后的 &quot;;&quot;</span><br><span class="line">        canonicalURL.append(strSignedHeader).append(&quot;\n&quot;);</span><br><span class="line"></span><br><span class="line">        /* Step 1.6 对HTTP或HTTPS的body进行SHA256处理. */</span><br><span class="line">        payload = payload == null ? &quot;&quot; : payload;</span><br><span class="line">        canonicalURL.append(generateHex(payload));</span><br><span class="line"></span><br><span class="line">        if (debug) &#123;</span><br><span class="line">            System.out.println(&quot;##Canonical Request:\n&quot; + canonicalURL.toString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return canonicalURL.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 任务 2：创建签名版本 4 的待签字符串</span><br><span class="line">     *</span><br><span class="line">     * @param canonicalURL</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String prepareStringToSign(String canonicalURL) &#123;</span><br><span class="line">        String stringToSign = &quot;&quot;;</span><br><span class="line"></span><br><span class="line">        /* Step 2.1 以算法名称开头，并换行. */</span><br><span class="line">        stringToSign = HMACAlgorithm + &quot;\n&quot;;</span><br><span class="line"></span><br><span class="line">        /* Step 2.2 添加日期，并换行. */</span><br><span class="line">        stringToSign += xAmzDate + &quot;\n&quot;;</span><br><span class="line"></span><br><span class="line">        /* Step 2.3 添加认证范围，并换行. */</span><br><span class="line">        stringToSign += currentDate + &quot;/&quot; + regionName + &quot;/&quot; + serviceName + &quot;/&quot; + aws4Request + &quot;\n&quot;;</span><br><span class="line"></span><br><span class="line">        /* Step 2.4 添加任务1返回的规范URL哈希处理结果，然后换行. */</span><br><span class="line">        stringToSign += generateHex(canonicalURL);</span><br><span class="line"></span><br><span class="line">        if (debug) &#123;</span><br><span class="line">            System.out.println(&quot;##String to sign:\n&quot; + stringToSign);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return stringToSign;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 任务 3：为 AWS Signature 版本 4 计算签名</span><br><span class="line">     *</span><br><span class="line">     * @param stringToSign</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String calculateSignature(String stringToSign) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            /* Step 3.1 生成签名的key */</span><br><span class="line">            byte[] signatureKey = getSignatureKey(secretAccessKey, currentDate, regionName, serviceName);</span><br><span class="line"></span><br><span class="line">            /* Step 3.2 计算签名. */</span><br><span class="line">            byte[] signature = HmacSHA256(signatureKey, stringToSign);</span><br><span class="line"></span><br><span class="line">            /* Step 3.2.1 对签名编码处理 */</span><br><span class="line">            String strHexSignature = bytesToHex(signature);</span><br><span class="line">            return strHexSignature;</span><br><span class="line">        &#125; catch (Exception ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     *任务 4：将签名信息添加到请求并返回headers</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public Map&lt;String, String&gt; getHeaders() &#123;</span><br><span class="line">        awsHeaders.put(&quot;x-amz-date&quot;, xAmzDate);</span><br><span class="line"></span><br><span class="line">        /* 执行任务 1: 创建aws v4签名的规范请求字符串. */</span><br><span class="line">        String canonicalURL = prepareCanonicalRequest();</span><br><span class="line"></span><br><span class="line">        /* 执行任务 2: 创建用来认证的字符串 4. */</span><br><span class="line">        String stringToSign = prepareStringToSign(canonicalURL);</span><br><span class="line"></span><br><span class="line">        /* 执行任务 3: 计算签名. */</span><br><span class="line">        String signature = calculateSignature(stringToSign);</span><br><span class="line"></span><br><span class="line">        if (signature != null) &#123;</span><br><span class="line">            Map&lt;String, String&gt; header = new HashMap&lt;String, String&gt;(0);</span><br><span class="line">            header.put(&quot;x-amz-date&quot;, xAmzDate);</span><br><span class="line">            header.put(&quot;Authorization&quot;, buildAuthorizationString(signature));</span><br><span class="line"></span><br><span class="line">            if (debug) &#123;</span><br><span class="line">                System.out.println(&quot;##Signature:\n&quot; + signature);</span><br><span class="line">                System.out.println(&quot;##Header:&quot;);</span><br><span class="line">                for (Map.Entry&lt;String, String&gt; entrySet : header.entrySet()) &#123;</span><br><span class="line">                    System.out.println(entrySet.getKey() + &quot; = &quot; + entrySet.getValue());</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(&quot;================================&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            return header;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            if (debug) &#123;</span><br><span class="line">                System.out.println(&quot;##Signature:\n&quot; + signature);</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 连接前几步处理的字符串生成Authorization header值.</span><br><span class="line">     *</span><br><span class="line">     * @param strSignature</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String buildAuthorizationString(String strSignature) &#123;</span><br><span class="line">        return HMACAlgorithm + &quot; &quot;</span><br><span class="line">                + &quot;Credential=&quot; + accessKeyID + &quot;/&quot; + getDate() + &quot;/&quot; + regionName + &quot;/&quot; + serviceName + &quot;/&quot; + aws4Request + &quot;, &quot;</span><br><span class="line">                + &quot;SignedHeaders=&quot; + strSignedHeader + &quot;, &quot;</span><br><span class="line">                + &quot;Signature=&quot; + strSignature;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 将字符串16进制化.</span><br><span class="line">     *</span><br><span class="line">     * @param data</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String generateHex(String data) &#123;</span><br><span class="line">        MessageDigest messageDigest;</span><br><span class="line">        try &#123;</span><br><span class="line">            messageDigest = MessageDigest.getInstance(&quot;SHA-256&quot;);</span><br><span class="line">            messageDigest.update(data.getBytes(&quot;UTF-8&quot;));</span><br><span class="line">            byte[] digest = messageDigest.digest();</span><br><span class="line">            return String.format(&quot;%064x&quot;, new java.math.BigInteger(1, digest));</span><br><span class="line">        &#125; catch (NoSuchAlgorithmException | UnsupportedEncodingException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 以给定的key应用HmacSHA256算法处理数据.</span><br><span class="line">     *</span><br><span class="line">     * @param data</span><br><span class="line">     * @param key</span><br><span class="line">     * @return</span><br><span class="line">     * @throws Exception</span><br><span class="line">     * @reference:</span><br><span class="line">     * http://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html#signature-v4-examples-java</span><br><span class="line">     */</span><br><span class="line">    private byte[] HmacSHA256(byte[] key, String data) throws Exception &#123;</span><br><span class="line">        String algorithm = &quot;HmacSHA256&quot;;</span><br><span class="line">        Mac mac = Mac.getInstance(algorithm);</span><br><span class="line">        mac.init(new SecretKeySpec(key, algorithm));</span><br><span class="line">        return mac.doFinal(data.getBytes(&quot;UTF8&quot;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 生成AWS 签名</span><br><span class="line">     *</span><br><span class="line">     * @param key</span><br><span class="line">     * @param date</span><br><span class="line">     * @param regionName</span><br><span class="line">     * @param serviceName</span><br><span class="line">     * @return</span><br><span class="line">     * @throws Exception</span><br><span class="line">     * @reference</span><br><span class="line">     * http://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html#signature-v4-examples-java</span><br><span class="line">     */</span><br><span class="line">    private byte[] getSignatureKey(String key, String date, String regionName, String serviceName) throws Exception &#123;</span><br><span class="line">        byte[] kSecret = (&quot;AWS4&quot; + key).getBytes(&quot;UTF8&quot;);</span><br><span class="line">        byte[] kDate = HmacSHA256(kSecret, date);</span><br><span class="line">        byte[] kRegion = HmacSHA256(kDate, regionName);</span><br><span class="line">        byte[] kService = HmacSHA256(kRegion, serviceName);</span><br><span class="line">        byte[] kSigning = HmacSHA256(kService, aws4Request);</span><br><span class="line">        return kSigning;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    final protected static char[] hexArray = &quot;0123456789ABCDEF&quot;.toCharArray();</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 将字节数组转换为16进制字符串</span><br><span class="line">     *</span><br><span class="line">     * @param bytes</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String bytesToHex(byte[] bytes) &#123;</span><br><span class="line">        char[] hexChars = new char[bytes.length * 2];</span><br><span class="line">        for (int j = 0; j &lt; bytes.length; j++) &#123;</span><br><span class="line">            int v = bytes[j] &amp; 0xFF;</span><br><span class="line">            hexChars[j * 2] = hexArray[v &gt;&gt;&gt; 4];</span><br><span class="line">            hexChars[j * 2 + 1] = hexArray[v &amp; 0x0F];</span><br><span class="line">        &#125;</span><br><span class="line">        return new String(hexChars).toLowerCase();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取yyyyMMdd&apos;T&apos;HHmmss&apos;Z&apos;格式的当前时间</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String getTimeStamp() &#123;</span><br><span class="line">        DateFormat dateFormat = new SimpleDateFormat(&quot;yyyyMMdd&apos;T&apos;HHmmss&apos;Z&apos;&quot;);</span><br><span class="line">        dateFormat.setTimeZone(TimeZone.getTimeZone(&quot;UTC&quot;));//server timezone</span><br><span class="line">        return dateFormat.format(new Date());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取yyyyMMdd格式的当前日期</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String getDate() &#123;</span><br><span class="line">        DateFormat dateFormat = new SimpleDateFormat(&quot;yyyyMMdd&quot;);</span><br><span class="line">        dateFormat.setTimeZone(TimeZone.getTimeZone(&quot;UTC&quot;));//server timezone</span><br><span class="line">        return dateFormat.format(new Date());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * UTF-8编码</span><br><span class="line">     * @param param</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String encodeParameter(String param)&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return URLEncoder.encode(param, &quot;UTF-8&quot;);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            return URLEncoder.encode(param);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-Example"><a href="#2-2-Example" class="headerlink" title="2.2 Example"></a>2.2 Example</h4><p>首先要有一点小改造，为了验证算法的准确信，必须保证参数的一致。因此可以对工具类中的getDate方法和getTimeStamp进行直接返回，实际中不必这么做。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">private String getTimeStamp() &#123;</span><br><span class="line">    DateFormat dateFormat = new SimpleDateFormat(&quot;yyyyMMdd&apos;T&apos;HHmmss&apos;Z&apos;&quot;);</span><br><span class="line">    dateFormat.setTimeZone(TimeZone.getTimeZone(&quot;UTC&quot;));//server timezone</span><br><span class="line">    //return dateFormat.format(new Date());</span><br><span class="line">    return &quot;20150830T123600Z&quot;;</span><br><span class="line">&#125;</span><br><span class="line">private String getDate() &#123;</span><br><span class="line">    DateFormat dateFormat = new SimpleDateFormat(&quot;yyyyMMdd&quot;);</span><br><span class="line">    dateFormat.setTimeZone(TimeZone.getTimeZone(&quot;UTC&quot;));//server timezone</span><br><span class="line">    //return dateFormat.format(new Date());</span><br><span class="line">    return &quot;20150830&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试类：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">import com.example.aws4vauth.AWSV4Auth;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.TreeMap;</span><br><span class="line"></span><br><span class="line">public class AWSV4AuthTest &#123;</span><br><span class="line">    private static final String host = &quot;example.amazonaws.com&quot;;</span><br><span class="line">    private static final String accessKey = &quot;AKIDEXAMPLE&quot;;</span><br><span class="line">    private static final String secretKey = &quot;wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY&quot;;</span><br><span class="line"></span><br><span class="line">    private static final String region = &quot;us-east-1&quot;;</span><br><span class="line">    private static final String service = &quot;service&quot;;</span><br><span class="line"></span><br><span class="line">    public Map&lt;String, String&gt; auth(String uri, String method, TreeMap&lt;String, String&gt; params, String data)&#123;</span><br><span class="line">        TreeMap&lt;String, String&gt; awsHeaders = new TreeMap&lt;String, String&gt;();</span><br><span class="line">        awsHeaders.put(&quot;host&quot;, host);</span><br><span class="line"></span><br><span class="line">        return new AWSV4Auth.Builder(accessKey, secretKey)</span><br><span class="line">                .regionName(region)</span><br><span class="line">                .serviceName(service)</span><br><span class="line">                .httpMethodName(method)</span><br><span class="line">                .canonicalURI(uri)</span><br><span class="line">                .queryParametes(params)</span><br><span class="line">                .awsHeaders(awsHeaders)</span><br><span class="line">                .payload(data)</span><br><span class="line">                .debug()</span><br><span class="line">                .build()</span><br><span class="line">                .getHeaders();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void Test()&#123;</span><br><span class="line">        String uri = &quot;/&quot;;</span><br><span class="line">        TreeMap&lt;String, String&gt; awsHeaders = new TreeMap&lt;String, String&gt;();</span><br><span class="line">        awsHeaders.put(&quot;host&quot;, host);</span><br><span class="line"></span><br><span class="line">        TreeMap&lt;String, String&gt; params = new TreeMap&lt;String, String&gt;();</span><br><span class="line">        params.put(&quot;Param1&quot;,&quot;value1&quot;);</span><br><span class="line">        params.put(&quot;Param2&quot;,&quot;value2&quot;);</span><br><span class="line">        Map&lt;String, String&gt; header = auth(uri, &quot;GET&quot;, params, null);</span><br><span class="line">        for (Map.Entry&lt;String, String&gt; entrySet : header.entrySet()) &#123;</span><br><span class="line">            String key = entrySet.getKey();</span><br><span class="line">            String value = entrySet.getValue();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">##Canonical Request:</span><br><span class="line">GET</span><br><span class="line">/</span><br><span class="line">Param1=value1&amp;Param2=value2</span><br><span class="line">host:example.amazonaws.com</span><br><span class="line">x-amz-date:20150830T123600Z</span><br><span class="line"></span><br><span class="line">host;x-amz-date</span><br><span class="line">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span><br><span class="line">##String to sign:</span><br><span class="line">AWS4-HMAC-SHA256</span><br><span class="line">20150830T123600Z</span><br><span class="line">20150830/us-east-1/service/aws4_request</span><br><span class="line">816cd5b414d056048ba4f7c5386d6e0533120fb1fcfa93762cf0fc39e2cf19e0</span><br><span class="line">##Signature:</span><br><span class="line">b97d918cfa904a5beff61c982a1b6f458b799221646efd99d3219ec94cdf2500</span><br><span class="line">##Header:</span><br><span class="line">x-amz-date = 20150830T123600Z</span><br><span class="line">Authorization = AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request, SignedHeaders=host;x-amz-date, Signature=b97d918cfa904a5beff61c982a1b6f458b799221646efd99d3219ec94cdf2500</span><br><span class="line">================================</span><br></pre></td></tr></table></figure></p>
+<p>可以看到生成的签名与官方地完全一致，验证了算法实现的准确性。另也支持POST, DELETE, PATCH等请求，这里就不一一列举了，需要注意的如果有body话传入的paykload字符串应该为json格式。</p>
+<p>参考链接：<br><a href="https://docs.aws.amazon.com/zh_cn/general/latest/gr/sigv4_signing.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/zh_cn/general/latest/gr/sigv4_signing.html</a><br><a href="https://docs.aws.amazon.com/zh_cn/general/latest/gr/signature-v4-test-suite.html#signature-v4-test-suite-derived-creds" target="_blank" rel="noopener">https://docs.aws.amazon.com/zh_cn/general/latest/gr/signature-v4-test-suite.html#signature-v4-test-suite-derived-creds</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-09-27T11:56:05.000Z">2018-09-27</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 minutes read (About 711 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/09/27/Juel基本使用/">Juel基本使用</a>
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>Juel是Java Unified Expression Language的简称，即Java统一表达语言，在JSP2.1标准(JSR-245)中定义的一部分。尽管EL表达式是伴随着JSP而生，但现在已经可以在非JSP应用中使用，相关的API放在javax.el包里面。</p>
+</blockquote>
+<p>Juel是统一表达语言轻量而高效级的实现，具有高性能，插件式缓存，小体积，支持方法调用和多参数调用，可插拔多种特性。具体可以去<a href="http://juel.sourceforge.net/index.html" target="_blank" rel="noopener">Juel官方网站</a>进行详细阅读，本文基于官方文档写一下简单的使用说明。</p>
+<h5 id="1-引入依赖"><a href="#1-引入依赖" class="headerlink" title="1. 引入依赖"></a>1. 引入依赖</h5><p>使用Juel首先需要引入以下的三个依赖，版本可以自己选择</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;de.odysseus.juel&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;juel-api&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.7&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;de.odysseus.juel&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;juel-impl&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.7&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;de.odysseus.juel&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;juel-spi&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.7&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-最简单的例子"><a href="#2-最简单的例子" class="headerlink" title="2. 最简单的例子"></a>2. 最简单的例子</h4><p>在看官方给出的quick start中的例子之前，先看看一个更简单的，实际上在项目中大多也是这种模式的应用。如下代码所示，需要做的事情很简单，即将字符串{\”argIn1\”:\”${var1}\”,\”argIn2\”:\”${var2}\”}解析为{“argIn1”:”Hello”,”argIn2”:”World”}, 要实现该目的基本上分为三步走</p>
+<ul>
+<li>step1. 创建基本的工厂类和上下方以供下面使用 </li>
+<li>step2. 设置变量值</li>
+<li>step3. 解析字符串</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//step1</span><br><span class="line">ExpressionFactory factory = new ExpressionFactoryImpl();</span><br><span class="line">SimpleContext context = new SimpleContext();</span><br><span class="line"></span><br><span class="line">//step2</span><br><span class="line">context.setVariable(&quot;var1&quot;, factory.createValueExpression(&quot;Hello&quot;, String.class));</span><br><span class="line">context.setVariable(&quot;var2&quot;, factory.createValueExpression(&quot;World&quot;, String.class));</span><br><span class="line"></span><br><span class="line">//step3</span><br><span class="line">String s = &quot;&#123;\&quot;argIn1\&quot;:\&quot;$&#123;var1&#125;\&quot;,\&quot;argIn2\&quot;:\&quot;$&#123;var2&#125;\&quot;&#125;&quot;;</span><br><span class="line">ValueExpression e = factory.createValueExpression(context, s, String.class);</span><br><span class="line">System.out.println(e.getValue(context));// --&gt; &#123;&quot;argIn1&quot;:&quot;Hello&quot;,&quot;argIn2&quot;:&quot;World&quot;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-官方示例"><a href="#3-官方示例" class="headerlink" title="3.官方示例"></a>3.官方示例</h4><p>看懂上面简单的示例后再来看官方quick start就更轻松一点。这里面内容更丰富一点，包括对方法的解析，分另用context和factory两种方式来给变量赋值，最后将${math:max(foo,bar)}成功解析为取foo和bar更大的一个。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// the ExpressionFactory implementation is de.odysseus.el.ExpressionFactoryImpl</span><br><span class="line">ExpressionFactory factory = new ExpressionFactoryImpl();</span><br><span class="line"></span><br><span class="line">// package de.odysseus.el.util provides a ready-to-use subclass of ELContext</span><br><span class="line">SimpleContext context = new SimpleContext();</span><br><span class="line"></span><br><span class="line">// map function math:max(int, int) to java.lang.Math.max(int, int)</span><br><span class="line">context.setFunction(&quot;math&quot;, &quot;max&quot;, Math.class.getMethod(&quot;max&quot;, int.class, int.class));</span><br><span class="line"></span><br><span class="line">// map variable foo to 0</span><br><span class="line">context.setVariable(&quot;foo&quot;, factory.createValueExpression(0, int.class));</span><br><span class="line"></span><br><span class="line">// parse our expression</span><br><span class="line">ValueExpression e = factory.createValueExpression(context, &quot;$&#123;math:max(foo,bar)&#125;&quot;, int.class);</span><br><span class="line"></span><br><span class="line">// set value for top-level property &quot;bar&quot; to 1</span><br><span class="line">factory.createValueExpression(context, &quot;$&#123;bar&#125;&quot;, int.class).setValue(context, 1);</span><br><span class="line"></span><br><span class="line">// get value for our expression</span><br><span class="line">System.out.println(e.getValue(context)); // --&gt; 1</span><br></pre></td></tr></table></figure>
+<h4 id="4-简单解析器"><a href="#4-简单解析器" class="headerlink" title="4. 简单解析器"></a>4. 简单解析器</h4><p>Juel提供SimpleResolver类作为基本的解析器来解析表达式中的属性，如下所示，既可以解析top-level属性，也可以解析bean。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ExpressionFactory factory = new ExpressionFactoryImpl();</span><br><span class="line">SimpleContext context = new SimpleContext(new SimpleResolver());</span><br><span class="line">// resolve top-level property</span><br><span class="line">factory.createValueExpression(context, &quot;#&#123;pi&#125;&quot;, double.class).setValue(context, Math.PI);</span><br><span class="line">ValueExpression expr1 = factory.createValueExpression(context, &quot;$&#123;pi/2&#125;&quot;, double.class);</span><br><span class="line">System.out.println(&quot;pi/2 = &quot; + expr1.getValue(context));  // pi/2 = 1.5707963267948966</span><br><span class="line"></span><br><span class="line">// resolve bean property</span><br><span class="line">factory.createValueExpression(context, &quot;#&#123;current&#125;&quot;, Date.class).setValue(context, new Date());</span><br><span class="line">ValueExpression expr2 = factory.createValueExpression(context, &quot;$&#123;current.time&#125;&quot;, long.class);</span><br><span class="line">System.out.println(&quot;current.time = &quot; + expr2.getValue(context));// --&gt; current.time = 1538048848843</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-05-24T14:08:04.000Z">2018-05-24</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    10 minutes read (About 1486 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/05/24/Idea中搭建zheng开源项目环境/">Idea中搭建zheng开源项目环境</a>
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>zheng项目(<a href="https://github.com/shuzheng/zheng" target="_blank" rel="noopener">地址</a>)是基于Spring+SpringMVC+Mybatis分布式发系统架构，包含用户管理，权限管理，内容管理等模块，后端采用Shiro，Dubbo，ZooKeeper，ActiveMQ，nginx等一些主流框架，前端采用jQuery，Bootstrap等主流技术，给中小企业提供了一站式解决方案。因此对于我们来说是一个很好的学习项目，但是其环境搭建并不是一个简单的过程，本文针对自己的搭建过程进行记录。</p>
+</blockquote>
+<h4 id="1-克隆代码到本地，导入代码到idea-下载依赖"><a href="#1-克隆代码到本地，导入代码到idea-下载依赖" class="headerlink" title="1. 克隆代码到本地，导入代码到idea, 下载依赖"></a>1. 克隆代码到本地，导入代码到idea, 下载依赖</h4><p><img src="https://upload-images.jianshu.io/upload_images/5990755-f5e396930bceac10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="2-新建zheng数据库并导入数据"><a href="#2-新建zheng数据库并导入数据" class="headerlink" title="2. 新建zheng数据库并导入数据"></a>2. 新建zheng数据库并导入数据</h4><p><img src="https://upload-images.jianshu.io/upload_images/5990755-f18d14cdf11adef9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="3-JDK，Tomcat，-Maven"><a href="#3-JDK，Tomcat，-Maven" class="headerlink" title="3. JDK，Tomcat，  Maven"></a>3. JDK，Tomcat，  Maven</h4><p>JDK:1.8.0_131<br>Tomcat: 7.0.53<br>Maven: 3.5.2<br><img src="https://upload-images.jianshu.io/upload_images/5990755-0a9129afd14caf3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="4-安装Redis并启动"><a href="#4-安装Redis并启动" class="headerlink" title="4. 安装Redis并启动"></a>4. 安装Redis并启动</h4><h5 id="4-1-下载redis并安装"><a href="#4-1-下载redis并安装" class="headerlink" title="4.1 下载redis并安装"></a>4.1 下载redis并安装</h5><p>地址：<a href="https://github.com/MSOpenTech/redis/releases" target="_blank" rel="noopener">https://github.com/MSOpenTech/redis/releases</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-689ca6426a5faf11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="4-2-设置密码"><a href="#4-2-设置密码" class="headerlink" title="4.2 设置密码"></a>4.2 设置密码</h5><p>说明：此步可不做，因为zheng项目配置中redis密码为空，而且重启redis后密码会重置为空。如果你需要为redis设置一个密码则进行此步。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis-cli.exe -h 127.0.0.1 -p 6379</span><br><span class="line">config get requirepass</span><br><span class="line">config set requirepass &quot;root&quot;</span><br><span class="line">auth root</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-4bc58e20f088de36.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="4-3再下载redis可视化管理工具"><a href="#4-3再下载redis可视化管理工具" class="headerlink" title="4.3再下载redis可视化管理工具"></a>4.3再下载redis可视化管理工具</h5><p>地址： <a href="https://redisdesktop.com/download" target="_blank" rel="noopener">https://redisdesktop.com/download</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-3faa40b35a7fc3b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="4-4-连接redis"><a href="#4-4-连接redis" class="headerlink" title="4.4 连接redis"></a>4.4 连接redis</h5><p>打开redis可视化管理工具，填写好配置信息测试成功后即可建立redis连接</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-6aa14741fa67ac62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="5-下载安装zookeeper并启动"><a href="#5-下载安装zookeeper并启动" class="headerlink" title="5. 下载安装zookeeper并启动"></a>5. 下载安装zookeeper并启动</h4><p>地址：<a href="http://www.apache.org/dyn/closer.cgi/zookeeper/" target="_blank" rel="noopener">http://www.apache.org/dyn/closer.cgi/zookeeper/</a><br>选择一个镜像地址进入下载<br><img src="https://upload-images.jianshu.io/upload_images/5990755-8f8ef8b0db8e3578.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>将zoo_sample.cfg复制一份并重命名为zoo.cfg</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-9067a9d5038e54de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>双击bin目录下的zkServer.cmd即可启动</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-c775bedba09749e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="6-安装ActiveMQ并启动"><a href="#6-安装ActiveMQ并启动" class="headerlink" title="6. 安装ActiveMQ并启动"></a>6. 安装ActiveMQ并启动</h4><p>下载地址：<a href="http://activemq.apache.org/download-archives.html" target="_blank" rel="noopener">http://activemq.apache.org/download-archives.html</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-f8cb31cdb47a9b01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>解压然后到对应bin目录启动</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-b8d6267c9193c50f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>浏览器访问：<a href="http://localhost:8161/admin，默认用户名和密码都是admin" target="_blank" rel="noopener">http://localhost:8161/admin，默认用户名和密码都是admin</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-7b4ed54b3b16dff8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>登录成功页面</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-c76fbdc8e7044176.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="7-nginx"><a href="#7-nginx" class="headerlink" title="7.nginx"></a>7.nginx</h4><p>下载地址：<a href="http://nginx.org/" target="_blank" rel="noopener">http://nginx.org/</a></p>
+<h6 id="a-安装完nginx后将zheng-project-tools-nginx路径下的一个文件夹和文件拷贝到nginx-1-14-0-conf路径并修改值为自己的项目路径"><a href="#a-安装完nginx后将zheng-project-tools-nginx路径下的一个文件夹和文件拷贝到nginx-1-14-0-conf路径并修改值为自己的项目路径" class="headerlink" title="a. 安装完nginx后将zheng\project-tools\nginx路径下的一个文件夹和文件拷贝到nginx-1.14.0\conf路径并修改值为自己的项目路径"></a>a. 安装完nginx后将zheng\project-tools\nginx路径下的一个文件夹和文件拷贝到nginx-1.14.0\conf路径并修改值为自己的项目路径</h6><p><img src="https://upload-images.jianshu.io/upload_images/5990755-d6396b3aad78a8b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改naginx配置文件"></p>
+<h6 id="b-将zheng-project-tools的nginx-bat拷贝到nginx-1-14-0-路径"><a href="#b-将zheng-project-tools的nginx-bat拷贝到nginx-1-14-0-路径" class="headerlink" title="b.将zheng\project-tools的nginx.bat拷贝到nginx-1.14.0\路径"></a>b.将zheng\project-tools的nginx.bat拷贝到nginx-1.14.0\路径</h6><p><img src="https://upload-images.jianshu.io/upload_images/5990755-94caa6af8d5d98d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nginx.bat"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-f77dd3bafc55c6dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="双击nginx.bat启动"></p>
+<h4 id="8-修改host"><a href="#8-修改host" class="headerlink" title="8. 修改host"></a>8. 修改host</h4><p>添加如下部分<br> <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1 ui.zhangshuzheng.cn  </span><br><span class="line">127.0.0.1 upms.zhangshuzheng.cn  </span><br><span class="line">127.0.0.1 cms.zhangshuzheng.cn  </span><br><span class="line">127.0.0.1 pay.zhangshuzheng.cn  </span><br><span class="line">127.0.0.1 ucenter.zhangshuzheng.cn  </span><br><span class="line">127.0.0.1 wechat.zhangshuzheng.cn  </span><br><span class="line">127.0.0.1 api.zhangshuzheng.cn  </span><br><span class="line">127.0.0.1 oss.zhangshuzheng.cn  </span><br><span class="line">127.0.0.1 config.zhangshuzheng.cn  </span><br><span class="line">127.0.0.1 zkserver  </span><br><span class="line">127.0.0.1 rdserver  </span><br><span class="line">127.0.0.1 dbserver  </span><br><span class="line">127.0.0.1 mqserver</span><br></pre></td></tr></table></figure></p>
+<h4 id="9-修改数据库连接信息"><a href="#9-修改数据库连接信息" class="headerlink" title="9. 修改数据库连接信息"></a>9. 修改数据库连接信息</h4><p>说明：zheng项目中配置的mysql连接信息登录名为root，密码为123456，redis密码为空。如果你的配置是这样，则不需要进行此步操作。</p>
+<p>######a. 数据库连接密码都是通过AES加密，因此需要先把明文密码在工具类中进行转换</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-124c4eda2b40f459.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>######b. 修改配置文件(每个涉及到连接数据库的模块在启动时都要修改)</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-db81adb816fca488.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="10-权限管理系统upms"><a href="#10-权限管理系统upms" class="headerlink" title="10. 权限管理系统upms"></a>10. 权限管理系统upms</h4><p>直接在idea里启动upms-rpc-service</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-297ecc273d69ce55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="直接运行"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-0bd0e894df2b344a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置端口"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-f047fd5ad6a1ba0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置包"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-7cb8972e372a5026.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="登录页面"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-9f8ec575c3b19cc3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在浏览器中访问localhost:1111"></p>
+<p>####11. 内容管理系统cms</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-0a1316aace877200.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="同样在idea中直接启动zheng-cms-rpc-service的main方法"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-ef9a8d85202e3f9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置好后在tomcat中启动"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-d14d462d98a52abf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在浏览器中访问localhost:2222进入内容管理后台"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-2b6dfdc5b7112c14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="内容管理前台配置"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-4fe66c96f8e3dcdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="访问内容管理前台"></p>
+<h4 id="12-dubbo-admin"><a href="#12-dubbo-admin" class="headerlink" title="12. dubbo-admin"></a>12. dubbo-admin</h4><p>######a. 克隆<a href="https://github.com/apache/incubator-dubbo-ops到本地，并在dubbo-admin文件夹执行以下命令生成war包" target="_blank" rel="noopener">https://github.com/apache/incubator-dubbo-ops到本地，并在dubbo-admin文件夹执行以下命令生成war包</a><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn package -Dmaven.skip.test=true</span><br></pre></td></tr></table></figure></p>
+<p>######b. 将war包放入tomcat的webapps目录，修改tomcat端口为8088并启动</p>
+<p>######c. 访问dubbo-admin后台管理页面</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-524c1363553d1250.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="dubbo服务页面"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-c197d076cd52e3ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="dubbo应用页面"></p>
+<p>##总结<br>如下图，用金字塔形状表示用到的工具及部署时的启动顺序。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5990755-f8123105b158a961.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-02-07T03:48:25.000Z">2018-02-07</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 minutes read (About 1375 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/02/07/手把手教你用frp实现内网穿透，进行远程桌面和http访问/">手把手教你用frp实现内网穿透，进行远程桌面和http访问</a>
+            
+        </h1>
+        <div class="content">
+            <p>使用frp内网穿透工具使处于内网中的电脑能够像访问公网电脑一样方便，比如将公司或个人电脑里面的web项目让别人能够访问以便于自己及时修改，或者是进行远程或ssh连接。能够实现内网穿透的还有花生壳，ngrok等，但frp使用起来更加简便灵活，以及项目一直开源，所以本文选择frp作为示例。官方(<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">项目地址</a>)介绍为：</p>
+<blockquote>
+<p>frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http, https 协议。</p>
+</blockquote>
+<p><strong>数据准备：</strong></p>
+<ul>
+<li>公网IP: X.X.X.X</li>
+<li>内网IP: 192.168.1.101</li>
+<li>映射到公网的域名：xxx.com</li>
+</ul>
+<p>本文中内网电脑使用的是win7系统，公网电脑为linux系统。</p>
+<h2 id="1-服务端配置"><a href="#1-服务端配置" class="headerlink" title="1. 服务端配置"></a>1. 服务端配置</h2><h5 id="1-1-文件下载"><a href="#1-1-文件下载" class="headerlink" title="1.1 文件下载"></a>1.1 文件下载</h5><p>具有公网IP的电脑将作为frp服务端(frps)，首先去项目地址的releases页面下载与服务端系统匹配的文件并解压，并且可以删除客户端相关的文件(frpc文件夹，frpc.ini,frpc_full.ini).</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-ceb72b6bd01ba9b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="1-2-编辑配置文件"><a href="#1-2-编辑配置文件" class="headerlink" title="1.2 编辑配置文件"></a>1.2 编辑配置文件</h5><p>编辑frps.ini为以下内容：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">vhost_http_port = 8080</span><br></pre></td></tr></table></figure></p>
+<p>bind_port为客户端与服务端进行通信的端口，vhost_http_port为服务端http服务的端口。其它更丰富的配置可参考frps_full.ini和项目帮助文档。</p>
+<h5 id="1-3-启动服务端"><a href="#1-3-启动服务端" class="headerlink" title="1.3 启动服务端"></a>1.3 启动服务端</h5><p>进行到解压后的frp目录，然后通过<code>./frps -c frps.ini</code>命令即可启动服务端，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-c6fec2ea7352f900.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="1-4-设置开机启动和后台运行"><a href="#1-4-设置开机启动和后台运行" class="headerlink" title="1.4 设置开机启动和后台运行"></a>1.4 设置开机启动和后台运行</h5><p>上一步中的frps占据了整个命令窗口，所以接下来要考虑如何让它在后台运行并且开机自启：<br>首先通过<code>vi /etc/systemd/system/frps.service</code>命令新建文件并写入以下内容:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=frps daemon</span><br><span class="line">After=syslog.target  network.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/frp/frp_0.16.0_linux_386/frps -c /usr/frp/frp_0.16.0_linux_386/frps.ini</span><br><span class="line">Restart= always</span><br><span class="line">RestartSec=1min</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
+<p>注意ExecStart中要配置成自己的路径.<br>然后使用<code>systemctl start frps</code>即可启动frps, 用<code>systemctl enable frps</code>即可将frps设置为开机启动。</p>
+<h2 id="2-客户端配置"><a href="#2-客户端配置" class="headerlink" title="2. 客户端配置"></a>2. 客户端配置</h2><h5 id="2-1-文件下载"><a href="#2-1-文件下载" class="headerlink" title="2.1 文件下载"></a>2.1 文件下载</h5><p>具有内网IP的电脑将作为客户端(frpc)， 本文中客户端使用的是win7 64位系统，所以在releases页面下载<code>frp_0.16.0_windows_amd64.zip</code>解压，删除与服务端相关的文件（frps文件夹，frps.ini,frps_full.ini)</p>
+<h5 id="2-2-编辑配置文件"><a href="#2-2-编辑配置文件" class="headerlink" title="2.2 编辑配置文件"></a>2.2 编辑配置文件</h5><p>编辑frpc.ini为以下内容：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = X.X.X.X</span><br><span class="line">server_port = 7000</span><br><span class="line"></span><br><span class="line">[RDP]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 0.0.0.0</span><br><span class="line">local_port = 3389</span><br><span class="line">remote_port = 6000</span><br><span class="line"></span><br><span class="line">[web]</span><br><span class="line">type = http</span><br><span class="line">local_port = 8080</span><br><span class="line">custom_domains = xxx.com</span><br></pre></td></tr></table></figure></p>
+<p>注意sever_addr配置为公网电脑的IP，server_port与frps.ini中的bind_port一致。RDP为远程桌面的配置，web为http通信的配置。web中的custom_domains为绑定到公网IP的域名。</p>
+<h5 id="2-3-启动服务端"><a href="#2-3-启动服务端" class="headerlink" title="2.3 启动服务端"></a>2.3 启动服务端</h5><p>双击frpc.exe或者用命令 <code>frpc -c frpc.ini</code>即可启动客户端，如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/5990755-1f2b2eef51c39f56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>随后我们就可以在服务端的命令窗口看到客户端的连接信息，如下所示：<br><img src="http://upload-images.jianshu.io/upload_images/5990755-3473d1e00cf2262f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="2-4-设置开机启动和后台运行"><a href="#2-4-设置开机启动和后台运行" class="headerlink" title="2.4 设置开机启动和后台运行"></a>2.4 设置开机启动和后台运行</h5><p>同样的道理，我们也需要对客户端设置后台运行和开机自启。借助 <a href="https://github.com/kohsuke/winsw/releases/tag/winsw-v2.1.2" target="_blank" rel="noopener">winsw</a> 工具可以将frpc注册为windows系统中的服务。<br>下载winsw最新版，为了方便将其重命名为winsw.exe, 将该文件和frpc.exe放在一起，然后新建winsw.xml写入以下内容：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;service&gt;</span><br><span class="line">    &lt;id&gt;frp&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;frp&lt;/name&gt;</span><br><span class="line">    &lt;description&gt;用frp发布本地电脑网站到外网&lt;/description&gt;</span><br><span class="line">    &lt;executable&gt;frpc&lt;/executable&gt;</span><br><span class="line">    &lt;arguments&gt;-c frpc.ini&lt;/arguments&gt;</span><br><span class="line">    &lt;logmode&gt;reset&lt;/logmode&gt;</span><br><span class="line">&lt;/service&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后使用<code>winsw install</code>和<code>frpc start</code>命令即可将frpc安装为系统服务。<br>win+r后通过<code>services.msc</code>进入到服务列表页面找到frp服务。<br><img src="http://upload-images.jianshu.io/upload_images/5990755-e2077fe9512c8ca6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>为了确保frpc在连接失败后自动尝试重新连接，在恢复tap页进行如下设置：<br><img src="http://upload-images.jianshu.io/upload_images/5990755-87c0941ef5c495fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="3-效果演示"><a href="#3-效果演示" class="headerlink" title="3. 效果演示"></a>3. 效果演示</h2><h5 id="3-1-远程桌面"><a href="#3-1-远程桌面" class="headerlink" title="3.1 远程桌面"></a>3.1 远程桌面</h5><p>首先要开启桌面远程连接，配置如下</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-39af677f9701b14b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>在随意一台其它电脑上使用win+r然后 <code>mstsc</code>进入远程桌面连接使用通过域名或外网IP加端口即可成功进行远程桌面连接到内网中的机器。<br><img src="http://upload-images.jianshu.io/upload_images/5990755-a0112ba80e7c9fc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="3-2-http远程访问"><a href="#3-2-http远程访问" class="headerlink" title="3.2 http远程访问"></a>3.2 http远程访问</h5><p>在客户端本地启动一个web项目后，然后随意一台电脑上使用域名加端口即可访问内网中的web项目。<br><img src="http://upload-images.jianshu.io/upload_images/5990755-7ae2c76ecdb68e45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h1><ul>
+<li>检查是否关闭服务端防火墙或者是开启要用到的端口</li>
+<li>域名映射是否正确，检查能不能ping得通域名(域名前面不要忘了www)</li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-01-04T11:11:42.000Z">2018-01-04</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 minutes read (About 504 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/01/04/爬取简书文章到个人mysql数据库/">爬取简书文章到个人mysql数据库</a>
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>为了将自己在简书上发表的历史文章放到个人网站以及以后两者更新的同步，初略写了下爬虫过程。主要利用bs4库，requests库和mysql驱动，实现根据个人ID爬取文章列表，爬取单个文章的标题内容，处理img标签的兼容性，将爬取的结果写入或更新到mysql数据库。</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import MySQLdb</span><br><span class="line">import bs4</span><br><span class="line"></span><br><span class="line">def getHTMLText(url):</span><br><span class="line">    try:</span><br><span class="line">        r = requests.get(url, timeout=30)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        return r.text</span><br><span class="line">    except:</span><br><span class="line">        return &quot;&quot;</span><br><span class="line"></span><br><span class="line">def crawlArticleByUrl(url):</span><br><span class="line">    html = getHTMLText(url)</span><br><span class="line">    soup = BeautifulSoup(html, &quot;html.parser&quot;)</span><br><span class="line">    article = soup.find_all(&apos;div&apos;, class_=&quot;article&quot;)[0]</span><br><span class="line">    title = article(&apos;h1&apos;, class_=&quot;title&quot;)[0].string</span><br><span class="line">    print(title)</span><br><span class="line">    content = article(&apos;div&apos;, class_=&quot;show-content&quot;)[0]</span><br><span class="line"></span><br><span class="line">    # 解决img标签的问题</span><br><span class="line">    imgs = content(&apos;div&apos;,class_=&quot;image-package&quot;)</span><br><span class="line">    strContent = str(content)</span><br><span class="line">    for img in imgs:</span><br><span class="line">        imgUrl = &apos;http:&apos; + img(&apos;img&apos;)[0].attrs[&apos;data-original-src&apos;]</span><br><span class="line">        caption = str(img(&apos;div&apos;,class_=&apos;image-caption&apos;)[0].string)</span><br><span class="line">        new =&apos;&lt;div class=&quot;image-package&quot;&gt;&lt;img src=&apos; + imgUrl + &apos;&gt;&apos;</span><br><span class="line">        if caption != &apos;None&apos;:</span><br><span class="line">            new = new + &apos;&lt;div class=&quot;image-caption&quot;&gt;&apos; + str(caption) + &apos;&lt;/div&gt;&apos;</span><br><span class="line">        new = new + &apos;&lt;/div&gt;&apos;</span><br><span class="line">        strContent = strContent.replace(str(img),new)</span><br><span class="line"></span><br><span class="line">    return title, strContent[48:-7]</span><br><span class="line"></span><br><span class="line">def writeIntoDB(title, content):</span><br><span class="line">    DBKWARGS = &#123;&apos;db&apos;:&apos;myblog&apos;,&apos;user&apos;:&apos;root&apos;,&apos;passwd&apos;:&apos;root&apos;, &apos;host&apos;:&apos;localhost&apos;,&apos;use_unicode&apos;:True,&apos;charset&apos;:&apos;utf8&apos;&#125;</span><br><span class="line">    con = MySQLdb.connect(**DBKWARGS)</span><br><span class="line">    cur = con.cursor()</span><br><span class="line">    sql = &quot;insert into article(article_title,article_content) values(%s,%s)&quot;</span><br><span class="line">    lis = (title, content)</span><br><span class="line">    try:</span><br><span class="line">        cur.execute(sql, lis)</span><br><span class="line">    except Exception as e:</span><br><span class="line">        print(&quot;Insert Error:&quot;, e)</span><br><span class="line">        con.rollback()</span><br><span class="line">    else:</span><br><span class="line">        con.commit()</span><br><span class="line">    cur.close()</span><br><span class="line">    con.close()</span><br><span class="line"></span><br><span class="line">def updateArticleById(title, content,id):</span><br><span class="line">    DBKWARGS = &#123;&apos;db&apos;:&apos;myblog&apos;,&apos;user&apos;:&apos;root&apos;,&apos;passwd&apos;:&apos;root&apos;, &apos;host&apos;:&apos;localhost&apos;,&apos;use_unicode&apos;:True,&apos;charset&apos;:&apos;utf8&apos;&#125;</span><br><span class="line">    con = MySQLdb.connect(**DBKWARGS)</span><br><span class="line">    cur = con.cursor()</span><br><span class="line">    sql = &quot;update article set article_title = %s, article_content = %s where article_id = %s;&quot;</span><br><span class="line">    lis = (title, content, id)</span><br><span class="line">    try:</span><br><span class="line">        cur.execute(sql, lis)</span><br><span class="line">    except Exception as e:</span><br><span class="line">        print(&quot;Insert Error:&quot;, e)</span><br><span class="line">        con.rollback()</span><br><span class="line">    else:</span><br><span class="line">        con.commit()</span><br><span class="line">    cur.close()</span><br><span class="line">    con.close()</span><br><span class="line"></span><br><span class="line">def GetArticleList(userId):</span><br><span class="line">    url = &quot;http://www.jianshu.com/u/&quot; + userId</span><br><span class="line">    html = getHTMLText(url)</span><br><span class="line">    soup = BeautifulSoup(html, &quot;html.parser&quot;)</span><br><span class="line">    num = int(soup.find_all(&apos;div&apos;, class_=&quot;meta-block&quot;)[2](&apos;p&apos;)[0].string) #获取文章总数</span><br><span class="line">    page = int(num / 9) + 1 #获取页数</span><br><span class="line"></span><br><span class="line">    for i in range(page):</span><br><span class="line">        newUrl = url + &quot;?order_by=shared_at&amp;page=&quot; + str(page - i)</span><br><span class="line">        newHtml = getHTMLText(newUrl)</span><br><span class="line">        newSoup = BeautifulSoup(newHtml,&quot;html.parser&quot;)</span><br><span class="line">        ul = newSoup.find_all(&apos;ul&apos;, class_=&quot;note-list&quot;)[0]</span><br><span class="line">        lis = []</span><br><span class="line">        # 倒序输出</span><br><span class="line">        for li in ul.children:</span><br><span class="line">            if isinstance(li,bs4.element.Tag):</span><br><span class="line">                lis.append(li)</span><br><span class="line">        for li in lis[::-1]:</span><br><span class="line">            articleUrl = &quot;http://www.jianshu.com&quot; + (li(&quot;a&quot;, class_=&quot;title&quot;)[0].attrs[&apos;href&apos;])</span><br><span class="line">            title, content = crawlArticleByUrl(articleUrl)</span><br><span class="line">            writeIntoDB(title, content)</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    #GetArticleList(&quot;9f29e0217f4d&quot;)</span><br><span class="line">    title, content = crawlArticleByUrl(&apos;https://www.jianshu.com/p/326d5e75fa2d&apos;)</span><br><span class="line">    #writeIntoDB(title, content)</span><br><span class="line">    updateArticleById(title, content, 513)</span><br><span class="line">    print(&quot;Finish!&quot;)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-01-03T11:54:06.000Z">2018-01-03</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 minutes read (About 407 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/01/03/Windows下Navicat远程连接阿里云Ubutun的mysql数据库/">Windows下Navicat远程连接阿里云Ubutun的mysql数据库</a>
+            
+        </h1>
+        <div class="content">
+            <h5 id="1-添加访问用户"><a href="#1-添加访问用户" class="headerlink" title="1. 添加访问用户"></a>1. 添加访问用户</h5><p>命令中的user和password分别为远程连接时的用户名和密码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;user&apos;@&apos;%&apos; IDENTIFIED BY &apos;password&apos; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-a48bb47c6f27b460.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="2-刷新权限"><a href="#2-刷新权限" class="headerlink" title="2. 刷新权限"></a>2. 刷新权限</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-673ce3a63bbe69e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="3-查看是否添加成功"><a href="#3-查看是否添加成功" class="headerlink" title="3. 查看是否添加成功"></a>3. 查看是否添加成功</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT CONCAT(&apos;User: &apos;&apos;&apos;,user,&apos;&apos;&apos;@&apos;&apos;&apos;,host,&apos;&apos;&apos;;&apos;) AS query FROM mysql.user;</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-fe2c9a5897ebd59a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="4-查看mysql占用的端口"><a href="#4-查看mysql占用的端口" class="headerlink" title="4. 查看mysql占用的端口"></a>4. 查看mysql占用的端口</h5><p><img src="http://upload-images.jianshu.io/upload_images/5990755-0d0769c9c0a86f52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="5-修改配置文件"><a href="#5-修改配置文件" class="headerlink" title="5. 修改配置文件"></a>5. 修改配置文件</h5><p>注意该配置文件的路径，网上其它教程很多都是在/etc/mysql/my.cnf<br><img src="http://upload-images.jianshu.io/upload_images/5990755-8f756b075f9abae2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>注释掉 bind-address    = 127.0.0.1<br><img src="http://upload-images.jianshu.io/upload_images/5990755-5a02baa6b8adb60f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="6-重启mysql服务"><a href="#6-重启mysql服务" class="headerlink" title="6. 重启mysql服务"></a>6. 重启mysql服务</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql restart</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-aca2f02b46125dae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="7-阿里云管理控制台中添加安全组规则"><a href="#7-阿里云管理控制台中添加安全组规则" class="headerlink" title="7. 阿里云管理控制台中添加安全组规则"></a>7. 阿里云管理控制台中添加安全组规则</h5><p>该端口与第4步中的端口一致，如果是一般服务器只需要关闭防火墙或在防火墙中开户该端口即可</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-8cd4cfbc232e256e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="8-通过Navicat进行连接"><a href="#8-通过Navicat进行连接" class="headerlink" title="8. 通过Navicat进行连接"></a>8. 通过Navicat进行连接</h5><p>通过以上的操作就可以在Navicat中连接远程的mysql数据库了，需要配置ip,端口，用户名，密码，然后点击左下角的连接测试就可以检测了。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-120307a0c946b8aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-01-03T10:17:40.000Z">2018-01-03</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    a minute read (About 190 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/01/03/阿里云服务器部署JavaWeb项目/">阿里云服务器部署JavaWeb项目</a>
+            
+        </h1>
+        <div class="content">
+            <p>#####1. 如果tomcat已经运行，则先要杀掉tomcat进程</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-79cf9d857ddc2065.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>#####2. 删除tomcat目录webapps下的项目文件</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-33ac83f46d0baf46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>#####3. 上传war包到webapps目录下</p>
+<p>#####4. 运行bin目录下的catalina.sh，即可以带日志形式启动tomcat并解压war包<br>ctrl + c即可退出该模式</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-9439e46ede691531.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>#####5. 运行bin目录下的startup.sh即可启动tomcat<br>运行shutdown.sh可关闭tomcat</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-4855e3df17c2c4df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br> 通过以上五步就可成功将一个JavaWeb项目部署到阿里云服务器。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-11-11T13:46:05.000Z">2017-11-11</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 minutes read (About 295 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2017/11/11/解决win下SSH Secure Shell无法远程登录ubuntu的问题/">解决win下SSH Secure Shell无法远程登录ubuntu的问题</a>
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>如下图所示，准备在ubuntu中部署javaweb项目，但是在windows准备用SSH Secure Shell远程登录时提示客户端与服务器端采用的压缩算法不同，经过文中五步解决问题。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-c33740db3fdd38c6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>#####1. 安装ssh服务<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br></pre></td></tr></table></figure></p>
+<p>#####2.启动ssh服务<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ps -e |grep ssh</span><br></pre></td></tr></table></figure></p>
+<p>有sshd,说明ssh服务已经启动，如果没有启动，输入:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service ssh start</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-a9b5b479d8ea26b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>#####3. 打开ssh配置文件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></p>
+<p>#####4. 修改配置文件<br>允许root用户登录，将”PermitRootLogin without-password”更改为<br>“PermitRootLogin yes”<br>然后在配置文件末尾添加：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Ciphers aes128-cbc,aes192-cbc,aes256-cbc,aes128-ctr,aes192-ctr,aes256-ctr,3des-cbc,arcfour128,arcfour256,arcfour,blowfish-cbc,cast128-cbc  </span><br><span class="line">MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160,hmac-sha1-96,hmac-md5-96  </span><br><span class="line">KexAlgorithms diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group-exchange-sha256,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group1-sha1,curve25519-sha256@libssh.org</span><br></pre></td></tr></table></figure></p>
+<p>#####5. 重启ssh服务<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/ssh restart</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-2454545e08c86dd2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-08-20T03:49:01.000Z">2017-08-20</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    20 minutes read (About 3034 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2017/08/20/Google Guava Cache 全解析/">Google Guava Cache 全解析</a>
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>Google Guava Cache是一种非常优秀本地缓存解决方案，提供了基于容量，时间和引用的缓存回收方式。基于容量的方式内部实现采用LRU算法，基于引用回收很好的利用了Java虚拟机的垃圾回收机制。其中的缓存构造器CacheBuilder采用构建者模式提供了设置好各种参数的缓存对象，缓存核心类LocalCache里面的内部类Segment与jdk1.7及以前的ConcurrentHashMap非常相似，都继承于ReetrantLock，还有六个队列，以实现丰富的本地缓存方案。<br>本文先介绍了Guava Cache囊括的基本使用方法，然后结合体系类图和LocalCache的数据结构对典型的几个方法源码进行流程分析。</p>
+</blockquote>
+<h2 id="为什么要用本地缓存"><a href="#为什么要用本地缓存" class="headerlink" title="为什么要用本地缓存"></a>为什么要用本地缓存</h2><blockquote>
+<p><strong>相对于IO操作</strong><br>  速度快，效率高<br><strong>相对于Redis</strong><br>     Redis是一种优秀的分布式缓存实现，受限于网卡等原因，远水救不了近火。</p>
+</blockquote>
+<p>DB + Redis + LocalCache = 高效存储，高效访问</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-a75124e52de44256.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="什么时候用"><a href="#什么时候用" class="headerlink" title="什么时候用"></a>什么时候用</h2><ul>
+<li>愿意消耗一些内存空间来提升速度</li>
+<li>预料到某些键会被多次查询</li>
+<li>缓存中存放的数据总量不会超出内存容量</li>
+</ul>
+<h2 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h2><ol>
+<li>设置缓存容量</li>
+<li>设置超时时间</li>
+<li>提供移除监听器</li>
+<li>提供缓存加载器</li>
+<li>构建缓存</li>
+</ol>
+<p>Demo1:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class GuavaCacheDemo1 &#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        CacheLoader&lt;String, String&gt; loader = new CacheLoader&lt;String, String&gt; () &#123;</span><br><span class="line">            public String load(String key) throws Exception &#123;</span><br><span class="line">                Thread.sleep(1000);</span><br><span class="line">                if(&quot;key&quot;.equals(key)) return null;</span><br><span class="line">                System.out.println(key + &quot; is loaded from a cacheLoader!&quot;);</span><br><span class="line">                return key + &quot;&apos;s value&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        RemovalListener&lt;String, String&gt; removalListener = new RemovalListener&lt;String, String&gt;() &#123;</span><br><span class="line">            public void onRemoval(RemovalNotification&lt;String, String&gt; removal) &#123;</span><br><span class="line">                System.out.println(&quot;[&quot; + removal.getKey() + &quot;:&quot; + removal.getValue() + &quot;] is evicted!&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        LoadingCache&lt;String, String&gt; testCache = CacheBuilder.newBuilder()</span><br><span class="line">                .maximumSize(7)</span><br><span class="line">                .expireAfterWrite(10, TimeUnit.MINUTES)</span><br><span class="line">                .removalListener(removalListener)</span><br><span class="line">                .build(loader);</span><br><span class="line"></span><br><span class="line">        for (int i = 0; i &lt; 10; i ++)&#123;</span><br><span class="line">            String key = &quot;key&quot; + i;</span><br><span class="line">            String value = &quot;value&quot; + i;</span><br><span class="line">            testCache.put(key,value);</span><br><span class="line">            System.out.println(&quot;[&quot; + key + &quot;:&quot; + value + &quot;] is put into cache!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(testCache.getIfPresent(&quot;key6&quot;));</span><br><span class="line"></span><br><span class="line">        try&#123;</span><br><span class="line">            System.out.println(testCache.get(&quot;key&quot;));</span><br><span class="line">        &#125;</span><br><span class="line">        catch(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-9d1ed354a35b37f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h2><h5 id="CacheLoader"><a href="#CacheLoader" class="headerlink" title="CacheLoader"></a>CacheLoader</h5><p>如果有合理的默认方法来加载或计算与键关联的值。</p>
+<p>LoadingCache是附带CacheLoader构建而成的缓存实现。创建自己的CacheLoader通常只需要简单地实现V load(K key) throws Exception方法。</p>
+<p>从LoadingCache查询的正规方式是使用get(K)方法。这个方法要么返回已经缓存的值，要么使用CacheLoader向缓存原子地加载新值。由于CacheLoader可能抛出异常，LoadingCache.get(K)也声明为抛出ExecutionException异常。</p>
+<h5 id="Callable"><a href="#Callable" class="headerlink" title="Callable"></a>Callable</h5><p>如果没有合理的默认方法来加载或计算与键关联的值，或者想要覆盖默认的加载运算，同时保留“获取缓存-如果没有-则计算”[get-if-absent-compute]的原子语义。<br>      所有类型的Guava Cache，不管有没有自动加载功能，都支持get(K, Callable<v>)方法。这个方法返回缓存中相应的值，或者用给定的Callable运算并把结果加入到缓存中。在整个加载方法完成前，缓存项相关的可观察状态都不会更改。这个方法简便地实现了模式”如果有缓存则返回；否则运算、缓存、然后返回”。</v></p>
+<p>Demo2:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class GuavaCacheDemo2 &#123;</span><br><span class="line"></span><br><span class="line">    static Cache&lt;String, String&gt; testCache = CacheBuilder.newBuilder()</span><br><span class="line">            .maximumSize(3)</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        testCache.put(&quot;1234&quot;,&quot;45&quot;);</span><br><span class="line"></span><br><span class="line">        System.out.println(testCache.getIfPresent(&quot;key6&quot;));</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line"></span><br><span class="line">            System.out.println(testCache.get(&quot;123&quot;, new Callable&lt;String&gt;() &#123;</span><br><span class="line">                public String call() throws Exception &#123;</span><br><span class="line">                    return &quot;134&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;));</span><br><span class="line"></span><br><span class="line">            System.out.println(testCache.get(&quot;1234&quot;, new Callable&lt;String&gt;() &#123;</span><br><span class="line">                public String call() throws Exception &#123;</span><br><span class="line">                    return &quot;134&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;));</span><br><span class="line">        &#125; catch (ExecutionException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-ebcc7d45a1291cd2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="Cache-put"><a href="#Cache-put" class="headerlink" title="Cache.put"></a>Cache.put</h5><p>但自动加载是首选的，因为它可以更容易地推断所有缓存内容的一致性。<br>使用cache.put(key, value)方法可以直接向缓存中插入值，这会直接覆盖掉给定键之前映射的值。使用Cache.asMap()视图提供的任何方法也能修改缓存。但请注意，asMap视图的任何方法都不能保证缓存项被原子地加载到缓存中。进一步说，asMap视图的原子运算在Guava Cache的原子加载范畴之外，所以相比于Cache.asMap().putIfAbsent(K,V)，Cache.get(K, Callable<v>) 应该总是优先使用。</v></p>
+<p>##缓存回收<br>Guava Cache提供了三种基本的缓存回收方式:</p>
+<p>###1. 基于容量回收<br>maximumSize(long)：当缓存中的元素数量超过指定值时。</p>
+<p>###2.  定时回收<br>expireAfterAccess(long, TimeUnit)：缓存项在给定时间内没有被读/写访问，则回收。请注意这种缓存的回收顺序和基于大小回收一样。<br>expireAfterWrite(long, TimeUnit)：缓存项在给定时间内没有被写访问（创建或覆盖），则回收。如果认为缓存数据总是在固定时候后变得陈旧不可用，这种回收方式是可取的。<br>如下文所讨论，定时回收周期性地在写操作中执行，偶尔在读操作中执行。</p>
+<p>###3. 基于引用回收（Reference-based Eviction）<br>CacheBuilder.weakKeys()：使用弱引用存储键。当键没有其它（强或软）引用时，缓存项可以被垃圾回收。<br>CacheBuilder.weakValues()：使用弱引用存储值。当值没有其它（强或软）引用时，缓存项可以被垃圾回收。<br>CacheBuilder.softValues()：使用软引用存储值。软引用只有在响应内存需要时，才按照全局最近最少使用的顺序回收。</p>
+<h2 id="显式清除"><a href="#显式清除" class="headerlink" title="显式清除"></a>显式清除</h2><p>任何时候，你都可以显式地清除缓存项，而不是等到它被回收：<br>个别清除：Cache.invalidate(key)<br>批量清除：Cache.invalidateAll(keys)<br>清除所有缓存项：Cache.invalidateAll()</p>
+<h2 id="移除监听器"><a href="#移除监听器" class="headerlink" title="移除监听器"></a>移除监听器</h2><p>通过CacheBuilder.removalListener(RemovalListener)，你可以声明一个监听器，以便缓存项被移除时做一些额外操作。缓存项被移除时，RemovalListener会获取移除通知[RemovalNotification]，其中包含移除原因[RemovalCause]、键和值。</p>
+<h2 id="统计"><a href="#统计" class="headerlink" title="统计"></a>统计</h2><p>CacheBuilder.recordStats()：用来开启Guava Cache的统计功能。统计打开后，Cache.stats()方法会返回CacheS tats 对象以提供如下统计信息：</p>
+<p>hitRate()：缓存命中率；<br>averageLoadPenalty()：加载新值的平均时间，单位为纳秒；<br>evictionCount()：缓存项被回收的总数，不包括显式清除。<br>     此外，还有其他很多统计信息。这些统计信息对于调整缓存设置是至关重要的，在性能要求高的应用中我们建议密切关注这些数据。</p>
+<p>Demo3:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class GuavaCacheDemo3 &#123;</span><br><span class="line"></span><br><span class="line">    static Cache&lt;String, Object&gt; testCache = CacheBuilder.newBuilder()</span><br><span class="line">            .weakValues()</span><br><span class="line">            .recordStats()</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Object obj1 = new Object();</span><br><span class="line"></span><br><span class="line">        testCache.put(&quot;1234&quot;,obj1);</span><br><span class="line"></span><br><span class="line">        obj1 = new String(&quot;123&quot;);</span><br><span class="line"></span><br><span class="line">        System.gc();</span><br><span class="line"></span><br><span class="line">        System.out.println(testCache.getIfPresent(&quot;1234&quot;));</span><br><span class="line"></span><br><span class="line">        System.out.println(testCache.stats());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果<br><img src="http://upload-images.jianshu.io/upload_images/5990755-8967e146506898ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="LRU缓存回收算法"><a href="#LRU缓存回收算法" class="headerlink" title="LRU缓存回收算法"></a>LRU缓存回收算法</h2><blockquote>
+<p>LRU（Least?recently?used，最近最少使用）算法根据数据的历史访问记录来进行淘汰数据，其核心思想是“如果数据最近被访问过，那么将来被访问的几率也更高”。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-741c8f1a5d06378b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>1.?新数据插入到链表头部；<br>2.?每当缓存命中（即缓存数据被访问），则将数据移到链表头部；<br>3.?当链表满的时候，将链表尾部的数据丢弃。</p>
+<p>Guava Cache中借助读写队列来实现LRU算法。</p>
+<h2 id="Guava-Cache体系类图"><a href="#Guava-Cache体系类图" class="headerlink" title="Guava Cache体系类图"></a>Guava Cache体系类图</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990755-d255c245385bd624.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>#####CacheBuilder<br>缓存构建器。构建缓存的入口，指定缓存配置参数并初始化本地缓存。<br>主要采用builder的模式，CacheBuilder的每一个方法都返回这个CacheBuilder知道build方法的调用。<br>注意build方法有重载，带有参数的为构建一个具有数据加载功能的缓存，不带参数的构建一个没有数据加载功能的缓存。</p>
+<p>#####LocalManualCache<br>作为LocalCache的一个内部类，在构造方法里面会把LocalCache类型的变量传入，并且调用方法时都直接或者间接调用LocalCache里面的方法。</p>
+<p>#####LocalLoadingCache<br>可以看到该类继承了LocalManualCache并实现接口LoadingCache。<br>覆盖了get，getUnchecked等方法。</p>
+<p>#####LocalCache<br>Guava  Cache中的核心类，重点了解。</p>
+<h2 id="LocalCache数据结构"><a href="#LocalCache数据结构" class="headerlink" title="LocalCache数据结构"></a>LocalCache数据结构</h2><blockquote>
+<p>根据上面的分析可知，LocalCache为Guava Cache的核心类，先看一个该类的数据结构：          LocalCache的数据结构与ConcurrentHashMap很相似，都由多个segment组成，且各segment相对独立，互不影响，所以能支持并行操作。每个segment由一个table和若干队列组成。缓存数据存储在table中，其类型为AtomicReferenceArray。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-830f3be84c774bda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>#####Segment&lt;K, V&gt;[] segments;<br>Segment继承于ReetrantLock，减小锁粒度，提高并发效率。</p>
+<h5 id="AtomicReferenceArray-lt-ReferenceEntry-lt-K-V-gt-gt-table"><a href="#AtomicReferenceArray-lt-ReferenceEntry-lt-K-V-gt-gt-table" class="headerlink" title="AtomicReferenceArray&lt;ReferenceEntry&lt;K, V&gt;&gt; table;"></a>AtomicReferenceArray&lt;ReferenceEntry&lt;K, V&gt;&gt; table;</h5><p>类似于HasmMap中的table一样，相当于entry的容器。    </p>
+<p> #####ReferenceEntry&lt;K, V&gt; referenceEntry;<br>基于引用的Entry,其实现类有弱引用Entry,强引用Entry等</p>
+<h5 id="ReferenceQueue-keyReferenceQueue"><a href="#ReferenceQueue-keyReferenceQueue" class="headerlink" title="ReferenceQueue keyReferenceQueue;"></a>ReferenceQueue<k> keyReferenceQueue;</k></h5><p>已经被GC，需要内部清理的键引用队列。</p>
+<h5 id="ReferenceQueue-valueReferenceQueue"><a href="#ReferenceQueue-valueReferenceQueue" class="headerlink" title="ReferenceQueue valueReferenceQueue;"></a>ReferenceQueue<v> valueReferenceQueue;</v></h5><p>已经被GC，需要内部清理的值引用队列。</p>
+<h5 id="Queue-lt-ReferenceEntry-lt-K-V-gt-gt-recencyQueue"><a href="#Queue-lt-ReferenceEntry-lt-K-V-gt-gt-recencyQueue" class="headerlink" title="Queue&lt;ReferenceEntry&lt;K, V&gt;&gt; recencyQueue;"></a>Queue&lt;ReferenceEntry&lt;K, V&gt;&gt; recencyQueue;</h5><p>记录升级可访问列表清单时的entries,当segment上达到临界值或发生写操作时该队列会被清空。</p>
+<h5 id="Queue-lt-ReferenceEntry-lt-K-V-gt-gt-writeQueue"><a href="#Queue-lt-ReferenceEntry-lt-K-V-gt-gt-writeQueue" class="headerlink" title="Queue&lt;ReferenceEntry&lt;K, V&gt;&gt; writeQueue;"></a>Queue&lt;ReferenceEntry&lt;K, V&gt;&gt; writeQueue;</h5><p>按照写入时间进行排序的元素队列，写入一个元素时会把它加入到队列尾部。</p>
+<h5 id="Queue-lt-ReferenceEntry-lt-K-V-gt-gt-accessQueue"><a href="#Queue-lt-ReferenceEntry-lt-K-V-gt-gt-accessQueue" class="headerlink" title="Queue&lt;ReferenceEntry&lt;K, V&gt;&gt; accessQueue;"></a>Queue&lt;ReferenceEntry&lt;K, V&gt;&gt; accessQueue;</h5><p>按照访问时间进行排序的元素队列，访问(包括写入)一个元素时会把它加入到队列尾部。</p>
+<h2 id="put"><a href="#put" class="headerlink" title="put"></a>put</h2><blockquote>
+<p>public V put(K key, V value); //onlyIfAbsent为false<br>public V putIfAbsent(K key, V value); //onlyIfAbsent为true<br>      该方法显式往本地缓存里面插入值。从下面的流程图中可以看出，在执行每次put前都会进行preWriteCleanUP，在put返回前如果更新了entry则要进行evictEntries操作。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-5a92f860e91998ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="preWriteCleanup"><a href="#preWriteCleanup" class="headerlink" title="preWriteCleanup"></a>preWriteCleanup</h3><blockquote>
+<p>void preWriteCleanup(long now)；<br>       传人参数只有当前时间。<br>       键值引用队列中都是存储已经被GC，等待清除的entry信息，所以首先去处理这个里面的entry.<br>       读写队列里面是按照读写时间排序的，取出队列中的首元素，如果当前时间与该元素的时间相差值大于设定值，则进行回收。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-39fe193d3ec49756.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="evictEntries"><a href="#evictEntries" class="headerlink" title="evictEntries"></a>evictEntries</h2><p>void evictEntries(ReferenceEntry&lt;K, V&gt; newest)；<br>     传入的参数为最新的Entry，可能是刚插入的，也可能是刚更新过的。<br>     该方法只有在设置了在构建缓存的时候指定了maximumSize才会往下执行。首先清除recencyQueue，判断该元素自身的权重是否超过上限，如果超过则移除当前元素。然后判断总的权重是否大于上限，如果超过则去accessQueue里找到队首(即最不常访问的元素)进行移除，直到小于上限。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-2102248edcd35bc5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="getIfPresent"><a href="#getIfPresent" class="headerlink" title="getIfPresent"></a>getIfPresent</h2><blockquote>
+<p>public V getIfPresent(Object key)；<br>该方法从本地缓存中找值，如果找不到返回null，找到就返回相应的值。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-a9ce9d9122100419.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="get"><a href="#get" class="headerlink" title="get"></a>get</h2><blockquote>
+<p>首先会在缓存中找，缓存中找不到再通过load加载。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-533ab01915749569.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h2><blockquote>
+<p>public V remove(@Nullable Object key)；<br>调用LocalManualCache的invalidate(Object key)方法即可调用remove.</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-31f0cfdd60f1c780.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-07-05T08:24:13.000Z">2017-07-05</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    17 minutes read (About 2547 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2017/07/05/详解Java中ThreadLocal的实现与应用/">详解Java中ThreadLocal的实现与应用</a>
+            
+        </h1>
+        <div class="content">
+            <p>从这个类的名字就能大体了解到类的作用，ThreadLocal可以分解为Thread和Local，前者就不多说了，后者的意思是局部，本地的意思，整个类名可以理解为：线程局部对象或线程本地变量。程序是运行在线程中的，所以，在整个运行过程中，在任何地方都可以获得这个线程的局部对象，ThreadLocal类型的变量是和线程相绑定的。</p>
+<h3 id="1-ThreadLocal源码"><a href="#1-ThreadLocal源码" class="headerlink" title="1.ThreadLocal源码"></a>1.ThreadLocal源码</h3><p>先来看一下涉及到的类图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-ff2577459cce46a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public T get() &#123;&#125; // 获取ThreadLocal在当前线程中保存的变量副本</span><br><span class="line">public void set(T value) &#123;&#125; //用来设置当前线程中变量的副本</span><br><span class="line">private T setInitialValue()&#123;&#125; // 设置初始值</span><br><span class="line">protected T initialValue()&#123;&#125; //得到初始值，一般是用来在使用时进行重写的</span><br><span class="line">void createMap(Thread t, T firstValue) &#123;&#125;  // 在线程中对threadLocals成员变量赋值</span><br></pre></td></tr></table></figure>
+<p>get方法的实现如下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public T get() &#123;</span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    ThreadLocalMap map = getMap(t);</span><br><span class="line">    if (map != null) &#123;</span><br><span class="line">        ThreadLocalMap.Entry e = map.getEntry(this);</span><br><span class="line">        if (e != null) &#123;</span><br><span class="line">            @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">            T result = (T)e.value;</span><br><span class="line">            return result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return setInitialValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>get方法首先取得当前线程，然后通过getMap(t)方法获取到一个map，map的类型为ThreadLocalMap。然后接着下面获取到&lt;key,value&gt;键值对，注意这里获取键值对传进去的是this，而不是当前线程t。如果获取成功，则返回value值。如果map为空，则调用setInitialValue方法返回value。<br>接下来看一下getMap方法的源码：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocalMap getMap(Thread t) &#123;</span><br><span class="line">        return t.threadLocals;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>在getMap中，是调用当期线程t，返回当前线程t中的一个成员变量threadLocals。 那就看一下Thread类是的threadLocals是什么。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocal.ThreadLocalMap threadLocals = null;</span><br></pre></td></tr></table></figure></p>
+<p>　实际上就是一个ThreadLocalMap，这个类型是ThreadLocal类的一个内部类，我们继续取看ThreadLocalMap的实现.<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">static class ThreadLocalMap &#123;</span><br><span class="line">        static class Entry extends WeakReference&lt;ThreadLocal&lt;?&gt;&gt; &#123;</span><br><span class="line">            /** The value associated with this ThreadLocal. */</span><br><span class="line">            Object value;</span><br><span class="line"></span><br><span class="line">            Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;</span><br><span class="line">                super(k);</span><br><span class="line">                value = v;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里只贴出部份源码，熟悉HashMap源码的同学很快就会反映到这和HashMap的实现非常类似，在这里我就暂且可以将ThreadLocalMap理解为一个Map，即键值对形式的数据结构。</p>
+<p>然后看一下setInitialValue方法的具体实现：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">private T setInitialValue() &#123;</span><br><span class="line">       T value = initialValue();</span><br><span class="line">       Thread t = Thread.currentThread();</span><br><span class="line">       ThreadLocalMap map = getMap(t);</span><br><span class="line">       if (map != null)</span><br><span class="line">           map.set(this, value);</span><br><span class="line">       else</span><br><span class="line">           createMap(t, value);</span><br><span class="line">       return value;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   void createMap(Thread t, T firstValue) &#123;</span><br><span class="line">       t.threadLocals = new ThreadLocalMap(this, firstValue);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">  protected T initialValue() &#123;</span><br><span class="line">       return null;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>很容易了解，就是如果map不为空，就设置键值对。如果为空，就创建Map。在createMap方法里面以this(即ThreadLocal类型的变量)为值，以变量为键进行存储，即存储在当前线程中的threadLocals里面。同时源码中initialValue方法返回的是一个空值，所以我们在实际实用时为了防止空指针异常，在调用get方法前要么对initialValue方法进行重写，要么先调用set方法进行初始值的显示设置。下面看看set方法的源码：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public void set(T value) &#123;</span><br><span class="line">        Thread t = Thread.currentThread();</span><br><span class="line">        ThreadLocalMap map = getMap(t);</span><br><span class="line">        if (map != null)</span><br><span class="line">            map.set(this, value);</span><br><span class="line">        else</span><br><span class="line">            createMap(t, value);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>有了上面的分析，set方法还是很容易理解的。<br>现在对ThreadLocal是如何为每个线程创建变量的副本的作一个小的总结：</p>
+<p>　　首先，在每个线程Thread内部有一个ThreadLocal.ThreadLocalMap类型的成员变量threadLocals，这个threadLocals就是用来存储实际的变量副本的，键值为当前ThreadLocal变量，value为变量副本（即T类型的变量）。</p>
+<p>　　初始时，在Thread里面，threadLocals为空，当通过ThreadLocal变量调用get()方法或者set()方法，就会对Thread类中的threadLocals进行初始化，并且以当前ThreadLocal变量为键值，以ThreadLocal要保存的副本变量为value，存到threadLocals。</p>
+<p>　　然后在当前线程里面，如果要使用副本变量，就可以通过get方法在threadLocals里面查找。</p>
+<h3 id="2-实例"><a href="#2-实例" class="headerlink" title="2.实例"></a>2.实例</h3><h5 id="2-1-实例一-在调用get前先要使用set进行设置"><a href="#2-1-实例一-在调用get前先要使用set进行设置" class="headerlink" title="2.1 实例一:在调用get前先要使用set进行设置"></a>2.1 实例一:在调用get前先要使用set进行设置</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">package com.hust.hebh.concurrency;</span><br><span class="line"></span><br><span class="line">public class ThreadLocalTest &#123;</span><br><span class="line">	ThreadLocal&lt;Long&gt; longLocal = new ThreadLocal&lt;Long&gt;();</span><br><span class="line">	ThreadLocal&lt;String&gt; stringLocal = new ThreadLocal&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	public void set() &#123;</span><br><span class="line">		longLocal.set(Thread.currentThread().getId());</span><br><span class="line">		stringLocal.set(Thread.currentThread().getName());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public long getLong() &#123;</span><br><span class="line">		return longLocal.get();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public String getString() &#123;</span><br><span class="line">		return stringLocal.get();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line">		final ThreadLocalTest test = new ThreadLocalTest();		</span><br><span class="line">		</span><br><span class="line">		test.set();</span><br><span class="line">		System.out.println(test.getLong());</span><br><span class="line">		System.out.println(test.getString());	</span><br><span class="line">		</span><br><span class="line">		Thread thread1 = new Thread()&#123;</span><br><span class="line">			public void run() &#123;</span><br><span class="line">				test.set();</span><br><span class="line">				System.out.println(test.getLong());</span><br><span class="line">				System.out.println(test.getString());</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;;</span><br><span class="line">		thread1.start();</span><br><span class="line">		thread1.join();</span><br><span class="line">		</span><br><span class="line">		System.out.println(test.getLong());</span><br><span class="line">		System.out.println(test.getString());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从这段代码的输出结果可以看出，在main线程中和thread1线程中，longLocal保存的副本值和stringLocal保存的副本值都不一样。最后一次在main线程再次打印副本值是为了证明在main线程中和thread1线程中的副本值确实是不同的。</p>
+<p>　　总结一下：</p>
+<p>　　1）实际的通过ThreadLocal创建的副本是存储在每个线程自己的threadLocals中的；</p>
+<p>　　2）为何threadLocals的类型ThreadLocalMap的键值为ThreadLocal对象，因为每个线程中可有多个threadLocal变量，就像上面代码中的longLocal和stringLocal；</p>
+<p>　　3）在进行get之前，必须先set，否则会报空指针异常；</p>
+<p>　　    如果想在get之前不需要调用set就能正常访问的话，必须重写initialValue()方法。</p>
+<h5 id="2-2-实例二-重写initialValue方法"><a href="#2-2-实例二-重写initialValue方法" class="headerlink" title="2.2 实例二,重写initialValue方法"></a>2.2 实例二,重写initialValue方法</h5><blockquote>
+<p>在上面的代码分析过程中，我们发现如果没有先set的话，即在map中查找不到对应的存储，则会通过调用setInitialValue方法返回i，而在setInitialValue方法中，有一个语句是T value = initialValue()， 而默认情况下，initialValue方法返回的是null。下面看看如何对initialValue方法进行重写</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">package com.hust.hebh.concurrency;</span><br><span class="line"></span><br><span class="line">public class ThreadLocalDemo &#123;</span><br><span class="line">	ThreadLocal&lt;Long&gt; longLocal = new ThreadLocal&lt;Long&gt;()&#123;</span><br><span class="line">		protected Long initialValue() &#123;</span><br><span class="line">			return Thread.currentThread().getId();</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br><span class="line">	ThreadLocal&lt;String&gt; stringLocal = new ThreadLocal&lt;String&gt;()&#123;;</span><br><span class="line">		protected String initialValue() &#123;</span><br><span class="line">			return Thread.currentThread().getName();</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br><span class="line">	</span><br><span class="line">	public void set() &#123;</span><br><span class="line">		longLocal.set(Thread.currentThread().getId());</span><br><span class="line">		stringLocal.set(Thread.currentThread().getName());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public long getLong() &#123;</span><br><span class="line">		return longLocal.get();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public String getString() &#123;</span><br><span class="line">		return stringLocal.get();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line">		final ThreadLocalDemo test = new ThreadLocalDemo();</span><br><span class="line"></span><br><span class="line">		//test.set();</span><br><span class="line">		System.out.println(test.getLong());</span><br><span class="line">		System.out.println(test.getString());	</span><br><span class="line">		</span><br><span class="line">		Thread thread1 = new Thread()&#123;</span><br><span class="line">			public void run() &#123;</span><br><span class="line">				//test.set();</span><br><span class="line">				System.out.println(test.getLong());</span><br><span class="line">				System.out.println(test.getString());</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;;</span><br><span class="line">		thread1.start();</span><br><span class="line">		thread1.join();</span><br><span class="line">		</span><br><span class="line">		System.out.println(test.getLong());</span><br><span class="line">		System.out.println(test.getString());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过对对initialValue方法进行重写在不进行set的情况下就可以实现和实例一相同的效果。</p>
+<h3 id="3-ThreadLocal的应用场景"><a href="#3-ThreadLocal的应用场景" class="headerlink" title="3. ThreadLocal的应用场景"></a>3. ThreadLocal的应用场景</h3><blockquote>
+<p>最常见的ThreadLocal使用场景为 用来解决 数据库连接、Session管理等。</p>
+</blockquote>
+<p>下面来看一个hibernate中典型的ThreadLocal的应用：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">private static final ThreadLocal threadSession = new ThreadLocal();  </span><br><span class="line">  </span><br><span class="line">public static Session getSession() throws InfrastructureException &#123;  </span><br><span class="line">    Session s = (Session) threadSession.get();  </span><br><span class="line">    try &#123;  </span><br><span class="line">        if (s == null) &#123;  </span><br><span class="line">            s = getSessionFactory().openSession();  </span><br><span class="line">            threadSession.set(s);  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125; catch (HibernateException ex) &#123;  </span><br><span class="line">        throw new InfrastructureException(ex);  </span><br><span class="line">    &#125;  </span><br><span class="line">    return s;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到在getSession()方法中，首先判断当前线程中有没有放进去session，如果还没有，那么通过sessionFactory().openSession()来创建一个session，再将session set到线程中，实际是放到当前线程的ThreadLocalMap这个map中，这时，对于这个session的唯一引用就是当前线程中的那个ThreadLocalMap（下面会讲到），而threadSession作为这个值的key，要取得这个session可以通过threadSession.get()来得到，里面执行的操作实际是先取得当前线程中的ThreadLocalMap，然后将threadSession作为key将对应的值取出。这个session相当于线程的私有变量，而不是public的。<br>显然，其他线程中是取不到这个session的，他们也只能取到自己的ThreadLocalMap中的东西。要是session是多个线程共享使用的，那还不乱套了。<br>试想如果不用ThreadLocal怎么来实现呢？可能就要在action中创建session，然后把session一个个传到service和dao中，这可够麻烦的。或者可以自己定义一个静态的map，将当前thread作为key，创建的session作为值，put到map中，应该也行，这也是一般人的想法，但事实上，ThreadLocal的实现刚好相反，它是在每个线程中有一个map，而将ThreadLocal实例作为key，这样每个map中的项数很少，而且当线程销毁时相应的东西也一起销毁了，不知道除了这些还有什么其他的好处。 </p>
+<p>总之，ThreadLocal不是用来解决对象共享访问问题的，而主要是提供了保持对象的方法和避免参数传递的方便的对象访问方式。归纳了两点：<br>1。每个线程中都有一个自己的ThreadLocalMap类对象，可以将线程自己的对象保持到其中，各管各的，线程可以正确的访问到自己的对象。<br>2。将一个共用的ThreadLocal静态实例作为key，将不同对象的引用保存到不同线程的ThreadLocalMap中，然后在线程执行的各处通过这个静态ThreadLocal实例的get()方法取得自己线程保存的那个对象，避免了将这个对象作为参数传递的麻烦。 </p>
+<p>当然如果要把本来线程共享的对象通过ThreadLocal.set()放到线程中也可以，可以实现避免参数传递的访问方式，但是要注意get()到的是那同一个共享对象，并发访问问题要靠其他手段来解决。但一般来说线程共享的对象通过设置为某类的静态变量就可以实现方便的访问了，似乎没必要放到线程中。 </p>
+<p>ThreadLocal的应用场合，我觉得最适合的是按线程多实例（每个线程对应一个实例）的对象的访问，并且这个对象很多地方都要用到。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+    
+<div class="card card-transparent">
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <div class="pagination-previous is-invisible is-hidden-mobile">
+            <a class="is-flex-grow has-text-black-ter" href="/categories/随笔/page/0/">Previous</a>
+        </div>
+        <div class="pagination-next">
+            <a class="is-flex-grow has-text-black-ter" href="/categories/随笔/page/2/">Next</a>
+        </div>
+        <ul class="pagination-list is-hidden-mobile">
+            
+            <li><a class="pagination-link is-current" href="/categories/随笔/">1</a></li>
+            
+            <li><a class="pagination-link has-text-black-ter" href="/categories/随笔/page/2/">2</a></li>
+            
+        </ul>
+    </nav>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png">
+                    
+                    <p class="is-size-4 is-block">
+                        Acamy
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Stay Hungry, Stay foolish
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>HangZhou China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        79
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/Acamy">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/Acamy">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ElasticSearch/">
+            <span class="level-start">
+                <span class="level-item">ElasticSearch</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Git/">
+            <span class="level-start">
+                <span class="level-item">Git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hadoop/">
+            <span class="level-start">
+                <span class="level-item">Hadoop</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA基础系列/">
+            <span class="level-start">
+                <span class="level-item">JAVA基础系列</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JVM/">
+            <span class="level-start">
+                <span class="level-item">JVM</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb框架/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb框架</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Oracle/">
+            <span class="level-start">
+                <span class="level-item">Oracle</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/SpringBoot2-0/">
+            <span class="level-start">
+                <span class="level-item">SpringBoot2.0</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/flowable/">
+            <span class="level-start">
+                <span class="level-item">flowable</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/在线编程/">
+            <span class="level-start">
+                <span class="level-item">在线编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构与算法/">
+            <span class="level-start">
+                <span class="level-item">数据结构与算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/源码/">
+            <span class="level-start">
+                <span class="level-item">源码</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/编程/">
+            <span class="level-start">
+                <span class="level-item">编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/编程/java/">
+            <span class="level-start">
+                <span class="level-item">java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/计算机网络/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/设计模式/">
+            <span class="level-start">
+                <span class="level-item">设计模式</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+<script src="/js/back-to-top.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

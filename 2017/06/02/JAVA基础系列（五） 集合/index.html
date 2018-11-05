@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>JAVA基础系列（五） 集合 - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="面向对象语言对事物的体现都是以对象的形式，所以为了方便对多个对象的操作，Java就提供了集合类.   集合和数组的区别:  1. Collection 集合的顶层接口  功能概述 添加功能  boolean add(Object obj):添加一个元素  boolean addAll(Collection c):添加一个集合的元素 删除功能 void clear():移除所有元素 boolea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA基础系列（五） 集合">
+<meta property="og:url" content="http://yoursite.com/2017/06/02/JAVA基础系列（五） 集合/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="面向对象语言对事物的体现都是以对象的形式，所以为了方便对多个对象的操作，Java就提供了集合类.   集合和数组的区别:  1. Collection 集合的顶层接口  功能概述 添加功能  boolean add(Object obj):添加一个元素  boolean addAll(Collection c):添加一个集合的元素 删除功能 void clear():移除所有元素 boolea">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-87b101f5bf117875.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-12dd3146d7f5d9b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-80242c49546847bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-11-05T15:47:07.353Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA基础系列（五） 集合">
+<meta name="twitter:description" content="面向对象语言对事物的体现都是以对象的形式，所以为了方便对多个对象的操作，Java就提供了集合类.   集合和数组的区别:  1. Collection 集合的顶层接口  功能概述 添加功能  boolean add(Object obj):添加一个元素  boolean addAll(Collection c):添加一个集合的元素 删除功能 void clear():移除所有元素 boolea">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-87b101f5bf117875.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-06-02T13:00:58.000Z">2017-06-02</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/JAVA基础系列/">JAVA基础系列</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    22 minutes read (About 3240 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                JAVA基础系列（五） 集合
+            
+        </h1>
+        <div class="content">
+            <p><img src="http://upload-images.jianshu.io/upload_images/5990755-87b101f5bf117875.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>面向对象语言对事物的体现都是以对象的形式，所以为了方便对多个对象的操作，Java就提供了集合类.</p>
+</blockquote>
+<p><strong> 集合和数组的区别:</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-12dd3146d7f5d9b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="1-Collection"><a href="#1-Collection" class="headerlink" title="1. Collection"></a>1. Collection</h2><blockquote>
+<p>集合的顶层接口</p>
+</blockquote>
+<h3 id="功能概述"><a href="#功能概述" class="headerlink" title="功能概述"></a>功能概述</h3><ol>
+<li>添加功能<br>  boolean add(Object obj):添加一个元素<br>  boolean addAll(Collection c):添加一个集合的元素</li>
+<li>删除功能<br> void clear():移除所有元素<br> boolean remove(Object o):移除一个元素<br> boolean removeAll(Collection c):移除一个集合的元素(是一个还是所有)</li>
+<li>判断功能<br>  boolean contains(Object o)：判断集合中是否包含指定的元素<br> boolean containsAll(Collection c)：判断集合中是否包含指定的集合元素(是一个还是所有);<br>   boolean isEmpty()：判断集合是否为空</li>
+<li>获取功能<br> Iterator<e> iterator()(重点)</e></li>
+<li>长度功能<br> int size():元素的个数</li>
+<li>交集功能<br> boolean retainAll(Collection c);</li>
+<li>把集合转换为数组<br> Object[] toArray()</li>
+</ol>
+<h2 id="2-Iterator"><a href="#2-Iterator" class="headerlink" title="2. Iterator"></a>2. Iterator</h2><blockquote>
+<p>对 collection 进行迭代的迭代器,依赖于集合而存在</p>
+</blockquote>
+<h3 id="接口成员方法"><a href="#接口成员方法" class="headerlink" title="接口成员方法"></a>接口成员方法</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public interface Iterator&lt;E&gt; &#123;</span><br><span class="line">    // 如果仍有元素可以迭代，则返回 true。</span><br><span class="line">    boolean hasNext();</span><br><span class="line">    // 获取元素,并移动到下一个位置。</span><br><span class="line">    E next();</span><br><span class="line">    void remove();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong> Demo: </strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class IteratorDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Collection c = new ArrayList();</span><br><span class="line">		c.add(&quot;hello&quot;);</span><br><span class="line">		c.add(&quot;world&quot;);</span><br><span class="line">		c.add(&quot;java&quot;);</span><br><span class="line">        Iterator it = c.iterator(); </span><br><span class="line">		while (it.hasNext()) &#123;</span><br><span class="line">			String s = (String) it.next();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-List"><a href="#3-List" class="headerlink" title="3. List"></a>3. List</h2><blockquote>
+<p>有序的 collection（也称为序列）。此接口的用户可以对列表中每个元素的插入位置进行精确地控制。用户可以根据元素的整数索引（在列表中的位置）访问元素，并搜索列表中的元素。</p>
+</blockquote>
+<h3 id="List集合的特有功能："><a href="#List集合的特有功能：" class="headerlink" title="List集合的特有功能："></a>List集合的特有功能：</h3><p><strong> A:添加功能 </strong><br>         void add(int index,Object element):在指定位置添加元素<br><strong>  B:获取功能 </strong><br>        Object get(int index):获取指定位置的元素<br><strong> C:列表迭代器 </strong><br>        ListIterator listIterator()：List集合特有的迭代器<br><strong> D:删除功能 </strong><br>        Object remove(int index)：根据索引删除元素,返回被删除的元素<br><strong> E:修改功能 </strong><br>        Object set(int index,Object element):根据索引修改元素，返回被修饰的元素</p>
+<h2 id="4-ListIterator"><a href="#4-ListIterator" class="headerlink" title="4. ListIterator"></a>4. ListIterator</h2><blockquote>
+<p>List集合特有的迭代器</p>
+</blockquote>
+<h2 id="特有功能"><a href="#特有功能" class="headerlink" title="特有功能"></a>特有功能</h2><p>A.Object previous():获取上一个元素<br>B.boolean hasPrevious():判断是否有元素<br><strong>注意：</strong>ListIterator可以实现逆向遍历，但是必须先正向遍历，才能逆向遍历，所以一般无意义，不使用。</p>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public class ListIteratorDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建List集合对象</span><br><span class="line">		List list = new ArrayList();</span><br><span class="line">		list.add(&quot;hello&quot;);</span><br><span class="line">		list.add(&quot;world&quot;);</span><br><span class="line">		list.add(&quot;java&quot;);</span><br><span class="line"></span><br><span class="line">		// ListIterator listIterator()</span><br><span class="line">		ListIterator lit = list.listIterator(); // 子类对象</span><br><span class="line">		// while (lit.hasNext()) &#123;</span><br><span class="line">		// String s = (String) lit.next();</span><br><span class="line">		// System.out.println(s);</span><br><span class="line">		// &#125;</span><br><span class="line">		// System.out.println(&quot;-----------------&quot;);</span><br><span class="line"></span><br><span class="line">		// System.out.println(lit.previous());</span><br><span class="line">		// System.out.println(lit.previous());</span><br><span class="line">		// System.out.println(lit.previous());</span><br><span class="line">		// NoSuchElementException</span><br><span class="line">		// System.out.println(lit.previous());</span><br><span class="line"></span><br><span class="line">		while (lit.hasPrevious()) &#123;</span><br><span class="line">			String s = (String) lit.previous();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;-----------------&quot;);</span><br><span class="line"></span><br><span class="line">		// 迭代器</span><br><span class="line">		Iterator it = list.iterator();</span><br><span class="line">		while (it.hasNext()) &#123;</span><br><span class="line">			String s = (String) it.next();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;-----------------&quot;);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-ArrayList"><a href="#5-ArrayList" class="headerlink" title="5. ArrayList"></a>5. ArrayList</h2><p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class ArrayListDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		ArrayList array = new ArrayList();</span><br><span class="line"></span><br><span class="line">		// 创建元素对象，并添加元素</span><br><span class="line">		array.add(&quot;hello&quot;);</span><br><span class="line">		array.add(&quot;world&quot;);</span><br><span class="line">		array.add(&quot;java&quot;);</span><br><span class="line"></span><br><span class="line">		// 遍历</span><br><span class="line">		Iterator it = array.iterator();</span><br><span class="line">		while (it.hasNext()) &#123;</span><br><span class="line">			String s = (String) it.next();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		System.out.println(&quot;-----------&quot;);</span><br><span class="line"></span><br><span class="line">		for (int x = 0; x &lt; array.size(); x++) &#123;</span><br><span class="line">			String s = (String) array.get(x);</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="6-Vector"><a href="#6-Vector" class="headerlink" title="6. Vector"></a>6. Vector</h2><h4 id="特有功能："><a href="#特有功能：" class="headerlink" title="特有功能："></a>特有功能：</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//1. 添加功能</span><br><span class="line"> public void addElement(Object obj)		--	add() </span><br><span class="line">//2. 获取功能</span><br><span class="line">public Object elementAt(int index)		--  get()</span><br><span class="line">public Enumeration elements()			-- Iterator iterator()</span><br><span class="line">boolean hasMoreElements()				hasNext()</span><br><span class="line">Object nextElement()					next()</span><br></pre></td></tr></table></figure>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class VectorDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		Vector v = new Vector();</span><br><span class="line"></span><br><span class="line">		// 添加功能</span><br><span class="line">		v.addElement(&quot;hello&quot;);</span><br><span class="line">		v.addElement(&quot;world&quot;);</span><br><span class="line">		v.addElement(&quot;java&quot;);</span><br><span class="line"></span><br><span class="line">		// 遍历</span><br><span class="line">		for (int x = 0; x &lt; v.size(); x++) &#123;</span><br><span class="line">			String s = (String) v.elementAt(x);</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		System.out.println(&quot;------------------&quot;);</span><br><span class="line"></span><br><span class="line">		Enumeration en = v.elements(); // 返回的是实现类的对象</span><br><span class="line">		while (en.hasMoreElements()) &#123;</span><br><span class="line">			String s = (String) en.nextElement();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="7-LinkedList"><a href="#7-LinkedList" class="headerlink" title="7. LinkedList"></a>7. LinkedList</h2><h3 id="特有功能-1"><a href="#特有功能-1" class="headerlink" title="特有功能"></a>特有功能</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">A:添加功能</span><br><span class="line">	public void addFirst(Object e)</span><br><span class="line">	public void addLast(Object e)</span><br><span class="line">B:获取功能</span><br><span class="line">	public Object getFirst()</span><br><span class="line">	public Obejct getLast()</span><br><span class="line">C:删除功能</span><br><span class="line">	public Object removeFirst()</span><br><span class="line">	public Object removeLast()</span><br></pre></td></tr></table></figure>
+<p><strong>Demo:</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class LinkedListDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		LinkedList link = new LinkedList();</span><br><span class="line"></span><br><span class="line">		// 添加元素</span><br><span class="line">		link.add(&quot;hello&quot;);</span><br><span class="line">		link.add(&quot;world&quot;);</span><br><span class="line">		link.add(&quot;java&quot;);</span><br><span class="line"></span><br><span class="line">		// public void addFirst(Object e)</span><br><span class="line">		// link.addFirst(&quot;javaee&quot;);</span><br><span class="line">		// public void addLast(Object e)</span><br><span class="line">		// link.addLast(&quot;android&quot;);</span><br><span class="line"></span><br><span class="line">		// public Object getFirst()</span><br><span class="line">		// System.out.println(&quot;getFirst:&quot; + link.getFirst());</span><br><span class="line">		// public Obejct getLast()</span><br><span class="line">		// System.out.println(&quot;getLast:&quot; + link.getLast());</span><br><span class="line"></span><br><span class="line">		// public Object removeFirst()</span><br><span class="line">		System.out.println(&quot;removeFirst:&quot; + link.removeFirst());</span><br><span class="line">		// public Object removeLast()</span><br><span class="line">		System.out.println(&quot;removeLast:&quot; + link.removeLast());</span><br><span class="line"></span><br><span class="line">		// 输出对象名</span><br><span class="line">		System.out.println(&quot;link:&quot; + link);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="List的子类比较"><a href="#List的子类比较" class="headerlink" title="List的子类比较"></a>List的子类比较</h3><p><img src="http://upload-images.jianshu.io/upload_images/5990755-80242c49546847bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="8-Set"><a href="#8-Set" class="headerlink" title="8. Set"></a>8. Set</h2><blockquote>
+<p>一个不包含重复元素的 collection</p>
+</blockquote>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class SetDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		Set&lt;String&gt; set = new HashSet&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">		// 创建并添加元素</span><br><span class="line">		set.add(&quot;hello&quot;);</span><br><span class="line">		set.add(&quot;java&quot;);</span><br><span class="line">		set.add(&quot;world&quot;);</span><br><span class="line">		set.add(&quot;java&quot;);</span><br><span class="line">		set.add(&quot;world&quot;);</span><br><span class="line"></span><br><span class="line">		// 增强for</span><br><span class="line">		for (String s : set) &#123;</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="9-HashSet"><a href="#9-HashSet" class="headerlink" title="9. HashSet"></a>9. HashSet</h2><blockquote>
+<p>不保证 set 的迭代顺序,特别是它不保证该顺序恒久不变。</p>
+</blockquote>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * HashSet:存储字符串并遍历</span><br><span class="line"> * 问题：为什么存储字符串的时候，字符串内容相同的只存储了一个呢?</span><br><span class="line"> * 通过查看add方法的源码，我们知道这个方法底层依赖 两个方法：hashCode()和equals()。</span><br><span class="line"> * 步骤：</span><br><span class="line"> * 		首先比较哈希值</span><br><span class="line"> * 		如果相同，继续走，比较地址值或者走equals()</span><br><span class="line"> * 		如果不同,就直接添加到集合中	</span><br><span class="line"> * 按照方法的步骤来说：	</span><br><span class="line"> * 		先看hashCode()值是否相同</span><br><span class="line"> * 			相同:继续走equals()方法</span><br><span class="line"> * 				返回true：	说明元素重复，就不添加</span><br><span class="line"> * 				返回false：说明元素不重复，就添加到集合</span><br><span class="line"> * 			不同：就直接把元素添加到集合</span><br><span class="line"> * 如果类没有重写这两个方法，默认使用的Object()。一般来说不同相同。</span><br><span class="line"> * 而String类重写了hashCode()和equals()方法，所以，它就可以把内容相同的字符串去掉。只留下一个。</span><br><span class="line"> */</span><br><span class="line">public class HashSetDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		HashSet&lt;String&gt; hs = new HashSet&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">		// 创建并添加元素</span><br><span class="line">		hs.add(&quot;hello&quot;);</span><br><span class="line">		hs.add(&quot;world&quot;);</span><br><span class="line">		hs.add(&quot;java&quot;);</span><br><span class="line">		hs.add(&quot;world&quot;);</span><br><span class="line"></span><br><span class="line">		// 遍历集合</span><br><span class="line">		for (String s : hs) &#123;</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h3><blockquote>
+<p>底层数据结构由哈希表和链表组成。哈希表保证元素的唯一性, 链表保证元素有素。(存储和取出是一致)</p>
+</blockquote>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class LinkedHashSetDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		LinkedHashSet&lt;String&gt; hs = new LinkedHashSet&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">		// 创建并添加元素</span><br><span class="line">		hs.add(&quot;hello&quot;);</span><br><span class="line">		hs.add(&quot;world&quot;);</span><br><span class="line">		hs.add(&quot;java&quot;);</span><br><span class="line">		hs.add(&quot;world&quot;);</span><br><span class="line">		hs.add(&quot;java&quot;);</span><br><span class="line"></span><br><span class="line">		// 遍历</span><br><span class="line">		for (String s : hs) &#123;</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="10-TreeSet"><a href="#10-TreeSet" class="headerlink" title="10. TreeSet"></a>10. TreeSet</h2><blockquote>
+<p>能够对元素按照某种规则进行排序。<br>TreeSet集合的特点：排序和唯一</p>
+</blockquote>
+<p>排序有两种方式<br> A:自然排序<br>B:比较器排序<br><strong>Demo1:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class TreeSetDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		//A:自然排序(元素具备比较性)</span><br><span class="line">              //让元素所属的类实现自然排序接口 Comparable</span><br><span class="line"></span><br><span class="line">		TreeSet&lt;Integer&gt; ts = new TreeSet&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">		// 创建元素并添加</span><br><span class="line">		// 20,18,23,22,17,24,19,18,24</span><br><span class="line">		ts.add(20);</span><br><span class="line">		ts.add(18);</span><br><span class="line">		ts.add(23);</span><br><span class="line">		ts.add(22);</span><br><span class="line">		ts.add(17);</span><br><span class="line">		ts.add(24);</span><br><span class="line">		ts.add(19);</span><br><span class="line">		ts.add(18);</span><br><span class="line">		ts.add(24);</span><br><span class="line"></span><br><span class="line">		// 遍历</span><br><span class="line">		for (Integer i : ts) &#123;</span><br><span class="line">			System.out.println(i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Demo2:</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Comparator;</span><br><span class="line">import java.util.TreeSet;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 需求：请按照姓名的长度排序</span><br><span class="line"> * </span><br><span class="line"> * TreeSet集合保证元素排序和唯一性的原理</span><br><span class="line"> * 唯一性：是根据比较的返回是否是0来决定。</span><br><span class="line"> * 		</span><br><span class="line"> */</span><br><span class="line">public class TreeSetDemo &#123;</span><br><span class="line">	//比较器排序(集合具备比较性)</span><br><span class="line">	//让集合的构造方法接收一个比较器接口的子类对象 Comparator</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		// TreeSet&lt;Student&gt; ts = new TreeSet&lt;Student&gt;(); //自然排序</span><br><span class="line">		// public TreeSet(Comparator comparator) //比较器排序</span><br><span class="line">		// TreeSet&lt;Student&gt; ts = new TreeSet&lt;Student&gt;(new MyComparator());</span><br><span class="line"></span><br><span class="line">		// 如果一个方法的参数是接口，那么真正要的是接口的实现类的对象</span><br><span class="line">		// 而匿名内部类就可以实现这个东西</span><br><span class="line">		TreeSet&lt;Student&gt; ts = new TreeSet&lt;Student&gt;(new Comparator&lt;Student&gt;() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public int compare(Student s1, Student s2) &#123;</span><br><span class="line">				// 姓名长度</span><br><span class="line">				int num = s1.getName().length() - s2.getName().length();</span><br><span class="line">				// 姓名内容</span><br><span class="line">				int num2 = num == 0 ? s1.getName().compareTo(s2.getName())</span><br><span class="line">						: num;</span><br><span class="line">				// 年龄</span><br><span class="line">				int num3 = num2 == 0 ? s1.getAge() - s2.getAge() : num2;</span><br><span class="line">				return num3;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		// 创建元素</span><br><span class="line">		Student s1 = new Student(&quot;linqingxia&quot;, 27);</span><br><span class="line">		Student s2 = new Student(&quot;zhangguorong&quot;, 29);</span><br><span class="line">		Student s3 = new Student(&quot;wanglihong&quot;, 23);</span><br><span class="line">		Student s4 = new Student(&quot;linqingxia&quot;, 27);</span><br><span class="line">		Student s5 = new Student(&quot;liushishi&quot;, 22);</span><br><span class="line">		Student s6 = new Student(&quot;wuqilong&quot;, 40);</span><br><span class="line">		Student s7 = new Student(&quot;fengqingy&quot;, 22);</span><br><span class="line">		Student s8 = new Student(&quot;linqingxia&quot;, 29);</span><br><span class="line"></span><br><span class="line">		// 添加元素</span><br><span class="line">		ts.add(s1);</span><br><span class="line">		ts.add(s2);</span><br><span class="line">		ts.add(s3);</span><br><span class="line">		ts.add(s4);</span><br><span class="line">		ts.add(s5);</span><br><span class="line">		ts.add(s6);</span><br><span class="line">		ts.add(s7);</span><br><span class="line">		ts.add(s8);</span><br><span class="line"></span><br><span class="line">		// 遍历</span><br><span class="line">		for (Student s : ts) &#123;</span><br><span class="line">			System.out.println(s.getName() + &quot;---&quot; + s.getAge());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student &#123;</span><br><span class="line">	private String name;</span><br><span class="line">	private int age;</span><br><span class="line"></span><br><span class="line">	public Student() &#123;</span><br><span class="line">		super();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Student(String name, int age) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.name = name;</span><br><span class="line">		this.age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getName() &#123;</span><br><span class="line">		return name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setName(String name) &#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public int getAge() &#123;</span><br><span class="line">		return age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setAge(int age) &#123;</span><br><span class="line">		this.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="11-Map"><a href="#11-Map" class="headerlink" title="11. Map"></a>11. Map</h2><blockquote>
+<p>将键映射到值的对象。一个映射不能包含重复的键；每个键最多只能映射到一个值。 </p>
+</blockquote>
+<p>Map集合和Collection集合的区别?</p>
+<ul>
+<li>Map集合存储元素是成对出现的，Map集合的键是唯一的，值是可重复的。可以把这个理解为：夫妻对</li>
+<li>Collection集合存储元素是单独出现的，Collection的儿子Set是唯一的，List是可重复的。</li>
+</ul>
+<h3 id="功能概述-1"><a href="#功能概述-1" class="headerlink" title="功能概述"></a>功能概述</h3><ol>
+<li><strong> 添加功能 </strong><br>V put(K key,V value):添加元素。这个其实还有另一个功能?先不告诉你，等会讲<br>如果键是第一次存储，就直接存储元素，返回null<br>如果键不是第一次存在，就用值把以前的值替换掉，返回以前的值</li>
+<li><strong> 删除功能 </strong><br>void clear():移除所有的键值对元素<br>V remove(Object key)：根据键删除键值对元素，并把值返回</li>
+<li><strong> 判断功能 </strong><br>boolean containsKey(Object key)：判断集合是否包含指定的键<br>boolean containsValue(Object value):判断集合是否包含指定的值<br>boolean isEmpty()：判断集合是否为空</li>
+<li><strong>  获取功能 </strong><br>Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet():???<br>V get(Object key):根据键获取值<br>Set<k> keySet():获取集合中所有键的集合<br>Collection<v> values():获取集合中所有值的集合</v></k></li>
+<li><strong> 长度功能 </strong><br>int size()：返回集合中的键值对的对数</li>
+</ol>
+<p><strong> Demo: </strong> </p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class MapDemo3 &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		Map&lt;String, String&gt; map = new HashMap&lt;String, String&gt;();</span><br><span class="line"></span><br><span class="line">		// 创建元素并添加到集合</span><br><span class="line">		map.put(&quot;杨过&quot;, &quot;小龙女&quot;);</span><br><span class="line">		map.put(&quot;郭靖&quot;, &quot;黄蓉&quot;);</span><br><span class="line">		map.put(&quot;杨康&quot;, &quot;穆念慈&quot;);</span><br><span class="line">		map.put(&quot;陈玄风&quot;, &quot;梅超风&quot;);</span><br><span class="line"></span><br><span class="line">		// 遍历</span><br><span class="line">		// 获取所有的键</span><br><span class="line">		Set&lt;String&gt; set = map.keySet();</span><br><span class="line">		// 遍历键的集合，获取得到每一个键</span><br><span class="line">		for (String key : set) &#123;</span><br><span class="line">			// 根据键去找值</span><br><span class="line">			String value = map.get(key);</span><br><span class="line">			System.out.println(key + &quot;---&quot; + value);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="12">
+<li>HashMap<blockquote>
+<p>是基于哈希表的Map接口实现,哈希表的作用是用来保证键的唯一性的。</p>
+</blockquote>
+</li>
+</ol>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class HashMapDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		HashMap&lt;String, String&gt; hm = new HashMap&lt;String, String&gt;();</span><br><span class="line"></span><br><span class="line">		// 创建元素并添加元素</span><br><span class="line">		// String key1 = &quot;it001&quot;;</span><br><span class="line">		// String value1 = &quot;马云&quot;;</span><br><span class="line">		// hm.put(key1, value1);</span><br><span class="line"></span><br><span class="line">		hm.put(&quot;it001&quot;, &quot;马云&quot;);</span><br><span class="line">		hm.put(&quot;it003&quot;, &quot;马化腾&quot;);</span><br><span class="line">		hm.put(&quot;it004&quot;, &quot;乔布斯&quot;);</span><br><span class="line">		hm.put(&quot;it005&quot;, &quot;张朝阳&quot;);</span><br><span class="line">		hm.put(&quot;it002&quot;, &quot;裘伯君&quot;); // wps</span><br><span class="line">		hm.put(&quot;it001&quot;, &quot;比尔盖茨&quot;);</span><br><span class="line"></span><br><span class="line">		// 遍历</span><br><span class="line">		Set&lt;String&gt; set = hm.keySet();</span><br><span class="line">		for (String key : set) &#123;</span><br><span class="line">			String value = hm.get(key);</span><br><span class="line">			System.out.println(key + &quot;---&quot; + value);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h3><blockquote>
+<p>是Map接口的哈希表和链接列表实现，具有可预知的迭代顺序。</p>
+</blockquote>
+<p><strong>　Demo: </strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class LinkedHashMapDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		LinkedHashMap&lt;String, String&gt; hm = new LinkedHashMap&lt;String, String&gt;();</span><br><span class="line"></span><br><span class="line">		// 创建并添加元素</span><br><span class="line">		hm.put(&quot;2345&quot;, &quot;hello&quot;);</span><br><span class="line">		hm.put(&quot;1234&quot;, &quot;world&quot;);</span><br><span class="line">		hm.put(&quot;3456&quot;, &quot;java&quot;);</span><br><span class="line">		hm.put(&quot;1234&quot;, &quot;javaee&quot;);</span><br><span class="line">		hm.put(&quot;3456&quot;, &quot;android&quot;);</span><br><span class="line"></span><br><span class="line">		// 遍历</span><br><span class="line">		Set&lt;String&gt; set = hm.keySet();</span><br><span class="line">		for (String key : set) &#123;</span><br><span class="line">			String value = hm.get(key);</span><br><span class="line">			System.out.println(key + &quot;---&quot; + value);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="13-TreeMap"><a href="#13-TreeMap" class="headerlink" title="13. TreeMap"></a>13. TreeMap</h2><blockquote>
+<p>是基于红黑树的Map接口的实现,可以保证键的排序和唯一性</p>
+</blockquote>
+<p><strong> Demo: </strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class TreeMapDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		TreeMap&lt;String, String&gt; tm = new TreeMap&lt;String, String&gt;();</span><br><span class="line"></span><br><span class="line">		// 创建元素并添加元素</span><br><span class="line">		tm.put(&quot;hello&quot;, &quot;你好&quot;);</span><br><span class="line">		tm.put(&quot;world&quot;, &quot;世界&quot;);</span><br><span class="line">		tm.put(&quot;java&quot;, &quot;爪哇&quot;);</span><br><span class="line">		tm.put(&quot;world&quot;, &quot;世界2&quot;);</span><br><span class="line">		tm.put(&quot;javaee&quot;, &quot;爪哇EE&quot;);</span><br><span class="line"></span><br><span class="line">		// 遍历集合</span><br><span class="line">		Set&lt;String&gt; set = tm.keySet();</span><br><span class="line">		for (String key : set) &#123;</span><br><span class="line">			String value = tm.get(key);</span><br><span class="line">			System.out.println(key + &quot;---&quot; + value);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="14-Hashtable"><a href="#14-Hashtable" class="headerlink" title="14. Hashtable"></a>14. Hashtable</h2><p>Hashtable和HashMap的区别?</p>
+<ul>
+<li>Hashtable:线程安全，效率低。不允许null键和null值</li>
+<li>HashMap:线程不安全，效率高。允许null键和null值</li>
+</ul>
+<p><strong> Demo: </strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class HashtableDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// HashMap&lt;String, String&gt; hm = new HashMap&lt;String, String&gt;();</span><br><span class="line">		Hashtable&lt;String, String&gt; hm = new Hashtable&lt;String, String&gt;();</span><br><span class="line"></span><br><span class="line">		hm.put(&quot;it001&quot;, &quot;hello&quot;);</span><br><span class="line">		// hm.put(null, &quot;world&quot;); //NullPointerException</span><br><span class="line">		// hm.put(&quot;java&quot;, null); // NullPointerException</span><br><span class="line"></span><br><span class="line">		System.out.println(hm);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="15-Collections"><a href="#15-Collections" class="headerlink" title="15. Collections"></a>15. Collections</h2><blockquote>
+<p>是针对集合进行操作的工具类，都是静态方法。</p>
+</blockquote>
+<p>Collection和Collections的区别?</p>
+<ul>
+<li>Collection:是单列集合的顶层接口，有子接口List和Set。</li>
+<li>Collections:是针对集合操作的工具类，有对集合进行排序和二分查找的方法</li>
+</ul>
+<h3 id="成员方法"><a href="#成员方法" class="headerlink" title="成员方法"></a>成员方法</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static &lt;T&gt; void sort(List&lt;T&gt; list)：排序 默认情况下是自然顺序。</span><br><span class="line">public static &lt;T&gt; int binarySearch(List&lt;?&gt; list,T key):二分查找</span><br><span class="line">public static &lt;T&gt; T max(Collection&lt;?&gt; coll):最大值</span><br><span class="line">public static void reverse(List&lt;?&gt; list):反转</span><br><span class="line">public static void shuffle(List&lt;?&gt; list):随机置换</span><br></pre></td></tr></table></figure>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public class CollectionsDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建集合对象</span><br><span class="line">		List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">		// 添加元素</span><br><span class="line">		list.add(30);</span><br><span class="line">		list.add(20);</span><br><span class="line">		list.add(50);</span><br><span class="line">		list.add(10);</span><br><span class="line">		list.add(40);</span><br><span class="line"></span><br><span class="line">		System.out.println(&quot;list:&quot; + list);</span><br><span class="line"></span><br><span class="line">		// public static &lt;T&gt; void sort(List&lt;T&gt; list)：排序 默认情况下是自然顺序。</span><br><span class="line">		// Collections.sort(list);</span><br><span class="line">		// System.out.println(&quot;list:&quot; + list);</span><br><span class="line">		// [10, 20, 30, 40, 50]</span><br><span class="line"></span><br><span class="line">		// public static &lt;T&gt; int binarySearch(List&lt;?&gt; list,T key):二分查找</span><br><span class="line">		// System.out</span><br><span class="line">		// .println(&quot;binarySearch:&quot; + Collections.binarySearch(list, 30));</span><br><span class="line">		// System.out.println(&quot;binarySearch:&quot;</span><br><span class="line">		// + Collections.binarySearch(list, 300));</span><br><span class="line"></span><br><span class="line">		// public static &lt;T&gt; T max(Collection&lt;?&gt; coll):最大值</span><br><span class="line">		// System.out.println(&quot;max:&quot;+Collections.max(list));</span><br><span class="line"></span><br><span class="line">		// public static void reverse(List&lt;?&gt; list):反转</span><br><span class="line">		// Collections.reverse(list);</span><br><span class="line">		// System.out.println(&quot;list:&quot; + list);</span><br><span class="line"></span><br><span class="line">		// public static void shuffle(List&lt;?&gt; list):随机置换</span><br><span class="line">		Collections.shuffle(list);</span><br><span class="line">		System.out.println(&quot;list:&quot; + list);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2017/06/03/JAVA基础系列（八） 多线程/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">JAVA基础系列（八） 多线程</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2017/06/02/JAVA基础系列（六） 异常/">
+                <span class="level-item">JAVA基础系列（六） 异常</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<div id="SOHUCS" sid="2017/06/02/JAVA基础系列（五） 集合/"></div>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+    appid: 'cytoOY6km',
+    conf: 'prod_256dd977beeed0de5b2626a6127e098d'
+});
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png">
+                    
+                    <p class="is-size-4 is-block">
+                        Acamy
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Stay Hungry, Stay foolish
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>HangZhou China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        79
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/Acamy">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/Acamy">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ElasticSearch/">
+            <span class="level-start">
+                <span class="level-item">ElasticSearch</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Git/">
+            <span class="level-start">
+                <span class="level-item">Git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hadoop/">
+            <span class="level-start">
+                <span class="level-item">Hadoop</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA基础系列/">
+            <span class="level-start">
+                <span class="level-item">JAVA基础系列</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JVM/">
+            <span class="level-start">
+                <span class="level-item">JVM</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb框架/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb框架</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Oracle/">
+            <span class="level-start">
+                <span class="level-item">Oracle</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/SpringBoot2-0/">
+            <span class="level-start">
+                <span class="level-item">SpringBoot2.0</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/flowable/">
+            <span class="level-start">
+                <span class="level-item">flowable</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/在线编程/">
+            <span class="level-start">
+                <span class="level-item">在线编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构与算法/">
+            <span class="level-start">
+                <span class="level-item">数据结构与算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/源码/">
+            <span class="level-start">
+                <span class="level-item">源码</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/编程/">
+            <span class="level-start">
+                <span class="level-item">编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/编程/java/">
+            <span class="level-start">
+                <span class="level-item">java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/计算机网络/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/设计模式/">
+            <span class="level-start">
+                <span class="level-item">设计模式</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+<script src="/js/back-to-top.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

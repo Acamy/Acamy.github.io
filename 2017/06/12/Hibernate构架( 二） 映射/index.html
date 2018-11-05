@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Hibernate构架( 二） 映射 - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="1.集合映射 Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例  需求：一个用户对应多个地址User.java1234567891011// javabean设计public class User &amp;#123;	private int userId;	private String userName;	// 一个用户，对应的多个地址	private Set&amp;lt;S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hibernate构架( 二） 映射">
+<meta property="og:url" content="http://yoursite.com/2017/06/12/Hibernate构架( 二） 映射/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.集合映射 Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例  需求：一个用户对应多个地址User.java1234567891011// javabean设计public class User &amp;#123;	private int userId;	private String userName;	// 一个用户，对应的多个地址	private Set&amp;lt;S">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-05T15:47:04.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hibernate构架( 二） 映射">
+<meta name="twitter:description" content="1.集合映射 Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例  需求：一个用户对应多个地址User.java1234567891011// javabean设计public class User &amp;#123;	private int userId;	private String userName;	// 一个用户，对应的多个地址	private Set&amp;lt;S">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-06-12T12:04:25.000Z">2017-06-12</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    21 minutes read (About 3142 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Hibernate构架( 二） 映射
+            
+        </h1>
+        <div class="content">
+            <h2 id="1-集合映射"><a href="#1-集合映射" class="headerlink" title="1.集合映射"></a>1.集合映射</h2><blockquote>
+<p>Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例</p>
+</blockquote>
+<p>需求：一个用户对应多个地址<br><strong>User.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// javabean设计</span><br><span class="line">public class User &#123;</span><br><span class="line">	private int userId;</span><br><span class="line">	private String userName;</span><br><span class="line">	// 一个用户，对应的多个地址</span><br><span class="line">	private Set&lt;String&gt; address;</span><br><span class="line">	private List&lt;String&gt; addressList = new ArrayList&lt;String&gt;(); </span><br><span class="line">	//private String[] addressArray; // 映射方式和list一样     &lt;array name=&quot;&quot;&gt;&lt;/array&gt;</span><br><span class="line">	private Map&lt;String,String&gt; addressMap = new HashMap&lt;String, String&gt;();</span><br><span class="line">// get,set省略...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>User.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.a_collection&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;User&quot; table=&quot;t_user&quot;&gt;</span><br><span class="line">		&lt;id name=&quot;userId&quot; column=&quot;id&quot;&gt;</span><br><span class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</span><br><span class="line">		&lt;/id&gt;	</span><br><span class="line">		&lt;property name=&quot;userName&quot;&gt;&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- </span><br><span class="line">			set集合属性的映射</span><br><span class="line">				name 指定要映射的set集合的属性</span><br><span class="line">				table 集合属性要映射到的表</span><br><span class="line">				key  指定集合表(t_address)的外键字段</span><br><span class="line">				element 指定集合表的其他字段</span><br><span class="line">					type 元素类型，一定要指定</span><br><span class="line">		 --&gt;</span><br><span class="line">		 &lt;set name=&quot;address&quot; table=&quot;t_address&quot;&gt;</span><br><span class="line">		 	&lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		 	&lt;element column=&quot;address&quot; type=&quot;string&quot;&gt;&lt;/element&gt;</span><br><span class="line">		 &lt;/set&gt;</span><br><span class="line">		 </span><br><span class="line">		 &lt;!-- </span><br><span class="line">		 	list集合映射</span><br><span class="line">		 		list-index  指定的是排序列的名称 (因为要保证list集合的有序)</span><br><span class="line">		  --&gt;</span><br><span class="line">		  &lt;list name=&quot;addressList&quot; table=&quot;t_addressList&quot;&gt;</span><br><span class="line">		  	  &lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		  	  &lt;list-index column=&quot;idx&quot;&gt;&lt;/list-index&gt;</span><br><span class="line">		  	  &lt;element column=&quot;address&quot; type=&quot;string&quot;&gt;&lt;/element&gt;</span><br><span class="line">		  &lt;/list&gt;</span><br><span class="line">		  </span><br><span class="line">		  &lt;!-- </span><br><span class="line">		  	map集合的映射</span><br><span class="line">		  		key  指定外键字段</span><br><span class="line">		  		map-key 指定map的key </span><br><span class="line">		  		element  指定map的value</span><br><span class="line">		   --&gt;</span><br><span class="line">		  &lt;map name=&quot;addressMap&quot; table=&quot;t_addressMap&quot;&gt;</span><br><span class="line">		  	&lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		  	&lt;map-key column=&quot;shortName&quot; type=&quot;string&quot; &gt;&lt;/map-key&gt;</span><br><span class="line">		  	&lt;element column=&quot;address&quot; type=&quot;string&quot; &gt;&lt;/element&gt;</span><br><span class="line">		  &lt;/map&gt;	  		 </span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>set测试</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">private static SessionFactory sf;</span><br><span class="line">	static &#123;</span><br><span class="line">		sf = new Configuration()</span><br><span class="line">			.configure()</span><br><span class="line">			.addClass(User.class)   // 测试时候使用</span><br><span class="line">			.buildSessionFactory();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 保存set</span><br><span class="line">	@Test</span><br><span class="line">	public void testSaveSet() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		//-- 保存</span><br><span class="line">		Set&lt;String&gt; addressSet = new HashSet&lt;String&gt;();</span><br><span class="line">		addressSet.add(&quot;广州&quot;);</span><br><span class="line">		addressSet.add(&quot;深圳&quot;);</span><br><span class="line">		// 用户对象</span><br><span class="line">		User user = new User();</span><br><span class="line">		user.setUserName(&quot;Jack&quot;);</span><br><span class="line">		user.setAddress(addressSet);</span><br><span class="line">		</span><br><span class="line">		// 保存</span><br><span class="line">		session.save(user);</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果如下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: insert into t_user (userName) values (?)</span><br><span class="line">Hibernate: insert into t_address (uid, address) values (?, ?)</span><br><span class="line">Hibernate: insert into t_address (uid, address) values (?, ?)</span><br></pre></td></tr></table></figure></p>
+<p><strong>list测试</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 保存list/map</span><br><span class="line">	@Test</span><br><span class="line">	public void testSaveList() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		User user = new User();</span><br><span class="line">		user.setUserName(&quot;Tom&quot;);</span><br><span class="line">		// 用户对象  --  list</span><br><span class="line">		user.getAddressList().add(&quot;广州&quot;);</span><br><span class="line">		user.getAddressList().add(&quot;深圳&quot;);</span><br><span class="line">		// 保存</span><br><span class="line">		session.save(user);</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: insert into t_user (userName) values (?)</span><br><span class="line">Hibernate: insert into t_addressList (uid, idx, address) values (?, ?, ?)</span><br><span class="line">Hibernate: insert into t_addressList (uid, idx, address) values (?, ?, ?)</span><br></pre></td></tr></table></figure>
+<p><strong>map测试</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">	public void testSaveMap() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		User user = new User();</span><br><span class="line">		user.setUserName(&quot;Tom&quot;);</span><br><span class="line">		</span><br><span class="line">		// 用户对象  --  Map</span><br><span class="line">		user.getAddressMap().put(&quot;A0001&quot;, &quot;广州&quot;);</span><br><span class="line">		user.getAddressMap().put(&quot;A0002&quot;, &quot;深圳&quot;);</span><br><span class="line">		</span><br><span class="line">		// 保存</span><br><span class="line">		session.save(user);</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果如下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: insert into t_user (userName) values (?)</span><br><span class="line">Hibernate: insert into t_addressMap (uid, shortName, address) values (?, ?, ?)</span><br><span class="line">Hibernate: insert into t_addressMap (uid, shortName, address) values (?, ?, ?)</span><br></pre></td></tr></table></figure></p>
+<p><strong>获取数据测试</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">   @Test</span><br><span class="line">public void testGet() throws Exception &#123;</span><br><span class="line">	Session session = sf.openSession();</span><br><span class="line">	session.beginTransaction();</span><br><span class="line">	</span><br><span class="line">	// 获取</span><br><span class="line">	User user = (User) session.get(User.class, 3); // 及时加载</span><br><span class="line">	System.out.println(user.getUserId());</span><br><span class="line">	System.out.println(user.getUserName());</span><br><span class="line">	</span><br><span class="line">	// 当查询用户，同时可以获取用户关联的list集合的数据 (因为有正确映射)</span><br><span class="line">	// 当使用到集合数据的使用，才向数据库发送执行的sql语句  (懒加载)</span><br><span class="line">	System.out.println(user.getAddressList());</span><br><span class="line">	</span><br><span class="line">	session.getTransaction().commit();</span><br><span class="line">	session.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果如下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: select user0_.id as id0_0_, user0_.userName as userName0_0_ from t_user user0_ where user0_.id=?</span><br><span class="line">3</span><br><span class="line">Tom</span><br><span class="line">Hibernate: select addresslis0_.uid as uid0_0_, addresslis0_.address as address0_, addresslis0_.idx as idx0_ from t_addressList addresslis0_ where addresslis0_.uid=?</span><br><span class="line">[广州, 深圳]</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-关联映射"><a href="#2-关联映射" class="headerlink" title="2.关联映射"></a>2.关联映射</h2><h3 id="2-1-一对多与多对一"><a href="#2-1-一对多与多对一" class="headerlink" title="2.1 一对多与多对一"></a>2.1 一对多与多对一</h3><blockquote>
+<p>需求1：部门与员工<br>          一个部门有多个员工;       【一对多】<br>          多个员工，属于一个部门    【多对一】</p>
+</blockquote>
+<p><strong>Employee.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Employee &#123;</span><br><span class="line">	private int empId;</span><br><span class="line">	private String empName;</span><br><span class="line">	private double salary;</span><br><span class="line">	// 【多对一】员工与部门</span><br><span class="line">	private Dept dept;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Employee.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.b_one2Many&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;Employee&quot; table=&quot;t_employee&quot;&gt;</span><br><span class="line">		&lt;id name=&quot;empId&quot;&gt;</span><br><span class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</span><br><span class="line">		&lt;/id&gt;	</span><br><span class="line">		&lt;property name=&quot;empName&quot; length=&quot;20&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;salary&quot; type=&quot;double&quot;&gt;&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- </span><br><span class="line">			多对一映射配置</span><br><span class="line">			Employee 映射关键点：</span><br><span class="line">			1.  映射的部门属性  ：  dept</span><br><span class="line">			2.  映射的部门属性，对应的外键字段: dept_id</span><br><span class="line">			3.  部门的类型</span><br><span class="line">		 --&gt;</span><br><span class="line">		 &lt;many-to-one name=&quot;dept&quot; column=&quot;dept_id&quot; class=&quot;Dept&quot;&gt;&lt;/many-to-one&gt;</span><br><span class="line">		 </span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Dept.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Dept &#123;</span><br><span class="line">	private int deptId;</span><br><span class="line">	private String deptName;</span><br><span class="line">	// 【一对多】 部门对应的多个员工</span><br><span class="line">	private Set&lt;Employee&gt; emps = new HashSet&lt;Employee&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Dept.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.b_one2Many&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;Dept&quot; table=&quot;t_dept&quot;&gt;</span><br><span class="line">		&lt;id name=&quot;deptId&quot;&gt;</span><br><span class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</span><br><span class="line">		&lt;/id&gt;	</span><br><span class="line">		&lt;property name=&quot;deptName&quot; length=&quot;20&quot;&gt;&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- </span><br><span class="line">			一对多关联映射配置  （通过部门管理到员工）</span><br><span class="line">			Dept 映射关键点：</span><br><span class="line">			1.  指定 映射的集合属性： &quot;emps&quot;</span><br><span class="line">			2.  集合属性对应的集合表： &quot;t_employee&quot;</span><br><span class="line">			3.  集合表的外键字段   &quot;t_employee. dept_id&quot;</span><br><span class="line">			4.  集合元素的类型</span><br><span class="line">			</span><br><span class="line">			inverse=false  set集合映射的默认值； 表示有控制权</span><br><span class="line">		 --&gt;</span><br><span class="line">		 &lt;set name=&quot;emps&quot; cascade=&quot;save-update,delete&quot; table=&quot;t_employee&quot; inverse=&quot;true&quot;&gt;   &lt;!-- table=&quot;t_employee&quot; --&gt;</span><br><span class="line">		 	 &lt;key column=&quot;dept_id&quot;&gt;&lt;/key&gt;</span><br><span class="line">		 	 &lt;one-to-many class=&quot;Employee&quot;/&gt;</span><br><span class="line">		 &lt;/set&gt;	 		 </span><br><span class="line">	&lt;/class&gt;	</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>保存：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">public class App1_save &#123;</span><br><span class="line">	</span><br><span class="line">	private static SessionFactory sf;</span><br><span class="line">	static &#123;</span><br><span class="line">		sf = new Configuration()</span><br><span class="line">			.configure()</span><br><span class="line">			.addClass(Dept.class)   </span><br><span class="line">			.addClass(Employee.class)   // 测试时候使用</span><br><span class="line">			.buildSessionFactory();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 保存， 部门方 【一的一方法操作】</span><br><span class="line">	@Test</span><br><span class="line">	public void save() &#123;</span><br><span class="line">		</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		// 部门对象</span><br><span class="line">		Dept dept = new Dept();</span><br><span class="line">		dept.setDeptName(&quot;应用开发部&quot;);</span><br><span class="line">		// 员工对象</span><br><span class="line">		Employee emp_zs = new Employee();</span><br><span class="line">		emp_zs.setEmpName(&quot;张三&quot;);</span><br><span class="line">		Employee emp_ls = new Employee();</span><br><span class="line">		emp_ls.setEmpName(&quot;李四&quot;);</span><br><span class="line">		// 关系</span><br><span class="line">		dept.getEmps().add(emp_zs);</span><br><span class="line">		dept.getEmps().add(emp_ls);</span><br><span class="line"></span><br><span class="line">		// 保存</span><br><span class="line">		session.save(emp_zs);</span><br><span class="line">		session.save(emp_ls);</span><br><span class="line">		session.save(dept); // 保存部门，部门下所有的员工  </span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">		/*</span><br><span class="line">		 *  结果  当Dept.hbm.xml里的inverse属性为false时</span><br><span class="line">		 *  Hibernate: insert into t_employee (empName, salary, dept_id) values (?, ?, ?)</span><br><span class="line">			Hibernate: insert into t_employee (empName, salary, dept_id) values (?, ?, ?)</span><br><span class="line">			Hibernate: insert into t_dept (deptName) values (?)</span><br><span class="line">			Hibernate: update t_employee set deptId=? where empId=?    维护员工引用的部门的id</span><br><span class="line">			Hibernate: update t_employee set deptId=? where empId=?</span><br><span class="line">		 */</span><br><span class="line">	&#125;</span><br><span class="line">	// 【推荐】 保存， 部员方 【多的一方法操作】</span><br><span class="line">	@Test</span><br><span class="line">	public void save2() &#123;</span><br><span class="line">		</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		// 部门对象</span><br><span class="line">		Dept dept = new Dept();</span><br><span class="line">		dept.setDeptName(&quot;综合部&quot;);</span><br><span class="line">		// 员工对象</span><br><span class="line">		Employee emp_zs = new Employee();</span><br><span class="line">		emp_zs.setEmpName(&quot;张三&quot;);</span><br><span class="line">		Employee emp_ls = new Employee();</span><br><span class="line">		emp_ls.setEmpName(&quot;李四&quot;);</span><br><span class="line">		// 关系</span><br><span class="line">		emp_zs.setDept(dept);</span><br><span class="line">		emp_ls.setDept(dept);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		// 保存</span><br><span class="line">		session.save(dept); // 先保存一的方法</span><br><span class="line">		session.save(emp_zs);</span><br><span class="line">		session.save(emp_ls);// 再保存多的一方，关系回自动维护(映射配置完)</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">		/*</span><br><span class="line">		 *  结果 当Dept.hbm.xml里的inverse属性为true时此方式和上面无差别</span><br><span class="line">		 *  Hibernate: insert into t_dept (deptName) values (?)</span><br><span class="line">			Hibernate: insert into t_employee (empName, salary, dept_id) values (?, ?, ?)</span><br><span class="line">			Hibernate: insert into t_employee (empName, salary, dept_id) values (?, ?, ?)</span><br><span class="line">			少生成2条update  sql</span><br><span class="line">		 */</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>获取：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">	public void get() &#123;</span><br><span class="line">		</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		// 通过部门方，获取另外一方</span><br><span class="line">//		Dept dept = (Dept) session.get(Dept.class, 1);</span><br><span class="line">//		System.out.println(dept.getDeptName());</span><br><span class="line">//		System.out.println(dept.getEmps());// 懒加载</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		// 通过员工房，获取另外一方</span><br><span class="line">		Employee emp = (Employee) session.get(Employee.class, 1);</span><br><span class="line">		System.out.println(emp.getEmpName());</span><br><span class="line">		System.out.println(emp.getDept().getDeptName());</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>控制反转：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.b_one2Many;</span><br><span class="line"></span><br><span class="line">import org.hibernate.SessionFactory;</span><br><span class="line">import org.hibernate.cfg.Configuration;</span><br><span class="line">import org.hibernate.classic.Session;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">import cn.itcast.a_collection.User;</span><br><span class="line"></span><br><span class="line">public class App3_inverse &#123;</span><br><span class="line">	</span><br><span class="line">	private static SessionFactory sf;</span><br><span class="line">	static &#123;</span><br><span class="line">		sf = new Configuration()</span><br><span class="line">			.configure()</span><br><span class="line">			.addClass(Dept.class)   </span><br><span class="line">			.addClass(Employee.class)   // 测试时候使用</span><br><span class="line">			.buildSessionFactory();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 1. 保存数据 </span><br><span class="line">	@Test</span><br><span class="line">	public void save() &#123;</span><br><span class="line">		</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		// 部门对象</span><br><span class="line">		Dept dept = new Dept();</span><br><span class="line">		dept.setDeptName(&quot;应用开发部&quot;);</span><br><span class="line">		// 员工对象</span><br><span class="line">		Employee emp_zs = new Employee();</span><br><span class="line">		emp_zs.setEmpName(&quot;张三&quot;);</span><br><span class="line">		Employee emp_ls = new Employee();</span><br><span class="line">		emp_ls.setEmpName(&quot;李四&quot;);</span><br><span class="line">		// 关系</span><br><span class="line">		dept.getEmps().add(emp_zs);</span><br><span class="line">		dept.getEmps().add(emp_ls);  // inverse=true,  不会设置关联。</span><br><span class="line">									//                 此时的关联应该通过员工方维护。</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		// 保存</span><br><span class="line">		session.save(emp_zs);</span><br><span class="line">		session.save(emp_ls);</span><br><span class="line">		session.save(dept); // 保存部门，部门下所有的员工  </span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//2. 是否设置inverse，对获取数据的影响？   无.</span><br><span class="line">	@Test</span><br><span class="line">	public void get() &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		Dept dept = (Dept) session.get(Dept.class, 1);</span><br><span class="line">		System.out.println(dept.getDeptName());</span><br><span class="line">		System.out.println(dept.getEmps());</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	// 3. 是否设置inverse，对解除关联关系影响？</span><br><span class="line">	// inverse=false，  可以解除关联</span><br><span class="line">	// inverse=true，  当前方(部门)没有控制权，不能解除关联关系(不会生成update语句,也不会报错)</span><br><span class="line">	// </span><br><span class="line">	@Test</span><br><span class="line">	public void removeRelation() &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		// 获取部门</span><br><span class="line">		Dept dept = (Dept) session.get(Dept.class, 2);</span><br><span class="line">		// 解除关系</span><br><span class="line">		dept.getEmps().clear();</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	//3. 是否设置inverse属性，在删除数据中对关联关系的影响?</span><br><span class="line">	// inverse=false, 有控制权， 可以删除。先清空外键引用，再删除数据。</span><br><span class="line">	// inverse=true,  没有控制权: 如果删除的记录有被外键引用，会报错，违反主外键引用约束！</span><br><span class="line">	//							 如果删除的记录没有被引用，可以直接删除。</span><br><span class="line">	@Test</span><br><span class="line">	public void deleteData() &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		// 查询部门</span><br><span class="line">		Dept dept = (Dept) session.get(Dept.class, 8);</span><br><span class="line">		session.delete(dept);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>级联删除：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">public class App4_cascade &#123;</span><br><span class="line">	</span><br><span class="line">	private static SessionFactory sf;</span><br><span class="line">	static &#123;</span><br><span class="line">		sf = new Configuration()</span><br><span class="line">			.configure()</span><br><span class="line">			.addClass(Dept.class)   </span><br><span class="line">			.addClass(Employee.class)   // 测试时候使用</span><br><span class="line">			.buildSessionFactory();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 级联保存</span><br><span class="line">	@Test</span><br><span class="line">	public void save() &#123;</span><br><span class="line">		</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		// 部门对象</span><br><span class="line">		Dept dept = new Dept();</span><br><span class="line">		dept.setDeptName(&quot;财务部&quot;);</span><br><span class="line">		// 员工对象</span><br><span class="line">		Employee emp_zs = new Employee();</span><br><span class="line">		emp_zs.setEmpName(&quot;张三&quot;);</span><br><span class="line">		Employee emp_ls = new Employee();</span><br><span class="line">		emp_ls.setEmpName(&quot;李四&quot;);</span><br><span class="line">		// 关系</span><br><span class="line">		dept.getEmps().add(emp_zs);</span><br><span class="line">		dept.getEmps().add(emp_ls);  </span><br><span class="line">		</span><br><span class="line">		// 保存</span><br><span class="line">//		session.save(emp_zs);</span><br><span class="line">//		session.save(emp_ls);</span><br><span class="line">		session.save(dept); // 需要设置级联保存； 保存部门，部门下所有的员工  </span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 级联删除</span><br><span class="line">	@Test</span><br><span class="line">	public void delete() &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		Dept dept = (Dept) session.get(Dept.class,7);</span><br><span class="line">		session.delete(dept); // 级联删除</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">总结：</span><br><span class="line">  在一对多与多对一的关联关系中，保存数据最好的通过多的一方来维护关系，这样可以减少update语句的生成，从而提高hibernate的执行效率！</span><br><span class="line">	</span><br><span class="line">配置一对多与多对一，这种叫“双向关联”</span><br><span class="line">只配置一对多，           叫“单项一对多”</span><br><span class="line">只配置多对一，           叫“单项多对一”</span><br><span class="line"></span><br><span class="line">注意：</span><br><span class="line">	配置了哪一方，哪一方才有维护关联关系的权限！</span><br><span class="line"></span><br><span class="line">Inverse属性</span><br><span class="line">Inverse属性，是在维护关联关系的时候起作用的。</span><br><span class="line">       表示控制权是否转移。(在一的一方起作用)</span><br><span class="line"></span><br><span class="line">Inverse , 控制反转。</span><br><span class="line">Inverse = false  不反转；   当前方有控制权</span><br><span class="line">		True  控制反转； 当前方没有控制权</span><br><span class="line"></span><br><span class="line">维护关联关系中，是否设置inverse属性：</span><br><span class="line">	1. 保存数据 </span><br><span class="line">		有影响。</span><br><span class="line">	   如果设置控制反转,即inverse=true, 然后通过部门方维护关联关系。在保存部门的时候，同时保存员工， 数据会保存，但关联关系不会维护。即外键字段为NULL</span><br><span class="line">		 </span><br><span class="line">	2. 获取数据</span><br><span class="line">		无。</span><br><span class="line">	3. 解除关联关系？</span><br><span class="line">		有影响。</span><br><span class="line">		inverse=false，  可以解除关联</span><br><span class="line">inverse=true，  当前方(部门)没有控制权，不能解除关联关系</span><br><span class="line">(不会生成update语句,也不会报错)</span><br><span class="line">	4. 删除数据对关联关系的影响？</span><br><span class="line">		有影响。</span><br><span class="line">		inverse=false, 有控制权， 可以删除。先清空外键引用，再删除数据。</span><br><span class="line">		inverse=true,  没有控制权: 如果删除的记录有被外键引用，会报错，违反主外键引用约束！  如果删除的记录没有被引用，可以直接删除。</span><br><span class="line"></span><br><span class="line">cascade 属性</span><br><span class="line">cascade  表示级联操作  【可以设置到一的一方或多的一方】</span><br><span class="line">	none          不级联操作， 默认值</span><br><span class="line">	save-update     级联保存或更新</span><br><span class="line">	delete		  级联删除</span><br><span class="line">	save-update,delete    级联保存、更新、删除</span><br><span class="line">	all</span><br></pre></td></tr></table></figure>
+<p>注意：inverse表示的是对象和关系之间的联系，面cascade表示的是对象与对象之间的关系，二者区别参考链接：<br><a href="http://www.cnblogs.com/haozhengfei/p/6049276.html" target="_blank" rel="noopener">一对多（多对一）关系中的inverse和cascade属性</a></p>
+<h3 id="2-2-多对多"><a href="#2-2-多对多" class="headerlink" title="2.2 多对多"></a>2.2 多对多</h3><blockquote>
+<p>项目与开发员工<br>一个项目，有多个开发人员！<br>一个开发人员，参与多个项目！   【多对多】</p>
+</blockquote>
+<p><strong>Developer.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Developer &#123;</span><br><span class="line">	private int d_id;</span><br><span class="line">	private String d_name;</span><br><span class="line">	// 开发人员，参数的多个项目</span><br><span class="line">	private Set&lt;Project&gt; projects = new HashSet&lt;Project&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Developer.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.c_many2many&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;Developer&quot; table=&quot;t_developer&quot;&gt;</span><br><span class="line">		&lt;id name=&quot;d_id&quot;&gt;</span><br><span class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</span><br><span class="line">		&lt;/id&gt;	</span><br><span class="line">		&lt;property name=&quot;d_name&quot; length=&quot;20&quot;&gt;&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- </span><br><span class="line">			多对多映射配置： 员工方</span><br><span class="line">				name  指定映射的集合属性</span><br><span class="line">				table 集合属性对应的中间表</span><br><span class="line">				key   指定中间表的外键字段(引用当前表t_developer主键的外键字段)</span><br><span class="line">				many-to-many</span><br><span class="line">					column 指定外键字段对应的项目字段</span><br><span class="line">					class  集合元素的类型</span><br><span class="line">		 --&gt;</span><br><span class="line">		&lt;set name=&quot;projects&quot; table=&quot;t_relation&quot;&gt;</span><br><span class="line">			&lt;key column=&quot;did&quot;&gt;&lt;/key&gt;</span><br><span class="line">			&lt;many-to-many column=&quot;prjId&quot; class=&quot;Project&quot;&gt;&lt;/many-to-many&gt;</span><br><span class="line">		&lt;/set&gt;			 </span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong> Project .java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Project &#123;</span><br><span class="line">	private int prj_id;</span><br><span class="line">	private String prj_name;</span><br><span class="line">	// 项目下的多个员工</span><br><span class="line">	private Set&lt;Developer&gt; developers = new HashSet&lt;Developer&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Project.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.c_many2many&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;Project&quot; table=&quot;t_project&quot;&gt;</span><br><span class="line">		&lt;id name=&quot;prj_id&quot;&gt;</span><br><span class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</span><br><span class="line">		&lt;/id&gt;	</span><br><span class="line">		&lt;property name=&quot;prj_name&quot; length=&quot;20&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- </span><br><span class="line">			多对多映射:</span><br><span class="line">			1.  映射的集合属性： “developers”</span><br><span class="line">			2.  集合属性，对应的中间表： “t_relation”</span><br><span class="line">			3. 外键字段:  prjId</span><br><span class="line">			4. 外键字段，对应的中间表字段:  did</span><br><span class="line">			5.   集合属性元素的类型</span><br><span class="line">		 --&gt;</span><br><span class="line">		 &lt;set name=&quot;developers&quot; table=&quot;t_relation&quot; cascade=&quot;save-update&quot; inverse=&quot;false&quot;&gt;</span><br><span class="line">		 	&lt;key column=&quot;prjId&quot;&gt;&lt;/key&gt;</span><br><span class="line">		 	&lt;many-to-many column=&quot;did&quot; class=&quot;Developer&quot;&gt;&lt;/many-to-many&gt;</span><br><span class="line">		 &lt;/set&gt;		 </span><br><span class="line">	&lt;/class&gt;	</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Project prj_ds = new Project();</span><br><span class="line">		prj_ds.setPrj_name(&quot;电商系统&quot;);</span><br><span class="line">		Project prj_oa = new Project();</span><br><span class="line">		prj_oa.setPrj_name(&quot;OA系统&quot;);</span><br><span class="line">		</span><br><span class="line">		// 创建员工对象</span><br><span class="line">		Developer dev_cj = new Developer();</span><br><span class="line">		dev_cj.setD_name(&quot;曹吉&quot;);</span><br><span class="line">		Developer dev_wc = new Developer();</span><br><span class="line">		dev_wc.setD_name(&quot;王春&quot;);</span><br><span class="line">		Developer dev_lz = new Developer();</span><br><span class="line">		dev_lz.setD_name(&quot;老张&quot;);</span><br><span class="line">		// 关系 【项目方】</span><br><span class="line">		prj_ds.getDevelopers().add(dev_cj);</span><br><span class="line">		prj_ds.getDevelopers().add(dev_wc); // 电商系统（曹吉，王春）</span><br><span class="line">		prj_oa.getDevelopers().add(dev_wc);</span><br><span class="line">		prj_oa.getDevelopers().add(dev_lz); // OA系统（王春，老张）</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		// 保存</span><br><span class="line">		session.save(prj_ds);</span><br><span class="line">		session.save(prj_oa);   // 必须要设置级联保存 ,且Project.hbm.xml 里的inverse属性为false</span><br></pre></td></tr></table></figure>
+<p>效果如下：插入了两个项目，三个开发者，四条记录<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: insert into t_project (prj_name) values (?)</span><br><span class="line">Hibernate: insert into t_developer (d_name) values (?)</span><br><span class="line">Hibernate: insert into t_developer (d_name) values (?)</span><br><span class="line">Hibernate: insert into t_project (prj_name) values (?)</span><br><span class="line">Hibernate: insert into t_developer (d_name) values (?)</span><br><span class="line">Hibernate: insert into t_relation (prjId, did) values (?, ?)</span><br><span class="line">Hibernate: insert into t_relation (prjId, did) values (?, ?)</span><br><span class="line">Hibernate: insert into t_relation (prjId, did) values (?, ?)</span><br><span class="line">Hibernate: insert into t_relation (prjId, did) values (?, ?)</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2017/06/13/Hibernate构架(三） 状态，缓存，映射/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Hibernate构架(三） 状态，缓存，映射</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2017/06/11/Hibernate构架(一) 初探/">
+                <span class="level-item">Hibernate构架(一) 初探</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<div id="SOHUCS" sid="2017/06/12/Hibernate构架( 二） 映射/"></div>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+    appid: 'cytoOY6km',
+    conf: 'prod_256dd977beeed0de5b2626a6127e098d'
+});
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png">
+                    
+                    <p class="is-size-4 is-block">
+                        Acamy
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Stay Hungry, Stay foolish
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>HangZhou China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        79
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/Acamy">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/Acamy">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ElasticSearch/">
+            <span class="level-start">
+                <span class="level-item">ElasticSearch</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Git/">
+            <span class="level-start">
+                <span class="level-item">Git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hadoop/">
+            <span class="level-start">
+                <span class="level-item">Hadoop</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA基础系列/">
+            <span class="level-start">
+                <span class="level-item">JAVA基础系列</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JVM/">
+            <span class="level-start">
+                <span class="level-item">JVM</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb框架/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb框架</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Oracle/">
+            <span class="level-start">
+                <span class="level-item">Oracle</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/SpringBoot2-0/">
+            <span class="level-start">
+                <span class="level-item">SpringBoot2.0</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/flowable/">
+            <span class="level-start">
+                <span class="level-item">flowable</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/在线编程/">
+            <span class="level-start">
+                <span class="level-item">在线编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构与算法/">
+            <span class="level-start">
+                <span class="level-item">数据结构与算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/源码/">
+            <span class="level-start">
+                <span class="level-item">源码</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/编程/">
+            <span class="level-start">
+                <span class="level-item">编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/编程/java/">
+            <span class="level-start">
+                <span class="level-item">java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/计算机网络/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/设计模式/">
+            <span class="level-start">
+                <span class="level-item">设计模式</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+<script src="/js/back-to-top.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

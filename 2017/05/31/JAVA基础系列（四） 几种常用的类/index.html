@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>JAVA基础系列（四） 几种常用的类 - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="1.Object Class Object is the root of the class hierarchy. Every class has Object as a superclass. All objects, including arrays, implement the methods of this class.   常用的成员方法  1234567891011121314151">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA基础系列（四） 几种常用的类">
+<meta property="og:url" content="http://yoursite.com/2017/05/31/JAVA基础系列（四） 几种常用的类/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.Object Class Object is the root of the class hierarchy. Every class has Object as a superclass. All objects, including arrays, implement the methods of this class.   常用的成员方法  1234567891011121314151">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-e2f87fcf1d7c507e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-11-05T15:47:06.986Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA基础系列（四） 几种常用的类">
+<meta name="twitter:description" content="1.Object Class Object is the root of the class hierarchy. Every class has Object as a superclass. All objects, including arrays, implement the methods of this class.   常用的成员方法  1234567891011121314151">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-e2f87fcf1d7c507e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-05-31T09:20:03.000Z">2017-05-31</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/JAVA基础系列/">JAVA基础系列</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    35 minutes read (About 5226 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                JAVA基础系列（四） 几种常用的类
+            
+        </h1>
+        <div class="content">
+            <p><img src="http://upload-images.jianshu.io/upload_images/5990755-e2f87fcf1d7c507e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-Object"><a href="#1-Object" class="headerlink" title="1.Object"></a>1.Object</h3><blockquote>
+<p>Class Object is the root of the class hierarchy. Every class has Object as a superclass. All objects, including arrays, implement the methods of this class.</p>
+</blockquote>
+<ul>
+<li><h4 id="常用的成员方法"><a href="#常用的成员方法" class="headerlink" title="常用的成员方法"></a>常用的成员方法</h4></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//Returns a hash code value for the object.</span><br><span class="line">public native int hashCode();</span><br><span class="line"></span><br><span class="line">//Returns the runtime class of this Object.</span><br><span class="line">public final Class getClass();</span><br><span class="line"></span><br><span class="line">//Returns a string representation of the object.</span><br><span class="line">public String toString();</span><br><span class="line"></span><br><span class="line">//Indicates whether some other object is &quot;equal to&quot; this one.</span><br><span class="line">public boolean equals(Object obj);</span><br><span class="line"></span><br><span class="line">//Called by the garbage collector on an object when garbage collection determines </span><br><span class="line">//that there are no more references to the object.</span><br><span class="line">protected void finalize();</span><br><span class="line"></span><br><span class="line">//Creates and returns a copy of this object.</span><br><span class="line">protected Object clone();</span><br></pre></td></tr></table></figure>
+<h2 id="2-Scanner"><a href="#2-Scanner" class="headerlink" title="2. Scanner"></a>2. Scanner</h2><blockquote>
+<p>用于获取键盘的输入;<br>A simple text scanner which can parse primitive types and strings using regular expressions.<br>A Scanner breaks its input into tokens using a delimiter pattern, which by default matches whitespace. The resulting tokens may then be converted into values of different types using the various next methods.</p>
+</blockquote>
+<ul>
+<li><h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">   * Constructs a new &lt;code&gt;Scanner&lt;/code&gt; that produces values scanned</span><br><span class="line">   * from the specified input stream. Bytes from the stream are converted</span><br><span class="line">   * into characters using the underlying platform&apos;s</span><br><span class="line">   * &#123;@linkplain java.nio.charset.Charset#defaultCharset() default charset&#125;.</span><br><span class="line">   *</span><br><span class="line">   * @param  source An input stream to be scanned</span><br><span class="line">   */</span><br><span class="line">  public Scanner(InputStream source) &#123;</span><br><span class="line">      this(new InputStreamReader(source), WHITESPACE_PATTERN);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="常用成员方法"><a href="#常用成员方法" class="headerlink" title="常用成员方法"></a>常用成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * Returns true if there is another line in the input of this scanner.</span><br><span class="line">    * This method may block while waiting for input. The scanner does not</span><br><span class="line">    * advance past any input.</span><br><span class="line">    *</span><br><span class="line">    * @return true if and only if this scanner has another line of input</span><br><span class="line">    * @throws IllegalStateException if this scanner is closed</span><br><span class="line">    */</span><br><span class="line">   public boolean hasNextLine();</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">    * Returns true if the next token in this scanner&apos;s input can be</span><br><span class="line">    * interpreted as an int value in the default radix using the</span><br><span class="line">    * &#123;@link #nextInt&#125; method. The scanner does not advance past any input.</span><br><span class="line">    *</span><br><span class="line">    * @return true if and only if this scanner&apos;s next token is a valid</span><br><span class="line">    *         int value</span><br><span class="line">    * @throws IllegalStateException if this scanner is closed</span><br><span class="line">    */</span><br><span class="line">   public boolean hasNextInt();</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">    * Advances this scanner past the current line and returns the input</span><br><span class="line">    * that was skipped.</span><br><span class="line">    *</span><br><span class="line">    * This method returns the rest of the current line, excluding any line</span><br><span class="line">    * separator at the end. The position is set to the beginning of the next</span><br><span class="line">    * line.</span><br><span class="line">    */</span><br><span class="line">   public String nextLine();</span><br><span class="line"></span><br><span class="line"> /**</span><br><span class="line">    * Scans the next token of the input as an int;</span><br><span class="line">    */</span><br><span class="line">   public int nextInt();</span><br></pre></td></tr></table></figure>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 常用的两个方法：</span><br><span class="line"> * 		public int nextInt():获取一个int类型的值</span><br><span class="line"> * 		public String nextLine():获取一个String类型的值</span><br><span class="line"> * </span><br><span class="line"> * 出现问题了：</span><br><span class="line"> * 		先获取一个数值，在获取一个字符串，会出现问题。</span><br><span class="line"> * 		主要原因：就是那个换行符号的问题。</span><br><span class="line"> * 如何解决呢?</span><br><span class="line"> * 		A:先获取一个数值后，在创建一个新的键盘录入对象获取字符串。</span><br><span class="line"> * 		B:把所有的数据都先按照字符串获取，然后要什么，你就对应的转换为什么。</span><br><span class="line"> */</span><br><span class="line">public class ScannerDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建对象</span><br><span class="line">		Scanner sc = new Scanner(System.in);</span><br><span class="line"></span><br><span class="line">		// 获取两个int类型的值</span><br><span class="line">		// int a = sc.nextInt();</span><br><span class="line">		// int b = sc.nextInt();</span><br><span class="line">		// System.out.println(&quot;a:&quot; + a + &quot;,b:&quot; + b);</span><br><span class="line">		// System.out.println(&quot;-------------------&quot;);</span><br><span class="line"></span><br><span class="line">		// 获取两个String类型的值</span><br><span class="line">		// String s1 = sc.nextLine();</span><br><span class="line">		// String s2 = sc.nextLine();</span><br><span class="line">		// System.out.println(&quot;s1:&quot; + s1 + &quot;,s2:&quot; + s2);</span><br><span class="line">		// System.out.println(&quot;-------------------&quot;);</span><br><span class="line"></span><br><span class="line">		// 先获取一个字符串，在获取一个int值</span><br><span class="line">		// String s1 = sc.nextLine();</span><br><span class="line">		// int b = sc.nextInt();</span><br><span class="line">		// System.out.println(&quot;s1:&quot; + s1 + &quot;,b:&quot; + b);</span><br><span class="line">		// System.out.println(&quot;-------------------&quot;);</span><br><span class="line"></span><br><span class="line">		// 先获取一个int值，在获取一个字符串</span><br><span class="line">		// int a = sc.nextInt();</span><br><span class="line">		// String s2 = sc.nextLine();</span><br><span class="line">		// System.out.println(&quot;a:&quot; + a + &quot;,s2:&quot; + s2);</span><br><span class="line">		// System.out.println(&quot;-------------------&quot;);</span><br><span class="line"></span><br><span class="line">		int a = sc.nextInt();</span><br><span class="line">		Scanner sc2 = new Scanner(System.in);</span><br><span class="line">		String s = sc2.nextLine();</span><br><span class="line">		System.out.println(&quot;a:&quot; + a + &quot;,s:&quot; + s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-String"><a href="#3-String" class="headerlink" title="3. String"></a>3. String</h2><blockquote>
+<p>就是由多个字符组成的一串数据。也可以看成是一个字符数组。</p>
+</blockquote>
+<ul>
+<li><h3 id="构造方法-1"><a href="#构造方法-1" class="headerlink" title="构造方法"></a>构造方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public String()</span><br><span class="line">public String(byte[] bytes)</span><br><span class="line">public String(byte[] bytes,int offset,int length)</span><br><span class="line">public String(char[] value)</span><br><span class="line">public String(char[] value,int offset,int count)</span><br><span class="line">public String(String original)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="常用成员方法-1"><a href="#常用成员方法-1" class="headerlink" title="常用成员方法"></a>常用成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">//判断功能</span><br><span class="line">boolean equals(Object obj)</span><br><span class="line">boolean equalsIgnoreCase(String str)</span><br><span class="line">boolean contains(String str)</span><br><span class="line">boolean startsWith(String str)</span><br><span class="line">boolean endsWith(String str)</span><br><span class="line">boolean isEmpty()</span><br><span class="line">// 获取功能</span><br><span class="line">int length()</span><br><span class="line">char charAt(int index)</span><br><span class="line">int indexOf(int ch)</span><br><span class="line">int indexOf(String str)</span><br><span class="line">int indexOf(int ch,int fromIndex)</span><br><span class="line">int indexOf(String str,int fromIndex)</span><br><span class="line">String substring(int start)</span><br><span class="line">String substring(int start,int end)</span><br><span class="line">// 转换功能</span><br><span class="line">byte[] getBytes()</span><br><span class="line">char[] toCharArray()</span><br><span class="line">static String valueOf(char[] chs)</span><br><span class="line">static String valueOf(int i)</span><br><span class="line">String toLowerCase()</span><br><span class="line">String toUpperCase()</span><br><span class="line">String concat(String str)</span><br><span class="line">//替换功能</span><br><span class="line">String replace(char old,char new)</span><br><span class="line">String replace(String old,String new)</span><br><span class="line">//去除字符串两空格	</span><br><span class="line">String trim()</span><br><span class="line">//按字典顺序比较两个字符串  </span><br><span class="line">int compareTo(String str)</span><br><span class="line">int compareToIgnoreCase(String str)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="关于字符串的不变性"><a href="#关于字符串的不变性" class="headerlink" title="关于字符串的不变性"></a>关于字符串的不变性</h3></li>
+</ul>
+<p>1.字符串如果是变量相加，先开空间，再拼接<br>2.字符串如果是常量相加，是先加，然后在常量池找，如果有就直接返回，否则，就创建<br><strong>Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package com.hust.acamy;</span><br><span class="line"></span><br><span class="line">public class StringDemo1 &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		String s1 = new String(&quot;hello&quot;);</span><br><span class="line">		String s2 = new String(&quot;hello&quot;);</span><br><span class="line">		System.out.println(s1 == s2);// false</span><br><span class="line">		System.out.println(s1.equals(s2));// true</span><br><span class="line"></span><br><span class="line">		String s3 = new String(&quot;hello&quot;);</span><br><span class="line">		String s4 = &quot;hello&quot;;</span><br><span class="line">		System.out.println(s3 == s4);// false</span><br><span class="line">		System.out.println(s3.equals(s4));// true</span><br><span class="line"></span><br><span class="line">		String s5 = &quot;hello&quot;;</span><br><span class="line">		String s6 = &quot;hello&quot;;</span><br><span class="line">		System.out.println(s5 == s6);// true</span><br><span class="line">		System.out.println(s5.equals(s6));// true</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">package com.hust.acamy;</span><br><span class="line"></span><br><span class="line">public class StringDemo2 &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		String s1 = &quot;hello&quot;;</span><br><span class="line">		String s2 = &quot;world&quot;;</span><br><span class="line">		String s3 = &quot;helloworld&quot;;</span><br><span class="line">		String s4 = s1 + s2;// 变量相加，在堆中创建了一个新的对象</span><br><span class="line">		System.out.println(s3 == s1 + s2);// false s3指向常量池，s1 + s2 指向堆</span><br><span class="line">		System.out.println(s4 == s1 + s2);// false s4和s1 + s2 是堆中两个不同的对象</span><br><span class="line">		System.out.println(s3.equals((s1 + s2)));// true 值相等</span><br><span class="line">		System.out.println(s3 == &quot;hello&quot; + &quot;world&quot;);// true 常量相加，先拼接</span><br><span class="line">		System.out.println(s3.equals(&quot;hello&quot; + &quot;world&quot;));// true 值相等</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-StringBuffer"><a href="#4-StringBuffer" class="headerlink" title="4. StringBuffer"></a>4. StringBuffer</h2><blockquote>
+<p>线程安全的可变字符序列</p>
+</blockquote>
+<ul>
+<li><h3 id="构造方法-2"><a href="#构造方法-2" class="headerlink" title="构造方法"></a>构造方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public StringBuffer() </span><br><span class="line">public StringBuffer(int capacity)</span><br><span class="line">public StringBuffer(String str)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="成员方法"><a href="#成员方法" class="headerlink" title="成员方法"></a>成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//添加功能</span><br><span class="line">public StringBuffer append(String str)</span><br><span class="line">public StringBuffer insert(int offset,String str)</span><br><span class="line">//删除功能</span><br><span class="line">public StringBuffer deleteCharAt(int index)</span><br><span class="line">public StringBuffer delete(int start,int end)</span><br><span class="line">//替换功能</span><br><span class="line">public StringBuffer replace(int start,int end,String str)</span><br><span class="line">//反转功能	 </span><br><span class="line">public StringBuffer reverse()</span><br><span class="line">//截取功能</span><br><span class="line">public String substring(int start)</span><br><span class="line">public String substring(int start,int end)</span><br></pre></td></tr></table></figure>
+<p>注意：截取功能和前面几个功能的不同,返回值类型是String类型，本身没有发生改变。</p>
+<ul>
+<li><h3 id="String-StringBuffer-StringBuilder的区别"><a href="#String-StringBuffer-StringBuilder的区别" class="headerlink" title="String,StringBuffer,StringBuilder的区别"></a>String,StringBuffer,StringBuilder的区别</h3></li>
+</ul>
+<p>(1) String是内容不可变的，而StringBuffer,StringBuilder都是内容可变的。<br>(2) StringBuffer是同步的，数据安全,效率低;StringBuilder是不同步的,数据不安全,效率高</p>
+<ul>
+<li><h3 id="值传递和引用传递"><a href="#值传递和引用传递" class="headerlink" title="值传递和引用传递"></a>值传递和引用传递</h3><blockquote>
+<p><strong>值传递：</strong>方法调用时，实际参数把它的值传递给对应的形式参数，方法执行中形式参数值的改变不影响实际参 数的值。<br><strong>引用传递：</strong>也称为传地址。方法调用时，实际参数的引用(地址，而不是参数的值)被传递给方法中相对应的形式参数，在方法执行中，对形式参数的操作实际上就是对实际参数的操作，方法执行中形式参数值的改变将会影响实际参数的值。</p>
+</blockquote>
+</li>
+</ul>
+<p>Java参数，不管是原始类型还是引用类型，传递的都是副本(有另外一种说法是传值，但是说传副本更好理解吧，传值通常是相对传址而言)。 　　</p>
+<ul>
+<li>传递值的数据类型：八种基本数据类型和String(这样理解可以，但是事实上String也是传递的地址,只是string对象和其他对象是不同的，string对象是不能被改变的，内容改变就会产生新对象。那么StringBuffer就可以了，但只是改变其内容。不能改变外部变量所指向的内存地址)。</li>
+<li>传递地址值的数据类型：除String以外的所有复合数据类型，包括数组、类和接口 </li>
+</ul>
+<p><strong> Demo1:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class StringBufferDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		String s1 = &quot;hello&quot;;</span><br><span class="line">		String s2 = &quot;world&quot;;</span><br><span class="line">		System.out.println(s1 + &quot;---&quot; + s2);// hello---world</span><br><span class="line">		change(s1, s2);</span><br><span class="line">		System.out.println(s1 + &quot;---&quot; + s2);// hello---world</span><br><span class="line"></span><br><span class="line">		StringBuffer sb1 = new StringBuffer(&quot;hello&quot;);</span><br><span class="line">		StringBuffer sb2 = new StringBuffer(&quot;world&quot;);</span><br><span class="line">		System.out.println(sb1 + &quot;---&quot; + sb2);// hello---world</span><br><span class="line">		change(sb1, sb2);</span><br><span class="line">		System.out.println(sb1 + &quot;---&quot; + sb2);// hello---worldworld</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void change(StringBuffer sb1, StringBuffer sb2) &#123;</span><br><span class="line">		sb1 = sb2;</span><br><span class="line">		sb2.append(sb1);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void change(String s1, String s2) &#123;</span><br><span class="line">		s1 = s2;</span><br><span class="line">		s2 = s1 + s2;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Demo2:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Test &#123;  </span><br><span class="line">    String str = new String(&quot;old&quot;);   </span><br><span class="line">    char[] ch = &#123; &apos;a&apos;, &apos;b&apos;, &apos;c&apos; &#125;;   </span><br><span class="line">    public static void main(String args[]) &#123;   </span><br><span class="line">        Test ex = new Test();   </span><br><span class="line">        ex.change(ex.str, ex.ch);   </span><br><span class="line">        System.out.print(ex.str + &quot; and &quot;);   </span><br><span class="line">        System.out.println(ex.ch);  </span><br><span class="line">    &#125;   </span><br><span class="line">  </span><br><span class="line">    public void change(String str, char ch[]) &#123;   </span><br><span class="line">        str = &quot;new&quot;;   </span><br><span class="line">        ch[0] = &apos;d&apos;;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>String 比较特别，看过String 代码的都知道， String 是 final的。所以值是不变的。 函数中String对象引用的副本指向了另外一个新String对象,而数组对象引用的副本没有改变,而是改变对象中数据的内容. 　　<br>对于对象类型，也就是Object的子类，如果你在方法中修改了它的成员的值，那个修改是生效的，方法调用结束后，它的成员是新的值，但是如果你把它指向一个其它的对象，方法调用结束后，原来对它的引用并没用指向新的对象。 　　<br>如果参数类型是原始类型，那么传过来的就是这个参数的一个副本，也就是这个原始参数的值，这个跟之前所谈的传值是一样的。如果在函数中改变了副本的值不会改变原始的值.　　如果参数类型是引用类型，那么传过来的就是这个引用参数的副本，这个副本存放的是参数的地址。如果在函数中没有改变这个副本的地址，而是改变了地址中的值，那么在函数内的改变会影响到传入的参数。如果在函数中改变了副本的地址，如new一个，那么副本就指向了一个新的地址，此时传入的参数还是指向原来的地址，所以不会改变参数的值。</p>
+<h2 id="5-Arrays"><a href="#5-Arrays" class="headerlink" title="5.  Arrays"></a>5.  Arrays</h2><blockquote>
+<p> 针对数组进行操作的工具类。提供了排序，查找等功能。</p>
+</blockquote>
+<ul>
+<li><h3 id="成员方法-1"><a href="#成员方法-1" class="headerlink" title="成员方法"></a>成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public static String toString(int[] a) &#123;</span><br><span class="line">    if (a == null)</span><br><span class="line">        return &quot;null&quot;; //说明数组对象不存在</span><br><span class="line">    int iMax = a.length - 1; //iMax=4;</span><br><span class="line">    if (iMax == -1)</span><br><span class="line">        return &quot;[]&quot;; //说明数组存在,但是没有元素。</span><br><span class="line"></span><br><span class="line">    StringBuilder b = new StringBuilder();</span><br><span class="line">    b.append(&apos;[&apos;); //&quot;[&quot;</span><br><span class="line">    for (int i = 0; ; i++) &#123;</span><br><span class="line">        b.append(a[i]); //&quot;[24, 69, 80, 57, 13&quot;</span><br><span class="line">        if (i == iMax)</span><br><span class="line">        	//&quot;[24, 69, 80, 57, 13]&quot;</span><br><span class="line">            return b.append(&apos;]&apos;).toString();</span><br><span class="line">        b.append(&quot;, &quot;); //&quot;[24, 69, 80, 57, &quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//底层是快速排序</span><br><span class="line">public static void sort(int[] a);</span><br><span class="line">private static int binarySearch0(int[] a, int fromIndex, int toIndex,</span><br><span class="line">                                 int key) &#123;</span><br><span class="line">    int low = fromIndex; //low=0</span><br><span class="line">    int high = toIndex - 1; //high=4</span><br><span class="line"></span><br><span class="line">    while (low &lt;= high) &#123;</span><br><span class="line">        int mid = (low + high) &gt;&gt;&gt; 1; //mid=2,mid=3,mid=4</span><br><span class="line">        int midVal = a[mid]; //midVal=57,midVal=69,midVal=80</span><br><span class="line"></span><br><span class="line">        if (midVal &lt; key)</span><br><span class="line">            low = mid + 1; //low=3,low=4,low=5</span><br><span class="line">        else if (midVal &gt; key)</span><br><span class="line">            high = mid - 1;</span><br><span class="line">        else</span><br><span class="line">            return mid; // key found</span><br><span class="line">    &#125;</span><br><span class="line">    return -(low + 1);  // key not found.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-Integer"><a href="#6-Integer" class="headerlink" title="6. Integer"></a>6. Integer</h2><blockquote>
+<p>为了对基本数据类型进行更多的操作，更方便的操作，Java就针对每一种基本数据类型提供了对应的类类型。包装类类型。用于基本数据类型与字符串之间的转换。基本类型和包装类的对应Byte,Short,Integer,Long,Float,Double,Character,Boolean</p>
+</blockquote>
+<ul>
+<li><h3 id="构造方法-3"><a href="#构造方法-3" class="headerlink" title="构造方法"></a>构造方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Integer(int value)</span><br><span class="line">//注意：这个字符串必须是由数字字符组成</span><br><span class="line">public Integer(String s)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="成员方法-2"><a href="#成员方法-2" class="headerlink" title="成员方法"></a>成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//int类型和String类型的相互转换</span><br><span class="line">//int – String</span><br><span class="line">//String – int</span><br><span class="line">public int intValue()</span><br><span class="line">public static int parseInt(String s)</span><br><span class="line">public static String toString(int i)</span><br><span class="line">public static Integer valueOf(int i)</span><br><span class="line">public static Integer valueOf(String s)</span><br><span class="line">//常用的基本进制转换</span><br><span class="line">public static String toBinaryString(int i)</span><br><span class="line">public static String toOctalString(int i)</span><br><span class="line">public static String toHexString(int i)</span><br><span class="line">//十进制到其他进制</span><br><span class="line">public static String toString(int i,int radix)</span><br><span class="line">//其他进制到十进制</span><br><span class="line">public static int parseInt(String s,int radix)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="自动装箱与自动拆箱"><a href="#自动装箱与自动拆箱" class="headerlink" title="自动装箱与自动拆箱"></a>自动装箱与自动拆箱</h3><blockquote>
+<p>JDK5的新特性</p>
+<ul>
+<li><strong>自动装箱：</strong>把基本类型转换为包装类类型</li>
+<li><strong>自动拆箱：</strong>把包装类类型转换为基本类型<br>Integer x = new Integer(4);可以直接写成<br>Integer x = 4;//自动装箱。<br>x  = x + 5;//自动拆箱。通过intValue方法。<br>需要注意：在使用时，Integer  x = null;上面的代码就会出现NullPointerException。建议先判断是否为null，然后再使用。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class IntegerDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 定义了一个int类型的包装类类型变量i</span><br><span class="line">		// Integer i = new Integer(100);</span><br><span class="line">		Integer ii = 100;</span><br><span class="line">		ii += 200;</span><br><span class="line">		System.out.println(&quot;ii:&quot; + ii);</span><br><span class="line"></span><br><span class="line">		// 通过反编译后的代码</span><br><span class="line">		// Integer ii = Integer.valueOf(100); //自动装箱</span><br><span class="line">		// ii = Integer.valueOf(ii.intValue() + 200); //自动拆箱，再自动装箱</span><br><span class="line">		// System.out.println((new StringBuilder(&quot;ii:&quot;)).append(ii).toString());</span><br><span class="line"></span><br><span class="line">		Integer iii = null;</span><br><span class="line">		// NullPointerException</span><br><span class="line">		if (iii != null) &#123;</span><br><span class="line">			iii += 1000;</span><br><span class="line">			System.out.println(iii);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="7-Character"><a href="#7-Character" class="headerlink" title="7. Character"></a>7. Character</h2><blockquote>
+<p>Character 类在对象中包装一个基本类型 char 的值<br>此外，该类提供了几种方法，以确定字符的类别（小写字母，数字，等等），并将字符从大写转换成小写，反之亦然</p>
+</blockquote>
+<ul>
+<li><h3 id="构造方法-4"><a href="#构造方法-4" class="headerlink" title="构造方法"></a>构造方法</h3></li>
+</ul>
+<p><code>public Character(char value)</code></p>
+<ul>
+<li><h3 id="成员方法-3"><a href="#成员方法-3" class="headerlink" title="成员方法"></a>成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static boolean isUpperCase(char ch)</span><br><span class="line">public static boolean isLowerCase(char ch)</span><br><span class="line">public static boolean isDigit(char ch)</span><br><span class="line">public static char toUpperCase(char ch)</span><br><span class="line">public static char toLowerCase(char ch)</span><br></pre></td></tr></table></figure>
+<p><strong> Test:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 统计一个字符串中大写字母字符，小写字母字符，数字字符出现的次数。(不考虑其他字符)</span><br><span class="line"> * </span><br><span class="line"> * 分析：</span><br><span class="line"> * 		A:定义三个统计变量。</span><br><span class="line"> * 			int bigCont=0;</span><br><span class="line"> * 			int smalCount=0;</span><br><span class="line"> * 			int numberCount=0;</span><br><span class="line"> * 		B:键盘录入一个字符串。</span><br><span class="line"> * 		C:把字符串转换为字符数组。</span><br><span class="line"> * 		D:遍历字符数组获取到每一个字符</span><br><span class="line"> * 		E:判断该字符是</span><br><span class="line"> * 			大写	bigCount++;</span><br><span class="line"> * 			小写	smalCount++;</span><br><span class="line"> * 			数字	numberCount++;</span><br><span class="line"> * 		F:输出结果即可</span><br><span class="line"> */</span><br><span class="line">public class CharacterTest &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 定义三个统计变量。</span><br><span class="line">		int bigCount = 0;</span><br><span class="line">		int smallCount = 0;</span><br><span class="line">		int numberCount = 0;</span><br><span class="line"></span><br><span class="line">		// 键盘录入一个字符串。</span><br><span class="line">		Scanner sc = new Scanner(System.in);</span><br><span class="line">		System.out.println(&quot;请输入一个字符串：&quot;);</span><br><span class="line">		String line = sc.nextLine();</span><br><span class="line"></span><br><span class="line">		// 把字符串转换为字符数组。</span><br><span class="line">		char[] chs = line.toCharArray();</span><br><span class="line"></span><br><span class="line">		// 历字符数组获取到每一个字符</span><br><span class="line">		for (int x = 0; x &lt; chs.length; x++) &#123;</span><br><span class="line">			char ch = chs[x];</span><br><span class="line"></span><br><span class="line">			// 判断该字符</span><br><span class="line">			if (Character.isUpperCase(ch)) &#123;</span><br><span class="line">				bigCount++;</span><br><span class="line">			&#125; else if (Character.isLowerCase(ch)) &#123;</span><br><span class="line">				smallCount++;</span><br><span class="line">			&#125; else if (Character.isDigit(ch)) &#123;</span><br><span class="line">				numberCount++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		// 输出结果即可</span><br><span class="line">		System.out.println(&quot;大写字母：&quot; + bigCount + &quot;个&quot;);</span><br><span class="line">		System.out.println(&quot;小写字母：&quot; + smallCount + &quot;个&quot;);</span><br><span class="line">		System.out.println(&quot;数字字符：&quot; + numberCount + &quot;个&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="8-正则表达式"><a href="#8-正则表达式" class="headerlink" title="8. 正则表达式"></a>8. 正则表达式</h2><blockquote>
+</blockquote>
+<p>是指一个用来描述或者匹配一系列符合某个句法规则的字符串的单个字符串。其实就是一种规则。有自己特殊的应用。</p>
+<ul>
+<li><h3 id="正则表达式的应用"><a href="#正则表达式的应用" class="headerlink" title="正则表达式的应用"></a>正则表达式的应用</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">判断功能</span><br><span class="line">public boolean matches(String regex)</span><br><span class="line">分割功能</span><br><span class="line">public String[] split(String regex)</span><br><span class="line">替换功能</span><br><span class="line">public String replaceAll(String regex,String replacement)</span><br><span class="line">获取功能</span><br><span class="line">Pattern和Matcher类的使用</span><br></pre></td></tr></table></figure>
+<p><strong>Demo1:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * 判断功能</span><br><span class="line"> *		String类的public boolean matches(String regex)</span><br><span class="line"> *</span><br><span class="line"> * 需求：</span><br><span class="line"> * 		判断手机号码是否满足要求?</span><br><span class="line"> * </span><br><span class="line"> * 分析：</span><br><span class="line"> * 		A:键盘录入手机号码</span><br><span class="line"> * 		B:定义手机号码的规则</span><br><span class="line"> * 			13436975980</span><br><span class="line"> * 			13688886868</span><br><span class="line"> * 			13866668888</span><br><span class="line"> * 			13456789012</span><br><span class="line"> * 			13123456789</span><br><span class="line"> * 			18912345678</span><br><span class="line"> * 			18886867878</span><br><span class="line"> * 			18638833883</span><br><span class="line"> * 		C:调用功能，判断即可</span><br><span class="line"> * 		D:输出结果</span><br><span class="line"> */</span><br><span class="line">public class RegexDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 键盘录入手机号码</span><br><span class="line">		Scanner sc = new Scanner(System.in);</span><br><span class="line">		System.out.println(&quot;请输入你的手机号码：&quot;);</span><br><span class="line">		String phone = sc.nextLine();</span><br><span class="line"></span><br><span class="line">		// 定义手机号码的规则</span><br><span class="line">		String regex = &quot;1[38]\\d&#123;9&#125;&quot;;</span><br><span class="line"></span><br><span class="line">		// 调用功能，判断即可</span><br><span class="line">		boolean flag = phone.matches(regex);</span><br><span class="line"></span><br><span class="line">		// 输出结果</span><br><span class="line">		System.out.println(&quot;flag:&quot; + flag);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Demo2:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import java.util.regex.Matcher;</span><br><span class="line">import java.util.regex.Pattern;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 获取功能：</span><br><span class="line"> * 获取下面这个字符串中由三个字符组成的单词</span><br><span class="line"> * da jia ting wo shuo,jin tian yao xia yu,bu shang wan zi xi,gao xing bu?</span><br><span class="line"> */</span><br><span class="line">public class RegexDemo2 &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 定义字符串</span><br><span class="line">		String s = &quot;da jia ting wo shuo,jin tian yao xia yu,bu shang wan zi xi,gao xing bu?&quot;;</span><br><span class="line">		// 规则</span><br><span class="line">		String regex = &quot;\\b\\w&#123;3&#125;\\b&quot;;</span><br><span class="line"></span><br><span class="line">		// 把规则编译成模式对象</span><br><span class="line">		Pattern p = Pattern.compile(regex);</span><br><span class="line">		// 通过模式对象得到匹配器对象</span><br><span class="line">		Matcher m = p.matcher(s);</span><br><span class="line">		// 调用匹配器对象的功能</span><br><span class="line">		// 通过find方法就是查找有没有满足条件的子串</span><br><span class="line">		// public boolean find()</span><br><span class="line">		// boolean flag = m.find();</span><br><span class="line">		// System.out.println(flag);</span><br><span class="line">		// // 如何得到值呢?</span><br><span class="line">		// // public String group()</span><br><span class="line">		// String ss = m.group();</span><br><span class="line">		// System.out.println(ss);</span><br><span class="line">		//</span><br><span class="line">		// // 再来一次</span><br><span class="line">		// flag = m.find();</span><br><span class="line">		// System.out.println(flag);</span><br><span class="line">		// ss = m.group();</span><br><span class="line">		// System.out.println(ss);</span><br><span class="line"></span><br><span class="line">		while (m.find()) &#123;</span><br><span class="line">			System.out.println(m.group());</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		// 注意：一定要先find()，然后才能group()</span><br><span class="line">		// IllegalStateException: No match found</span><br><span class="line">		// String ss = m.group();</span><br><span class="line">		// System.out.println(ss);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="9-Math"><a href="#9-Math" class="headerlink" title="9. Math"></a>9. Math</h2><blockquote>
+<p>Math 类包含用于执行基本数学运算的方法，如初等指数、对数、平方根和三角函数。 </p>
+</blockquote>
+<ul>
+<li><h3 id="成员方法-4"><a href="#成员方法-4" class="headerlink" title="成员方法"></a>成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public static int abs(int a)</span><br><span class="line">public static double ceil(double a)</span><br><span class="line">public static double floor(double a)</span><br><span class="line">public static int max(int a,int b) </span><br><span class="line">public static double pow(double a,double b)</span><br><span class="line">public static double random()</span><br><span class="line">public static int round(float a) </span><br><span class="line">public static double sqrt(double a)</span><br></pre></td></tr></table></figure>
+<h2 id="10-Random"><a href="#10-Random" class="headerlink" title="10. Random"></a>10. Random</h2><blockquote>
+<p>此类用于产生随机数</p>
+</blockquote>
+<ul>
+<li><h3 id="构造方法-5"><a href="#构造方法-5" class="headerlink" title="构造方法"></a>构造方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Random();  //没有给种子，用的是默认种子，是当前时间的毫秒值</span><br><span class="line">public Random(long seed);  //给出指定的种子</span><br><span class="line">//给定种子后，每次得到的随机数是相同的。</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="成员方法-5"><a href="#成员方法-5" class="headerlink" title="成员方法"></a>成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public int nextInt(); //返回的是int范围内的随机数</span><br><span class="line">public int nextInt(int n);  //返回的是[0,n)范围的内随机数</span><br></pre></td></tr></table></figure>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class RandomDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 创建对象</span><br><span class="line">		// Random r = new Random();</span><br><span class="line">		Random r = new Random(1111);</span><br><span class="line"></span><br><span class="line">		for (int x = 0; x &lt; 10; x++) &#123;</span><br><span class="line">			// int num = r.nextInt();</span><br><span class="line">			int num = r.nextInt(100) + 1;</span><br><span class="line">			System.out.println(num);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="11-System"><a href="#11-System" class="headerlink" title="11. System"></a>11. System</h2><blockquote>
+<p>System 类包含一些有用的类字段和方法。它不能被实例化。 </p>
+</blockquote>
+<ul>
+<li><h3 id="成员方法-6"><a href="#成员方法-6" class="headerlink" title="成员方法"></a>成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public static void gc()</span><br><span class="line">public static void exit(int status)</span><br><span class="line">public static long currentTimeMillis()</span><br><span class="line">public static void arraycopy(Object src,int srcPos,Object dest,int destPos,int length);</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong><br>System.gc()可用于垃圾回收。当使用System.gc()回收某个对象所占用的内存之前，通过要求程序调用适当的方法来清理资源。在没有明确指定资源清理的情况下，Java提高了默认机制来清理该对象的资源，就是调用Object类的finalize()方法。finalize()方法的作用是释放一个对象占用的内存空间时，会被JVM调用。而子类重写该方法，就可以清理对象占用的资源，该方法有没有链式调用，所以必须手动实现。<br>从程序的运行结果可以发现，执行System.gc()前，系统会自动调用finalize()方法清除对象占有的资源，通过super.finalize()方式可以实现从下到上的finalize()方法的调用，即先释放自己的资源，再去释放父类的资源。<br>但是，不要在程序中频繁的调用垃圾回收，因为每一次执行垃圾回收，jvm都会强制启动垃圾回收器运行，这会耗费更多的系统资源，会与正常的Java程序运行争抢资源，只有在执行大量的对象的释放，才调用垃圾回收最好</p>
+<h2 id="12-Date"><a href="#12-Date" class="headerlink" title="12. Date"></a>12. Date</h2><blockquote>
+<p>表示特定的瞬间，精确到毫秒。 </p>
+</blockquote>
+<ul>
+<li><h3 id="构造方法-6"><a href="#构造方法-6" class="headerlink" title="构造方法"></a>构造方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public Date() // 根据当前的默认毫秒值创建日期对象</span><br><span class="line">public Date(long date) // 根据给定的毫秒值创建日期对象</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="成员方法-7"><a href="#成员方法-7" class="headerlink" title="成员方法"></a>成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public long getTime() //获取时间，以毫秒为单位</span><br><span class="line">public void setTime(long time) //设置时间</span><br></pre></td></tr></table></figure>
+<h2 id="13-DateFormat"><a href="#13-DateFormat" class="headerlink" title="13 . DateFormat"></a>13 . DateFormat</h2><blockquote>
+<p>DateFormat 是日期/时间格式化子类的抽象类，它以与语言无关的方式格式化并解析日期或时间。<br>是抽象类，所以使用其子类SimpleDateFormat</p>
+</blockquote>
+<ul>
+<li><h3 id="SimpleDateFormat构造方法"><a href="#SimpleDateFormat构造方法" class="headerlink" title="SimpleDateFormat构造方法"></a>SimpleDateFormat构造方法</h3></li>
+</ul>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public SimpleDateFormat()</span><br><span class="line">public SimpleDateFormat(String pattern)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="成员方法-8"><a href="#成员方法-8" class="headerlink" title="成员方法"></a>成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public final String format(Date date)</span><br><span class="line">public Date parse(String source)</span><br></pre></td></tr></table></figure>
+<p><strong> Demo:</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">import java.text.ParseException;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * Date	 --	 String(格式化)</span><br><span class="line"> * 		public final String format(Date date)</span><br><span class="line"> * </span><br><span class="line"> * String -- Date(解析)</span><br><span class="line"> * 		public Date parse(String source)</span><br><span class="line"> * </span><br><span class="line"> * DateForamt:可以进行日期和字符串的格式化和解析，但是由于是抽象类，所以使用具体子类SimpleDateFormat。</span><br><span class="line"> * </span><br><span class="line"> * SimpleDateFormat的构造方法：</span><br><span class="line"> * 		SimpleDateFormat():默认模式</span><br><span class="line"> * 		SimpleDateFormat(String pattern):给定的模式</span><br><span class="line"> * 			这个模式字符串该如何写呢?</span><br><span class="line"> * 			通过查看API，我们就找到了对应的模式</span><br><span class="line"> * 			年 y</span><br><span class="line"> * 			月 M	</span><br><span class="line"> * 			日 d</span><br><span class="line"> * 			时 H</span><br><span class="line"> * 			分 m</span><br><span class="line"> * 			秒 s</span><br><span class="line"> * </span><br><span class="line"> * 			2014年12月12日 12:12:12</span><br><span class="line"> */</span><br><span class="line">public class DateFormatDemo &#123;</span><br><span class="line">	public static void main(String[] args) throws ParseException &#123;</span><br><span class="line">		// Date -- String</span><br><span class="line">		// 创建日期对象</span><br><span class="line">		Date d = new Date();</span><br><span class="line">		// 创建格式化对象</span><br><span class="line">		// SimpleDateFormat sdf = new SimpleDateFormat();</span><br><span class="line">		// 给定模式</span><br><span class="line">		SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy年MM月dd日 HH:mm:ss&quot;);</span><br><span class="line">		// public final String format(Date date)</span><br><span class="line">		String s = sdf.format(d);</span><br><span class="line">		System.out.println(s);</span><br><span class="line"></span><br><span class="line">		// String -- Date</span><br><span class="line">		String str = &quot;2008-08-08 12:12:12&quot;;</span><br><span class="line">		// 在把一个字符串解析为日期的时候，请注意格式必须和给定的字符串格式匹配</span><br><span class="line">		SimpleDateFormat sdf2 = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span><br><span class="line">		Date dd = sdf2.parse(str);</span><br><span class="line">		System.out.println(dd);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="14-Calendar"><a href="#14-Calendar" class="headerlink" title="14 . Calendar"></a>14 . Calendar</h2><blockquote>
+<p>Calendar 类是一个抽象类，它为特定瞬间与一组诸如 YEAR、MONTH、DAY_OF_MONTH、HOUR 等 日历字段之间的转换提供了一些方法，并为操作日历字段（例如获得下星期的日期）提供了一些方法。</p>
+</blockquote>
+<ul>
+<li><h3 id="成员方法-9"><a href="#成员方法-9" class="headerlink" title="成员方法"></a>成员方法</h3></li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static Calendar getInstance()</span><br><span class="line">//返回给定日历字段的值。日历类中的每个日历字段都是静态的成员变量，并且是int类型。</span><br><span class="line">public int get(int field)</span><br><span class="line">//根据给定的日历字段和对应的时间，来对当前的日历进行操作。</span><br><span class="line">public void add(int field,int amount)</span><br><span class="line">//设置日历对象的年月日</span><br><span class="line">public final void set(int year,int month,int date)</span><br></pre></td></tr></table></figure>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Calendar;</span><br><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 获取任意一年的二月有多少天</span><br><span class="line"> * </span><br><span class="line"> * 分析：</span><br><span class="line"> * 		A:键盘录入任意的年份</span><br><span class="line"> * 		B:设置日历对象的年月日</span><br><span class="line"> * 			年就是A输入的数据</span><br><span class="line"> * 			月是2</span><br><span class="line"> * 			日是1</span><br><span class="line"> * 		C:把时间往前推一天，就是2月的最后一天</span><br><span class="line"> * 		D:获取这一天输出即可</span><br><span class="line"> */</span><br><span class="line">public class CalendarTest &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// 键盘录入任意的年份</span><br><span class="line">		Scanner sc = new Scanner(System.in);</span><br><span class="line">		System.out.println(&quot;请输入年份：&quot;);</span><br><span class="line">		int year = sc.nextInt();</span><br><span class="line"></span><br><span class="line">		// 设置日历对象的年月日</span><br><span class="line">		Calendar c = Calendar.getInstance();</span><br><span class="line">		c.set(year, 2, 1); // 其实是这一年的3月1日</span><br><span class="line">		// 把时间往前推一天，就是2月的最后一天</span><br><span class="line">		c.add(Calendar.DATE, -1);</span><br><span class="line"></span><br><span class="line">		// 获取这一天输出即可</span><br><span class="line">		System.out.println(c.get(Calendar.DATE));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2017/05/31/JAVA基础系列（三） 面向对象/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">JAVA基础系列（三） 面向对象</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2017/05/25/JAVA基础系列（二） 语法/">
+                <span class="level-item">JAVA基础系列（二） 语法</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<div id="SOHUCS" sid="2017/05/31/JAVA基础系列（四） 几种常用的类/"></div>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+    appid: 'cytoOY6km',
+    conf: 'prod_256dd977beeed0de5b2626a6127e098d'
+});
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png">
+                    
+                    <p class="is-size-4 is-block">
+                        Acamy
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Stay Hungry, Stay foolish
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>HangZhou China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        79
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/Acamy">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/Acamy">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ElasticSearch/">
+            <span class="level-start">
+                <span class="level-item">ElasticSearch</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Git/">
+            <span class="level-start">
+                <span class="level-item">Git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hadoop/">
+            <span class="level-start">
+                <span class="level-item">Hadoop</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA基础系列/">
+            <span class="level-start">
+                <span class="level-item">JAVA基础系列</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JVM/">
+            <span class="level-start">
+                <span class="level-item">JVM</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb框架/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb框架</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Oracle/">
+            <span class="level-start">
+                <span class="level-item">Oracle</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/SpringBoot2-0/">
+            <span class="level-start">
+                <span class="level-item">SpringBoot2.0</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/flowable/">
+            <span class="level-start">
+                <span class="level-item">flowable</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/在线编程/">
+            <span class="level-start">
+                <span class="level-item">在线编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构与算法/">
+            <span class="level-start">
+                <span class="level-item">数据结构与算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/源码/">
+            <span class="level-start">
+                <span class="level-item">源码</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/编程/">
+            <span class="level-start">
+                <span class="level-item">编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/编程/java/">
+            <span class="level-start">
+                <span class="level-item">java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/计算机网络/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/设计模式/">
+            <span class="level-start">
+                <span class="level-item">设计模式</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
+                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
+                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
+                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/10/git常用命令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
+                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/优化/">
+                        <span class="level-start">
+                            <span class="level-item">优化</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/线程池/">
+                        <span class="level-start">
+                            <span class="level-item">线程池</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+<script src="/js/back-to-top.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
