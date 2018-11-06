@@ -172,7 +172,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    10 minutes read (About 1552 words)
+                    10 minutes read (About 1553 words)
                 </span>
                 
             </div>
@@ -187,22 +187,17 @@
             <blockquote>
 <p>上周自己负责的一个应用出现频繁full gc的问题，不得不尝试优化一下。第一次做这种事只能先看看网上的文章，然后亲自尝试怎么去完成减少full gc的频率，降低young gc的频率这一目标。虽然最终只是勉强解决了，但还是希望记录下来给下一次积攒经验。</p>
 </blockquote>
-<p>先给出前后对比图，选取了上周优化前后的两个典型工作日上午9:00到晚上9:00的GC情况。从前两张图可以看出一天要发生高达上10次的full gc，young gc也非常频繁。第三张优化后的图已经没有出现full gc，young gc的频率也大大降低了，所以说基本完成目标。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/5990755-f7d091ef51eefe53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="优化前Full GC情况"><br><img src="https://upload-images.jianshu.io/upload_images/5990755-b7c05505ead2a37b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="优化前整体gc情况"><br><img src="https://upload-images.jianshu.io/upload_images/5990755-458b25a36589af41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="优化后整体gc情况"></p>
-<p>接下来说明排查过程</p>
-<p>#####1.jps命令查看进程id<br>jps是java后自带的查看虚拟机进程状态命令工具，用如下命令就可以看到虚拟机执行主类和进程ID.<br><code>jps -l</code></p>
-<p>#####2. jmap命令导出堆转储文件<br>jmap是java自带的内存映像工具，能将当前应用运行内存的情况导出为文件。注意格式，file后面是导出路径，最后的数字为上一步得到的进程id。一般导出来的文件都比较大，我导出的有2.1G，而且进行分析也很耗性能，所以导出后都要传输到其它机器上进行分析，并且为了避免占用磁盘空间删除本地文件。<br><code>jmap -dump:format=b,file=kfwebHeap1016.hprof 35073</code></p>
-<p>#####3.mat工具分析堆转储文件<br>mat是eclipse提供的堆转储文件分析工具，用mat打开mat上一步导出的文件，如下图所示，可以看到总体内存占用情况的扇形图，哪个文件占用内存最多就可以一目了然了。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/5990755-1d846606a559ff8c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>点击histogram就可以看出各个对象的内存占用情况，如下所示<br><img src="https://upload-images.jianshu.io/upload_images/5990755-f4a05a43bab43065.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>点击Leak Suspects就可以给出最有可能发生内存泄漏的几种情况。能很好的帮助用户进行内存分析，这也是mat强大的重要体现，如下：<br><img src="https://upload-images.jianshu.io/upload_images/5990755-0f5a80a456173d85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>到这里应该是最关键的环节了，可能因为没有经验，看来看去也没看出哪里不对，所以只能作罢，这条路已经走不下去了，所以说这次分析不太成功。</p>
-<p>#####4.G1来了<br>后来向一个老同事说明了我的情况，他问我用的什么垃圾回收器，我说用的是默认的，年经代用Parallel Scavenge，老年代用Parallel Old，他说让我先换到G1试试吧。然后我查了一下，发现G1果然比较牛逼，虽然保留了以前的新生代Eden，Survivor和老年代的概念，但新生代和老年代不再物理隔离，而且它将内存分为很多等大的region，每个region根据需要都有可能成为S(Surviror),E(Eden), O(Old)的一种，所以G1既能回收新生代也能回收老年代，它以垃圾回收为第一（这也是它名字的由来:Garbage First，G1）目标，励志于取决CMS, 并且在java9是已经是jdk默认的垃圾回收器了。说了这么多，暂时没有多时间深入研究，不管怎么样还是值得一试的。于是在应用的jvm启动参数加了如下一行:<br><code>-XX:+UseG1GC</code><br>当然只是在一台机器上作了处理，也便于与其它机器作对比。</p>
-<p>#####5.MetaSpace调整<br>通过调整后的这台机器与其它机器对比，gc情况还是改善了不少，但是在查看gc日志时发现了这么这个频繁出现的问题：<br><code>Metadata GC Threshold</code><br>由于元数据空间不足导致的GC.原来在G1中设置PermSize(永久代大小)已经没用了，取而代之的是MetaSpace参数，虽然这个用的是并非堆内存而是机器的物理内存并且最大大小没有限制，但是默认初始大小只有20m，所以要作出调整：<br><code>-XX:MetaspaceSize=128m</code><br>加了之后果然就没有出现这个问题了</p>
-<p>#####6. 解决Humongous Allocation<br>在gc日志中还发现频繁出现：<br><code>G1 Humongous Allocation</code><br>这个是由于大型对象分配导致的问题，大型(Humongous)对象是指超过G1的Region 50%的内存对象，频繁大型对象内存内存分配会导致性能问题，而且如果一个region中大型对象过多的话则最后一个大型对内象边界和该region的边界之间的空间将不会被使用，如果有多个这样的region将会导致堆内存的碎片化，在jdk1.8u40之前这些大型对象的清理在full gc期间进行完成。较新的jvm也是把大型对象放在清理阶段，要解决上面的问题有两种方法。<br>1.增加region的大小(注意要在1到32m之间并且为2的整数次幂)<br>2.增加堆内存大小</p>
-<p><strong>总结：</strong>其实这一次只是引进了G1垃圾回收器并且对相关参数进行调整，但是促使我去了解jvm相关的知识和工具使用，还是有很很大收获的。</p>
-
+<p>先给出前后对比图，选取了上周优化前后的两</p>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2018/10/21/记一次不太成功的频繁full gc排查过程/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -228,7 +223,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 minutes read (About 596 words)
+                    4 minutes read (About 597 words)
                 </span>
                 
             </div>
@@ -241,30 +236,17 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>OpenJDK是与Oracle JDK最接近的开源jdk，周志明老师在《深入理解JAVA虚拟机》第一章就建议大家自己编译下OpenJDK的源码，最近遇到JVM相关的一些问题，又心血来潮的想试试。<br>如果是第一次编译的话真的是很难一次成功的，由于操作系统、软件环境、OpenJDK版本不同各种千奇百怪的问题都有。虽然项目中用的是java8，但因为自己使用macOS 10.13.6操作系统，看了下网上的一些文章对jdk8编译支持不是很好，因此选择了不少人编译成功的jdk9进行下手。<br>但是jdk9到我这里也行不通，遇到的问题在openjdk官网和stackoverflow上都有人反映，但没人回答, 因此不得不放弃。接下来试jdk9u遇到相同错误，换到jdk10却异常顺利，无需像jdk9一样改源码啥的，一次成功。因此如果你打算在mac上尝试编译的话，建议直接编译jdk10吧。</p>
-</blockquote>
-<p>####1. 工具准备</p>
-<ul>
-<li>homebrew，mac下的包管理工具<br><code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code></li>
-<li>mercurial, openjdk源码版本管理工具<br><code>sudo easy_install mercurial</code></li>
-<li>ccache, freetype, 编译以及加速编译时所要用到的<br><code>brew install ccache</code><br><code>brew install freetype</code></li>
-</ul>
-<h4 id="2-下载源码"><a href="#2-下载源码" class="headerlink" title="2. 下载源码"></a>2. 下载源码</h4><ul>
-<li>hg clone<br>  <code>hg clone http://hg.openjdk.java.net/jdk10/jdk10/</code></li>
-<li><p>修改get_source.sh最后几行如下以防止中断</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># Get clones of all absent nested repositories (harmless if already exist)</span><br><span class="line">sh ./common/bin/hgforest.sh clone &quot;$@&quot;</span><br><span class="line"></span><br><span class="line">while [ $? -ne 0 ]</span><br><span class="line">do</span><br><span class="line">    sh ./common/bin/hgforest.sh clone &quot;$@&quot;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"># Update all existing repositories to the latest sources</span><br><span class="line">sh ./common/bin/hgforest.sh pull -u</span><br><span class="line"></span><br><span class="line">while [ $? -ne 0 ]</span><br><span class="line">do</span><br><span class="line">    sh ./common/bin/hgforest.sh pull -u</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行以下命令以获取全部资源：<br>  <code>sh ./get_source.sh</code></p>
-</li>
-</ul>
-<h4 id="3-执行configure"><a href="#3-执行configure" class="headerlink" title="3. 执行configure"></a>3. 执行configure</h4><pre><code>`sh ./configure --with-target-bits=64 --with-freetype=/usr/local/Cellar/freetype/2.9.1 --enable-ccache --with-jvm-variants=server,client --with-boot-jdk-jvmargs=&quot;-Xlint:deprecation -Xlint:unchecked&quot; --disable-zip-debug-info --disable-warnings-as-errors --with-debug-level=slowdebug 2&gt;&amp;1 | tee configure_mac_x64.log`
-</code></pre><p>注意：freetype版本要和自己使用的对应</p>
-<h4 id="4-执行make"><a href="#4-执行make" class="headerlink" title="4. 执行make"></a>4. 执行make</h4><p><code>export LANG=C</code><br><code>make all LOG=debug  2&gt;&amp;1 | tee make_mac_x64.log</code></p>
-<h4 id="5-验证"><a href="#5-验证" class="headerlink" title="5. 验证"></a>5. 验证</h4><p>执行<code>./java -version</code>打印如下表示编译成功。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openjdk version &quot;10-internal&quot;</span><br><span class="line">OpenJDK Runtime Environment (slowdebug build 10-internal+0-adhoc.baohuahe.jdk10)</span><br><span class="line">OpenJDK 64-Bit Server VM (slowdebug build 10-internal+0-adhoc.baohuahe.jdk10, mixed mode)</span><br></pre></td></tr></table></figure></p>
-<p>接下来就可以愉快的看jvm源码和进行本地调试了。</p>
-
+<p>OpenJDK是与Oracle JDK最接近的开源jdk，周志明老师在《深入理解JAVA虚拟机》第一章就建议大家自己编译下OpenJDK的源码，最近遇到JVM相关的一些问题，又心血来潮的想试试。<br>如果是第一次编译的话真的是很难一次成功的，由于操作系统、软件环境、OpenJDK版本不同各种千奇百怪</p></blockquote>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2018/10/19/mac下编译OpenJDK10/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -290,7 +272,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    18 minutes read (About 2734 words)
+                    18 minutes read (About 2736 words)
                 </span>
                 
             </div>
@@ -304,65 +286,17 @@
         <div class="content">
             <p>Java Memory Model，通过定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存中取出变量这样的底层细节，屏蔽掉各种硬件和操作系统的内存访问差异。</p>
 <h3 id="1-JMM的抽象结构"><a href="#1-JMM的抽象结构" class="headerlink" title="1.JMM的抽象结构"></a>1.JMM的抽象结构</h3><blockquote>
-<p>如下图所示，线程之间的共享变量(实例域，静态域和数组元素)存储在主内存(Main Memory)中，每个线程都有一个私有的本地内存（Local Memory),本地内存中存储了该线程以读/写共享变量的副本。JMM决定一个线程对共享变量的写入何时对另一个线程可见。</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-9b05b1f762d77d90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>在上图中，如果线程A和线程B要进行通信，必须要经历以下两个步骤：<br>1) 线程A把本地内存中A中更新近的共享变量刷新到主内存中去。<br>2) 线程B到主内存中去读取线程A之前已更新过的共享变量。</p>
-<h3 id="2-内存间的交互操作"><a href="#2-内存间的交互操作" class="headerlink" title="2.内存间的交互操作"></a>2.内存间的交互操作</h3><blockquote>
-<p>关于主内存与工作内存之间具体的交互协议，即一个变量如何从主内存拷贝到工作内存、如何从工作内存同步回主内存之类的实现细节，Java内存模型中定义了以下8种操作来完成，虚拟机实现时必须保证下面提及的每一种操作都是原子的、不可再分的。</p>
-</blockquote>
-<ul>
-<li>lock（锁定）：作用于主内存的变量，它把一个变量标识为一条线程独占的状态。</li>
-<li>unlock（解锁）：作用于主内存的变量，它把一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定。</li>
-<li>read（读取）：作用于主内存的变量，它把一个变量的值从主内存传输到线程的工作内存中，以便随后的load动作使用。</li>
-<li>load（载入）：作用于工作内存的变量，它把read操作从主内存中得到的变量值放入工作内存的变量副本中。</li>
-<li>use（使用）：作用于工作内存的变量，它把工作内存中一个变量的值传递给执行引擎，每当虚拟机遇到一个需要使用到变量的值的字节码指令时将会执行这个操作。</li>
-<li>assign（赋值）：作用于工作内存的变量，它把一个从执行引擎接收到的值赋给工作内存的变量，每当虚拟机遇到一个给变量赋值的字节码指令时执行这个操作。</li>
-<li>store（存储）：作用于工作内存的变量，它把工作内存中一个变量的值传送到主内存中，以便随后的write操作使用。</li>
-<li>write（写入）：作用于主内存的变量，它把store操作从工作内存中得到的变量的值放入主内存的变量中。</li>
-</ul>
-<h3 id="3-重排序"><a href="#3-重排序" class="headerlink" title="3.重排序"></a>3.重排序</h3><blockquote>
-<p>重排序是指<strong>编绎器</strong>和<strong>处理器</strong>为了优化程序性能而对指令序列进行重新排序的一种手段。重排序分为编译器优化的重排序，指令级并行的重排序和内存系统的重排序。从Java源代码到最终实际执行的指令序列，会分别经历这3种重排序，如下所示：</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-5237b4bd819d7881.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>上图中的1属于编绎器重排序，2和3属于处理器重排序。</p>
-<h5 id="3-1-内存屏障"><a href="#3-1-内存屏障" class="headerlink" title="3.1 内存屏障"></a>3.1 内存屏障</h5><blockquote>
-<p>Memory Barrier，又称内存栅栏，是一个CPU指令，基本上它是一条这样的指令：<br>1、保证特定操作的执行顺序。<br>2、影响某些数据（或则是某条指令的执行结果）的内存可见性。</p>
-</blockquote>
-<p>为了保证内存可见性，Java编绎器在生成指令序列的适当位置会插入内存屏障指令来禁止特定类型的处理器重排序。JMM把内存屏障分为4类，如下所示：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-1908518050c17a89.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h5 id="3-2-happens-before"><a href="#3-2-happens-before" class="headerlink" title="3.2 happens-before"></a>3.2 happens-before</h5><blockquote>
-<p>从jdk5开始，java使用新的JSR-133内存模型，基于happens-before的概念来阐述操作之间的内存可见性。</p>
-</blockquote>
-<p>在JMM中，如果一个操作的执行结果需要对另一个操作可见，那么这两个操作之间必须要存在happens-before关系，这个的两个操作既可以在同一个线程，也可以在不同的两个线程中。</p>
-<p>与程序员密切相关的happens-before规则如下：<br>1、程序顺序规则：一个线程中的每个操作，happens-before于该线程中任意的后续操作。<br>2、监视器锁规则：对一个锁的解锁操作，happens-before于随后对这个锁的加锁操作。<br>3、volatile域规则：对一个volatile域的写操作，happens-before于任意线程后续对这个volatile域的读。<br>4、传递性规则：如果 A happens-before B，且 B happens-before C，那么A happens-before C。</p>
-<p>注意：两个操作之间具有happens-before关系，并不意味前一个操作必须要在后一个操作之前执行！仅仅要求前一个操作的执行结果，对于后一个操作是可见的，且前一个操作按顺序排在后一个操作之前。</p>
-<h5 id="3-3-数据依赖性"><a href="#3-3-数据依赖性" class="headerlink" title="3.3 数据依赖性"></a>3.3 数据依赖性</h5><blockquote>
-<p>如果两个操作访问同一个变量，且这两个操作中有一个为写操作，此时这两个操作之间就存在数据依赖性。数据依赖性分为下列3种类型，如下所示：</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-dec17ce7eef15c6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>对于上面的3种情况，只要重排序两个操作的执行顺序，程序的执行结果就会被改变。编绎器和处理器在重排序时，会遵守数据依赖性，而不会改变存在数据依赖关系的两个操作的执行顺序。</p>
-<h5 id="3-4-as-if-serial"><a href="#3-4-as-if-serial" class="headerlink" title="3.4 as-if-serial"></a>3.4 as-if-serial</h5><blockquote>
-<p>as-if-serial语义的意思是：不管怎么重排序（编绎器和处理器为了提高并行度），（单线程）程序的执行结果不能被改变。编绎器，runtime和处理器都必须遵守as-if-serial语义。</p>
-</blockquote>
-<h5 id="3-5-示例"><a href="#3-5-示例" class="headerlink" title="3.5 示例"></a>3.5 示例</h5><p>为了具体说明，请看下面计算圆面积的代码示例：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">double pi = 3.14; //A</span><br><span class="line">double r = 1.0; //B</span><br><span class="line">double area = pi * r * r; //C</span><br></pre></td></tr></table></figure>
-<p>上面3个操作的数据依赖关系如下图所示：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-8df1c1f58b53903e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>A和C之间存在数据依赖关系，同时B和C之间也存在数据依赖关系。因此在最终执行的指令序列中，C不能被重排序到A和B的前面（C排到A和B的前面，程序的结果将会被改变）。但A和B之间没有数据依赖关系，编译器和处理器可以重排序A和B之间的执行顺序。下图是该程序的两种执行顺序:</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-c4268c8702e526b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h5 id="3-6-重排序对多线程的影响"><a href="#3-6-重排序对多线程的影响" class="headerlink" title="3.6 重排序对多线程的影响"></a>3.6 重排序对多线程的影响</h5><p>先看如下示例代码：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class ReorderExample &#123;</span><br><span class="line">    int     a    = 0;</span><br><span class="line">    boolean flag = false;</span><br><span class="line"></span><br><span class="line">    public void writer() &#123;</span><br><span class="line">        a = 1; //1</span><br><span class="line">        flag = true; //2</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void reader() &#123;</span><br><span class="line">        if (flag) &#123; //3</span><br><span class="line">            int i = a * a; //4</span><br><span class="line">            //s……</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>flag变量是个标记，用来标识变量a是否已被写入。这里假设有两个线程A和B，A首先执行writer()方法，随后B线程接着执行reader()方法。线程B在执行操作4时，能否看到线程A在操作1对共享变量a的写入呢？<br><strong>答案是：不一定能看到。</strong><br>由于操作1和操作2没有数据依赖关系，编译器和处理器可以对这两个操作重排序；同样，操作3和操作4没有数据依赖关系，编译器和处理器也可以对这两个操作重排序。让我们先来看看，当操作1和操作2重排序时，可能会产生什么效果？请看下面的程序执行时序图，如下图所示：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-7d31ca7e553f27a9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>上图中操作1和操作2做了重排序。程序执行时，线程A首先写标记变量flag，随后线B读这个变量。由于条件判断为真，线程B将读取变量a。此时，变量a还没有被线程A写入，在里多线程程序的语义被重排序破坏了！</p>
-<p>下面再让我们看看，当操作3和操作4重排序时会产生什么效果（借助这个重排序，可便说明控制依赖性）。下面是操作3和操作4重排序后，程序执行的时序图，如下图所示:</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-47cebe2a53bfa2ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>在程序中，操作3和操作4存在控制依赖关系。当代码中存在控制依赖性时，会影响指令序列执行的并行度。为此，编译器和处理器会采用猜测Speculation）执行来克服控制相关性对并行度的影响。以处理器的猜测执行为例，执行线程B的处理器可以提前读取并计算a*a，然后把计算结果临时保存到一个名为重排序缓冲（Reorder Buffer，ROB）的硬件缓存中。当操作3的条件判断为真时，就把该计算结果写入变量i中。</p>
-<p>从上图中我们可以看出，猜测执行实质上对操作3和4做了重排序。重排序在这里破坏了多线程程序的语义！</p>
-<p>通过上例可以得出结论：在单线程程序中，对存在控制依赖的操作重排序，不会改变执行结果（这也是as-if-serial语义允许对存在控制依赖的操作做重排序的原因）；但在多线程程序中，对存在控制依赖的操作重排序，可能会改变程序的执行结果。</p>
-
+<p>如下图所示，线程之间的共享变量(实例域，静态域和数组元素)存储在主内存(Main Memo</p></blockquote>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2017/06/30/Java内存模型/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>

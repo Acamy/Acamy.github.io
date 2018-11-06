@@ -7,20 +7,20 @@
 
 
 
-    <meta name="description" content="定义了算法族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化独立于使用算法的客户。  1. 实例描述给客户开发一款模拟鸭子游戏，游戏中会出现各种鸭子，所有的鸭子都会都会游泳，但不同鸭子外观不一样，并且有的鸭子不会叫，有的会叫且叫声不同，有的鸭子不会飞有的会飞且飞的方式不一样。在这个过程中会增加新的鸭子种类，同一种鸭子叫的方式和飞行方式可能发生改变。 ##2. 分析思路首先创建所有的鸭子">
+    <meta name="description" content="定义了算法族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化独立于使用算法的客户。  1. 实例描述给客户开发一款模拟鸭子游戏，游戏中会出现各种鸭子，所有的鸭子都会都会游泳，但不同鸭子外观不一样，并且有的鸭子不会叫，有的会叫且叫声不同，有的鸭子不会飞有的会飞且飞的方式不一样。在">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Head First 设计模式学习系列(一)   策略模式">
 <meta property="og:url" content="http://yoursite.com/2017/06/06/Head First 设计模式学习系列(一)   策略模式/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="定义了算法族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化独立于使用算法的客户。  1. 实例描述给客户开发一款模拟鸭子游戏，游戏中会出现各种鸭子，所有的鸭子都会都会游泳，但不同鸭子外观不一样，并且有的鸭子不会叫，有的会叫且叫声不同，有的鸭子不会飞有的会飞且飞的方式不一样。在这个过程中会增加新的鸭子种类，同一种鸭子叫的方式和飞行方式可能发生改变。 ##2. 分析思路首先创建所有的鸭子">
+<meta property="og:description" content="定义了算法族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化独立于使用算法的客户。  1. 实例描述给客户开发一款模拟鸭子游戏，游戏中会出现各种鸭子，所有的鸭子都会都会游泳，但不同鸭子外观不一样，并且有的鸭子不会叫，有的会叫且叫声不同，有的鸭子不会飞有的会飞且飞的方式不一样。在">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-6b2b36569ae3a74e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-e86bb98bd4f464f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-5db5791d6b630f44.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:09.884Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:56.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Head First 设计模式学习系列(一)   策略模式">
-<meta name="twitter:description" content="定义了算法族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化独立于使用算法的客户。  1. 实例描述给客户开发一款模拟鸭子游戏，游戏中会出现各种鸭子，所有的鸭子都会都会游泳，但不同鸭子外观不一样，并且有的鸭子不会叫，有的会叫且叫声不同，有的鸭子不会飞有的会飞且飞的方式不一样。在这个过程中会增加新的鸭子种类，同一种鸭子叫的方式和飞行方式可能发生改变。 ##2. 分析思路首先创建所有的鸭子">
+<meta name="twitter:description" content="定义了算法族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化独立于使用算法的客户。  1. 实例描述给客户开发一款模拟鸭子游戏，游戏中会出现各种鸭子，所有的鸭子都会都会游泳，但不同鸭子外观不一样，并且有的鸭子不会叫，有的会叫且叫声不同，有的鸭子不会飞有的会飞且飞的方式不一样。在">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-6b2b36569ae3a74e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -168,7 +168,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 minutes read (About 1108 words)
+                    7 minutes read (About 1109 words)
                 </span>
                 
             </div>
@@ -183,7 +183,7 @@
             <blockquote>
 <p>定义了算法族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化独立于使用算法的客户。</p>
 </blockquote>
-<h2 id="1-实例描述"><a href="#1-实例描述" class="headerlink" title="1. 实例描述"></a>1. 实例描述</h2><p>给客户开发一款模拟鸭子游戏，游戏中会出现各种鸭子，所有的鸭子都会都会游泳，但不同鸭子外观不一样，并且有的鸭子不会叫，有的会叫且叫声不同，有的鸭子不会飞有的会飞且飞的方式不一样。在这个过程中会增加新的鸭子种类，同一种鸭子叫的方式和飞行方式可能发生改变。</p>
+<h2 id="1-实例描述"><a href="#1-实例描述" class="headerlink" title="1. 实例描述"></a>1. 实例描述</h2><p>给客户开发一款模拟鸭子游戏，游戏中会出现各种鸭子，所有的鸭子都会都会游泳，但不同鸭子外观不一样，并且有的鸭子不会叫，有的会叫且叫声不同，有的鸭子不会飞有的会飞且飞的方式不一样。在<a id="more"></a>这个过程中会增加新的鸭子种类，同一种鸭子叫的方式和飞行方式可能发生改变。</p>
 <p>##2. 分析思路<br>首先创建所有的鸭子的基类（Duck)，不同的鸭子(MallarDuck,RedHeadDuck,RubberDuch,DecoyDuck,ModelDuck)都是该基类的实现类。因所有鸭子都会游泳，在基类就定义并实现游泳方法(swin)。每个鸭子都有外观(display)，外观不会改变，所以将外观方法定义为抽象方法，在具体子类里面去实现。不同鸭子的叫声(Quack)和飞行方式(Fly)不一样，而且可能发生改变，所以将这两种行为都抽象为两个接口(QuackBehavior,FlyBehavior)，并且每个接口有不同的实现方法(Quack,Squeak,MuteQuack,FakeQuack;FlyNoWay,FlyWithWings,FlyRocketPowered)。在鸭子基类里面定义有以这两个接口为成员变量的属性(FlyBehavior flyBehavior;QuackBehavior quackBehavior;)且提供更改方式(setFlyBehavior (FlyBehavior fb);setQuackBehavior(QuackBehavior qb))，不同鸭子在创建时(构造方法里）可以定义这两个字段的具体实现类，并且可以改变该属性。</p>
 <h2 id="3-类图实现："><a href="#3-类图实现：" class="headerlink" title="3.类图实现："></a>3.类图实现：</h2><p>客户：可以使用下面封装好的算法族<br><img src="http://upload-images.jianshu.io/upload_images/5990755-6b2b36569ae3a74e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>算法族1：封装飞行行为<br><img src="http://upload-images.jianshu.io/upload_images/5990755-e86bb98bd4f464f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>

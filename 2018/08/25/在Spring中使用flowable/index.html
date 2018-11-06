@@ -7,18 +7,18 @@
 
 
 
-    <meta name="description" content="在上一篇文章(flowable流程引擎初体验，完成一个请假流程)我们使用了命令窗口的方式体验了一把flowable的基本使用，了解了流程定义、部署、启动以及流程之间的流转情况，可以看出来其非常简单方便。在实际项目中我们肯定要将其进行整合，而flowable对Spring也是绝对支持的，本文就是讲解如何在Spring中使用flowable。  1. flowable流程引擎API在上一篇文章中可以">
+    <meta name="description" content="在上一篇文章(flowable流程引擎初体验，完成一个请假流程)我们使用了命令窗口的方式体验了一把flowable的基本使用，了解了流程定义、部署、启动以及流程之间的流转情况，可以看出来其非常简单方便。在实际项目">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Spring中使用flowable">
 <meta property="og:url" content="http://yoursite.com/2018/08/25/在Spring中使用flowable/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="在上一篇文章(flowable流程引擎初体验，完成一个请假流程)我们使用了命令窗口的方式体验了一把flowable的基本使用，了解了流程定义、部署、启动以及流程之间的流转情况，可以看出来其非常简单方便。在实际项目中我们肯定要将其进行整合，而flowable对Spring也是绝对支持的，本文就是讲解如何在Spring中使用flowable。  1. flowable流程引擎API在上一篇文章中可以">
+<meta property="og:description" content="在上一篇文章(flowable流程引擎初体验，完成一个请假流程)我们使用了命令窗口的方式体验了一把flowable的基本使用，了解了流程定义、部署、启动以及流程之间的流转情况，可以看出来其非常简单方便。在实际项目">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-a49ff5920758cad5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:46:55.619Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:45.089Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Spring中使用flowable">
-<meta name="twitter:description" content="在上一篇文章(flowable流程引擎初体验，完成一个请假流程)我们使用了命令窗口的方式体验了一把flowable的基本使用，了解了流程定义、部署、启动以及流程之间的流转情况，可以看出来其非常简单方便。在实际项目中我们肯定要将其进行整合，而flowable对Spring也是绝对支持的，本文就是讲解如何在Spring中使用flowable。  1. flowable流程引擎API在上一篇文章中可以">
+<meta name="twitter:description" content="在上一篇文章(flowable流程引擎初体验，完成一个请假流程)我们使用了命令窗口的方式体验了一把flowable的基本使用，了解了流程定义、部署、启动以及流程之间的流转情况，可以看出来其非常简单方便。在实际项目">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/5990755-a49ff5920758cad5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 minutes read (About 731 words)
+                    5 minutes read (About 732 words)
                 </span>
                 
             </div>
@@ -179,7 +179,7 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>在上一篇文章(<a href="https://www.jianshu.com/p/1e8f915ead55" target="_blank" rel="noopener">flowable流程引擎初体验，完成一个请假流程</a>)我们使用了命令窗口的方式体验了一把flowable的基本使用，了解了流程定义、部署、启动以及流程之间的流转情况，可以看出来其非常简单方便。在实际项目中我们肯定要将其进行整合，而flowable对Spring也是绝对支持的，本文就是讲解如何在Spring中使用flowable。</p>
+<p>在上一篇文章(<a href="https://www.jianshu.com/p/1e8f915ead55" target="_blank" rel="noopener">flowable流程引擎初体验，完成一个请假流程</a>)我们使用了命令窗口的方式体验了一把flowable的基本使用，了解了流程定义、部署、启动以及流程之间的流转情况，可以看出来其非常简单方便。在实际项目<a id="more"></a>中我们肯定要将其进行整合，而flowable对Spring也是绝对支持的，本文就是讲解如何在Spring中使用flowable。</p>
 </blockquote>
 <h4 id="1-flowable流程引擎API"><a href="#1-flowable流程引擎API" class="headerlink" title="1. flowable流程引擎API"></a>1. flowable流程引擎API</h4><p>在上一篇文章中可以看到很多操作都是通过xxService来调用，而这些Services又都是由ProcessEngine产生， ProcessEngine对象通过ProcessEngineConfiguration来配置。所以在使用Spring整合flowable之前，我们必须理清这些关系，如下图所示：主要有一个配置文件，一个配置对象， 一个引擎对象，七大服务。</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/5990755-a49ff5920758cad5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>

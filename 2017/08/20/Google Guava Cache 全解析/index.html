@@ -7,12 +7,12 @@
 
 
 
-    <meta name="description" content="Google Guava Cache是一种非常优秀本地缓存解决方案，提供了基于容量，时间和引用的缓存回收方式。基于容量的方式内部实现采用LRU算法，基于引用回收很好的利用了Java虚拟机的垃圾回收机制。其中的缓存构造器CacheBuilder采用构建者模式提供了设置好各种参数的缓存对象，缓存核心类LocalCache里面的内部类Segment与jdk1.7及以前的ConcurrentHashMa">
+    <meta name="description" content="Google Guava Cache是一种非常优秀本地缓存解决方案，提供了基于容量，时间和引用的缓存回收方式。基于容量的方式内部实现采用LRU算法，基于引用回收很好的利用了Java虚拟机的垃圾回收机制。其中的缓存构造器CacheBuilder采用构建者模式提供了设置好各种参数的缓存对象，缓存核心">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Google Guava Cache 全解析">
 <meta property="og:url" content="http://yoursite.com/2017/08/20/Google Guava Cache 全解析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Google Guava Cache是一种非常优秀本地缓存解决方案，提供了基于容量，时间和引用的缓存回收方式。基于容量的方式内部实现采用LRU算法，基于引用回收很好的利用了Java虚拟机的垃圾回收机制。其中的缓存构造器CacheBuilder采用构建者模式提供了设置好各种参数的缓存对象，缓存核心类LocalCache里面的内部类Segment与jdk1.7及以前的ConcurrentHashMa">
+<meta property="og:description" content="Google Guava Cache是一种非常优秀本地缓存解决方案，提供了基于容量，时间和引用的缓存回收方式。基于容量的方式内部实现采用LRU算法，基于引用回收很好的利用了Java虚拟机的垃圾回收机制。其中的缓存构造器CacheBuilder采用构建者模式提供了设置好各种参数的缓存对象，缓存核心">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-a75124e52de44256.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-9d1ed354a35b37f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -27,10 +27,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-a9ce9d9122100419.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-533ab01915749569.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-31f0cfdd60f1c780.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:19.129Z">
+<meta property="og:updated_time" content="2018-11-06T15:52:04.510Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Guava Cache 全解析">
-<meta name="twitter:description" content="Google Guava Cache是一种非常优秀本地缓存解决方案，提供了基于容量，时间和引用的缓存回收方式。基于容量的方式内部实现采用LRU算法，基于引用回收很好的利用了Java虚拟机的垃圾回收机制。其中的缓存构造器CacheBuilder采用构建者模式提供了设置好各种参数的缓存对象，缓存核心类LocalCache里面的内部类Segment与jdk1.7及以前的ConcurrentHashMa">
+<meta name="twitter:description" content="Google Guava Cache是一种非常优秀本地缓存解决方案，提供了基于容量，时间和引用的缓存回收方式。基于容量的方式内部实现采用LRU算法，基于引用回收很好的利用了Java虚拟机的垃圾回收机制。其中的缓存构造器CacheBuilder采用构建者模式提供了设置好各种参数的缓存对象，缓存核心">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-a75124e52de44256.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -178,7 +178,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    20 minutes read (About 3034 words)
+                    20 minutes read (About 3035 words)
                 </span>
                 
             </div>
@@ -191,7 +191,7 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>Google Guava Cache是一种非常优秀本地缓存解决方案，提供了基于容量，时间和引用的缓存回收方式。基于容量的方式内部实现采用LRU算法，基于引用回收很好的利用了Java虚拟机的垃圾回收机制。其中的缓存构造器CacheBuilder采用构建者模式提供了设置好各种参数的缓存对象，缓存核心类LocalCache里面的内部类Segment与jdk1.7及以前的ConcurrentHashMap非常相似，都继承于ReetrantLock，还有六个队列，以实现丰富的本地缓存方案。<br>本文先介绍了Guava Cache囊括的基本使用方法，然后结合体系类图和LocalCache的数据结构对典型的几个方法源码进行流程分析。</p>
+<p>Google Guava Cache是一种非常优秀本地缓存解决方案，提供了基于容量，时间和引用的缓存回收方式。基于容量的方式内部实现采用LRU算法，基于引用回收很好的利用了Java虚拟机的垃圾回收机制。其中的缓存构造器CacheBuilder采用构建者模式提供了设置好各种参数的缓存对象，缓存核心<a id="more"></a>类LocalCache里面的内部类Segment与jdk1.7及以前的ConcurrentHashMap非常相似，都继承于ReetrantLock，还有六个队列，以实现丰富的本地缓存方案。<br>本文先介绍了Guava Cache囊括的基本使用方法，然后结合体系类图和LocalCache的数据结构对典型的几个方法源码进行流程分析。</p>
 </blockquote>
 <h2 id="为什么要用本地缓存"><a href="#为什么要用本地缓存" class="headerlink" title="为什么要用本地缓存"></a>为什么要用本地缓存</h2><blockquote>
 <p><strong>相对于IO操作</strong><br>  速度快，效率高<br><strong>相对于Redis</strong><br>     Redis是一种优秀的分布式缓存实现，受限于网卡等原因，远水救不了近火。</p>

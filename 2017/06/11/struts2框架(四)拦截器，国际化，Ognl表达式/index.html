@@ -7,22 +7,22 @@
 
 
 
-    <meta name="description" content="Intercetor, 即为拦截器。1） 在Struts2中，把每一个功能都用一个个的拦截器实现；用户想用struts的哪个功能的时候，可以自由组装使用。2）Struts2中，为了方法用户对拦截器的引用，提供了拦截器栈的定义，里面可以包含多个拦截器。   文件夹(文件, 文件2)  拦截器栈(拦截器,拦截器2)3）Struts2中，如果用户没有指定执行哪些拦截器，struts2有一个默认执行的栈">
+    <meta name="description" content="Intercetor, 即为拦截器。1） 在Struts2中，把每一个功能都用一个个的拦截器实现；用户想用struts的哪个功能的时候，可以自由组装使用。2）Struts2中，为了方法用户对拦截器的引用，提供了拦截器栈的定义，里面可以包含多个拦截器。   文件夹(文件, 文件2)  拦截器栈">
 <meta property="og:type" content="article">
 <meta property="og:title" content="struts2框架(四)拦截器，国际化，Ognl表达式">
 <meta property="og:url" content="http://yoursite.com/2017/06/11/struts2框架(四)拦截器，国际化，Ognl表达式/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Intercetor, 即为拦截器。1） 在Struts2中，把每一个功能都用一个个的拦截器实现；用户想用struts的哪个功能的时候，可以自由组装使用。2）Struts2中，为了方法用户对拦截器的引用，提供了拦截器栈的定义，里面可以包含多个拦截器。   文件夹(文件, 文件2)  拦截器栈(拦截器,拦截器2)3）Struts2中，如果用户没有指定执行哪些拦截器，struts2有一个默认执行的栈">
+<meta property="og:description" content="Intercetor, 即为拦截器。1） 在Struts2中，把每一个功能都用一个个的拦截器实现；用户想用struts的哪个功能的时候，可以自由组装使用。2）Struts2中，为了方法用户对拦截器的引用，提供了拦截器栈的定义，里面可以包含多个拦截器。   文件夹(文件, 文件2)  拦截器栈">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-b27b25f79dacd74a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-7a2fa9b60fb9095e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-e9abbe7a23479629.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-474fa240875d5a95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-5fbe80fb983aca56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:03.741Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:51.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="struts2框架(四)拦截器，国际化，Ognl表达式">
-<meta name="twitter:description" content="Intercetor, 即为拦截器。1） 在Struts2中，把每一个功能都用一个个的拦截器实现；用户想用struts的哪个功能的时候，可以自由组装使用。2）Struts2中，为了方法用户对拦截器的引用，提供了拦截器栈的定义，里面可以包含多个拦截器。   文件夹(文件, 文件2)  拦截器栈(拦截器,拦截器2)3）Struts2中，如果用户没有指定执行哪些拦截器，struts2有一个默认执行的栈">
+<meta name="twitter:description" content="Intercetor, 即为拦截器。1） 在Struts2中，把每一个功能都用一个个的拦截器实现；用户想用struts的哪个功能的时候，可以自由组装使用。2）Struts2中，为了方法用户对拦截器的引用，提供了拦截器栈的定义，里面可以包含多个拦截器。   文件夹(文件, 文件2)  拦截器栈">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-b27b25f79dacd74a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -170,7 +170,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    16 minutes read (About 2420 words)
+                    16 minutes read (About 2421 words)
                 </span>
                 
             </div>
@@ -183,7 +183,7 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>Intercetor, 即为拦截器。<br>1） 在Struts2中，把每一个功能都用一个个的拦截器实现；用户想用struts的哪个功能的时候，可以自由组装使用。<br>2）Struts2中，为了方法用户对拦截器的引用，提供了拦截器栈的定义，里面可以包含多个拦截器。   文件夹(文件, 文件2)  拦截器栈(拦截器,拦截器2)<br>3）Struts2中，如果用户没有指定执行哪些拦截器，struts2有一个默认执行的栈，defaultStack;<br>            一旦如果用户有指定执行哪些拦截器，默认的拦截器栈就不会被执行<br>拦截器的设计，就是基于组件设计的应用！</p>
+<p>Intercetor, 即为拦截器。<br>1） 在Struts2中，把每一个功能都用一个个的拦截器实现；用户想用struts的哪个功能的时候，可以自由组装使用。<br>2）Struts2中，为了方法用户对拦截器的引用，提供了拦截器栈的定义，里面可以包含多个拦截器。   文件夹(文件, 文件2)  拦截器栈<a id="more"></a>(拦截器,拦截器2)<br>3）Struts2中，如果用户没有指定执行哪些拦截器，struts2有一个默认执行的栈，defaultStack;<br>            一旦如果用户有指定执行哪些拦截器，默认的拦截器栈就不会被执行<br>拦截器的设计，就是基于组件设计的应用！</p>
 </blockquote>
 <p>##1.自定义拦截器</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-b27b25f79dacd74a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>

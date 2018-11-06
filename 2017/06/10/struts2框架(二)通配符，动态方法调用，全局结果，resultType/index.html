@@ -7,12 +7,12 @@
 
 
 
-    <meta name="description" content="1.Struts2通配符映射机制 一个 Web 应用可能有成百上千个 action 声明. 可以利用 struts 提供的通配符映射机制把多个彼此相似的映射关系简化为一个映射关系  1.1 通配符映射规则 若找到多个匹配, 没有通配符的那个将胜出 若指定的动作不存在, Struts 将会尝试把这个 URI 与任何一个包含着通配符   的动作名及进行匹配     若 Struts 找到的带有通配符的">
+    <meta name="description" content="1.Struts2通配符映射机制 一个 Web 应用可能有成百上千个 action 声明. 可以利用 struts 提供的通配符映射机制把多个彼此相似的映射关系简化为一个映射关系  1.1 通配符映射规则 若找到多个匹配, 没有通配符的那个将胜出 若指定的动作不存在, St">
 <meta property="og:type" content="article">
 <meta property="og:title" content="struts2框架(二)通配符，动态方法调用，全局结果，resultType">
 <meta property="og:url" content="http://yoursite.com/2017/06/10/struts2框架(二)通配符，动态方法调用，全局结果，resultType/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.Struts2通配符映射机制 一个 Web 应用可能有成百上千个 action 声明. 可以利用 struts 提供的通配符映射机制把多个彼此相似的映射关系简化为一个映射关系  1.1 通配符映射规则 若找到多个匹配, 没有通配符的那个将胜出 若指定的动作不存在, Struts 将会尝试把这个 URI 与任何一个包含着通配符   的动作名及进行匹配     若 Struts 找到的带有通配符的">
+<meta property="og:description" content="1.Struts2通配符映射机制 一个 Web 应用可能有成百上千个 action 声明. 可以利用 struts 提供的通配符映射机制把多个彼此相似的映射关系简化为一个映射关系  1.1 通配符映射规则 若找到多个匹配, 没有通配符的那个将胜出 若指定的动作不存在, St">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-e56aa0d4f08abdc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-6f423e4bc2149d4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -28,10 +28,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-ac8c65c32ab46a90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-896befcd0995fb89.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-69aa7a1888000edc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:03.139Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:50.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="struts2框架(二)通配符，动态方法调用，全局结果，resultType">
-<meta name="twitter:description" content="1.Struts2通配符映射机制 一个 Web 应用可能有成百上千个 action 声明. 可以利用 struts 提供的通配符映射机制把多个彼此相似的映射关系简化为一个映射关系  1.1 通配符映射规则 若找到多个匹配, 没有通配符的那个将胜出 若指定的动作不存在, Struts 将会尝试把这个 URI 与任何一个包含着通配符   的动作名及进行匹配     若 Struts 找到的带有通配符的">
+<meta name="twitter:description" content="1.Struts2通配符映射机制 一个 Web 应用可能有成百上千个 action 声明. 可以利用 struts 提供的通配符映射机制把多个彼此相似的映射关系简化为一个映射关系  1.1 通配符映射规则 若找到多个匹配, 没有通配符的那个将胜出 若指定的动作不存在, St">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-e56aa0d4f08abdc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -179,7 +179,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    8 minutes read (About 1166 words)
+                    8 minutes read (About 1168 words)
                 </span>
                 
             </div>
@@ -196,7 +196,7 @@
 </blockquote>
 <h3 id="1-1-通配符映射规则"><a href="#1-1-通配符映射规则" class="headerlink" title="1.1 通配符映射规则"></a>1.1 通配符映射规则</h3><ul>
 <li>若找到多个匹配, 没有通配符的那个将胜出</li>
-<li>若指定的动作不存在, Struts 将会尝试把这个 URI 与任何一个包含着通配符   的动作名及进行匹配    </li>
+<li>若指定的动作不存在, St<a id="more"></a>ruts 将会尝试把这个 URI 与任何一个包含着通配符   的动作名及进行匹配    </li>
 <li>若 Struts 找到的带有通配符的匹配不止一个, 最后一个匹配将胜出</li>
 <li>被通配符匹配到的 URI 字符串的子串可以用 {1}, {2} 来引用. {1} 匹配第一个子串, {2} 匹配第二个子串…</li>
 <li>{0} 匹配整个 URI</li>

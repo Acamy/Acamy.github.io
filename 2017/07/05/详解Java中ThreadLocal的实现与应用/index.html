@@ -7,18 +7,18 @@
 
 
 
-    <meta name="description" content="从这个类的名字就能大体了解到类的作用，ThreadLocal可以分解为Thread和Local，前者就不多说了，后者的意思是局部，本地的意思，整个类名可以理解为：线程局部对象或线程本地变量。程序是运行在线程中的，所以，在整个运行过程中，在任何地方都可以获得这个线程的局部对象，ThreadLocal类型的变量是和线程相绑定的。 1.ThreadLocal源码先来看一下涉及到的类图：  12345pu">
+    <meta name="description" content="从这个类的名字就能大体了解到类的作用，ThreadLocal可以分解为Thread和Local，前者就不多说了，后者的意思是局部，本地的意思，整个类名可以理解为：线程局部对象或线程本地变量。程序是运行在线程中的，所以，在整个运行过程中，在任何地方都可以获得这个线程的局部对象，ThreadLocal类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="详解Java中ThreadLocal的实现与应用">
 <meta property="og:url" content="http://yoursite.com/2017/07/05/详解Java中ThreadLocal的实现与应用/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="从这个类的名字就能大体了解到类的作用，ThreadLocal可以分解为Thread和Local，前者就不多说了，后者的意思是局部，本地的意思，整个类名可以理解为：线程局部对象或线程本地变量。程序是运行在线程中的，所以，在整个运行过程中，在任何地方都可以获得这个线程的局部对象，ThreadLocal类型的变量是和线程相绑定的。 1.ThreadLocal源码先来看一下涉及到的类图：  12345pu">
+<meta property="og:description" content="从这个类的名字就能大体了解到类的作用，ThreadLocal可以分解为Thread和Local，前者就不多说了，后者的意思是局部，本地的意思，整个类名可以理解为：线程局部对象或线程本地变量。程序是运行在线程中的，所以，在整个运行过程中，在任何地方都可以获得这个线程的局部对象，ThreadLocal类">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-ff2577459cce46a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:18.787Z">
+<meta property="og:updated_time" content="2018-11-06T15:52:04.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="详解Java中ThreadLocal的实现与应用">
-<meta name="twitter:description" content="从这个类的名字就能大体了解到类的作用，ThreadLocal可以分解为Thread和Local，前者就不多说了，后者的意思是局部，本地的意思，整个类名可以理解为：线程局部对象或线程本地变量。程序是运行在线程中的，所以，在整个运行过程中，在任何地方都可以获得这个线程的局部对象，ThreadLocal类型的变量是和线程相绑定的。 1.ThreadLocal源码先来看一下涉及到的类图：  12345pu">
+<meta name="twitter:description" content="从这个类的名字就能大体了解到类的作用，ThreadLocal可以分解为Thread和Local，前者就不多说了，后者的意思是局部，本地的意思，整个类名可以理解为：线程局部对象或线程本地变量。程序是运行在线程中的，所以，在整个运行过程中，在任何地方都可以获得这个线程的局部对象，ThreadLocal类">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-ff2577459cce46a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    17 minutes read (About 2547 words)
+                    17 minutes read (About 2548 words)
                 </span>
                 
             </div>
@@ -178,7 +178,7 @@
             
         </h1>
         <div class="content">
-            <p>从这个类的名字就能大体了解到类的作用，ThreadLocal可以分解为Thread和Local，前者就不多说了，后者的意思是局部，本地的意思，整个类名可以理解为：线程局部对象或线程本地变量。程序是运行在线程中的，所以，在整个运行过程中，在任何地方都可以获得这个线程的局部对象，ThreadLocal类型的变量是和线程相绑定的。</p>
+            <p>从这个类的名字就能大体了解到类的作用，ThreadLocal可以分解为Thread和Local，前者就不多说了，后者的意思是局部，本地的意思，整个类名可以理解为：线程局部对象或线程本地变量。程序是运行在线程中的，所以，在整个运行过程中，在任何地方都可以获得这个线程的局部对象，ThreadLocal类<a id="more"></a>型的变量是和线程相绑定的。</p>
 <h3 id="1-ThreadLocal源码"><a href="#1-ThreadLocal源码" class="headerlink" title="1.ThreadLocal源码"></a>1.ThreadLocal源码</h3><p>先来看一下涉及到的类图：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-ff2577459cce46a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public T get() &#123;&#125; // 获取ThreadLocal在当前线程中保存的变量副本</span><br><span class="line">public void set(T value) &#123;&#125; //用来设置当前线程中变量的副本</span><br><span class="line">private T setInitialValue()&#123;&#125; // 设置初始值</span><br><span class="line">protected T initialValue()&#123;&#125; //得到初始值，一般是用来在使用时进行重写的</span><br><span class="line">void createMap(Thread t, T firstValue) &#123;&#125;  // 在线程中对threadLocals成员变量赋值</span><br></pre></td></tr></table></figure>

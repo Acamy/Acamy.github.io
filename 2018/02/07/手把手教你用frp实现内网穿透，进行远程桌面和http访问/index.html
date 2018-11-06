@@ -7,12 +7,12 @@
 
 
 
-    <meta name="description" content="使用frp内网穿透工具使处于内网中的电脑能够像访问公网电脑一样方便，比如将公司或个人电脑里面的web项目让别人能够访问以便于自己及时修改，或者是进行远程或ssh连接。能够实现内网穿透的还有花生壳，ngrok等，但frp使用起来更加简便灵活，以及项目一直开源，所以本文选择frp作为示例。官方(项目地址)介绍为：  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http">
+    <meta name="description" content="使用frp内网穿透工具使处于内网中的电脑能够像访问公网电脑一样方便，比如将公司或个人电脑里面的web项目让别人能够访问以便于自己及时修改，或者是进行远程或ssh连接。能够实现内网穿透的还有花生壳，ngrok等，但frp使用起来更加简便灵活，以及项目一直开源，所以本文选择frp作为示例。官方(项目地">
 <meta property="og:type" content="article">
 <meta property="og:title" content="手把手教你用frp实现内网穿透，进行远程桌面和http访问">
 <meta property="og:url" content="http://yoursite.com/2018/02/07/手把手教你用frp实现内网穿透，进行远程桌面和http访问/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="使用frp内网穿透工具使处于内网中的电脑能够像访问公网电脑一样方便，比如将公司或个人电脑里面的web项目让别人能够访问以便于自己及时修改，或者是进行远程或ssh连接。能够实现内网穿透的还有花生壳，ngrok等，但frp使用起来更加简便灵活，以及项目一直开源，所以本文选择frp作为示例。官方(项目地址)介绍为：  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http">
+<meta property="og:description" content="使用frp内网穿透工具使处于内网中的电脑能够像访问公网电脑一样方便，比如将公司或个人电脑里面的web项目让别人能够访问以便于自己及时修改，或者是进行远程或ssh连接。能够实现内网穿透的还有花生壳，ngrok等，但frp使用起来更加简便灵活，以及项目一直开源，所以本文选择frp作为示例。官方(项目地">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-ceb72b6bd01ba9b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-c6fec2ea7352f900.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -23,10 +23,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-39af677f9701b14b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-a0112ba80e7c9fc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-7ae2c76ecdb68e45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:20.090Z">
+<meta property="og:updated_time" content="2018-11-06T15:52:05.410Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手把手教你用frp实现内网穿透，进行远程桌面和http访问">
-<meta name="twitter:description" content="使用frp内网穿透工具使处于内网中的电脑能够像访问公网电脑一样方便，比如将公司或个人电脑里面的web项目让别人能够访问以便于自己及时修改，或者是进行远程或ssh连接。能够实现内网穿透的还有花生壳，ngrok等，但frp使用起来更加简便灵活，以及项目一直开源，所以本文选择frp作为示例。官方(项目地址)介绍为：  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http">
+<meta name="twitter:description" content="使用frp内网穿透工具使处于内网中的电脑能够像访问公网电脑一样方便，比如将公司或个人电脑里面的web项目让别人能够访问以便于自己及时修改，或者是进行远程或ssh连接。能够实现内网穿透的还有花生壳，ngrok等，但frp使用起来更加简便灵活，以及项目一直开源，所以本文选择frp作为示例。官方(项目地">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-ceb72b6bd01ba9b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -174,7 +174,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 minutes read (About 1375 words)
+                    9 minutes read (About 1376 words)
                 </span>
                 
             </div>
@@ -186,7 +186,7 @@
             
         </h1>
         <div class="content">
-            <p>使用frp内网穿透工具使处于内网中的电脑能够像访问公网电脑一样方便，比如将公司或个人电脑里面的web项目让别人能够访问以便于自己及时修改，或者是进行远程或ssh连接。能够实现内网穿透的还有花生壳，ngrok等，但frp使用起来更加简便灵活，以及项目一直开源，所以本文选择frp作为示例。官方(<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">项目地址</a>)介绍为：</p>
+            <p>使用frp内网穿透工具使处于内网中的电脑能够像访问公网电脑一样方便，比如将公司或个人电脑里面的web项目让别人能够访问以便于自己及时修改，或者是进行远程或ssh连接。能够实现内网穿透的还有花生壳，ngrok等，但frp使用起来更加简便灵活，以及项目一直开源，所以本文选择frp作为示例。官方(<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">项目地<a id="more"></a>址</a>)介绍为：</p>
 <blockquote>
 <p>frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http, https 协议。</p>
 </blockquote>

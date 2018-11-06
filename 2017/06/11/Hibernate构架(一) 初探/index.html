@@ -7,20 +7,20 @@
 
 
 
-    <meta name="description" content="ORM，Object Relation Mapping，即对象关系映射。Hibernate就是ORM的实现，使对象在数据库的存储和获取非常的方便。  1.Hibernate开发流程 1.1 引入jar文件hibernate3.jar核心  +  required 必须引入的(6个) +  jpa 目录  + 数据库驱动包  1.2 写对象类Employee.java1234567public c">
+    <meta name="description" content="ORM，Object Relation Mapping，即对象关系映射。Hibernate就是ORM的实现，使对象在数据库的存储和获取非常的方便。  1.Hibernate开发流程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hibernate构架(一) 初探">
 <meta property="og:url" content="http://yoursite.com/2017/06/11/Hibernate构架(一) 初探/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="ORM，Object Relation Mapping，即对象关系映射。Hibernate就是ORM的实现，使对象在数据库的存储和获取非常的方便。  1.Hibernate开发流程 1.1 引入jar文件hibernate3.jar核心  +  required 必须引入的(6个) +  jpa 目录  + 数据库驱动包  1.2 写对象类Employee.java1234567public c">
+<meta property="og:description" content="ORM，Object Relation Mapping，即对象关系映射。Hibernate就是ORM的实现，使对象在数据库的存储和获取非常的方便。  1.Hibernate开发流程">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-93cc6b6d08b987fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990<a id=">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-29189b7a33fe1694.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:04.328Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:51.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hibernate构架(一) 初探">
-<meta name="twitter:description" content="ORM，Object Relation Mapping，即对象关系映射。Hibernate就是ORM的实现，使对象在数据库的存储和获取非常的方便。  1.Hibernate开发流程 1.1 引入jar文件hibernate3.jar核心  +  required 必须引入的(6个) +  jpa 目录  + 数据库驱动包  1.2 写对象类Employee.java1234567public c">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-93cc6b6d08b987fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="ORM，Object Relation Mapping，即对象关系映射。Hibernate就是ORM的实现，使对象在数据库的存储和获取非常的方便。  1.Hibernate开发流程">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990<a id=">
 
 
 
@@ -167,7 +167,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    11 minutes read (About 1623 words)
+                    11 minutes read (About 1624 words)
                 </span>
                 
             </div>
@@ -182,7 +182,7 @@
             <blockquote>
 <p>ORM，Object Relation Mapping，即对象关系映射。Hibernate就是ORM的实现，使对象在数据库的存储和获取非常的方便。</p>
 </blockquote>
-<h2 id="1-Hibernate开发流程"><a href="#1-Hibernate开发流程" class="headerlink" title="1.Hibernate开发流程"></a>1.Hibernate开发流程</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990755-93cc6b6d08b987fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="1-Hibernate开发流程"><a href="#1-Hibernate开发流程" class="headerlink" title="1.Hibernate开发流程"></a>1.Hibernate开发流程</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990<a id=" more"="">755-93cc6b6d08b987fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <h3 id="1-1-引入jar文件"><a href="#1-1-引入jar文件" class="headerlink" title="1.1 引入jar文件"></a>1.1 引入jar文件</h3><p>hibernate3.jar核心  +  required 必须引入的(6个) +  jpa 目录  + 数据库驱动包</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-29189b7a33fe1694.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <h3 id="1-2-写对象类"><a href="#1-2-写对象类" class="headerlink" title="1.2 写对象类"></a>1.2 写对象类</h3><p><strong>Employee.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Employee &#123;</span><br><span class="line"></span><br><span class="line">	private int empId;</span><br><span class="line">	private String empName;</span><br><span class="line">	private Date workDate;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>

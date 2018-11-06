@@ -7,12 +7,12 @@
 
 
 
-    <meta name="description" content="上周自己负责的一个应用出现频繁full gc的问题，不得不尝试优化一下。第一次做这种事只能先看看网上的文章，然后亲自尝试怎么去完成减少full gc的频率，降低young gc的频率这一目标。虽然最终只是勉强解决了，但还是希望记录下来给下一次积攒经验。  先给出前后对比图，选取了上周优化前后的两个典型工作日上午9:00到晚上9:00的GC情况。从前两张图可以看出一天要发生高达上10次的full">
+    <meta name="description" content="上周自己负责的一个应用出现频繁full gc的问题，不得不尝试优化一下。第一次做这种事只能先看看网上的文章，然后亲自尝试怎么去完成减少full gc的频率，降低young gc的频率这一目标。虽然最终只是勉强解决了，但还是希望记录下来给下一次积攒经验。  先给出前后对比图，选取了上周优化前后的两">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记一次不太成功的频繁full gc排查过程">
 <meta property="og:url" content="http://yoursite.com/2018/10/21/记一次不太成功的频繁full gc排查过程/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="上周自己负责的一个应用出现频繁full gc的问题，不得不尝试优化一下。第一次做这种事只能先看看网上的文章，然后亲自尝试怎么去完成减少full gc的频率，降低young gc的频率这一目标。虽然最终只是勉强解决了，但还是希望记录下来给下一次积攒经验。  先给出前后对比图，选取了上周优化前后的两个典型工作日上午9:00到晚上9:00的GC情况。从前两张图可以看出一天要发生高达上10次的full">
+<meta property="og:description" content="上周自己负责的一个应用出现频繁full gc的问题，不得不尝试优化一下。第一次做这种事只能先看看网上的文章，然后亲自尝试怎么去完成减少full gc的频率，降低young gc的频率这一目标。虽然最终只是勉强解决了，但还是希望记录下来给下一次积攒经验。  先给出前后对比图，选取了上周优化前后的两">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-f7d091ef51eefe53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-b7c05505ead2a37b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -20,10 +20,10 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-1d846606a559ff8c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-f4a05a43bab43065.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-0f5a80a456173d85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:14.601Z">
+<meta property="og:updated_time" content="2018-11-06T15:52:00.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次不太成功的频繁full gc排查过程">
-<meta name="twitter:description" content="上周自己负责的一个应用出现频繁full gc的问题，不得不尝试优化一下。第一次做这种事只能先看看网上的文章，然后亲自尝试怎么去完成减少full gc的频率，降低young gc的频率这一目标。虽然最终只是勉强解决了，但还是希望记录下来给下一次积攒经验。  先给出前后对比图，选取了上周优化前后的两个典型工作日上午9:00到晚上9:00的GC情况。从前两张图可以看出一天要发生高达上10次的full">
+<meta name="twitter:description" content="上周自己负责的一个应用出现频繁full gc的问题，不得不尝试优化一下。第一次做这种事只能先看看网上的文章，然后亲自尝试怎么去完成减少full gc的频率，降低young gc的频率这一目标。虽然最终只是勉强解决了，但还是希望记录下来给下一次积攒经验。  先给出前后对比图，选取了上周优化前后的两">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/5990755-f7d091ef51eefe53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -171,7 +171,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    10 minutes read (About 1552 words)
+                    10 minutes read (About 1553 words)
                 </span>
                 
             </div>
@@ -186,7 +186,7 @@
             <blockquote>
 <p>上周自己负责的一个应用出现频繁full gc的问题，不得不尝试优化一下。第一次做这种事只能先看看网上的文章，然后亲自尝试怎么去完成减少full gc的频率，降低young gc的频率这一目标。虽然最终只是勉强解决了，但还是希望记录下来给下一次积攒经验。</p>
 </blockquote>
-<p>先给出前后对比图，选取了上周优化前后的两个典型工作日上午9:00到晚上9:00的GC情况。从前两张图可以看出一天要发生高达上10次的full gc，young gc也非常频繁。第三张优化后的图已经没有出现full gc，young gc的频率也大大降低了，所以说基本完成目标。</p>
+<p>先给出前后对比图，选取了上周优化前后的两<a id="more"></a>个典型工作日上午9:00到晚上9:00的GC情况。从前两张图可以看出一天要发生高达上10次的full gc，young gc也非常频繁。第三张优化后的图已经没有出现full gc，young gc的频率也大大降低了，所以说基本完成目标。</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/5990755-f7d091ef51eefe53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="优化前Full GC情况"><br><img src="https://upload-images.jianshu.io/upload_images/5990755-b7c05505ead2a37b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="优化前整体gc情况"><br><img src="https://upload-images.jianshu.io/upload_images/5990755-458b25a36589af41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="优化后整体gc情况"></p>
 <p>接下来说明排查过程</p>
 <p>#####1.jps命令查看进程id<br>jps是java后自带的查看虚拟机进程状态命令工具，用如下命令就可以看到虚拟机执行主类和进程ID.<br><code>jps -l</code></p>

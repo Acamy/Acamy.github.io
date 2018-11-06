@@ -7,19 +7,19 @@
 
 
 
-    <meta name="description" content="k-means算法以k为参数，把n个对象分成k个簇，使簇内具有较高的相似度，而簇间的相似度较低。本文主要基于此算法对下图2006年各地区城镇居民家庭平均每人全年消费性支出进行分析，以了解各地消费层级的划分   实现代码如下：1234567891011121314151617181920212223242526import numpy as npfrom sklearn.cluster impor">
+    <meta name="description" content="k-means算法以k为参数，把n个对象分成k个簇，使簇内具有较高的相似度，而簇间的相似度较低。本文主要基于此算法对下图2006年各地区城镇居民家庭平均每人全年消费性支出进行分析，以了解各地消费层级的划分">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于K-means聚类算法对相关数据进行分析">
 <meta property="og:url" content="http://yoursite.com/2017/12/06/基于K-means聚类算法对相关数据进行分析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="k-means算法以k为参数，把n个对象分成k个簇，使簇内具有较高的相似度，而簇间的相似度较低。本文主要基于此算法对下图2006年各地区城镇居民家庭平均每人全年消费性支出进行分析，以了解各地消费层级的划分   实现代码如下：1234567891011121314151617181920212223242526import numpy as npfrom sklearn.cluster impor">
+<meta property="og:description" content="k-means算法以k为参数，把n个对象分成k个簇，使簇内具有较高的相似度，而簇间的相似度较低。本文主要基于此算法对下图2006年各地区城镇居民家庭平均每人全年消费性支出进行分析，以了解各地消费层级的划分">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-945f20839f868579.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:46:59.249Z">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_<a id=">
+<meta property="og:updated_time" content="2018-11-06T15:51:48.173Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于K-means聚类算法对相关数据进行分析">
-<meta name="twitter:description" content="k-means算法以k为参数，把n个对象分成k个簇，使簇内具有较高的相似度，而簇间的相似度较低。本文主要基于此算法对下图2006年各地区城镇居民家庭平均每人全年消费性支出进行分析，以了解各地消费层级的划分   实现代码如下：1234567891011121314151617181920212223242526import numpy as npfrom sklearn.cluster impor">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-945f20839f868579.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="k-means算法以k为参数，把n个对象分成k个簇，使簇内具有较高的相似度，而簇间的相似度较低。本文主要基于此算法对下图2006年各地区城镇居民家庭平均每人全年消费性支出进行分析，以了解各地消费层级的划分">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_<a id=">
 
 
 
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 minutes read (About 737 words)
+                    5 minutes read (About 738 words)
                 </span>
                 
             </div>
@@ -181,7 +181,7 @@
             <blockquote>
 <p>k-means算法以k为参数，把n个对象分成k个簇，使簇内具有较高的相似<br>度，而簇间的相似度较低。本文主要基于此算法对下图2006年各地区城镇居民家庭平均每人全年消费性支出进行分析，以了解各地消费层级的划分</p>
 </blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-945f20839f868579.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_<a id=" more"="">images/5990755-945f20839f868579.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>实现代码如下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">from sklearn.cluster import KMeans</span><br><span class="line">import openpyxl</span><br><span class="line"> </span><br><span class="line">def loadData(filePath):</span><br><span class="line">    wb = openpyxl.load_workbook(filePath)</span><br><span class="line">    sh = wb.get_sheet_by_name(&apos;Sheet1&apos;)</span><br><span class="line">    retData = []</span><br><span class="line">    retCityName = []</span><br><span class="line">    for i in range(5, sh.max_row + 1):</span><br><span class="line">        retCityName.append(sh.cell(row=i, column=1).value)</span><br><span class="line">        retData.append([float(sh.cell(row=i, column=j).value) for j in range(2,sh.max_column + 1)])</span><br><span class="line">    return retData,retCityName </span><br><span class="line">     </span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    data,cityName = loadData(&apos;city.xlsx&apos;)</span><br><span class="line">    km = KMeans(n_clusters=4)</span><br><span class="line">    label = km.fit_predict(data)</span><br><span class="line">    expenses = np.sum(km.cluster_centers_,axis=1)</span><br><span class="line">    #print(expenses)</span><br><span class="line">    CityCluster = [[],[],[],[]]</span><br><span class="line">    for i in range(len(cityName)):</span><br><span class="line">        CityCluster[label[i]].append(cityName[i])</span><br><span class="line">    for i in range(len(CityCluster)):</span><br><span class="line">        print(&quot;Expenses:%.2f&quot; % expenses[i])</span><br><span class="line">        print(CityCluster[i])</span><br></pre></td></tr></table></figure></p>
 <p>首先通过openpyxl类库来读取Excel中的文件，将城市名称和其它数据分别存入一个一维数据和二维数组中，然后调用KMeans方法，设置n_clusters参数，即分类个数，对数据时行训练，获得标签，最后对标签进行输出。输出结果即将城市按照消费水平n_clusters类，消费水平相近的城市聚集在一类中。其中expense为聚类中心点的数值加和，也就是平均消费水平。<br>当n_clusters=2时：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Expenses:7595.47</span><br><span class="line">[&apos; 天  津&apos;, &apos; 河  北&apos;, &apos; 山  西&apos;, &apos; 内蒙古&apos;, &apos; 辽  宁&apos;, &apos; 吉  林&apos;, &apos; 黑龙江&apos;, &apos; 江  苏&apos;, &apos; 安  徽&apos;, &apos; 福  建&apos;, &apos; 江  西&apos;, &apos; 山  东&apos;, &apos; 河  南&apos;, &apos; 湖  北&apos;, &apos; 湖  南&apos;, &apos; 广  西&apos;, &apos; 海  南&apos;, &apos; 重  庆&apos;, &apos; 四  川&apos;, &apos; 贵  州&apos;, &apos; 云  南&apos;, &apos; 西  藏&apos;, &apos; 陕  西&apos;, &apos; 甘  肃&apos;, &apos; 青  海&apos;, &apos; 宁  夏&apos;, &apos; 新  疆&apos;]</span><br><span class="line">Expenses:13841.98</span><br><span class="line">[&apos; 北  京&apos;, &apos; 上  海&apos;, &apos; 浙  江&apos;, &apos; 广  东&apos;]</span><br></pre></td></tr></table></figure></p>
 <p>当n_clusters=3时：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Expenses:7204.11</span><br><span class="line">[&apos; 河  北&apos;, &apos; 山  西&apos;, &apos; 内蒙古&apos;, &apos; 辽  宁&apos;, &apos; 吉  林&apos;, &apos; 黑龙江&apos;, &apos; 安  徽&apos;, &apos; 江  西&apos;, &apos; 山  东&apos;, &apos; 河  南&apos;, &apos; 湖  北&apos;, &apos; 湖  南&apos;, &apos; 广  西&apos;, &apos; 海  南&apos;, &apos; 四  川&apos;, &apos; 贵  州&apos;, &apos; 云  南&apos;, &apos; 西  藏&apos;, &apos; 陕  西&apos;, &apos; 甘  肃&apos;, &apos; 青  海&apos;, &apos; 宁  夏&apos;, &apos; 新  疆&apos;]</span><br><span class="line">Expenses:13841.98</span><br><span class="line">[&apos; 北  京&apos;, &apos; 上  海&apos;, &apos; 浙  江&apos;, &apos; 广  东&apos;]</span><br><span class="line">Expenses:9845.76</span><br><span class="line">[&apos; 天  津&apos;, &apos; 江  苏&apos;, &apos; 福  建&apos;, &apos; 重  庆&apos;]</span><br></pre></td></tr></table></figure></p>

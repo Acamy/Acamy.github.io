@@ -7,19 +7,19 @@
 
 
 
-    <meta name="description" content="观察者模式定义了一系列对象之间的一对多关系，当一个对象(主题，也称被观察者)改变状态，其他依赖者(观察者)都会收到通知.  ##1.实例描述现有负责追踪天气状况(温度，湿度，气压)的WeatherData对象，利用该对象建立一个气象观测站应用，有三种布告板，分别显示目前的状况，气象统计及简单的预报，当WeatherData里面有最新的数据测量时，三种布告板必段实时更新。并要求我们能灵活的增加观察">
+    <meta name="description" content="观察者模式定义了一系列对象之间的一对多关系，当一个对象(主题，也称被观察者)改变状态，其他依赖者(观察者)都会收到通知.  ##1.实例描述现有负责追踪天气状况(温度，湿度，气压)的WeatherData对象，利用该对象建立一个气象观测站应用，有三种布告板，分别显示目前的状况，气象统计及简单的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Head First 设计模式学习系列(二)   观察者模式">
 <meta property="og:url" content="http://yoursite.com/2017/06/06/Head First 设计模式学习系列(二)   观察者模式/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="观察者模式定义了一系列对象之间的一对多关系，当一个对象(主题，也称被观察者)改变状态，其他依赖者(观察者)都会收到通知.  ##1.实例描述现有负责追踪天气状况(温度，湿度，气压)的WeatherData对象，利用该对象建立一个气象观测站应用，有三种布告板，分别显示目前的状况，气象统计及简单的预报，当WeatherData里面有最新的数据测量时，三种布告板必段实时更新。并要求我们能灵活的增加观察">
+<meta property="og:description" content="观察者模式定义了一系列对象之间的一对多关系，当一个对象(主题，也称被观察者)改变状态，其他依赖者(观察者)都会收到通知.  ##1.实例描述现有负责追踪天气状况(温度，湿度，气压)的WeatherData对象，利用该对象建立一个气象观测站应用，有三种布告板，分别显示目前的状况，气象统计及简单的">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-5fb8ffdddedf9cfe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-a402624b6a87c4bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:10.125Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:56.505Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Head First 设计模式学习系列(二)   观察者模式">
-<meta name="twitter:description" content="观察者模式定义了一系列对象之间的一对多关系，当一个对象(主题，也称被观察者)改变状态，其他依赖者(观察者)都会收到通知.  ##1.实例描述现有负责追踪天气状况(温度，湿度，气压)的WeatherData对象，利用该对象建立一个气象观测站应用，有三种布告板，分别显示目前的状况，气象统计及简单的预报，当WeatherData里面有最新的数据测量时，三种布告板必段实时更新。并要求我们能灵活的增加观察">
+<meta name="twitter:description" content="观察者模式定义了一系列对象之间的一对多关系，当一个对象(主题，也称被观察者)改变状态，其他依赖者(观察者)都会收到通知.  ##1.实例描述现有负责追踪天气状况(温度，湿度，气压)的WeatherData对象，利用该对象建立一个气象观测站应用，有三种布告板，分别显示目前的状况，气象统计及简单的">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-5fb8ffdddedf9cfe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -167,7 +167,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 minutes read (About 1052 words)
+                    7 minutes read (About 1053 words)
                 </span>
                 
             </div>
@@ -182,7 +182,7 @@
             <blockquote>
 <p>观察者模式定义了一系列对象之间的一对多关系，当一个对象(主题，也称被观察者)改变状态，其他依赖者(观察者)都会收到通知.</p>
 </blockquote>
-<p>##1.实例描述<br>现有负责追踪天气状况(温度，湿度，气压)的WeatherData对象，利用该对象建立一个气象观测站应用，有三种布告板，分别显示目前的状况，气象统计及简单的预报，当WeatherData里面有最新的数据测量时，三种布告板必段实时更新。并要求我们能灵活的增加观察者，移除观察者。同时在布告板的块数可能增加，如增加酷热指数布告板。</p>
+<p>##1.实例描述<br>现有负责追踪天气状况(温度，湿度，气压)的WeatherData对象，利用该对象建立一个气象观测站应用，有三种布告板，分别显示目前的状况，气象统计及简单的<a id="more"></a>预报，当WeatherData里面有最新的数据测量时，三种布告板必段实时更新。并要求我们能灵活的增加观察者，移除观察者。同时在布告板的块数可能增加，如增加酷热指数布告板。</p>
 <p>##2.分析思路<br>根据定义和描述，我们可以将WeatherDate作为主题，三块布告板作为观察者。首先创建Subjec接口，里面定义添加，移除，通知观察者功能，实现该接口的WeatherData通过ArrayList字段来模拟所有观察者，还有温度，湿度，气压字段，实现接口的方法。然后创建Observer接口，定义更新功能，由于每个布告板还有不同的展示方式，我们还需创建一个DispayElement接口，里面定义展示行为。所有的布告板都实现了Observer和DispayElement接口，并且定义了私有的Subject和相关私有字段。<br>WeatherData里面实现了注册和移除观察者的方法。当要增加一个布告板时，我们只需要实现Observer,DisplayElement两个接口，并且注册。</p>
 <p>##3.类图实现<br>主题：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-5fb8ffdddedf9cfe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>

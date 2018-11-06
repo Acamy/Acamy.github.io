@@ -7,17 +7,17 @@
 
 
 
-    <meta name="description" content="Juel是Java Unified Expression Language的简称，即Java统一表达语言，在JSP2.1标准(JSR-245)中定义的一部分。尽管EL表达式是伴随着JSP而生，但现在已经可以在非JSP应用中使用，相关的API放在javax.el包里面。  Juel是统一表达语言轻量而高效级的实现，具有高性能，插件式缓存，小体积，支持方法调用和多参数调用，可插拔多种特性。具体可以去">
+    <meta name="description" content="Juel是Java Unified Expression Language的简称，即Java统一表达语言，在JSP2.1标准(JSR-245)中定义的一部分。尽管EL表达式是伴随着JSP而生，但现在已经可以在非JSP应用中使用，相关的API放在javax.el包里面。  Juel是统一表达语言轻">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Juel基本使用">
 <meta property="og:url" content="http://yoursite.com/2018/09/27/Juel基本使用/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Juel是Java Unified Expression Language的简称，即Java统一表达语言，在JSP2.1标准(JSR-245)中定义的一部分。尽管EL表达式是伴随着JSP而生，但现在已经可以在非JSP应用中使用，相关的API放在javax.el包里面。  Juel是统一表达语言轻量而高效级的实现，具有高性能，插件式缓存，小体积，支持方法调用和多参数调用，可插拔多种特性。具体可以去">
+<meta property="og:description" content="Juel是Java Unified Expression Language的简称，即Java统一表达语言，在JSP2.1标准(JSR-245)中定义的一部分。尽管EL表达式是伴随着JSP而生，但现在已经可以在非JSP应用中使用，相关的API放在javax.el包里面。  Juel是统一表达语言轻">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-05T15:47:17.770Z">
+<meta property="og:updated_time" content="2018-11-06T15:52:03.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Juel基本使用">
-<meta name="twitter:description" content="Juel是Java Unified Expression Language的简称，即Java统一表达语言，在JSP2.1标准(JSR-245)中定义的一部分。尽管EL表达式是伴随着JSP而生，但现在已经可以在非JSP应用中使用，相关的API放在javax.el包里面。  Juel是统一表达语言轻量而高效级的实现，具有高性能，插件式缓存，小体积，支持方法调用和多参数调用，可插拔多种特性。具体可以去">
+<meta name="twitter:description" content="Juel是Java Unified Expression Language的简称，即Java统一表达语言，在JSP2.1标准(JSR-245)中定义的一部分。尽管EL表达式是伴随着JSP而生，但现在已经可以在非JSP应用中使用，相关的API放在javax.el包里面。  Juel是统一表达语言轻">
 
 
 
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 minutes read (About 711 words)
+                    5 minutes read (About 712 words)
                 </span>
                 
             </div>
@@ -179,7 +179,7 @@
             <blockquote>
 <p>Juel是Java Unified Expression Language的简称，即Java统一表达语言，在JSP2.1标准(JSR-245)中定义的一部分。尽管EL表达式是伴随着JSP而生，但现在已经可以在非JSP应用中使用，相关的API放在javax.el包里面。</p>
 </blockquote>
-<p>Juel是统一表达语言轻量而高效级的实现，具有高性能，插件式缓存，小体积，支持方法调用和多参数调用，可插拔多种特性。具体可以去<a href="http://juel.sourceforge.net/index.html" target="_blank" rel="noopener">Juel官方网站</a>进行详细阅读，本文基于官方文档写一下简单的使用说明。</p>
+<p>Juel是统一表达语言轻<a id="more"></a>量而高效级的实现，具有高性能，插件式缓存，小体积，支持方法调用和多参数调用，可插拔多种特性。具体可以去<a href="http://juel.sourceforge.net/index.html" target="_blank" rel="noopener">Juel官方网站</a>进行详细阅读，本文基于官方文档写一下简单的使用说明。</p>
 <h5 id="1-引入依赖"><a href="#1-引入依赖" class="headerlink" title="1. 引入依赖"></a>1. 引入依赖</h5><p>使用Juel首先需要引入以下的三个依赖，版本可以自己选择</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;de.odysseus.juel&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;juel-api&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.7&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;de.odysseus.juel&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;juel-impl&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.7&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;de.odysseus.juel&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;juel-spi&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.7&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 <h4 id="2-最简单的例子"><a href="#2-最简单的例子" class="headerlink" title="2. 最简单的例子"></a>2. 最简单的例子</h4><p>在看官方给出的quick start中的例子之前，先看看一个更简单的，实际上在项目中大多也是这种模式的应用。如下代码所示，需要做的事情很简单，即将字符串{\”argIn1\”:\”${var1}\”,\”argIn2\”:\”${var2}\”}解析为{“argIn1”:”Hello”,”argIn2”:”World”}, 要实现该目的基本上分为三步走</p>

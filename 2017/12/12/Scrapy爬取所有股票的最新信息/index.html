@@ -7,22 +7,22 @@
 
 
 
-    <meta name="description" content="##1. Scrapy框架如下图所示，Scrapy构架由五大组件（SPIDERS,ENGINE,SCHEDULER,DOWNLOADER,ITEM PIPELINES），两个中间件（SPIDERS到ENGINE,ENGINE到DOWNLOADER）,三条数据流组成（①②，③④⑤⑥，⑦⑧），我们在使用时一般只需要通过genspider命令创建spider并编写处理逻辑，然后在pipelines里面对">
+    <meta name="description" content="##1. Scrapy框架如下图所示，Scrapy构架由五大组件（SPIDERS,ENGINE,SCHEDULER,DOWNLOADER,ITEM PIPELINES），两个中间件（SPIDERS到ENGINE,ENGINE到DOWNLOADER）,三条数据流组成（①②，③④⑤⑥，⑦⑧），我们在使">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scrapy爬取所有股票的最新信息">
 <meta property="og:url" content="http://yoursite.com/2017/12/12/Scrapy爬取所有股票的最新信息/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="##1. Scrapy框架如下图所示，Scrapy构架由五大组件（SPIDERS,ENGINE,SCHEDULER,DOWNLOADER,ITEM PIPELINES），两个中间件（SPIDERS到ENGINE,ENGINE到DOWNLOADER）,三条数据流组成（①②，③④⑤⑥，⑦⑧），我们在使用时一般只需要通过genspider命令创建spider并编写处理逻辑，然后在pipelines里面对">
+<meta property="og:description" content="##1. Scrapy框架如下图所示，Scrapy构架由五大组件（SPIDERS,ENGINE,SCHEDULER,DOWNLOADER,ITEM PIPELINES），两个中间件（SPIDERS到ENGINE,ENGINE到DOWNLOADER）,三条数据流组成（①②，③④⑤⑥，⑦⑧），我们在使">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-740c73ecce4e6766.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-1a7d9fdb56f9c19e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-06b8ecd522208843.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-1adedc97bc7ea70c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-7b56b4fad2779074.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:00.756Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:49.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scrapy爬取所有股票的最新信息">
-<meta name="twitter:description" content="##1. Scrapy框架如下图所示，Scrapy构架由五大组件（SPIDERS,ENGINE,SCHEDULER,DOWNLOADER,ITEM PIPELINES），两个中间件（SPIDERS到ENGINE,ENGINE到DOWNLOADER）,三条数据流组成（①②，③④⑤⑥，⑦⑧），我们在使用时一般只需要通过genspider命令创建spider并编写处理逻辑，然后在pipelines里面对">
+<meta name="twitter:description" content="##1. Scrapy框架如下图所示，Scrapy构架由五大组件（SPIDERS,ENGINE,SCHEDULER,DOWNLOADER,ITEM PIPELINES），两个中间件（SPIDERS到ENGINE,ENGINE到DOWNLOADER）,三条数据流组成（①②，③④⑤⑥，⑦⑧），我们在使">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-740c73ecce4e6766.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -170,7 +170,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 minutes read (About 254 words)
+                    2 minutes read (About 255 words)
                 </span>
                 
             </div>
@@ -182,7 +182,7 @@
             
         </h1>
         <div class="content">
-            <p>##1. Scrapy框架<br>如下图所示，Scrapy构架由五大组件（SPIDERS,ENGINE,SCHEDULER,DOWNLOADER,ITEM PIPELINES），两个中间件（SPIDERS到ENGINE,ENGINE到DOWNLOADER）,三条数据流组成（①②，③④⑤⑥，⑦⑧），我们在使用时一般只需要通过genspider命令创建spider并编写处理逻辑，然后在pipelines里面对数据进行处理存储即可。<br><img src="http://upload-images.jianshu.io/upload_images/5990755-740c73ecce4e6766.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Scrapy框架"></p>
+            <p>##1. Scrapy框架<br>如下图所示，Scrapy构架由五大组件（SPIDERS,ENGINE,SCHEDULER,DOWNLOADER,ITEM PIPELINES），两个中间件（SPIDERS到ENGINE,ENGINE到DOWNLOADER）,三条数据流组成（①②，③④⑤⑥，⑦⑧），我们在使<a id="more"></a>用时一般只需要通过genspider命令创建spider并编写处理逻辑，然后在pipelines里面对数据进行处理存储即可。<br><img src="http://upload-images.jianshu.io/upload_images/5990755-740c73ecce4e6766.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Scrapy框架"></p>
 <h2 id="2-爬取股票信息"><a href="#2-爬取股票信息" class="headerlink" title="2. 爬取股票信息"></a>2. 爬取股票信息</h2><p>GitHub地址：<a href="https://github.com/Acamy/BaiduStocks" target="_blank" rel="noopener">https://github.com/Acamy/BaiduStocks</a></p>
 <ol>
 <li><p>创建工程和spider文件</p>

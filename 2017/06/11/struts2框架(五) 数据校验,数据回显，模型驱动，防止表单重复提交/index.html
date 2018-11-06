@@ -7,20 +7,20 @@
 
 
 
-    <meta name="description" content="1.数据校验 Struts数据效验， 通过拦截器完成  &amp;lt;interceptor name=&amp;quot;validation&amp;quot; class=&amp;quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&amp;quot;/&amp;gt; 1.1 Struts2进行表单验证(手工方式)a.配置表单12">
+    <meta name="description" content="1.数据校验 Struts数据效验， 通过拦截器完成  &amp;lt;interceptor name=&amp;quot;validation&amp;quot; class=&amp;quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&amp;quot;/&amp;gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交">
 <meta property="og:url" content="http://yoursite.com/2017/06/11/struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.数据校验 Struts数据效验， 通过拦截器完成  &amp;lt;interceptor name=&amp;quot;validation&amp;quot; class=&amp;quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&amp;quot;/&amp;gt; 1.1 Struts2进行表单验证(手工方式)a.配置表单12">
+<meta property="og:description" content="1.数据校验 Struts数据效验， 通过拦截器完成  &amp;lt;interceptor name=&amp;quot;validation&amp;quot; class=&amp;quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&amp;quot;/&amp;gt;">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-4c89b961f465f189.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-5b1cc34cae47d4cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-07373ec190f4f2c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:04.064Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:51.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交">
-<meta name="twitter:description" content="1.数据校验 Struts数据效验， 通过拦截器完成  &amp;lt;interceptor name=&amp;quot;validation&amp;quot; class=&amp;quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&amp;quot;/&amp;gt; 1.1 Struts2进行表单验证(手工方式)a.配置表单12">
+<meta name="twitter:description" content="1.数据校验 Struts数据效验， 通过拦截器完成  &amp;lt;interceptor name=&amp;quot;validation&amp;quot; class=&amp;quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&amp;quot;/&amp;gt;">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-4c89b961f465f189.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -168,7 +168,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    15 minutes read (About 2207 words)
+                    15 minutes read (About 2208 words)
                 </span>
                 
             </div>
@@ -183,7 +183,7 @@
             <h2 id="1-数据校验"><a href="#1-数据校验" class="headerlink" title="1.数据校验"></a>1.数据校验</h2><blockquote>
 <p>Struts数据效验， 通过拦截器完成</p>
 </blockquote>
-<p><code>&lt;interceptor name=&quot;validation&quot; class=&quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&quot;/&gt;</code></p>
+<p><code>&lt;interceptor name=&quot;validation&quot; class=&quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&quot;/&gt;</code><br><a id="more"></a></p>
 <h3 id="1-1-Struts2进行表单验证-手工方式"><a href="#1-1-Struts2进行表单验证-手工方式" class="headerlink" title="1.1 Struts2进行表单验证(手工方式)"></a>1.1 Struts2进行表单验证(手工方式)</h3><p>a.配置表单<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   &lt;form method=&quot;post&quot; action=&quot;$&#123;pageContext.request.contextPath &#125;/user_register.action&quot;&gt;</span><br><span class="line">	用户名：&lt;input type=&quot;text&quot; name=&quot;user.userName&quot;&gt;</span><br><span class="line">	 		&lt;s:fielderror fieldName=&quot;user.userName&quot;&gt;&lt;/s:fielderror&gt;</span><br><span class="line">	&lt;br/&gt;</span><br><span class="line">	密码：&lt;input type=&quot;text&quot; name=&quot;user.pwd&quot;&gt;</span><br><span class="line">			&lt;s:fielderror fieldName=&quot;user.pwd&quot;&gt;&lt;/s:fielderror&gt;</span><br><span class="line">	&lt;br/&gt;</span><br><span class="line">	邮箱：&lt;input type=&quot;text&quot; name=&quot;user.email&quot;&gt;&lt;br/&gt;</span><br><span class="line">	生日：&lt;input type=&quot;text&quot; name=&quot;user.birth&quot;&gt;&lt;br/&gt;</span><br><span class="line">	&lt;input type=&quot;submit&quot; value=&quot;注册&quot;&gt;&lt;br/&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure></p>
 <p>b.UserAction.java</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//b.1 代码方式验证Action中所有的方法</span><br><span class="line">//注意：如果要想用struts的数据效验功能，必须继承ActionSupport或实现相关接口</span><br><span class="line">public class UserAction extends ActionSupport &#123;</span><br><span class="line">	</span><br><span class="line">	// 封装请求数据</span><br><span class="line">	private User user = new User();</span><br><span class="line">	public void setUser(User user) &#123;</span><br><span class="line">		this.user = user;</span><br><span class="line">	&#125;</span><br><span class="line">	public User getUser() &#123;</span><br><span class="line">		return user;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 重写数据验证的方法</span><br><span class="line">	@Override</span><br><span class="line">	public void validate() &#123;</span><br><span class="line">		// 用户名非空</span><br><span class="line">		if (user.getUserName() == null || &quot;&quot;.equals(user.getUserName())) &#123;</span><br><span class="line">			// 保存错误信息</span><br><span class="line">			super.addFieldError(&quot;userName&quot;, &quot;用户名必须填写！&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		// 密码</span><br><span class="line">		if (user.getPwd() == null || &quot;&quot;.equals(user.getPwd())) &#123;</span><br><span class="line">			super.addFieldError(&quot;pwd&quot;, &quot;密码必填&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

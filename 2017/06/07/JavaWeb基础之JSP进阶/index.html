@@ -7,19 +7,19 @@
 
 
 
-    <meta name="description" content="1.九大内置对象 在一篇中我们知道tomcat服务器翻译成了java源文件，每次说jsp文件时都会调用_jspService方法，当该方法中我们可以看到：  12345678final javax.servlet.jsp.PageContext pageContext;javax.servlet.http.HttpSession session = null;   final javax.serv">
+    <meta name="description" content="1.九大内置对象 在一篇中我们知道tomcat服务器翻译成了java源文件，每次说jsp文件时都会调用_jspService方法，当该方法中我们可以看到：  12345678final javax.servlet.jsp.PageContext pageContext;javax&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;lt;/escape&amp;gt;.servlet.htt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaWeb基础之JSP进阶">
 <meta property="og:url" content="http://yoursite.com/2017/06/07/JavaWeb基础之JSP进阶/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.九大内置对象 在一篇中我们知道tomcat服务器翻译成了java源文件，每次说jsp文件时都会调用_jspService方法，当该方法中我们可以看到：  12345678final javax.servlet.jsp.PageContext pageContext;javax.servlet.http.HttpSession session = null;   final javax.serv">
+<meta property="og:description" content="1.九大内置对象 在一篇中我们知道tomcat服务器翻译成了java源文件，每次说jsp文件时都会调用_jspService方法，当该方法中我们可以看到：  12345678final javax.servlet.jsp.PageContext pageContext;javax&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;lt;/escape&amp;gt;.servlet.htt">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-f6dac3767a89b9a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-b1d742ef9ef7a052.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:11.580Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:57.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaWeb基础之JSP进阶">
-<meta name="twitter:description" content="1.九大内置对象 在一篇中我们知道tomcat服务器翻译成了java源文件，每次说jsp文件时都会调用_jspService方法，当该方法中我们可以看到：  12345678final javax.servlet.jsp.PageContext pageContext;javax.servlet.http.HttpSession session = null;   final javax.serv">
+<meta name="twitter:description" content="1.九大内置对象 在一篇中我们知道tomcat服务器翻译成了java源文件，每次说jsp文件时都会调用_jspService方法，当该方法中我们可以看到：  12345678final javax.servlet.jsp.PageContext pageContext;javax&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;lt;/escape&amp;gt;.servlet.htt">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-f6dac3767a89b9a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -167,7 +167,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    8 minutes read (About 1235 words)
+                    8 minutes read (About 1236 words)
                 </span>
                 
             </div>
@@ -182,7 +182,7 @@
             <h2 id="1-九大内置对象"><a href="#1-九大内置对象" class="headerlink" title="1.九大内置对象"></a>1.九大内置对象</h2><blockquote>
 <p>在一篇中我们知道tomcat服务器翻译成了java源文件，每次说jsp文件时都会调用_jspService方法，当该方法中我们可以看到：</p>
 </blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">final javax.servlet.jsp.PageContext pageContext;</span><br><span class="line">javax.servlet.http.HttpSession session = null;   </span><br><span class="line">final javax.servlet.ServletContext application;</span><br><span class="line">final javax.servlet.ServletConfig config;</span><br><span class="line">javax.servlet.jsp.JspWriter out = null;</span><br><span class="line">final java.lang.Object page = this;</span><br><span class="line">javax.servlet.jsp.JspWriter _jspx_out = null;</span><br><span class="line">javax.servlet.jsp.PageContext _jspx_page_context = null;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">final javax.servlet.jsp.PageContext pageContext;</span><br><span class="line">javax&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt;.servlet.http.HttpSession session = null;   </span><br><span class="line">final javax.servlet.ServletContext application;</span><br><span class="line">final javax.servlet.ServletConfig config;</span><br><span class="line">javax.servlet.jsp.JspWriter out = null;</span><br><span class="line">final java.lang.Object page = this;</span><br><span class="line">javax.servlet.jsp.JspWriter _jspx_out = null;</span><br><span class="line">javax.servlet.jsp.PageContext _jspx_page_context = null;</span><br></pre></td></tr></table></figure>
 <p>当用page指定指定当前页面是否为错误处理页面时还会多几行：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Throwable exception = org.apache.jasper.runtime.JspRuntimeLibrary.getThrowable(request);</span><br><span class="line">if (exception != null) &#123;</span><br><span class="line">     response.setStatus(javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>以上即为我们所说的JSP九大内置对象，JSP技术的设计者为便于开发人员在编写JSP页面时获得这些web对象的引用，特意定义了9个相应的变量，开发人员在JSP页面中通过这些变量就可以快速获得这9大对象的引用。<br>概括如下：</p>

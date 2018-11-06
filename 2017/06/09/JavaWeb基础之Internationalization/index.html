@@ -7,17 +7,17 @@
 
 
 
-    <meta name="description" content="即国际化，又简称为 i18n。国际化的目的是让程序能灵活应对世界不同地区和国家的访问。  1.Locale 本地化对象,封装语言、国家信息的对象，由java.util提供  123456789101112      // 模拟中国语言等环境// Locale locale = Locale.CHINA;Locale locale = Locale.getDefault(); // 当前系统默认的">
+    <meta name="description" content="即国际化，又简称为 i18n。国际化的目的是让程序能灵活应对世界不同地区和国家的访问。  1.Locale 本地化对象,封装语言、国家信息的对象，由java.util提供  123456789101112      // 模拟中国语言等环境// Locale locale = Locale.CHI&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;lt;/escape&amp;gt;NA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaWeb基础之Internationalization">
 <meta property="og:url" content="http://yoursite.com/2017/06/09/JavaWeb基础之Internationalization/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="即国际化，又简称为 i18n。国际化的目的是让程序能灵活应对世界不同地区和国家的访问。  1.Locale 本地化对象,封装语言、国家信息的对象，由java.util提供  123456789101112      // 模拟中国语言等环境// Locale locale = Locale.CHINA;Locale locale = Locale.getDefault(); // 当前系统默认的">
+<meta property="og:description" content="即国际化，又简称为 i18n。国际化的目的是让程序能灵活应对世界不同地区和国家的访问。  1.Locale 本地化对象,封装语言、国家信息的对象，由java.util提供  123456789101112      // 模拟中国语言等环境// Locale locale = Locale.CHI&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;lt;/escape&amp;gt;NA">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-05T15:47:13.633Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:58.989Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaWeb基础之Internationalization">
-<meta name="twitter:description" content="即国际化，又简称为 i18n。国际化的目的是让程序能灵活应对世界不同地区和国家的访问。  1.Locale 本地化对象,封装语言、国家信息的对象，由java.util提供  123456789101112      // 模拟中国语言等环境// Locale locale = Locale.CHINA;Locale locale = Locale.getDefault(); // 当前系统默认的">
+<meta name="twitter:description" content="即国际化，又简称为 i18n。国际化的目的是让程序能灵活应对世界不同地区和国家的访问。  1.Locale 本地化对象,封装语言、国家信息的对象，由java.util提供  123456789101112      // 模拟中国语言等环境// Locale locale = Locale.CHI&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;lt;/escape&amp;gt;NA">
 
 
 
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 minutes read (About 1006 words)
+                    7 minutes read (About 1008 words)
                 </span>
                 
             </div>
@@ -182,7 +182,7 @@
 <h2 id="1-Locale"><a href="#1-Locale" class="headerlink" title="1.Locale"></a>1.Locale</h2><blockquote>
 <p>本地化对象,封装语言、国家信息的对象，由java.util提供</p>
 </blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">      // 模拟中国语言等环境</span><br><span class="line">// Locale locale = Locale.CHINA;</span><br><span class="line">Locale locale = Locale.getDefault(); // 当前系统默认的语言环境</span><br><span class="line">System.out.println(locale.getCountry()); // CN 国家的简称</span><br><span class="line">System.out.println(locale.getDisplayCountry()); //中国  国家名称</span><br><span class="line">System.out.println(locale.getLanguage()); // zh 语言简称</span><br><span class="line"></span><br><span class="line">// 模拟美国国家</span><br><span class="line">Locale l_us = Locale.US;</span><br><span class="line">System.out.println(l_us.getCountry()); //US</span><br><span class="line">System.out.println(l_us.getDisplayCountry());//美国</span><br><span class="line">System.out.println(l_us.getLanguage());//en</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">      // 模拟中国语言等环境</span><br><span class="line">// Locale locale = Locale.CHI&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt;NA;</span><br><span class="line">Locale locale = Locale.getDefault(); // 当前系统默认的语言环境</span><br><span class="line">System.out.println(locale.getCountry()); // CN 国家的简称</span><br><span class="line">System.out.println(locale.getDisplayCountry()); //中国  国家名称</span><br><span class="line">System.out.println(locale.getLanguage()); // zh 语言简称</span><br><span class="line"></span><br><span class="line">// 模拟美国国家</span><br><span class="line">Locale l_us = Locale.US;</span><br><span class="line">System.out.println(l_us.getCountry()); //US</span><br><span class="line">System.out.println(l_us.getDisplayCountry());//美国</span><br><span class="line">System.out.println(l_us.getLanguage());//en</span><br></pre></td></tr></table></figure>
 <h2 id="2-ResourceBundle"><a href="#2-ResourceBundle" class="headerlink" title="2.ResourceBundle"></a>2.ResourceBundle</h2><blockquote>
 <p>用于描述一个资源包，并且 ResourceBundle类提供了相应的方法getBundle，这个方法可以根据来访者的国家地区自动获取与之对应的资源文件予以显示</p>
 </blockquote>

@@ -7,12 +7,12 @@
 
 
 
-    <meta name="description" content="Java Memory Model，通过定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存中取出变量这样的底层细节，屏蔽掉各种硬件和操作系统的内存访问差异。 1.JMM的抽象结构 如下图所示，线程之间的共享变量(实例域，静态域和数组元素)存储在主内存(Main Memory)中，每个线程都有一个私有的本地内存（Local Memory),本地内存中存储了该线程以读/写共享变量的副本">
+    <meta name="description" content="Java Memory Model，通过定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存中取出变量这样的底层细节，屏蔽掉各种硬件和操作系统的内存访问差异。 1.JMM的抽象结构 如下图所示，线程之间的共享变量(实例域，静态域和数组元素)存储在主内存(Main Memo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java内存模型">
 <meta property="og:url" content="http://yoursite.com/2017/06/30/Java内存模型/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Java Memory Model，通过定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存中取出变量这样的底层细节，屏蔽掉各种硬件和操作系统的内存访问差异。 1.JMM的抽象结构 如下图所示，线程之间的共享变量(实例域，静态域和数组元素)存储在主内存(Main Memory)中，每个线程都有一个私有的本地内存（Local Memory),本地内存中存储了该线程以读/写共享变量的副本">
+<meta property="og:description" content="Java Memory Model，通过定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存中取出变量这样的底层细节，屏蔽掉各种硬件和操作系统的内存访问差异。 1.JMM的抽象结构 如下图所示，线程之间的共享变量(实例域，静态域和数组元素)存储在主内存(Main Memo">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-9b05b1f762d77d90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-5237b4bd819d7881.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -22,10 +22,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-c4268c8702e526b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-7d31ca7e553f27a9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-47cebe2a53bfa2ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:14.152Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:59.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java内存模型">
-<meta name="twitter:description" content="Java Memory Model，通过定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存中取出变量这样的底层细节，屏蔽掉各种硬件和操作系统的内存访问差异。 1.JMM的抽象结构 如下图所示，线程之间的共享变量(实例域，静态域和数组元素)存储在主内存(Main Memory)中，每个线程都有一个私有的本地内存（Local Memory),本地内存中存储了该线程以读/写共享变量的副本">
+<meta name="twitter:description" content="Java Memory Model，通过定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存中取出变量这样的底层细节，屏蔽掉各种硬件和操作系统的内存访问差异。 1.JMM的抽象结构 如下图所示，线程之间的共享变量(实例域，静态域和数组元素)存储在主内存(Main Memo">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-9b05b1f762d77d90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -173,7 +173,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    18 minutes read (About 2734 words)
+                    18 minutes read (About 2736 words)
                 </span>
                 
             </div>
@@ -187,7 +187,7 @@
         <div class="content">
             <p>Java Memory Model，通过定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存中取出变量这样的底层细节，屏蔽掉各种硬件和操作系统的内存访问差异。</p>
 <h3 id="1-JMM的抽象结构"><a href="#1-JMM的抽象结构" class="headerlink" title="1.JMM的抽象结构"></a>1.JMM的抽象结构</h3><blockquote>
-<p>如下图所示，线程之间的共享变量(实例域，静态域和数组元素)存储在主内存(Main Memory)中，每个线程都有一个私有的本地内存（Local Memory),本地内存中存储了该线程以读/写共享变量的副本。JMM决定一个线程对共享变量的写入何时对另一个线程可见。</p>
+<p>如下图所示，线程之间的共享变量(实例域，静态域和数组元素)存储在主内存(Main Memo<a id="more"></a>ry)中，每个线程都有一个私有的本地内存（Local Memory),本地内存中存储了该线程以读/写共享变量的副本。JMM决定一个线程对共享变量的写入何时对另一个线程可见。</p>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-9b05b1f762d77d90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>在上图中，如果线程A和线程B要进行通信，必须要经历以下两个步骤：<br>1) 线程A把本地内存中A中更新近的共享变量刷新到主内存中去。<br>2) 线程B到主内存中去读取线程A之前已更新过的共享变量。</p>

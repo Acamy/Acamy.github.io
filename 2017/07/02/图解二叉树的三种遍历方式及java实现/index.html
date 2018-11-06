@@ -7,22 +7,22 @@
 
 
 
-    <meta name="description" content="二叉树(binary tree)是一颗树，其中每个节点都不能有多于两个的儿子。  1.二叉树节点 作为图的特殊形式，二叉树的基本组成单元是节点与边；作为数据结构，其基本的组成实体是二叉树节点（binary tree node），而边则对应于节点之间的相互引用。   如下，给出了二叉树节点的数据结构图示和相关代码：  123456789101112   // 定义节点类：private stati">
+    <meta name="description" content="二叉树(binary tree)是一颗树，其中每个节点都不能有多于两个的儿子。  1.二叉树节点 作为图的特殊形式，二叉树的基本组成单元是节点与边；作为数据结构，其基本的组成实体是二叉树节点（binary tree node），而边则对应于节点之间的相互引用。   如下，给出了二叉树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图解二叉树的三种遍历方式及java实现">
 <meta property="og:url" content="http://yoursite.com/2017/07/02/图解二叉树的三种遍历方式及java实现/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="二叉树(binary tree)是一颗树，其中每个节点都不能有多于两个的儿子。  1.二叉树节点 作为图的特殊形式，二叉树的基本组成单元是节点与边；作为数据结构，其基本的组成实体是二叉树节点（binary tree node），而边则对应于节点之间的相互引用。   如下，给出了二叉树节点的数据结构图示和相关代码：  123456789101112   // 定义节点类：private stati">
+<meta property="og:description" content="二叉树(binary tree)是一颗树，其中每个节点都不能有多于两个的儿子。  1.二叉树节点 作为图的特殊形式，二叉树的基本组成单元是节点与边；作为数据结构，其基本的组成实体是二叉树节点（binary tree node），而边则对应于节点之间的相互引用。   如下，给出了二叉树">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-73a611a8ec25d266.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-78c9cd6df1403a82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-47c53131836404bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-10c0543e9fd2fd38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-340e0cb943b5cf8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:15.988Z">
+<meta property="og:updated_time" content="2018-11-06T15:52:01.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图解二叉树的三种遍历方式及java实现">
-<meta name="twitter:description" content="二叉树(binary tree)是一颗树，其中每个节点都不能有多于两个的儿子。  1.二叉树节点 作为图的特殊形式，二叉树的基本组成单元是节点与边；作为数据结构，其基本的组成实体是二叉树节点（binary tree node），而边则对应于节点之间的相互引用。   如下，给出了二叉树节点的数据结构图示和相关代码：  123456789101112   // 定义节点类：private stati">
+<meta name="twitter:description" content="二叉树(binary tree)是一颗树，其中每个节点都不能有多于两个的儿子。  1.二叉树节点 作为图的特殊形式，二叉树的基本组成单元是节点与边；作为数据结构，其基本的组成实体是二叉树节点（binary tree node），而边则对应于节点之间的相互引用。   如下，给出了二叉树">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-73a611a8ec25d266.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -170,7 +170,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    6 minutes read (About 883 words)
+                    6 minutes read (About 884 words)
                 </span>
                 
             </div>
@@ -188,7 +188,7 @@
 <h3 id="1-二叉树节点"><a href="#1-二叉树节点" class="headerlink" title="1.二叉树节点"></a>1.二叉树节点</h3><blockquote>
 <p>作为图的特殊形式，二叉树的基本组成单元是节点与边；作为数据结构，其基本的组成实体是二叉树节点（binary tree node），而边则对应于节点之间的相互引用。 </p>
 </blockquote>
-<p>如下，给出了二叉树节点的数据结构图示和相关代码：</p>
+<p>如下，给出了二叉树<a id="more"></a>节点的数据结构图示和相关代码：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-73a611a8ec25d266.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">   // 定义节点类：</span><br><span class="line">private static class BinNode &#123;</span><br><span class="line">	private Object element;</span><br><span class="line">	private BinNode lChild;// 定义指向左子树的指针</span><br><span class="line">	private BinNode rChild;// 定义指向右子树的指针</span><br><span class="line"></span><br><span class="line">	public BinNode(Object element, BinNode lChild, BinNode rChild) &#123;</span><br><span class="line">		this.element = element;</span><br><span class="line">		this.lChild = lChild;</span><br><span class="line">		this.rChild = rChild;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="2-递归遍历"><a href="#2-递归遍历" class="headerlink" title="2.递归遍历"></a>2.递归遍历</h3><blockquote>

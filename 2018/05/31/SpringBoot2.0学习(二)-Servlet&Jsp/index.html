@@ -7,21 +7,21 @@
 
 
 
-    <meta name="description" content="本文主要介绍在SpringBoot2.0中如何使用Servlet和Jsp，如图所示，对于Servlet的创建主要使用了注解方式和API注册方式，分别讲解了Servlet, Filter和Listener的创建。对于Jsp的使用，由于SpringBoot更提倡使用模板引擎，所以对于Jsp的自动配置 并不多，主要还是手动配置，本文对其步骤进行梳理。   项目结构:  Github源码地址 1. Sp">
+    <meta name="description" content="本文主要介绍在SpringBoot2.0中如何使用Servlet和Jsp，如图所示，对于Servlet的创建主要使用了注解方式和API注册方式，分别讲解了Servlet, Filter和Listener的创建。对于Jsp的使用，由于SpringBoot更提倡使用模板引擎，所以对于Jsp的自动配置">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot2.0学习(二)-Servlet&amp;Jsp">
 <meta property="og:url" content="http://yoursite.com/2018/05/31/SpringBoot2.0学习(二)-Servlet&Jsp/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="本文主要介绍在SpringBoot2.0中如何使用Servlet和Jsp，如图所示，对于Servlet的创建主要使用了注解方式和API注册方式，分别讲解了Servlet, Filter和Listener的创建。对于Jsp的使用，由于SpringBoot更提倡使用模板引擎，所以对于Jsp的自动配置 并不多，主要还是手动配置，本文对其步骤进行梳理。   项目结构:  Github源码地址 1. Sp">
+<meta property="og:description" content="本文主要介绍在SpringBoot2.0中如何使用Servlet和Jsp，如图所示，对于Servlet的创建主要使用了注解方式和API注册方式，分别讲解了Servlet, Filter和Listener的创建。对于Jsp的使用，由于SpringBoot更提倡使用模板引擎，所以对于Jsp的自动配置">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-d9014ee3a5db8a66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-5ee7a904e82059f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-7ae0b151ee324515.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-ecf1789b1eabe249.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:46:57.787Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:46.985Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot2.0学习(二)-Servlet&amp;Jsp">
-<meta name="twitter:description" content="本文主要介绍在SpringBoot2.0中如何使用Servlet和Jsp，如图所示，对于Servlet的创建主要使用了注解方式和API注册方式，分别讲解了Servlet, Filter和Listener的创建。对于Jsp的使用，由于SpringBoot更提倡使用模板引擎，所以对于Jsp的自动配置 并不多，主要还是手动配置，本文对其步骤进行梳理。   项目结构:  Github源码地址 1. Sp">
+<meta name="twitter:description" content="本文主要介绍在SpringBoot2.0中如何使用Servlet和Jsp，如图所示，对于Servlet的创建主要使用了注解方式和API注册方式，分别讲解了Servlet, Filter和Listener的创建。对于Jsp的使用，由于SpringBoot更提倡使用模板引擎，所以对于Jsp的自动配置">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/5990755-d9014ee3a5db8a66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -169,7 +169,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 minutes read (About 800 words)
+                    5 minutes read (About 801 words)
                 </span>
                 
             </div>
@@ -182,7 +182,7 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>本文主要介绍在SpringBoot2.0中如何使用Servlet和Jsp，如图所示，对于Servlet的创建主要使用了注解方式和API注册方式，分别讲解了Servlet, Filter和Listener的创建。对于Jsp的使用，由于SpringBoot更提倡使用模板引擎，所以对于Jsp的自动配置 并不多，主要还是手动配置，本文对其步骤进行梳理。</p>
+<p>本文主要介绍在SpringBoot2.0中如何使用Servlet和Jsp，如图所示，对于Servlet的创建主要使用了注解方式和API注册方式，分别讲解了Servlet, Filter和Listener的创建。对于Jsp的使用，由于SpringBoot更提倡使用模板引擎，所以对于Jsp的自动配置<a id="more"></a> 并不多，主要还是手动配置，本文对其步骤进行梳理。</p>
 </blockquote>
 <p><img src="https://upload-images.jianshu.io/upload_images/5990755-d9014ee3a5db8a66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>项目结构:</p>

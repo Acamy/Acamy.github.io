@@ -7,22 +7,22 @@
 
 
 
-    <meta name="description" content="1.图的表示 图是由顶点和边组成，图最常用的两种方法就是邻接表和邻接矩阵。这两种办法分别用表和矩阵的方式描述图中各顶点之间的联系。   下面分别展示了两种表示上面这个图的方法：  2.图的遍历 广度优先遍历和深度优先遍历是遍历图的两种最常用的方法，下面将详细进行介绍。  2.1 广度优先遍历(BFS) 即Breadth First Search，其主要思想是从起始点开始，将其邻近的所有顶点都加到一">
+    <meta name="description" content="1.图的表示 图是由顶点和边组成，图最常用的两种方法就是邻接表和邻接矩阵。这两种办法分别用表和矩阵的方式描述图中各顶点之间的联系。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="详解BFS和DFS及Java实现">
 <meta property="og:url" content="http://yoursite.com/2017/07/02/详解BFS和DFS及Java实现/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.图的表示 图是由顶点和边组成，图最常用的两种方法就是邻接表和邻接矩阵。这两种办法分别用表和矩阵的方式描述图中各顶点之间的联系。   下面分别展示了两种表示上面这个图的方法：  2.图的遍历 广度优先遍历和深度优先遍历是遍历图的两种最常用的方法，下面将详细进行介绍。  2.1 广度优先遍历(BFS) 即Breadth First Search，其主要思想是从起始点开始，将其邻近的所有顶点都加到一">
+<meta property="og:description" content="1.图的表示 图是由顶点和边组成，图最常用的两种方法就是邻接表和邻接矩阵。这两种办法分别用表和矩阵的方式描述图中各顶点之间的联系。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-e7a1384f1c36fcfe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-e7a1384f1c36fcfe.p<a id=">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-aa35559cfbf13a01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-c5d54991b3b77bba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-0763a5d005522308.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:15.514Z">
+<meta property="og:updated_time" content="2018-11-06T15:52:01.405Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="详解BFS和DFS及Java实现">
-<meta name="twitter:description" content="1.图的表示 图是由顶点和边组成，图最常用的两种方法就是邻接表和邻接矩阵。这两种办法分别用表和矩阵的方式描述图中各顶点之间的联系。   下面分别展示了两种表示上面这个图的方法：  2.图的遍历 广度优先遍历和深度优先遍历是遍历图的两种最常用的方法，下面将详细进行介绍。  2.1 广度优先遍历(BFS) 即Breadth First Search，其主要思想是从起始点开始，将其邻近的所有顶点都加到一">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-e7a1384f1c36fcfe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="1.图的表示 图是由顶点和边组成，图最常用的两种方法就是邻接表和邻接矩阵。这两种办法分别用表和矩阵的方式描述图中各顶点之间的联系。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-e7a1384f1c36fcfe.p<a id=">
 
 
 
@@ -169,7 +169,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    10 minutes read (About 1462 words)
+                    10 minutes read (About 1464 words)
                 </span>
                 
             </div>
@@ -184,7 +184,7 @@
             <h3 id="1-图的表示"><a href="#1-图的表示" class="headerlink" title="1.图的表示"></a>1.图的表示</h3><blockquote>
 <p>图是由顶点和边组成，图最常用的两种方法就是邻接表和邻接矩阵。这两种办法分别用表和矩阵的方式描述图中各顶点之间的联系。</p>
 </blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-e7a1384f1c36fcfe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-e7a1384f1c36fcfe.p<a id=" more"="">ng?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>下面分别展示了两种表示上面这个图的方法：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-aa35559cfbf13a01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <h3 id="2-图的遍历"><a href="#2-图的遍历" class="headerlink" title="2.图的遍历"></a>2.图的遍历</h3><blockquote>

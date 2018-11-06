@@ -7,20 +7,20 @@
 
 
 
-    <meta name="description" content="标签的作用是用来替换jsp脚本，将脚本封装在类里面。  1.内置标签 也称动作标签，不需要在jsp页面导入，分为转发标签，参数标签，包含标签，具体使用语法如下：  12345678910111213&amp;lt;%--转发标签和参数标签&amp;lt;jsp:forward page=&amp;quot;forward.jsp&amp;quot;&amp;gt;	&amp;lt;jsp:param value=&amp;quot;jacky&amp;quo">
+    <meta name="description" content="标签的作用是用来替换jsp脚本，将脚本封装在类里面。  1.内置标签 也称动作标签，不需要在jsp页面导入，分为转发标签，参数标签，包含标签，具体使用语法如下：  12345678910111213  &amp;lt;%--转发标签和参数标签  &amp;lt;jsp:forward page=&amp;quot;forward.jsp&amp;quot;&amp;gt;&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaWeb基础之JSP标签">
 <meta property="og:url" content="http://yoursite.com/2017/06/08/JavaWeb基础之JSP标签/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="标签的作用是用来替换jsp脚本，将脚本封装在类里面。  1.内置标签 也称动作标签，不需要在jsp页面导入，分为转发标签，参数标签，包含标签，具体使用语法如下：  12345678910111213&amp;lt;%--转发标签和参数标签&amp;lt;jsp:forward page=&amp;quot;forward.jsp&amp;quot;&amp;gt;	&amp;lt;jsp:param value=&amp;quot;jacky&amp;quo">
+<meta property="og:description" content="标签的作用是用来替换jsp脚本，将脚本封装在类里面。  1.内置标签 也称动作标签，不需要在jsp页面导入，分为转发标签，参数标签，包含标签，具体使用语法如下：  12345678910111213  &amp;lt;%--转发标签和参数标签  &amp;lt;jsp:forward page=&amp;quot;forward.jsp&amp;quot;&amp;gt;&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-a89524d86687259a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-c0db618cdeee46fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-843377adfc24e959.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:11.823Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:57.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaWeb基础之JSP标签">
-<meta name="twitter:description" content="标签的作用是用来替换jsp脚本，将脚本封装在类里面。  1.内置标签 也称动作标签，不需要在jsp页面导入，分为转发标签，参数标签，包含标签，具体使用语法如下：  12345678910111213&amp;lt;%--转发标签和参数标签&amp;lt;jsp:forward page=&amp;quot;forward.jsp&amp;quot;&amp;gt;	&amp;lt;jsp:param value=&amp;quot;jacky&amp;quo">
+<meta name="twitter:description" content="标签的作用是用来替换jsp脚本，将脚本封装在类里面。  1.内置标签 也称动作标签，不需要在jsp页面导入，分为转发标签，参数标签，包含标签，具体使用语法如下：  12345678910111213  &amp;lt;%--转发标签和参数标签  &amp;lt;jsp:forward page=&amp;quot;forward.jsp&amp;quot;&amp;gt;&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-a89524d86687259a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -168,7 +168,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 minutes read (About 1282 words)
+                    9 minutes read (About 1283 words)
                 </span>
                 
             </div>
@@ -186,7 +186,7 @@
 <h2 id="1-内置标签"><a href="#1-内置标签" class="headerlink" title="1.内置标签"></a>1.内置标签</h2><blockquote>
 <p>也称动作标签，不需要在jsp页面导入，分为转发标签，参数标签，包含标签，具体使用语法如下：</p>
 </blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--转发标签和参数标签</span><br><span class="line">&lt;jsp:forward page=&quot;forward.jsp&quot;&gt;</span><br><span class="line">	&lt;jsp:param value=&quot;jacky&quot; name=&quot;name&quot;/&gt;</span><br><span class="line">	&lt;jsp:param value=&quot;123456&quot; name=&quot;password&quot;/&gt;</span><br><span class="line">&lt;/jsp:forward&gt;</span><br><span class="line">--%&gt;</span><br><span class="line">  </span><br><span class="line">&lt;%--包含标签 --%&gt;</span><br><span class="line">&lt;%--</span><br><span class="line">&lt;jsp:include page=&quot;/common/header.jsp&quot;&gt;</span><br><span class="line">	&lt;jsp:param value=&quot;lucy&quot; name=&quot;name&quot;/&gt;</span><br><span class="line">&lt;/jsp:include&gt;</span><br><span class="line">--%&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  &lt;%--转发标签和参数标签</span><br><span class="line">  &lt;jsp:forward page=&quot;forward.jsp&quot;&gt;</span><br><span class="line">&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt;  	&lt;jsp:param value=&quot;jacky&quot; name=&quot;name&quot;/&gt;</span><br><span class="line">  	&lt;jsp:param value=&quot;123456&quot; name=&quot;password&quot;/&gt;</span><br><span class="line">  &lt;/jsp:forward&gt;</span><br><span class="line">  --%&gt;</span><br><span class="line">    </span><br><span class="line">  &lt;%--包含标签 --%&gt;</span><br><span class="line">  &lt;%--</span><br><span class="line">  &lt;jsp:include page=&quot;/common/header.jsp&quot;&gt;</span><br><span class="line"> 		&lt;jsp:param value=&quot;lucy&quot; name=&quot;name&quot;/&gt;</span><br><span class="line">  &lt;/jsp:include&gt;</span><br><span class="line">  --%&gt;</span><br></pre></td></tr></table></figure>
 <p>注意：这里面的包含标签称为动态包含，而前面讲的jsp指定中的include指定为静态包含。两者区分如下：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-a89524d86687259a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <h2 id="2-jstl标签"><a href="#2-jstl标签" class="headerlink" title="2.jstl标签"></a>2.jstl标签</h2><blockquote>

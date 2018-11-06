@@ -7,20 +7,20 @@
 
 
 
-    <meta name="description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序 1.1 引入jar文件 spring-framework-3.2.5.RELEASEcommons-logging-1.1.3.jar           日志spring-beans-3.2.5.RELEASE.jar        bean节点spring-context-3.2.5.RELEASE.jar">
+    <meta name="description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring初探">
 <meta property="og:url" content="http://yoursite.com/2017/06/18/Spring初探/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序 1.1 引入jar文件 spring-framework-3.2.5.RELEASEcommons-logging-1.1.3.jar           日志spring-beans-3.2.5.RELEASE.jar        bean节点spring-context-3.2.5.RELEASE.jar">
+<meta property="og:description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/str<a id=">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-ce7e62503da00fea.png">
-<meta property="og:updated_time" content="2018-11-05T15:47:01.975Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:49.742Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring初探">
-<meta name="twitter:description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序 1.1 引入jar文件 spring-framework-3.2.5.RELEASEcommons-logging-1.1.3.jar           日志spring-beans-3.2.5.RELEASE.jar        bean节点spring-context-3.2.5.RELEASE.jar">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/str<a id=">
 
 
 
@@ -167,7 +167,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    8 minutes read (About 1245 words)
+                    8 minutes read (About 1247 words)
                 </span>
                 
             </div>
@@ -182,7 +182,7 @@
             <blockquote>
 <p>可以解决对象创建以及对象之间依赖关系的一种框架</p>
 </blockquote>
-<h2 id="1-第一个Spring程序"><a href="#1-第一个Spring程序" class="headerlink" title="1.第一个Spring程序"></a>1.第一个Spring程序</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="1-第一个Spring程序"><a href="#1-第一个Spring程序" class="headerlink" title="1.第一个Spring程序"></a>1.第一个Spring程序</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/str<a id=" more"="">ip%7CimageView2/2/w/1240" alt=""></p>
 <h3 id="1-1-引入jar文件-spring-framework-3-2-5-RELEASE"><a href="#1-1-引入jar文件-spring-framework-3-2-5-RELEASE" class="headerlink" title="1.1 引入jar文件 spring-framework-3.2.5.RELEASE"></a>1.1 引入jar文件 spring-framework-3.2.5.RELEASE</h3><p>commons-logging-1.1.3.jar           日志<br>spring-beans-3.2.5.RELEASE.jar        bean节点<br>spring-context-3.2.5.RELEASE.jar       spring上下文节点<br>spring-core-3.2.5.RELEASE.jar         spring核心功能<br>spring-expression-3.2.5.RELEASE.jar    spring表达式相关表</p>
 <h3 id="1-2-配置applicationContext-xml"><a href="#1-2-配置applicationContext-xml" class="headerlink" title="1.2 配置applicationContext.xml"></a>1.2 配置applicationContext.xml</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- IOC容器的配置： 要创建的所有的对象都配置在这里--&gt;</span><br><span class="line">	&lt;bean id=&quot;user&quot; class=&quot;cn.itcast.a_hello.User&quot; init-method=&quot;init_user&quot; destroy-method=&quot;destroy_user&quot; scope=&quot;singleton&quot; lazy-init=&quot;false&quot;&gt;&lt;/bean&gt;	 </span><br><span class="line">	 </span><br><span class="line">	&lt;bean id=&quot;user1&quot; class=&quot;cn.itcast.a_hello.User&quot;&gt;&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="1-3-测试"><a href="#1-3-测试" class="headerlink" title="1.3 测试"></a>1.3 测试</h3><h4 id="测试一：得到IOC容器的两种方法"><a href="#测试一：得到IOC容器的两种方法" class="headerlink" title="测试一：得到IOC容器的两种方法"></a>测试一：得到IOC容器的两种方法</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class App1_get_ioc &#123;</span><br><span class="line">	// 1. 通过工厂类得到IOC容器创建的对象</span><br><span class="line">	@Test</span><br><span class="line">	public void testIOC() throws Exception &#123;</span><br><span class="line">		// 创建对象</span><br><span class="line">		// User user = new User();		</span><br><span class="line">		// 现在，把对象的创建交给spring的IOC容器</span><br><span class="line">		Resource resource = new ClassPathResource(&quot;cn/acamy/a_hello/applicationContext.xml&quot;);</span><br><span class="line">		// 创建容器对象(Bean的工厂), IOC容器 = 工厂类 + applicationContext.xml</span><br><span class="line">		BeanFactory factory = new XmlBeanFactory(resource);</span><br><span class="line">		// 得到容器创建的对象</span><br><span class="line">		User user = (User) factory.getBean(&quot;user&quot;);		</span><br><span class="line">		System.out.println(user.getId());		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//2. （方便）直接得到IOC容器对象 </span><br><span class="line">	@Test</span><br><span class="line">	public void testAc() throws Exception &#123;</span><br><span class="line">		// 得到IOC容器对象</span><br><span class="line">		ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;cn/acamy/a_hello/applicationContext.xml&quot;);</span><br><span class="line">		// 从容器中获取bean</span><br><span class="line">		User user = (User) ac.getBean(&quot;user&quot;);		</span><br><span class="line">		System.out.println(user);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

@@ -7,12 +7,12 @@
 
 
 
-    <meta name="description" content="当遇到复杂问题时我们经常会通过递归的方式将大事化小，小事化了。但是有时候将复杂问题简单地分解成几个子问题，问题求解耗时会按问题规模呈幂级数增加。这时候为了节约重复求相同子问题的时间，引入一个数组(或临时变量)，不管它们是否对最终解有用，把所有子问题的解存于该数组(或临时变量)中，这就是动态规划的基本思想。  ###1.Fibonacci数列该数列的递归形式如下，即从每二项开始每一项等于前两项">
+    <meta name="description" content="当遇到复杂问题时我们经常会通过递归的方式将大事化小，小事化了。但是有时候将复杂问题简单地分解成几个子问题，问题求解耗时会按问题规模呈幂级数增加。这时候为了节约重复求相同子问题的时间，引入一个数组(或临时变量)，不管它们是否对最终解有用，把所有子问题的解存于该数组(或临时变量)中，这就是动态规">
 <meta property="og:type" content="article">
 <meta property="og:title" content="采用动态规划的思想解决三种经典问题之Java实现">
 <meta property="og:url" content="http://yoursite.com/2017/07/02/采用动态规划的思想解决三种经典问题之Java实现/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="当遇到复杂问题时我们经常会通过递归的方式将大事化小，小事化了。但是有时候将复杂问题简单地分解成几个子问题，问题求解耗时会按问题规模呈幂级数增加。这时候为了节约重复求相同子问题的时间，引入一个数组(或临时变量)，不管它们是否对最终解有用，把所有子问题的解存于该数组(或临时变量)中，这就是动态规划的基本思想。  ###1.Fibonacci数列该数列的递归形式如下，即从每二项开始每一项等于前两项">
+<meta property="og:description" content="当遇到复杂问题时我们经常会通过递归的方式将大事化小，小事化了。但是有时候将复杂问题简单地分解成几个子问题，问题求解耗时会按问题规模呈幂级数增加。这时候为了节约重复求相同子问题的时间，引入一个数组(或临时变量)，不管它们是否对最终解有用，把所有子问题的解存于该数组(或临时变量)中，这就是动态规">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-fa24b34fef5933d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-ce98e367a6f841a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -22,10 +22,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-681a665fcd5a8419.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-09fa28fe4ce33306.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-13ef376b45890cef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:15.785Z">
+<meta property="og:updated_time" content="2018-11-06T15:52:01.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="采用动态规划的思想解决三种经典问题之Java实现">
-<meta name="twitter:description" content="当遇到复杂问题时我们经常会通过递归的方式将大事化小，小事化了。但是有时候将复杂问题简单地分解成几个子问题，问题求解耗时会按问题规模呈幂级数增加。这时候为了节约重复求相同子问题的时间，引入一个数组(或临时变量)，不管它们是否对最终解有用，把所有子问题的解存于该数组(或临时变量)中，这就是动态规划的基本思想。  ###1.Fibonacci数列该数列的递归形式如下，即从每二项开始每一项等于前两项">
+<meta name="twitter:description" content="当遇到复杂问题时我们经常会通过递归的方式将大事化小，小事化了。但是有时候将复杂问题简单地分解成几个子问题，问题求解耗时会按问题规模呈幂级数增加。这时候为了节约重复求相同子问题的时间，引入一个数组(或临时变量)，不管它们是否对最终解有用，把所有子问题的解存于该数组(或临时变量)中，这就是动态规">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-fa24b34fef5933d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -173,7 +173,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    11 minutes read (About 1613 words)
+                    11 minutes read (About 1614 words)
                 </span>
                 
             </div>
@@ -186,7 +186,7 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>  当遇到复杂问题时我们经常会通过递归的方式将大事化小，小事化了。但是有时候将复杂问题简单地分解成几个子问题，问题求解耗时会按问题规模呈幂级数增加。这时候为了节约重复求相同子问题的时间，引入一个数组(或临时变量)，不管它们是否对最终解有用，把所有子问题的解存于该数组(或临时变量)中，这就是动态规划的基本思想。</p>
+<p>  当遇到复杂问题时我们经常会通过递归的方式将大事化小，小事化了。但是有时候将复杂问题简单地分解成几个子问题，问题求解耗时会按问题规模呈幂级数增加。这时候为了节约重复求相同子问题的时间，引入一个数组(或临时变量)，不管它们是否对最终解有用，把所有子问题的解存于该数组(或临时变量)中，这就是动态规<a id="more"></a>划的基本思想。</p>
 </blockquote>
 <p>###1.Fibonacci数列<br>该数列的递归形式如下，即从每二项开始每一项等于前两项之和：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-fa24b34fef5933d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>

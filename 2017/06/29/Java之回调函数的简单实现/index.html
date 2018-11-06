@@ -7,18 +7,18 @@
 
 
 
-    <meta name="description" content="在Windows中，程序员想让系统DLL调用自己编写的一个方法，于是利用DLL当中回调函数（CALLBACK）的接口来编写程序，使它调用，这个就称为回调。在调用接口时，需要严格的按照定义的参数和方法调用，并且需要处理函数的异步，否则会导致程序的崩溃。  举例：程序员A写了一段程序（类Caller），其中预留有回调函数接口(MyInterface)，并封装好了该程序。程序员B要让Caller调用自">
+    <meta name="description" content="在Windows中，程序员想让系统DLL调用自己编写的一个方法，于是利用DLL当中回调函数（CALLBACK）的接口来编写程序，使它调用，这个就称为回调。在调用接口时，需要严格的按照定义的参数和方法调用，并且需要处理函数的异步，否则会导致程序的崩溃。  举例：程序员A写了一段程序（类Calle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java之回调函数的简单实现">
 <meta property="og:url" content="http://yoursite.com/2017/06/29/Java之回调函数的简单实现/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="在Windows中，程序员想让系统DLL调用自己编写的一个方法，于是利用DLL当中回调函数（CALLBACK）的接口来编写程序，使它调用，这个就称为回调。在调用接口时，需要严格的按照定义的参数和方法调用，并且需要处理函数的异步，否则会导致程序的崩溃。  举例：程序员A写了一段程序（类Caller），其中预留有回调函数接口(MyInterface)，并封装好了该程序。程序员B要让Caller调用自">
+<meta property="og:description" content="在Windows中，程序员想让系统DLL调用自己编写的一个方法，于是利用DLL当中回调函数（CALLBACK）的接口来编写程序，使它调用，这个就称为回调。在调用接口时，需要严格的按照定义的参数和方法调用，并且需要处理函数的异步，否则会导致程序的崩溃。  举例：程序员A写了一段程序（类Calle">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-1aadaf67d3ba680a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:17.994Z">
+<meta property="og:updated_time" content="2018-11-06T15:52:03.714Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java之回调函数的简单实现">
-<meta name="twitter:description" content="在Windows中，程序员想让系统DLL调用自己编写的一个方法，于是利用DLL当中回调函数（CALLBACK）的接口来编写程序，使它调用，这个就称为回调。在调用接口时，需要严格的按照定义的参数和方法调用，并且需要处理函数的异步，否则会导致程序的崩溃。  举例：程序员A写了一段程序（类Caller），其中预留有回调函数接口(MyInterface)，并封装好了该程序。程序员B要让Caller调用自">
+<meta name="twitter:description" content="在Windows中，程序员想让系统DLL调用自己编写的一个方法，于是利用DLL当中回调函数（CALLBACK）的接口来编写程序，使它调用，这个就称为回调。在调用接口时，需要严格的按照定义的参数和方法调用，并且需要处理函数的异步，否则会导致程序的崩溃。  举例：程序员A写了一段程序（类Calle">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-1aadaf67d3ba680a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 minutes read (About 340 words)
+                    2 minutes read (About 342 words)
                 </span>
                 
             </div>
@@ -181,7 +181,7 @@
             <blockquote>
 <p>在Windows中，程序员想让系统DLL调用自己编写的一个方法，于是利用DLL当中回调函数（CALLBACK）的接口来编写程序，使它调用，这个就称为回调。在调用接口时，需要严格的按照定义的参数和方法调用，并且需要处理函数的异步，否则会导致程序的崩溃。</p>
 </blockquote>
-<p>举例：<br>程序员A写了一段程序（类Caller），其中预留有回调函数接口(MyInterface)，并封装好了该程序。程序员B要让Caller调用自己的Client类中的一个方法，于是，他通过Caller中的接口回调自己Client中的方法。</p>
+<p>举例：<br>程序员A写了一段程序（类Calle<a id="more"></a>r），其中预留有回调函数接口(MyInterface)，并封装好了该程序。程序员B要让Caller调用自己的Client类中的一个方法，于是，他通过Caller中的接口回调自己Client中的方法。</p>
 <p>类图：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-1aadaf67d3ba680a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>代码如下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Caller &#123;  </span><br><span class="line">    private MyCallInterface callInterface;  </span><br><span class="line">      </span><br><span class="line">    public Caller() &#123;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    public void setCallFunc(MyCallInterface callInterface) &#123;  </span><br><span class="line">        this.callInterface = callInterface;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    public void call() &#123;  </span><br><span class="line">        callInterface.printName();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>

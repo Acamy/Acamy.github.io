@@ -7,17 +7,17 @@
 
 
 
-    <meta name="description" content="最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认证参数进行对比，如果一致才能请求成功，否则返回401码(未被授权)。亚马逊提供的这套认证算法最后需要往">
+    <meta name="description" content="最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AWS V4签名认证(Java实现)">
 <meta property="og:url" content="http://yoursite.com/2018/10/14/AWS V4签名认证(Java实现)/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认证参数进行对比，如果一致才能请求成功，否则返回401码(未被授权)。亚马逊提供的这套认证算法最后需要往">
+<meta property="og:description" content="最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-05T15:47:17.552Z">
+<meta property="og:updated_time" content="2018-11-06T15:52:03.391Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AWS V4签名认证(Java实现)">
-<meta name="twitter:description" content="最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认证参数进行对比，如果一致才能请求成功，否则返回401码(未被授权)。亚马逊提供的这套认证算法最后需要往">
+<meta name="twitter:description" content="最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认">
 
 
 
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    17 minutes read (About 2581 words)
+                    17 minutes read (About 2582 words)
                 </span>
                 
             </div>
@@ -177,7 +177,7 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认证参数进行对比，如果一致才能请求成功，否则返回401码(未被授权)。亚马逊提供的这套认证算法最后需要往headers字段中添加Authorization标头, 具体可以查看如下示例。</p>
+<p>最近第三方新增的的HTTP API采用了亚马逊提供的签名算法，借此机会学习一下认证过程，并提供Java实现。该认证首先需要第三方提供的accessKey，secretKey等相关参数，然后根据官方提供的算法计算出认证字段并添加到请求的headers中，请示到达第三方服务器会对headers中的认<a id="more"></a>证参数进行对比，如果一致才能请求成功，否则返回401码(未被授权)。亚马逊提供的这套认证算法最后需要往headers字段中添加Authorization标头, 具体可以查看如下示例。</p>
 </blockquote>
 <p>如果没有认证你发送的请求是这样的话：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /?Param2=value2&amp;Param1=value1 HTTP/1.1</span><br><span class="line">Host:example.amazonaws.com</span><br><span class="line">X-Amz-Date:20150830T123600Z</span><br></pre></td></tr></table></figure></p>
 <p>添加认证后就应该是这样：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET /?Param2=value2&amp;Param1=value1 HTTP/1.1</span><br><span class="line">Host:example.amazonaws.com</span><br><span class="line">X-Amz-Date:20150830T123600Z</span><br><span class="line">Authorization: AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request, SignedHeaders=host;x-amz-date, Signature=b97d918cfa904a5beff61c982a1b6f458b799221646efd99d3219ec94cdf2500</span><br></pre></td></tr></table></figure></p>

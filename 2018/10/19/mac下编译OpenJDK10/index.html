@@ -7,17 +7,17 @@
 
 
 
-    <meta name="description" content="OpenJDK是与Oracle JDK最接近的开源jdk，周志明老师在《深入理解JAVA虚拟机》第一章就建议大家自己编译下OpenJDK的源码，最近遇到JVM相关的一些问题，又心血来潮的想试试。如果是第一次编译的话真的是很难一次成功的，由于操作系统、软件环境、OpenJDK版本不同各种千奇百怪的问题都有。虽然项目中用的是java8，但因为自己使用macOS 10.13.6操作系统，看了下网上的一">
+    <meta name="description" content="OpenJDK是与Oracle JDK最接近的开源jdk，周志明老师在《深入理解JAVA虚拟机》第一章就建议大家自己编译下OpenJDK的源码，最近遇到JVM相关的一些问题，又心血来潮的想试试。如果是第一次编译的话真的是很难一次成功的，由于操作系统、软件环境、OpenJDK版本不同各种千奇百怪">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mac下编译OpenJDK10">
 <meta property="og:url" content="http://yoursite.com/2018/10/19/mac下编译OpenJDK10/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="OpenJDK是与Oracle JDK最接近的开源jdk，周志明老师在《深入理解JAVA虚拟机》第一章就建议大家自己编译下OpenJDK的源码，最近遇到JVM相关的一些问题，又心血来潮的想试试。如果是第一次编译的话真的是很难一次成功的，由于操作系统、软件环境、OpenJDK版本不同各种千奇百怪的问题都有。虽然项目中用的是java8，但因为自己使用macOS 10.13.6操作系统，看了下网上的一">
+<meta property="og:description" content="OpenJDK是与Oracle JDK最接近的开源jdk，周志明老师在《深入理解JAVA虚拟机》第一章就建议大家自己编译下OpenJDK的源码，最近遇到JVM相关的一些问题，又心血来潮的想试试。如果是第一次编译的话真的是很难一次成功的，由于操作系统、软件环境、OpenJDK版本不同各种千奇百怪">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-05T15:47:14.326Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:59.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac下编译OpenJDK10">
-<meta name="twitter:description" content="OpenJDK是与Oracle JDK最接近的开源jdk，周志明老师在《深入理解JAVA虚拟机》第一章就建议大家自己编译下OpenJDK的源码，最近遇到JVM相关的一些问题，又心血来潮的想试试。如果是第一次编译的话真的是很难一次成功的，由于操作系统、软件环境、OpenJDK版本不同各种千奇百怪的问题都有。虽然项目中用的是java8，但因为自己使用macOS 10.13.6操作系统，看了下网上的一">
+<meta name="twitter:description" content="OpenJDK是与Oracle JDK最接近的开源jdk，周志明老师在《深入理解JAVA虚拟机》第一章就建议大家自己编译下OpenJDK的源码，最近遇到JVM相关的一些问题，又心血来潮的想试试。如果是第一次编译的话真的是很难一次成功的，由于操作系统、软件环境、OpenJDK版本不同各种千奇百怪">
 
 
 
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 minutes read (About 596 words)
+                    4 minutes read (About 597 words)
                 </span>
                 
             </div>
@@ -177,7 +177,7 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>OpenJDK是与Oracle JDK最接近的开源jdk，周志明老师在《深入理解JAVA虚拟机》第一章就建议大家自己编译下OpenJDK的源码，最近遇到JVM相关的一些问题，又心血来潮的想试试。<br>如果是第一次编译的话真的是很难一次成功的，由于操作系统、软件环境、OpenJDK版本不同各种千奇百怪的问题都有。虽然项目中用的是java8，但因为自己使用macOS 10.13.6操作系统，看了下网上的一些文章对jdk8编译支持不是很好，因此选择了不少人编译成功的jdk9进行下手。<br>但是jdk9到我这里也行不通，遇到的问题在openjdk官网和stackoverflow上都有人反映，但没人回答, 因此不得不放弃。接下来试jdk9u遇到相同错误，换到jdk10却异常顺利，无需像jdk9一样改源码啥的，一次成功。因此如果你打算在mac上尝试编译的话，建议直接编译jdk10吧。</p>
+<p>OpenJDK是与Oracle JDK最接近的开源jdk，周志明老师在《深入理解JAVA虚拟机》第一章就建议大家自己编译下OpenJDK的源码，最近遇到JVM相关的一些问题，又心血来潮的想试试。<br>如果是第一次编译的话真的是很难一次成功的，由于操作系统、软件环境、OpenJDK版本不同各种千奇百怪<a id="more"></a>的问题都有。虽然项目中用的是java8，但因为自己使用macOS 10.13.6操作系统，看了下网上的一些文章对jdk8编译支持不是很好，因此选择了不少人编译成功的jdk9进行下手。<br>但是jdk9到我这里也行不通，遇到的问题在openjdk官网和stackoverflow上都有人反映，但没人回答, 因此不得不放弃。接下来试jdk9u遇到相同错误，换到jdk10却异常顺利，无需像jdk9一样改源码啥的，一次成功。因此如果你打算在mac上尝试编译的话，建议直接编译jdk10吧。</p>
 </blockquote>
 <p>####1. 工具准备</p>
 <ul>

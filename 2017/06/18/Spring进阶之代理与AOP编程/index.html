@@ -7,12 +7,12 @@
 
 
 
-    <meta name="description" content="本文先介绍了代理中的静态代理，动态代理和Cglib代理，然后通过示例分别展示了如何通过注解和XML方式实现AOP编程，并且列举了切入点表达式的常用形式。  1. 代理 代理（Proxy）是一种设计模式，为需要访问的对象提供了一个替身或者点位符以控制对这个对象的访问。使得可以在目标对象实现的基础上，增强额外的功能操作。   1.1 静态代理 代理对象与真实对象实现相同的接口，实现访问控制。  举例">
+    <meta name="description" content="本文先介绍了代理中的静态代理，动态代理和Cglib代理，然后通过示例分别展示了如何通过注解和XML方式实现AOP编程，并且列举了切入点表达式的常用形式。  1. 代理 代理（Proxy）是一种设计模式，为需要访问的对象提供了一个替身或者点位符以控制对这个对象的访问。使得可以在目标对象实">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring进阶之代理与AOP编程">
 <meta property="og:url" content="http://yoursite.com/2017/06/18/Spring进阶之代理与AOP编程/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="本文先介绍了代理中的静态代理，动态代理和Cglib代理，然后通过示例分别展示了如何通过注解和XML方式实现AOP编程，并且列举了切入点表达式的常用形式。  1. 代理 代理（Proxy）是一种设计模式，为需要访问的对象提供了一个替身或者点位符以控制对这个对象的访问。使得可以在目标对象实现的基础上，增强额外的功能操作。   1.1 静态代理 代理对象与真实对象实现相同的接口，实现访问控制。  举例">
+<meta property="og:description" content="本文先介绍了代理中的静态代理，动态代理和Cglib代理，然后通过示例分别展示了如何通过注解和XML方式实现AOP编程，并且列举了切入点表达式的常用形式。  1. 代理 代理（Proxy）是一种设计模式，为需要访问的对象提供了一个替身或者点位符以控制对这个对象的访问。使得可以在目标对象实">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-f75bc080618bfae1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-474cd5adf0ef8f6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -20,10 +20,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-9a1e9a44470cd6b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-dcd557f6582ba740.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-d346f53e53f418b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:47:02.290Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:49.988Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring进阶之代理与AOP编程">
-<meta name="twitter:description" content="本文先介绍了代理中的静态代理，动态代理和Cglib代理，然后通过示例分别展示了如何通过注解和XML方式实现AOP编程，并且列举了切入点表达式的常用形式。  1. 代理 代理（Proxy）是一种设计模式，为需要访问的对象提供了一个替身或者点位符以控制对这个对象的访问。使得可以在目标对象实现的基础上，增强额外的功能操作。   1.1 静态代理 代理对象与真实对象实现相同的接口，实现访问控制。  举例">
+<meta name="twitter:description" content="本文先介绍了代理中的静态代理，动态代理和Cglib代理，然后通过示例分别展示了如何通过注解和XML方式实现AOP编程，并且列举了切入点表达式的常用形式。  1. 代理 代理（Proxy）是一种设计模式，为需要访问的对象提供了一个替身或者点位符以控制对这个对象的访问。使得可以在目标对象实">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-f75bc080618bfae1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -171,7 +171,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    15 minutes read (About 2287 words)
+                    15 minutes read (About 2288 words)
                 </span>
                 
             </div>
@@ -187,7 +187,7 @@
 <p>本文先介绍了代理中的静态代理，动态代理和Cglib代理，然后通过示例分别展示了如何通过注解和XML方式实现AOP编程，并且列举了切入点表达式的常用形式。</p>
 </blockquote>
 <h2 id="1-代理"><a href="#1-代理" class="headerlink" title="1. 代理"></a>1. 代理</h2><blockquote>
-<p>代理（Proxy）是一种设计模式，为需要访问的对象提供了一个替身或者点位符以控制对这个对象的访问。使得可以在目标对象实现的基础上，增强额外的功能操作。</p>
+<p>代理（Proxy）是一种设计模式，为需要访问的对象提供了一个替身或者点位符以控制对这个对象的访问。使得可以在目标对象实<a id="more"></a>现的基础上，增强额外的功能操作。</p>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-f75bc080618bfae1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="代理模式"></p>
 <h3 id="1-1-静态代理"><a href="#1-1-静态代理" class="headerlink" title="1.1 静态代理"></a>1.1 静态代理</h3><blockquote>

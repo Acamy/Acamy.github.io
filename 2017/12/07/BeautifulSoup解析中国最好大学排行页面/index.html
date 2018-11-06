@@ -7,19 +7,19 @@
 
 
 
-    <meta name="description" content="根据如下页面源代码可以看到需要爬取的信息都在tbody标签下的的tr标签中，基本思路如下：首先通过requests库得到页面源码，然后用bs4库在源码中查找到tbody标签，遍历tbody标签中的tr标签，每一个tr标签对应一条数据，前四个td标签要别为所需要的排名，学校名称，省市，总分，最后再对数据进行格式化输出。   示例代码:12345678910111213141516171819202">
+    <meta name="description" content="根据如下页面源代码可以看到需要爬取的信息都在tbody标签下的的tr标签中，基本思路如下：首先通过requests库得到页面源码，然后用bs4库在源码中查找到tbody标签，遍历tbody标签中的tr标签，每一个tr标签对应一条数据，前四个td标签要别为所需要的排名，学校名称，省市，总分，最后再">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BeautifulSoup解析中国最好大学排行页面">
 <meta property="og:url" content="http://yoursite.com/2017/12/07/BeautifulSoup解析中国最好大学排行页面/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="根据如下页面源代码可以看到需要爬取的信息都在tbody标签下的的tr标签中，基本思路如下：首先通过requests库得到页面源码，然后用bs4库在源码中查找到tbody标签，遍历tbody标签中的tr标签，每一个tr标签对应一条数据，前四个td标签要别为所需要的排名，学校名称，省市，总分，最后再对数据进行格式化输出。   示例代码:12345678910111213141516171819202">
+<meta property="og:description" content="根据如下页面源代码可以看到需要爬取的信息都在tbody标签下的的tr标签中，基本思路如下：首先通过requests库得到页面源码，然后用bs4库在源码中查找到tbody标签，遍历tbody标签中的tr标签，每一个tr标签对应一条数据，前四个td标签要别为所需要的排名，学校名称，省市，总分，最后再">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-b93d5e95c653a575.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-91d94844d704150d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-05T15:46:59.421Z">
+<meta property="og:updated_time" content="2018-11-06T15:51:48.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BeautifulSoup解析中国最好大学排行页面">
-<meta name="twitter:description" content="根据如下页面源代码可以看到需要爬取的信息都在tbody标签下的的tr标签中，基本思路如下：首先通过requests库得到页面源码，然后用bs4库在源码中查找到tbody标签，遍历tbody标签中的tr标签，每一个tr标签对应一条数据，前四个td标签要别为所需要的排名，学校名称，省市，总分，最后再对数据进行格式化输出。   示例代码:12345678910111213141516171819202">
+<meta name="twitter:description" content="根据如下页面源代码可以看到需要爬取的信息都在tbody标签下的的tr标签中，基本思路如下：首先通过requests库得到页面源码，然后用bs4库在源码中查找到tbody标签，遍历tbody标签中的tr标签，每一个tr标签对应一条数据，前四个td标签要别为所需要的排名，学校名称，省市，总分，最后再">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-b93d5e95c653a575.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -167,7 +167,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 minutes read (About 303 words)
+                    2 minutes read (About 304 words)
                 </span>
                 
             </div>
@@ -180,7 +180,7 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>根据如下页面源代码可以看到需要爬取的信息都在tbody标签下的的tr标签中，基本思路如下：首先通过requests库得到页面源码，然后用bs4库在源码中查找到tbody标签，遍历tbody标签中的tr标签，每一个tr标签对应一条数据，前四个td标签要别为所需要的排名，学校名称，省市，总分，最后再对数据进行格式化输出。</p>
+<p>根据如下页面源代码可以看到需要爬取的信息都在tbody标签下的的tr标签中，基本思路如下：首先通过requests库得到页面源码，然后用bs4库在源码中查找到tbody标签，遍历tbody标签中的tr标签，每一个tr标签对应一条数据，前四个td标签要别为所需要的排名，学校名称，省市，总分，最后再<a id="more"></a>对数据进行格式化输出。</p>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-b93d5e95c653a575.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p><strong>示例代码:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import bs4</span><br><span class="line"> </span><br><span class="line">def getHTMLText(url):</span><br><span class="line">    try:</span><br><span class="line">        r = requests.get(url, timeout=30)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        return r.text</span><br><span class="line">    except:</span><br><span class="line">        return &quot;&quot;</span><br><span class="line"> </span><br><span class="line">def fillUnivList(ulist, html):</span><br><span class="line">    soup = BeautifulSoup(html, &quot;html.parser&quot;)</span><br><span class="line">    for tr in soup.find(&apos;tbody&apos;).children:</span><br><span class="line">        if isinstance(tr, bs4.element.Tag):</span><br><span class="line">            tds = tr(&apos;td&apos;)</span><br><span class="line">            ulist.append([tds[0].string, tds[1].string, tds[1].string,tds[3].string])</span><br><span class="line"> </span><br><span class="line">def printUnivList(ulist, num):</span><br><span class="line">    tplt = &quot;&#123;0:^10&#125;\t&#123;1:&#123;4&#125;^10&#125;\t&#123;2:^10&#125;\t&#123;3:^6&#125;&quot;</span><br><span class="line">    print(tplt.format(&quot;排名&quot;,&quot;学校名称&quot;,&quot;省市&quot;,&quot;总分&quot;,chr(12288)))</span><br><span class="line">    for i in range(num):</span><br><span class="line">        u=ulist[i]</span><br><span class="line">        print(tplt.format(u[0],u[1],u[2],u[3],chr(12288)))</span><br><span class="line">     </span><br><span class="line">def main():</span><br><span class="line">    uinfo = []</span><br><span class="line">    url = &apos;http://www.zuihaodaxue.cn/zuihaodaxuepaiming2016.html&apos;</span><br><span class="line">    html = getHTMLText(url)</span><br><span class="line">    fillUnivList(uinfo, html)</span><br><span class="line">    printUnivList(uinfo, 20) # 20 univs</span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure></p>
