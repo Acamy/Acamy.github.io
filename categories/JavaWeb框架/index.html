@@ -158,6 +158,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/18/Spring进阶之对jdbc的支持以及事物管理/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/Y27SKAtV.jpg" alt="Spring进阶之对jdbc的支持以及事物管理">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -187,7 +193,7 @@
             <h2 id="1-Spring对jdbc支持"><a href="#1-Spring对jdbc支持" class="headerlink" title="1. Spring对jdbc支持"></a>1. Spring对jdbc支持</h2><blockquote>
 <p>Spring通过引入相关的jar包能够支持c3p0连接池，</p>
 </blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">public class App &#123;</span><br><span class="line">	// 容器对象</span><br><span class="line">	ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;cn/i&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt;tcast/h_jdbc/bean.xml&quot;);</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testApp() throws Exception &#123;</span><br><span class="line">		UserDao ud = (UserDao) ac.getBean(&quot;userDao&quot;);</span><br><span class="line">//		ud.save();</span><br><span class="line">		System.out.println(ud.findById(5));</span><br><span class="line">		System.out.println(ud.getAll());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class UserDao &#123;</span><br><span class="line">    </span><br><span class="line">    private JdbcTemplate jdbcTemplate;</span><br><span class="line">	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) &#123;</span><br><span class="line">		this.jdbcTemplate = jdbcTemplate;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	public void save() &#123;</span><br><span class="line">		String sql = &quot;insert into t_dept(deptName) values(&apos;test&apos;);&quot;;</span><br><span class="line">		jdbcTemplate.update(sql);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public Dept findById(int id) &#123;</span><br><span class="line">		String sql = &quot;select * from t_dept where deptId=?&quot;;</span><br><span class="line">		List&lt;Dept&gt; list = jdbcTemplate.query(sql,new MyResult(), id);</span><br><span class="line">		return (list!=null &amp;&amp; list.size()&gt;0) ? list.get(0) : null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public List&lt;Dept&gt; getAll() &#123;</span><br><span class="line">		String sql = &quot;select * from t_dept&quot;;</span><br><span class="line">		List&lt;Dept&gt; list = jdbcTemplate.query(sql, new MyResult());</span><br><span class="line">		return list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	class MyResult implements RowMapper&lt;Dept&gt;&#123;</span><br><span class="line">		// 如何封装一行记录</span><br><span class="line">		@Override</span><br><span class="line">		public Dept mapRow(ResultSet rs, int index) throws SQLException &#123;</span><br><span class="line">			Dept dept = new Dept();</span><br><span class="line">			dept.setDeptId(rs.getInt(&quot;deptId&quot;));</span><br><span class="line">			dept.setDeptName(rs.getString(&quot;deptName&quot;));</span><br><span class="line">			return dept;</span><br><span class="line">		&#125;		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dept &#123;</span><br><span class="line">	private int deptId;</span><br><span class="line">	private String deptName;</span><br><span class="line">	public int getDeptId() &#123;</span><br><span class="line">		return deptId;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setDeptId(int deptId) &#123;</span><br><span class="line">		this.deptId = deptId;</span><br><span class="line">	&#125;</span><br><span class="line">	public String getDeptName() &#123;</span><br><span class="line">		return deptName;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setDeptName(String deptName) &#123;</span><br><span class="line">		this.deptName = deptName;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">public class App &#123;</span><br><span class="line">	// 容器对象</span><br><span class="line">	ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;cn/i&lt;!-- more --&gt;tcast/h_jdbc/bean.xml&quot;);</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testApp() throws Exception &#123;</span><br><span class="line">		UserDao ud = (UserDao) ac.getBean(&quot;userDao&quot;);</span><br><span class="line">//		ud.save();</span><br><span class="line">		System.out.println(ud.findById(5));</span><br><span class="line">		System.out.println(ud.getAll());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class UserDao &#123;</span><br><span class="line">    </span><br><span class="line">    private JdbcTemplate jdbcTemplate;</span><br><span class="line">	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) &#123;</span><br><span class="line">		this.jdbcTemplate = jdbcTemplate;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	public void save() &#123;</span><br><span class="line">		String sql = &quot;insert into t_dept(deptName) values(&apos;test&apos;);&quot;;</span><br><span class="line">		jdbcTemplate.update(sql);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public Dept findById(int id) &#123;</span><br><span class="line">		String sql = &quot;select * from t_dept where deptId=?&quot;;</span><br><span class="line">		List&lt;Dept&gt; list = jdbcTemplate.query(sql,new MyResult(), id);</span><br><span class="line">		return (list!=null &amp;&amp; list.size()&gt;0) ? list.get(0) : null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public List&lt;Dept&gt; getAll() &#123;</span><br><span class="line">		String sql = &quot;select * from t_dept&quot;;</span><br><span class="line">		List&lt;Dept&gt; list = jdbcTemplate.query(sql, new MyResult());</span><br><span class="line">		return list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	class MyResult implements RowMapper&lt;Dept&gt;&#123;</span><br><span class="line">		// 如何封装一行记录</span><br><span class="line">		@Override</span><br><span class="line">		public Dept mapRow(ResultSet rs, int index) throws SQLException &#123;</span><br><span class="line">			Dept dept = new Dept();</span><br><span class="line">			dept.setDeptId(rs.getInt(&quot;deptId&quot;));</span><br><span class="line">			dept.setDeptName(rs.getString(&quot;deptName&quot;));</span><br><span class="line">			return dept;</span><br><span class="line">		&#125;		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dept &#123;</span><br><span class="line">	private int deptId;</span><br><span class="line">	private String deptName;</span><br><span class="line">	public int getDeptId() &#123;</span><br><span class="line">		return deptId;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setDeptId(int deptId) &#123;</span><br><span class="line">		this.deptId = deptId;</span><br><span class="line">	&#125;</span><br><span class="line">	public String getDeptName() &#123;</span><br><span class="line">		return deptName;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setDeptName(String deptName) &#123;</span><br><span class="line">		this.deptName = deptName;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd</span><br><span class="line">        http://www.springframework.org/schema/aop</span><br><span class="line">        http://www.springframework.org/schema/aop/spring-aop.xsd&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 1. 数据源对象: C3P0连接池 --&gt;</span><br><span class="line">	&lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql:///mysql&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;user&quot; value=&quot;root&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;password&quot; value=&quot;root&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;initialPoolSize&quot; value=&quot;3&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;maxPoolSize&quot; value=&quot;10&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;maxStatements&quot; value=&quot;100&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;acquireIncrement&quot; value=&quot;2&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 2. 创建JdbcTemplate对象 --&gt;</span><br><span class="line">	&lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- dao 实例 --&gt;</span><br><span class="line">	&lt;bean id=&quot;userDao&quot; class=&quot;cn.itcast.h_jdbc.UserDao&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;jdbcTemplate&quot; ref=&quot;jdbcTemplate&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="2-Spring事务管理"><a href="#2-Spring事务管理" class="headerlink" title="2. Spring事务管理"></a>2. Spring事务管理</h2><blockquote>
 <p>Spring提供了对事务控制的实现。用户如果想用Spring的声明式事务管理，只需要在配置文件中配置即可； 不想使用时直接移除配置。这个实现了对事务控制的最大程度的解耦。</p>
@@ -213,6 +219,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/18/Spring进阶之代理与AOP编程/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/g23VQcYe.jpg" alt="Spring进阶之代理与AOP编程">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -266,6 +278,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/18/Spring初探/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/j67UAmRo.jpg" alt="Spring初探">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -295,17 +313,41 @@
             <blockquote>
 <p>可以解决对象创建以及对象之间依赖关系的一种框架</p>
 </blockquote>
-<h2 id="1-第一个Spring程序"><a href="#1-第一个Spring程序" class="headerlink" title="1.第一个Spring程序"></a>1.第一个Spring程序</h2><p></p>
+<h2 id="1-第一个Spring程序"><a href="#1-第一个Spring程序" class="headerlink" title="1.第一个Spring程序"></a>1.第一个Spring程序</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/str&lt;!-- more --&gt;ip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-1-引入jar文件-spring-framework-3-2-5-RELEASE"><a href="#1-1-引入jar文件-spring-framework-3-2-5-RELEASE" class="headerlink" title="1.1 引入jar文件 spring-framework-3.2.5.RELEASE"></a>1.1 引入jar文件 spring-framework-3.2.5.RELEASE</h3><p>commons-logging-1.1.3.jar           日志<br>spring-beans-3.2.5.RELEASE.jar        bean节点<br>spring-context-3.2.5.RELEASE.jar       spring上下文节点<br>spring-core-3.2.5.RELEASE.jar         spring核心功能<br>spring-expression-3.2.5.RELEASE.jar    spring表达式相关表</p>
+<h3 id="1-2-配置applicationContext-xml"><a href="#1-2-配置applicationContext-xml" class="headerlink" title="1.2 配置applicationContext.xml"></a>1.2 配置applicationContext.xml</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- IOC容器的配置： 要创建的所有的对象都配置在这里--&gt;</span><br><span class="line">	&lt;bean id=&quot;user&quot; class=&quot;cn.itcast.a_hello.User&quot; init-method=&quot;init_user&quot; destroy-method=&quot;destroy_user&quot; scope=&quot;singleton&quot; lazy-init=&quot;false&quot;&gt;&lt;/bean&gt;	 </span><br><span class="line">	 </span><br><span class="line">	&lt;bean id=&quot;user1&quot; class=&quot;cn.itcast.a_hello.User&quot;&gt;&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-测试"><a href="#1-3-测试" class="headerlink" title="1.3 测试"></a>1.3 测试</h3><h4 id="测试一：得到IOC容器的两种方法"><a href="#测试一：得到IOC容器的两种方法" class="headerlink" title="测试一：得到IOC容器的两种方法"></a>测试一：得到IOC容器的两种方法</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class App1_get_ioc &#123;</span><br><span class="line">	// 1. 通过工厂类得到IOC容器创建的对象</span><br><span class="line">	@Test</span><br><span class="line">	public void testIOC() throws Exception &#123;</span><br><span class="line">		// 创建对象</span><br><span class="line">		// User user = new User();		</span><br><span class="line">		// 现在，把对象的创建交给spring的IOC容器</span><br><span class="line">		Resource resource = new ClassPathResource(&quot;cn/acamy/a_hello/applicationContext.xml&quot;);</span><br><span class="line">		// 创建容器对象(Bean的工厂), IOC容器 = 工厂类 + applicationContext.xml</span><br><span class="line">		BeanFactory factory = new XmlBeanFactory(resource);</span><br><span class="line">		// 得到容器创建的对象</span><br><span class="line">		User user = (User) factory.getBean(&quot;user&quot;);		</span><br><span class="line">		System.out.println(user.getId());		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//2. （方便）直接得到IOC容器对象 </span><br><span class="line">	@Test</span><br><span class="line">	public void testAc() throws Exception &#123;</span><br><span class="line">		// 得到IOC容器对象</span><br><span class="line">		ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;cn/acamy/a_hello/applicationContext.xml&quot;);</span><br><span class="line">		// 从容器中获取bean</span><br><span class="line">		User user = (User) ac.getBean(&quot;user&quot;);		</span><br><span class="line">		System.out.println(user);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="测试二：相关参数"><a href="#测试二：相关参数" class="headerlink" title="测试二：相关参数"></a>测试二：相关参数</h4><p><strong>1) 对象创建： 单例/多例</strong><br>          scope=”singleton”, 默认值， 即 默认是单例    【service/dao/工具类】<br>      scope=”prototype”, 多例；                 【Action对象】<br>      <strong>2) 什么时候创建?</strong><br>           scope=”prototype”  在用到对象的时候，才创建对象。<br>         scope=”singleton”  在启动(容器初始化之前)， 就已经创建了bean，且整个应用只有一个。<br>    <strong> 3)是否延迟创建</strong><br>           lazy-init=”false”  默认为false,  不延迟创建，即在启动时候就创建对象<br>           lazy-init=”true”   延迟初始化， 在用到对象的时候才创建对象<br>         （只对单例有效）<br>     <strong> 4) 创建对象之后，初始化/销毁</strong><br>            init-method=”init_user”       【对应对象的init_user方法，在对象创建爱之后执行 】<br>        destroy-method=”destroy_user”  【在调用容器对象的destriy方法时候执行，(容器用实现类)】</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class App2_bean &#123;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testIOC() throws Exception &#123;</span><br><span class="line">		// 得到IOC容器对象  【用实现类，因为要调用销毁的方法】</span><br><span class="line">		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext(&quot;cn/acamy/a_hello/applicationContext.xml&quot;);</span><br><span class="line">		System.out.println(&quot;-----容器创建-----&quot;);</span><br><span class="line">		</span><br><span class="line">		// 从容器中获取bean</span><br><span class="line">		User user1 = (User) ac.getBean(&quot;user&quot;);</span><br><span class="line">		User user2 = (User) ac.getBean(&quot;user1&quot;);</span><br><span class="line">		</span><br><span class="line">		System.out.println(user1);</span><br><span class="line">		System.out.println(user2);</span><br><span class="line">		</span><br><span class="line">		// 销毁容器对象 </span><br><span class="line">		ac.destroy();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-ce7e62503da00fea.png" alt=""></p>
+<h2 id="2-SpringIOC容器"><a href="#2-SpringIOC容器" class="headerlink" title="2. SpringIOC容器"></a>2. SpringIOC容器</h2><blockquote>
+<p>spring核心内容,创建对象 &amp; 处理对象的依赖关系</p>
+</blockquote>
+<h3 id="2-1-创建对象"><a href="#2-1-创建对象" class="headerlink" title="2.1 创建对象"></a>2.1 创建对象</h3><p>1） 调用无参数构造器<br>2） 带参数构造器<br>3） 工厂创建对象(静态方法和非静态方法)</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 1. 默认无参数构造器 --&gt;</span><br><span class="line">	&lt;bean id=&quot;user1&quot; class=&quot;cn.itcast.b_create_obj.User&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 2. 带参数构造器 --&gt;</span><br><span class="line">	&lt;bean id=&quot;user2&quot; class=&quot;cn.itcast.b_create_obj.User&quot;&gt;</span><br><span class="line">		&lt;constructor-arg index=&quot;0&quot; type=&quot;int&quot; value=&quot;100&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">		&lt;constructor-arg index=&quot;1&quot; type=&quot;java.lang.String&quot; value=&quot;Jack&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 定义一个字符串，值是&quot;Jack&quot; ;  String s = new String(&quot;jack&quot;)--&gt;</span><br><span class="line">	&lt;bean id=&quot;str&quot; class=&quot;java.lang.String&quot;&gt;</span><br><span class="line">		&lt;constructor-arg value=&quot;Jacks&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	&lt;bean id=&quot;user3&quot; class=&quot;cn.itcast.b_create_obj.User&quot;&gt;</span><br><span class="line">		&lt;constructor-arg index=&quot;0&quot; type=&quot;int&quot; value=&quot;100&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">		&lt;constructor-arg index=&quot;1&quot; type=&quot;java.lang.String&quot; ref=&quot;str&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 3. 工厂类创建对象 --&gt;</span><br><span class="line">	&lt;!-- # 3.1 工厂类，实例方法 --&gt;</span><br><span class="line">	&lt;!-- 先创建工厂 --&gt;</span><br><span class="line">	&lt;bean id=&quot;factory&quot; class=&quot;cn.itcast.b_create_obj.ObjectFactory&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	&lt;!-- 在创建user对象，用factory方的实例方法 --&gt;</span><br><span class="line">	&lt;bean id=&quot;user4&quot; factory-bean=&quot;factory&quot; factory-method=&quot;getInstance&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	&lt;!-- # 3.2 工厂类： 静态方法 --&gt;</span><br><span class="line">	&lt;!-- </span><br><span class="line">		class 指定的就是工厂类型</span><br><span class="line">		factory-method  一定是工厂里面的“静态方法”</span><br><span class="line">	 --&gt;</span><br><span class="line">	&lt;bean id=&quot;user&quot; class=&quot;cn.itcast.b_create_obj.ObjectFactory&quot; factory-method=&quot;getStaticInstance&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 对象写法 --&gt;</span><br><span class="line">	&lt;!-- </span><br><span class="line">	问题：spring配置文件中，bean节点的id与name属性的区别?</span><br><span class="line">		id 不能有特殊符号, 且唯一，且不能以数字开始</span><br><span class="line">		name 可以有特殊符号</span><br><span class="line">	 --&gt;</span><br><span class="line">	&lt;bean id=&quot;1test&quot; name=&quot;test&quot;  class=&quot;cn.itcast.b_create_obj.User&quot;&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-对象依赖关系"><a href="#2-2-对象依赖关系" class="headerlink" title="2.2 对象依赖关系"></a>2.2 对象依赖关系</h3><h4 id="2-2-1-通过构造函数"><a href="#2-2-1-通过构造函数" class="headerlink" title="2.2.1 通过构造函数"></a>2.2.1 通过构造函数</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;user1&quot; class=&quot;cn.itcast.c_property.User&quot; scope=&quot;prototype&quot;&gt;</span><br><span class="line">		&lt;constructor-arg value=&quot;100&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">		&lt;constructor-arg value=&quot;Tom&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-2-通过set方法给属性注入值"><a href="#2-2-2-通过set方法给属性注入值" class="headerlink" title="2.2.2  通过set方法给属性注入值"></a>2.2.2  通过set方法给属性注入值</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;user&quot; class=&quot;cn.itcast.c_property.User&quot; scope=&quot;prototype&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;id&quot; value=&quot;101&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;name&quot; value=&quot;Jack&quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-3-bean依赖"><a href="#2-2-3-bean依赖" class="headerlink" title="2.2.3 bean依赖"></a>2.2.3 bean依赖</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- dao instance --&gt;</span><br><span class="line">	&lt;bean id=&quot;userDao&quot; class=&quot;cn.itcast.c_property.UserDao&quot;&gt;&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- service instance --&gt;</span><br><span class="line">	&lt;bean id=&quot;userService&quot; class=&quot;cn.itcast.c_property.UserService&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;userDao&quot; ref=&quot;userDao&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- action instance --&gt;</span><br><span class="line">	&lt;bean id=&quot;userAction1&quot; class=&quot;cn.itcast.c_property.UserAction&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;userService&quot; ref=&quot;userService&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	&lt;!-- ##############内部bean############## --&gt;</span><br><span class="line">	&lt;bean id=&quot;userAction2&quot; class=&quot;cn.itcast.c_property.UserAction&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;userService&quot;&gt;</span><br><span class="line">			&lt;bean class=&quot;cn.itcast.c_property.UserService&quot;&gt;</span><br><span class="line">				&lt;property name=&quot;userDao&quot;&gt;</span><br><span class="line">					&lt;bean class=&quot;cn.itcast.c_property.UserDao&quot;&gt;&lt;/bean&gt;</span><br><span class="line">				&lt;/property&gt;</span><br><span class="line">			&lt;/bean&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-4-p名称空间"><a href="#2-2-4-p名称空间" class="headerlink" title="2.2.4 p名称空间"></a>2.2.4 p名称空间</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;user&quot; class=&quot;cn.itcast.c_property.User&quot; p:name=&quot;Jack0001&quot;&gt;&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=&quot;userDao&quot; class=&quot;cn.itcast.c_property.UserDao&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	 </span><br><span class="line">&lt;bean id=&quot;userService&quot; class=&quot;cn.itcast.c_property.UserService&quot; p:userDao-ref=&quot;userDao&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	 </span><br><span class="line">&lt;bean id=&quot;userAction&quot; class=&quot;cn.itcast.c_property.UserAction&quot; p:userService-ref=&quot;userService&quot;&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-5-自动装配"><a href="#2-2-5-自动装配" class="headerlink" title="2.2.5 自动装配"></a>2.2.5 自动装配</h4><blockquote>
+<p>根据名称自动装配：autowire=”byName”,自动去IOC容器中找与属性名同名的引用的对象，并自动注入,也可以定义到全局， 这样就不用每个bean节点都去写autowire=”byName”，但必须确保改类型在IOC容器中只有一个对象；否则报错。</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;bean id=&quot;userDao&quot; class=&quot;cn.itcast.d_auto.UserDao&quot;&gt;&lt;/bean&gt;	</span><br><span class="line">&lt;bean id=&quot;userService&quot; class=&quot;cn.itcast.d_auto.UserService&quot; autowire=&quot;byName&quot;&gt;&lt;/bean&gt;</span><br><span class="line">&lt;!-- 根据“名称”自动装配： userAction注入的属性，会去ioc容器中自动查找与属性同名的对象 --&gt;</span><br><span class="line">&lt;bean id=&quot;userAction&quot; class=&quot;cn.itcast.d_auto.UserAction&quot; autowire=&quot;byName&quot;&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-6-注解"><a href="#2-2-6-注解" class="headerlink" title="2.2.6 注解"></a>2.2.6 注解</h4><blockquote>
+<p>注解方式可以简化spring的IOC容器的配置!</p>
+</blockquote>
+<p><strong>需要引入context名称空间并开启注解扫描</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xmlns:context=&quot;http://www.springframework.org/schema/context&quot;	</span><br><span class="line">&lt;context:component-scan base-package=&quot;cn.itcast.e_anno2&quot;&gt;&lt;/context:component-scan&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>分类</strong><br>@Component   指定把一个对象加入IOC容器</p>
+<p>@Service      作用同@Component； 在业务逻辑层使用<br>@Controller    作用同@Component； 在控制层使用<br>@Repository   作用同@Component； 在持久层使用</p>
+<p>@Resource     属性注入</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Component(&quot;userAction&quot;)  // 加入IOC容器，也可以用@Controller</span><br><span class="line">public class UserAction &#123;</span><br><span class="line"></span><br><span class="line">	@Resource(name = &quot;userService&quot;)</span><br><span class="line">	private UserService userService;</span><br><span class="line">	</span><br><span class="line">	public void setUserService(UserService userService) &#123;</span><br><span class="line">		this.userService = userService;</span><br><span class="line">	&#125;	</span><br><span class="line"></span><br><span class="line">	public String execute() &#123;</span><br><span class="line">		userService.save();</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@Component(&quot;userService&quot;)  // userService加入ioc容器，也可以用@Service</span><br><span class="line">public class UserService &#123;</span><br><span class="line">	</span><br><span class="line">	// 会从IOC容器中找userDao对象，注入到当前字段</span><br><span class="line">	/*</span><br><span class="line">	 * &lt;bean id=&quot;&quot; class=&quot;&quot;&gt; </span><br><span class="line">	 *	  &lt;property name=&quot;userDao&quot; ref=&quot;userDao&quot; /&gt;    @Resource相当于这里的配置</span><br><span class="line">	 * &lt;/bean&gt;</span><br><span class="line">	 */</span><br><span class="line">	</span><br><span class="line">	@Resource(name = &quot;userDao&quot;)</span><br><span class="line">	private UserDao userDao;</span><br><span class="line">	</span><br><span class="line">	public void setUserDao(UserDao userDao) &#123;</span><br><span class="line">		this.userDao = userDao;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void save() &#123;</span><br><span class="line">		userDao.save();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 把当前对象加入ioc容器</span><br><span class="line">@Component(&quot;userDao&quot;)   //也可以用Repository  相当于bean.xml 【&lt;bean id=userDao class=&quot;..&quot; /&gt;】</span><br><span class="line">public class UserDao &#123;</span><br><span class="line"></span><br><span class="line">	public void save() &#123;</span><br><span class="line">		System.out.println(&quot;DB:保存用户!!!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/18/Spring初探/#more">Read More</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -316,6 +358,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/15/Hibernate构架(四） 查询,连接池，二级缓存，session管理/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/R7P49CSl.jpg" alt="Hibernate构架(四） 查询,连接池，二级缓存，session管理">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -365,6 +413,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/13/Hibernate构架(三） 状态，缓存，映射/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/nFjWoDEv.jpg" alt="Hibernate构架(三） 状态，缓存，映射">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -421,6 +475,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/12/Hibernate构架( 二） 映射/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/QKuHc3q0.jpg" alt="Hibernate构架( 二） 映射">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -450,7 +510,7 @@
             <h2 id="1-集合映射"><a href="#1-集合映射" class="headerlink" title="1.集合映射"></a>1.集合映射</h2><blockquote>
 <p>Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例</p>
 </blockquote>
-<p>需求：一个用户对应多个地址<br><strong>User.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// javabean设计</span><br><span class="line">public class User &#123;</span><br><span class="line">	private int userId;</span><br><span class="line">	private&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt; String userName;</span><br><span class="line">	// 一个用户，对应的多个地址</span><br><span class="line">	private Set&lt;String&gt; address;</span><br><span class="line">	private List&lt;String&gt; addressList = new ArrayList&lt;String&gt;(); </span><br><span class="line">	//private String[] addressArray; // 映射方式和list一样     &lt;array name=&quot;&quot;&gt;&lt;/array&gt;</span><br><span class="line">	private Map&lt;String,String&gt; addressMap = new HashMap&lt;String, String&gt;();</span><br><span class="line">// get,set省略...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需求：一个用户对应多个地址<br><strong>User.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// javabean设计</span><br><span class="line">public class User &#123;</span><br><span class="line">	private int userId;</span><br><span class="line">	private&lt;!-- more --&gt; String userName;</span><br><span class="line">	// 一个用户，对应的多个地址</span><br><span class="line">	private Set&lt;String&gt; address;</span><br><span class="line">	private List&lt;String&gt; addressList = new ArrayList&lt;String&gt;(); </span><br><span class="line">	//private String[] addressArray; // 映射方式和list一样     &lt;array name=&quot;&quot;&gt;&lt;/array&gt;</span><br><span class="line">	private Map&lt;String,String&gt; addressMap = new HashMap&lt;String, String&gt;();</span><br><span class="line">// get,set省略...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>User.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.a_collection&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;User&quot; table=&quot;t_user&quot;&gt;</span><br><span class="line">		&lt;id name=&quot;userId&quot; column=&quot;id&quot;&gt;</span><br><span class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</span><br><span class="line">		&lt;/id&gt;	</span><br><span class="line">		&lt;property name=&quot;userName&quot;&gt;&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- </span><br><span class="line">			set集合属性的映射</span><br><span class="line">				name 指定要映射的set集合的属性</span><br><span class="line">				table 集合属性要映射到的表</span><br><span class="line">				key  指定集合表(t_address)的外键字段</span><br><span class="line">				element 指定集合表的其他字段</span><br><span class="line">					type 元素类型，一定要指定</span><br><span class="line">		 --&gt;</span><br><span class="line">		 &lt;set name=&quot;address&quot; table=&quot;t_address&quot;&gt;</span><br><span class="line">		 	&lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		 	&lt;element column=&quot;address&quot; type=&quot;string&quot;&gt;&lt;/element&gt;</span><br><span class="line">		 &lt;/set&gt;</span><br><span class="line">		 </span><br><span class="line">		 &lt;!-- </span><br><span class="line">		 	list集合映射</span><br><span class="line">		 		list-index  指定的是排序列的名称 (因为要保证list集合的有序)</span><br><span class="line">		  --&gt;</span><br><span class="line">		  &lt;list name=&quot;addressList&quot; table=&quot;t_addressList&quot;&gt;</span><br><span class="line">		  	  &lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		  	  &lt;list-index column=&quot;idx&quot;&gt;&lt;/list-index&gt;</span><br><span class="line">		  	  &lt;element column=&quot;address&quot; type=&quot;string&quot;&gt;&lt;/element&gt;</span><br><span class="line">		  &lt;/list&gt;</span><br><span class="line">		  </span><br><span class="line">		  &lt;!-- </span><br><span class="line">		  	map集合的映射</span><br><span class="line">		  		key  指定外键字段</span><br><span class="line">		  		map-key 指定map的key </span><br><span class="line">		  		element  指定map的value</span><br><span class="line">		   --&gt;</span><br><span class="line">		  &lt;map name=&quot;addressMap&quot; table=&quot;t_addressMap&quot;&gt;</span><br><span class="line">		  	&lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		  	&lt;map-key column=&quot;shortName&quot; type=&quot;string&quot; &gt;&lt;/map-key&gt;</span><br><span class="line">		  	&lt;element column=&quot;address&quot; type=&quot;string&quot; &gt;&lt;/element&gt;</span><br><span class="line">		  &lt;/map&gt;	  		 </span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
 <p><strong>set测试</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">private static SessionFactory sf;</span><br><span class="line">	static &#123;</span><br><span class="line">		sf = new Configuration()</span><br><span class="line">			.configure()</span><br><span class="line">			.addClass(User.class)   // 测试时候使用</span><br><span class="line">			.buildSessionFactory();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 保存set</span><br><span class="line">	@Test</span><br><span class="line">	public void testSaveSet() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		//-- 保存</span><br><span class="line">		Set&lt;String&gt; addressSet = new HashSet&lt;String&gt;();</span><br><span class="line">		addressSet.add(&quot;广州&quot;);</span><br><span class="line">		addressSet.add(&quot;深圳&quot;);</span><br><span class="line">		// 用户对象</span><br><span class="line">		User user = new User();</span><br><span class="line">		user.setUserName(&quot;Jack&quot;);</span><br><span class="line">		user.setAddress(addressSet);</span><br><span class="line">		</span><br><span class="line">		// 保存</span><br><span class="line">		session.save(user);</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
 <p>效果如下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: insert into t_user (userName) values (?)</span><br><span class="line">Hibernate: insert into t_address (uid, address) values (?, ?)</span><br><span class="line">Hibernate: insert into t_address (uid, address) values (?, ?)</span><br></pre></td></tr></table></figure></p>
@@ -497,6 +557,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/11/Hibernate构架(一) 初探/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/CaJFUzjA.jpg" alt="Hibernate构架(一) 初探">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -526,17 +592,45 @@
             <blockquote>
 <p>ORM，Object Relation Mapping，即对象关系映射。Hibernate就是ORM的实现，使对象在数据库的存储和获取非常的方便。</p>
 </blockquote>
-<h2 id="1-Hibernate开发流程"><a href="#1-Hibernate开发流程" class="headerlink" title="1.Hibernate开发流程"></a>1.Hibernate开发流程</h2><p></p>
+<h2 id="1-Hibernate开发流程"><a href="#1-Hibernate开发流程" class="headerlink" title="1.Hibernate开发流程"></a>1.Hibernate开发流程</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990&lt;!-- more --&gt;755-93cc6b6d08b987fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-1-引入jar文件"><a href="#1-1-引入jar文件" class="headerlink" title="1.1 引入jar文件"></a>1.1 引入jar文件</h3><p>hibernate3.jar核心  +  required 必须引入的(6个) +  jpa 目录  + 数据库驱动包</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-29189b7a33fe1694.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-2-写对象类"><a href="#1-2-写对象类" class="headerlink" title="1.2 写对象类"></a>1.2 写对象类</h3><p><strong>Employee.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Employee &#123;</span><br><span class="line"></span><br><span class="line">	private int empId;</span><br><span class="line">	private String empName;</span><br><span class="line">	private Date workDate;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-3-配置对象的映射"><a href="#1-3-配置对象的映射" class="headerlink" title="1.3 配置对象的映射"></a>1.3 配置对象的映射</h3><p><strong>Employee.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.a_hello&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;Employee&quot; table=&quot;employee&quot;&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 主键 ，映射--&gt;</span><br><span class="line">		&lt;id name=&quot;empId&quot; column=&quot;id&quot;&gt;</span><br><span class="line">			&lt;generator class=&quot;native&quot;/&gt;</span><br><span class="line">		&lt;/id&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 非主键，映射 --&gt;</span><br><span class="line">		&lt;property name=&quot;empName&quot; column=&quot;empName&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;workDate&quot; column=&quot;workDate&quot;&gt;&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-4-主配置文件"><a href="#1-4-主配置文件" class="headerlink" title="1.4 主配置文件"></a>1.4 主配置文件</h3><p><strong>hibernate.cfg.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE hibernate-configuration PUBLIC</span><br><span class="line">	&quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-configuration&gt;</span><br><span class="line">	&lt;session-factory&gt;</span><br><span class="line">		&lt;!-- 数据库连接配置 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql:///hib_demo&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.username&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.password&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQL5Dialect&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;property name=&quot;hibernate.show_sql&quot;&gt;true&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 加载所有映射 --&gt;</span><br><span class="line">		&lt;mapping resource=&quot;cn/itcast/a_hello/Employee.hbm.xml&quot;/&gt;</span><br><span class="line">	&lt;/session-factory&gt;</span><br><span class="line">&lt;/hibernate-configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-5-测试"><a href="#1-5-测试" class="headerlink" title="1.5 测试"></a>1.5 测试</h3><p><strong>App.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">  public class App &#123;</span><br><span class="line">	@Test</span><br><span class="line">	public void testHello() throws Exception &#123;</span><br><span class="line">		// 对象</span><br><span class="line">		Employee emp = new Employee();</span><br><span class="line">		emp.setEmpName(&quot;班长&quot;);</span><br><span class="line">		emp.setWorkDate(new Date());</span><br><span class="line">		</span><br><span class="line">		// 获取加载配置文件的管理类对象</span><br><span class="line">		Configuration config = new Configuration();</span><br><span class="line">		config.configure();  // 默认加载src/hibenrate.cfg.xml文件</span><br><span class="line">		// 创建session的工厂对象</span><br><span class="line">		SessionFactory sf = config.buildSessionFactory();</span><br><span class="line">		// 创建session (代表一个会话，与数据库连接的会话)</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		// 开启事务</span><br><span class="line">		Transaction tx = session.beginTransaction();</span><br><span class="line">		//保存-数据库</span><br><span class="line">		session.save(emp);</span><br><span class="line">		// 提交事务</span><br><span class="line">		tx.commit();</span><br><span class="line">		// 关闭</span><br><span class="line">		session.close();</span><br><span class="line">		sf.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-Hibernate-Api"><a href="#2-Hibernate-Api" class="headerlink" title="2. Hibernate  Api"></a>2. Hibernate  Api</h2><h3 id="2-1-Configuration"><a href="#2-1-Configuration" class="headerlink" title="2.1 Configuration"></a>2.1 Configuration</h3><blockquote>
+<p>配置管理类对象</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   config.configure();    加载主配置文件的方法(hibernate.cfg.xml)</span><br><span class="line">					默认加载src/hibernate.cfg.xml</span><br><span class="line">config.configure(“cn/config/hibernate.cfg.xml”);   加载指定路径下指定名称的主配置文件</span><br><span class="line">config.buildSessionFactory();   创建session的工厂对象</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-SessionFactory"><a href="#2-2-SessionFactory" class="headerlink" title="2.2 SessionFactory"></a>2.2 SessionFactory</h3><blockquote>
+<p>session的工厂（或者说代表了这个hibernate.cfg.xml配置文件）</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sf.openSession();   创建一个sesison对象</span><br><span class="line">sf.getCurrentSession();  创建session或取出session对象</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-Session"><a href="#2-3-Session" class="headerlink" title="2.3 Session"></a>2.3 Session</h3><blockquote>
+<p>session对象维护了一个连接(Connection), 代表了与数据库连接的会话。<br> Hibernate最重要的对象： 只用使用hibernate与数据库操作，都用到这个对象</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">session.beginTransaction(); 开启一个事务； hibernate要求所有的与数据库的操作必须有事务的环境，否则报错！</span><br><span class="line"></span><br><span class="line">更新：</span><br><span class="line">session.save(obj);   保存一个对象</span><br><span class="line">session.update(emp);  更新一个对象</span><br><span class="line">session.saveOrUpdate(emp);  保存或者更新的方法：</span><br><span class="line">没有设置主键，执行保存；有设置主键，执行更新操作; 如果设置主键不存在报错！</span><br><span class="line"></span><br><span class="line">主键查询：</span><br><span class="line">session.get(Employee.class, 1);    主键查询</span><br><span class="line">session.load(Employee.class, 1);   主键查询 (支持懒加载)</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-Transaction"><a href="#2-4-Transaction" class="headerlink" title="2.4  Transaction"></a>2.4  Transaction</h3><blockquote>
+<p>hibernate事务对象</p>
+</blockquote>
+<h2 id="3-Hibernate-cfg-xml-主配置"><a href="#3-Hibernate-cfg-xml-主配置" class="headerlink" title="3.Hibernate.cfg.xml 主配置"></a>3.Hibernate.cfg.xml 主配置</h2><blockquote>
+<p>主配置文件中主要配置：数据库连接信息、其他参数、映射信息！</p>
+</blockquote>
+<h3 id="3-1-数据库连接参数配置"><a href="#3-1-数据库连接参数配置" class="headerlink" title="3.1 数据库连接参数配置"></a>3.1 数据库连接参数配置</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE hibernate-configuration PUBLIC</span><br><span class="line">	&quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-configuration&gt;</span><br><span class="line">	&lt;!-- 通常，一个session-factory节点代表一个数据库 --&gt;</span><br><span class="line">	&lt;session-factory&gt;</span><br><span class="line">	</span><br><span class="line">		&lt;!-- 1. 数据库连接配置 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql:///hib_demo&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.username&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.password&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;!-- </span><br><span class="line">			数据库方言配置， hibernate在运行的时候，会根据不同的方言生成符合当前数据库语法的sql</span><br><span class="line">		 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQL5Dialect&lt;/property&gt;		</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 2. 其他相关配置 --&gt;</span><br><span class="line">		&lt;!-- 2.1 显示hibernate在运行时候执行的sql语句 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.show_sql&quot;&gt;true&lt;/property&gt;</span><br><span class="line">		&lt;!-- 2.2 格式化sql --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.format_sql&quot;&gt;true&lt;/property&gt;</span><br><span class="line">		&lt;!-- 2.3 自动建表  --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.hbm2ddl.auto&quot;&gt;update&lt;/property&gt;</span><br><span class="line">				</span><br><span class="line">		&lt;!-- 3. 加载所有映射 </span><br><span class="line">		&lt;mapping resource=&quot;cn/itcast/a_hello/Employee.hbm.xml&quot;/&gt;</span><br><span class="line">		--&gt;</span><br><span class="line">	&lt;/session-factory&gt;</span><br><span class="line">&lt;/hibernate-configuration&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="4-映射配置"><a href="#4-映射配置" class="headerlink" title="4.映射配置"></a>4.映射配置</h2><blockquote>
+<ol>
+<li>普通字段类型</li>
+<li>主键映射<br> 单列主键映射<br> 多列作为主键映射<br>主键生成策略，查看api：org.hibernate.id.factory.DefaultIdentifierGeneratorFactory</li>
+</ol>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 映射文件: 映射一个实体类对象；  描述一个对象最终实现可以直接保存对象数据到数据库中。  --&gt;</span><br><span class="line">&lt;!-- </span><br><span class="line">	package: 要映射的对象所在的包(可选,如果不指定,此文件所有的类都要指定全路径)</span><br><span class="line">	auto-import 默认为true， 在写hql的时候自动导入包名</span><br><span class="line">				如果指定为false, 再写hql的时候必须要写上类的全名；</span><br><span class="line">				  如：session.createQuery(&quot;from cn.itcast.c_hbm_config.Employee&quot;).list();</span><br><span class="line"> --&gt;</span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.c_hbm_config&quot; auto-import=&quot;true&quot;&gt;	</span><br><span class="line">	&lt;!-- </span><br><span class="line">		class 映射某一个对象的(一般情况，一个对象写一个映射文件，即一个class节点)</span><br><span class="line">			name 指定要映射的对象的类型</span><br><span class="line">			table 指定对象对应的表；</span><br><span class="line">				  如果没有指定表名，默认与对象名称一样 </span><br><span class="line">	 --&gt;</span><br><span class="line">	&lt;class name=&quot;Employee&quot; table=&quot;employee&quot;&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 主键 ，映射--&gt;</span><br><span class="line">		&lt;id name=&quot;empId&quot; column=&quot;id&quot;&gt;</span><br><span class="line">			&lt;!-- </span><br><span class="line">				主键的生成策略</span><br><span class="line">					identity  自增长(mysql,db2)</span><br><span class="line">					sequence  自增长(序列)， oracle中自增长是以序列方法实现</span><br><span class="line">					native  自增长【会根据底层数据库自增长的方式选择identity或sequence】</span><br><span class="line">							如果是mysql数据库, 采用的自增长方式是identity</span><br><span class="line">							如果是oracle数据库， 使用sequence序列的方式实现自增长</span><br><span class="line">					</span><br><span class="line">					increment  自增长(会有并发访问的问题，一般在服务器集群环境使用会存在问题。)</span><br><span class="line">					</span><br><span class="line">					assigned  指定主键生成策略为手动指定主键的值</span><br><span class="line">					uuid      指定uuid随机生成的唯一的值</span><br><span class="line">					foreign   (外键的方式， one-to-one讲)</span><br><span class="line">			 --&gt;</span><br><span class="line">			&lt;generator class=&quot;uuid&quot;/&gt;</span><br><span class="line">		&lt;/id&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- </span><br><span class="line">			普通字段映射</span><br><span class="line">			property</span><br><span class="line">				name  指定对象的属性名称</span><br><span class="line">				column 指定对象属性对应的表的字段名称，如果不写默认与对象属性一致。</span><br><span class="line">				length 指定字符的长度, 默认为255</span><br><span class="line">				type   指定映射表的字段的类型，如果不指定会匹配属性的类型</span><br><span class="line">					java类型：     必须写全名</span><br><span class="line">					hibernate类型：  直接写类型，都是小写</span><br><span class="line">		--&gt;</span><br><span class="line">		&lt;property name=&quot;empName&quot; column=&quot;empName&quot; type=&quot;java.lang.String&quot; length=&quot;20&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;workDate&quot; type=&quot;java.util.Date&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 如果列名称为数据库关键字，需要用反引号或改列名。 --&gt;</span><br><span class="line">		&lt;property name=&quot;desc&quot; column=&quot;`desc`&quot; type=&quot;java.lang.String&quot;&gt;&lt;/property&gt;		</span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="5-复合主键映射"><a href="#5-复合主键映射" class="headerlink" title="5.复合主键映射"></a>5.复合主键映射</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 复合主键类</span><br><span class="line">public class CompositeKeys implements Serializable&#123;</span><br><span class="line">	private String userName;</span><br><span class="line">	private String address;</span><br><span class="line">   // .. get/set</span><br><span class="line">&#125;</span><br><span class="line">public class User &#123;</span><br><span class="line">	// 名字跟地址，作为复合主键，不会重复</span><br><span class="line">	private CompositeKeys keys;</span><br><span class="line">	private int age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>User.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.d_compositeKey&quot; auto-import=&quot;true&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;User&quot;&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 复合主键映射 --&gt;</span><br><span class="line">		&lt;composite-id name=&quot;keys&quot;&gt;</span><br><span class="line">			&lt;key-property name=&quot;userName&quot; type=&quot;string&quot;&gt;&lt;/key-property&gt;</span><br><span class="line">			&lt;key-property name=&quot;address&quot; type=&quot;string&quot;&gt;&lt;/key-property&gt;</span><br><span class="line">		&lt;/composite-id&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;property name=&quot;age&quot; type=&quot;int&quot;&gt;&lt;/property&gt;		</span><br><span class="line">		</span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>App2.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">public class App2 &#123;</span><br><span class="line">	</span><br><span class="line">	private static SessionFactory sf;</span><br><span class="line">	static  &#123;		</span><br><span class="line">		// 创建sf对象</span><br><span class="line">		sf = new Configuration()</span><br><span class="line">			.configure()</span><br><span class="line">			.addClass(User.class)  //（测试） 会自动加载映射文件：Employee.hbm.xml</span><br><span class="line">			.buildSessionFactory();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//1. 保存对象</span><br><span class="line">	@Test</span><br><span class="line">	public void testSave() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		Transaction tx = session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		// 对象</span><br><span class="line">		CompositeKeys keys = new CompositeKeys();</span><br><span class="line">		keys.setAddress(&quot;广州棠东&quot;);</span><br><span class="line">		keys.setUserName(&quot;Jack&quot;);</span><br><span class="line">		User user = new User();</span><br><span class="line">		user.setAge(20);</span><br><span class="line">		user.setKeys(keys);</span><br><span class="line">		</span><br><span class="line">		// 保存</span><br><span class="line">		session.save(user);</span><br><span class="line">		</span><br><span class="line">		tx.commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testGet() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		Transaction tx = session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		//构建主键再查询</span><br><span class="line">		CompositeKeys keys = new CompositeKeys();</span><br><span class="line">		keys.setAddress(&quot;广州棠东&quot;);</span><br><span class="line">		keys.setUserName(&quot;Jack&quot;);</span><br><span class="line">		</span><br><span class="line">		// 主键查询</span><br><span class="line">		User user = (User) session.get(User.class, keys);</span><br><span class="line">		// 测试输出</span><br><span class="line">		if (user != null)&#123;</span><br><span class="line">			System.out.println(user.getKeys().getUserName());</span><br><span class="line">			System.out.println(user.getKeys().getAddress());</span><br><span class="line">			System.out.println(user.getAge());</span><br><span class="line">		&#125;	</span><br><span class="line">		</span><br><span class="line">		tx.commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/11/Hibernate构架(一) 初探/#more">Read More</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -547,6 +641,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/11/struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/GbYeDsWy.jpg" alt="struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -599,6 +699,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/11/struts2框架(一) 初探/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/tRESP7ro.jpg" alt="struts2框架(一) 初探">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -629,17 +735,62 @@
 <p>Struts2 是一个用来开发 MVC应用程序的框架. 它提供了 Web 应用程序开发过程中的一些常见问题的解决方案:<br><strong>Struts2 = Struts1 + WebWork</strong>     1和2没有本质的关系</p>
 </blockquote>
 <p>##1.Struts2开发流程</p>
-<p></p>
+<p><img src="http://upload-im&lt;!-- more --&gt;ages.jianshu.io/upload_images/5990755-6d29de6d3b9a6f26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-1-引入jar文件"><a href="#1-1-引入jar文件" class="headerlink" title="1.1 引入jar文件"></a>1.1 引入jar文件</h3><blockquote>
+<p>commons-fileupload-1.2.2.jar      【文件上传相关包】<br>commons-io-2.0.1.jar              【io操作相关的包】<br>struts2-core-2.3.4.1.jar           【struts2核心功能包】<br>xwork-core-2.3.4.1.jar           【Xwork核心包】<br>ognl-3.0.5.jar                     【Ognl表达式功能支持表】<br>commons-lang3-3.1.jar          【struts对java.lang包的扩展】<br>freemarker-2.3.19.jar            【struts的标签模板库jar文件】<br>javassist-3.11.0.GA.jar           【struts对字节码的处理相关jar】</p>
+</blockquote>
+<h3 id="1-2-配置web-xml"><a href="#1-2-配置web-xml" class="headerlink" title="1.2 配置web.xml"></a>1.2 配置web.xml</h3><blockquote>
+<p>tomcat服务器在启动时，首先会加载自身的web.xml，然后加载所有项目的web.xml。struts2通过在web.xml中引入过滤器来作为入口，在学习过滤器的时候我们知道过滤器的init方法会在tomcat服务器启动时调用。</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  &lt;!-- 引入struts核心过滤器 --&gt;</span><br><span class="line">&lt;filter&gt;</span><br><span class="line">	&lt;filter-name&gt;struts2&lt;/filter-name&gt;</span><br><span class="line">	&lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">	&lt;filter-name&gt;struts2&lt;/filter-name&gt;</span><br><span class="line">	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-编写Action类"><a href="#1-3-编写Action类" class="headerlink" title="1.3 编写Action类"></a>1.3 编写Action类</h3><blockquote>
+<p>action类，也叫做动作类; 一般继承ActionSupport类,即处理请求的类  (struts中的action类取代之前的servlet).<br>注意： action中的业务方法不能有参数，且必须返回String</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import com.opensymphony.xwork2.ActionSupport;</span><br><span class="line"></span><br><span class="line">// 开发action： 处理请求</span><br><span class="line">public class HelloAction extends ActionSupport &#123;	</span><br><span class="line">	// 处理请求</span><br><span class="line">	public String execute() throws Exception &#123;</span><br><span class="line">		System.out.println(&quot;访问到了action，正在处理请求&quot;);</span><br><span class="line">		return &quot;success&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-配置struts-xml"><a href="#1-4-配置struts-xml" class="headerlink" title="1.4    配置struts.xml"></a>1.4    配置struts.xml</h3><blockquote>
+<p>该配置文件的头部可以参照struts2-core-2.3.4.1.jar包下面的struts-default.xml来写。该配置文件的主要作用是将提供action的访问名称，并且和action类进行关联。</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE struts PUBLIC</span><br><span class="line">          &quot;-//Apache Software Foundation//DTD Struts Configuration 2.0//EN&quot;</span><br><span class="line">          &quot;http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;</span><br><span class="line">&lt;struts&gt;</span><br><span class="line">    &lt;package name=&quot;xxxx&quot; extends=&quot;struts-default&quot;&gt;</span><br><span class="line">    	&lt;action name=&quot;hello&quot; class=&quot;cn.acamy.action.HelloAction&quot; method=&quot;execute&quot;&gt;</span><br><span class="line">    		&lt;result name=&quot;success&quot;&gt;/success.jsp&lt;/result&gt;</span><br><span class="line">    	&lt;/action&gt;</span><br><span class="line">    &lt;/package&gt; </span><br><span class="line">&lt;/struts&gt;</span><br></pre></td></tr></table></figure>
+<p>##2.Struts2执行流程</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-df2bfec10955f1eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="2-1-服务器启动"><a href="#2-1-服务器启动" class="headerlink" title="2.1 服务器启动"></a>2.1 服务器启动</h3><ol>
+<li>加载项目web.xml</li>
+<li>创建Struts核心过滤器对象， 执行filter的init()<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struts-default.xml,    核心功能的初始化</span><br><span class="line">struts-plugin.xml,     struts相关插件</span><br><span class="line">struts.xml			   用户编写的配置文件</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="2-2-用户访问"><a href="#2-2-用户访问" class="headerlink" title="2.2 用户访问"></a>2.2 用户访问</h2><p>3.用户访问Action, 服务器根据访问路径名称，找对应的aciton配置, 创建action对象<br>4.执行默认拦截器栈中定义的18个拦截器<br>5.执行action的业务处理方法<br>6.根据action返回的Result来跳转到相应的页面</p>
+<h2 id="3-三大配置文件的加载"><a href="#3-三大配置文件的加载" class="headerlink" title="3. 三大配置文件的加载"></a>3. 三大配置文件的加载</h2><blockquote>
+<p>从上面可以知道核心过滤器是Struts的入口，tomcat服务器在启动时会执行过滤器的init()方法，现在通过源码展示三大配置文件是如何加载的。</p>
+</blockquote>
+<h3 id="3-1-首先是执行web-xml引入的StrutsPrepareAndExecuteFilter初始化方法"><a href="#3-1-首先是执行web-xml引入的StrutsPrepareAndExecuteFilter初始化方法" class="headerlink" title="3.1 首先是执行web.xml引入的StrutsPrepareAndExecuteFilter初始化方法"></a>3.1 首先是执行web.xml引入的StrutsPrepareAndExecuteFilter初始化方法</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line">      InitOperations init = new InitOperations();</span><br><span class="line">      try &#123;</span><br><span class="line">          FilterHostConfig config = new FilterHostConfig(filterConfig);</span><br><span class="line">          init.initLogging(config);</span><br><span class="line">          Dispatcher dispatcher = init.initDispatcher(config);// 在这里跳转</span><br><span class="line">          init.initStaticContentLoader(config, dispatcher);</span><br><span class="line"></span><br><span class="line">          prepare = new PrepareOperations(filterConfig.getServletContext(), dispatcher);</span><br><span class="line">          execute = new ExecuteOperations(filterConfig.getServletContext(), dispatcher);</span><br><span class="line">	this.excludedPatterns = init.buildExcludedPatternsList(dispatcher);</span><br><span class="line"></span><br><span class="line">          postInit(dispatcher, filterConfig);</span><br><span class="line">      &#125; finally &#123;</span><br><span class="line">          init.cleanup();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>###3.2 然后执行InitOperations的initDispatcher方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public Dispatcher initDispatcher( HostConfig filterConfig ) &#123;</span><br><span class="line">        Dispatcher dispatcher = createDispatcher(filterConfig);</span><br><span class="line">        dispatcher.init();</span><br><span class="line">        return dispatcher;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-3-最后执行Dispatcher的init方法"><a href="#3-3-最后执行Dispatcher的init方法" class="headerlink" title="3.3 最后执行Dispatcher的init方法"></a>3.3 最后执行Dispatcher的init方法</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line">     * Load configurations, including both XML and zero-configuration strategies,</span><br><span class="line">     * and update optional settings, including whether to reload configurations and resource files.</span><br><span class="line">     */</span><br><span class="line">    public void init() &#123;</span><br><span class="line"></span><br><span class="line">    	if (configurationManager == null) &#123;</span><br><span class="line">    		configurationManager = createConfigurationManager(BeanSelectionProvider.DEFAULT_BEAN_NAME);</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            init_DefaultProperties(); // [1]</span><br><span class="line">            init_TraditionalXmlConfigurations(); // [2]跳转到三大配置文件的相关方法</span><br><span class="line">            init_LegacyStrutsProperties(); // [3]</span><br><span class="line">            init_CustomConfigurationProviders(); // [5]</span><br><span class="line">            init_FilterInitParameters() ; // [6]</span><br><span class="line">            init_AliasStandardObjects() ; // [7]</span><br><span class="line"></span><br><span class="line">            Container container = init_PreloadConfiguration();</span><br><span class="line">            container.inject(this);</span><br><span class="line">            init_CheckConfigurationReloading(container);</span><br><span class="line">            init_CheckWebLogicWorkaround(container);</span><br><span class="line"></span><br><span class="line">            if (!dispatcherListeners.isEmpty()) &#123;</span><br><span class="line">                for (DispatcherListener l : dispatcherListeners) &#123;</span><br><span class="line">                    l.dispatcherInitialized(this);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (Exception ex) &#123;</span><br><span class="line">            if (LOG.isErrorEnabled())</span><br><span class="line">                LOG.error(&quot;Dispatcher initialization failed&quot;, ex);</span><br><span class="line">            throw new StrutsException(ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">//三大配置文件</span><br><span class="line">private static final String DEFAULT_CONFIGURATION_PATHS = &quot;struts-default.xml,struts-plugin.xml,struts.xml&quot;;</span><br><span class="line"></span><br><span class="line">private void init_TraditionalXmlConfigurations() &#123;</span><br><span class="line">        String configPaths = initParams.get(&quot;config&quot;);</span><br><span class="line">        if (configPaths == null) &#123;</span><br><span class="line">            configPaths = DEFAULT_CONFIGURATION_PATHS;</span><br><span class="line">        &#125;</span><br><span class="line">        String[] files = configPaths.split(&quot;\\s*[,]\\s*&quot;);</span><br><span class="line">       //骤个初始化</span><br><span class="line">        for (String file : files) &#123;</span><br><span class="line">            if (file.endsWith(&quot;.xml&quot;)) &#123;</span><br><span class="line">                if (&quot;xwork.xml&quot;.equals(file)) &#123;</span><br><span class="line">                    configurationManager.addContainerProvider(createXmlConfigurationProvider(file, false));</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    configurationManager.addContainerProvider(createStrutsXmlConfigurationProvider(file, false, servletContext));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                throw new IllegalArgumentException(&quot;Invalid configuration file name&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-struts-default-xml-详解"><a href="#4-struts-default-xml-详解" class="headerlink" title="4.struts-default.xml, 详解"></a>4.struts-default.xml, 详解</h2><p> <strong>位置：</strong>struts2-core-2.3.4.1.jar/ struts-default.xml<br> <strong>内容：</strong></p>
+<pre><code>1. bean节点指定struts在运行的时候创建的对象类型
+2.指定struts-default包  【用户写的package(struts.xml)一样要继承此包 】
+    package  struts-default  包中定义了：
+        a.  跳转的结果类型
+            dispatcher    转发，不指定默认为转发
+            redirect       重定向
+            redirectAction  重定向到action资源
+            stream        (文件下载的时候用)
+        b. 定义了所有的拦截器
+              定义了32个拦截器！
+              为了拦截器引用方便，可以通过定义栈的方式引用拦截器，
+            此时如果引用了栈，栈中的拦截器都会被引用!
+
+            defaultStack
+                默认的栈，其中定义默认要执行的18个拦截器！
+
+
+        c. 默认执行的拦截器栈、默认执行的action
+            &lt;default-interceptor-ref name=&quot;defaultStack&quot;/&gt;
+           &lt;default-class-ref class=&quot;com.opensymphony.xwork2.ActionSupport&quot; /&gt;
+</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;interceptor name=&quot;prepare&quot; </span><br><span class="line">class=&quot;com.opensymphony.xwork2.interceptor.PrepareInterceptor&quot;/&gt;</span><br><span class="line">&lt;interceptor name=&quot;params&quot; </span><br><span class="line">class=&quot;com.opensymphony.xwork2.interceptor.ParametersInterceptor&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>拦截器功能与过滤器功能类似，都拦截资源，但它是struts的概念，只能在struts中用，只拦截action请求;而过滤器是servlet的概念，可以在struts项目、servlet项目用，可以拦截所有的web资源(/index.jsp/servlet/action/img/css/js)。</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/11/struts2框架(一) 初探/#more">Read More</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -650,6 +801,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/11/struts2框架(四)拦截器，国际化，Ognl表达式/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/62wv0kjD.jpg" alt="struts2框架(四)拦截器，国际化，Ognl表达式">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -767,7 +924,7 @@
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        19
+                        17
                     </p>
                 </div>
             </div>
@@ -777,7 +934,7 @@
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        0
                     </p>
                 </div>
             </div>
@@ -987,22 +1144,6 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/编程/">
-            <span class="level-start">
-                <span class="level-item">编程</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/编程/java/">
-            <span class="level-start">
-                <span class="level-item">java</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/计算机网络/">
             <span class="level-start">
                 <span class="level-item">计算机网络</span>
@@ -1024,7 +1165,7 @@
                 <span class="level-item">随笔</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li>
             </ul>
@@ -1038,7 +1179,7 @@
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+        
     </div>
 </div>
 
@@ -1055,18 +1196,18 @@
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -1076,7 +1217,7 @@
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -1095,7 +1236,7 @@
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -1114,7 +1255,7 @@
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -1133,7 +1274,7 @@
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1161,23 +1302,12 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1337,28 +1467,6 @@
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>
@@ -1384,18 +1492,18 @@
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -1405,7 +1513,7 @@
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -1424,7 +1532,7 @@
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -1443,7 +1551,7 @@
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -1462,7 +1570,7 @@
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1490,23 +1598,12 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1666,28 +1763,6 @@
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>

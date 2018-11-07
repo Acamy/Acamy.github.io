@@ -147,6 +147,12 @@
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/30/Java内存模型/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/SfetG9VY.jpg" alt="Java内存模型">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -196,6 +202,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/29/Java之回调函数的简单实现/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/GdI1eERj.jpg" alt="Java之回调函数的简单实现">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -248,6 +260,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/28/计算机网络之概述(上）/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/TAOri8Ym.jpg" alt="计算机网络之概述(上）">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -295,6 +313,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/19/从源码看ArrayList的实现/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/pY6srNgC.jpg" alt="从源码看ArrayList的实现">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -344,6 +368,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/18/Spring进阶之对jdbc的支持以及事物管理/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/Y27SKAtV.jpg" alt="Spring进阶之对jdbc的支持以及事物管理">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -373,7 +403,7 @@
             <h2 id="1-Spring对jdbc支持"><a href="#1-Spring对jdbc支持" class="headerlink" title="1. Spring对jdbc支持"></a>1. Spring对jdbc支持</h2><blockquote>
 <p>Spring通过引入相关的jar包能够支持c3p0连接池，</p>
 </blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">public class App &#123;</span><br><span class="line">	// 容器对象</span><br><span class="line">	ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;cn/i&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt;tcast/h_jdbc/bean.xml&quot;);</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testApp() throws Exception &#123;</span><br><span class="line">		UserDao ud = (UserDao) ac.getBean(&quot;userDao&quot;);</span><br><span class="line">//		ud.save();</span><br><span class="line">		System.out.println(ud.findById(5));</span><br><span class="line">		System.out.println(ud.getAll());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class UserDao &#123;</span><br><span class="line">    </span><br><span class="line">    private JdbcTemplate jdbcTemplate;</span><br><span class="line">	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) &#123;</span><br><span class="line">		this.jdbcTemplate = jdbcTemplate;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	public void save() &#123;</span><br><span class="line">		String sql = &quot;insert into t_dept(deptName) values(&apos;test&apos;);&quot;;</span><br><span class="line">		jdbcTemplate.update(sql);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public Dept findById(int id) &#123;</span><br><span class="line">		String sql = &quot;select * from t_dept where deptId=?&quot;;</span><br><span class="line">		List&lt;Dept&gt; list = jdbcTemplate.query(sql,new MyResult(), id);</span><br><span class="line">		return (list!=null &amp;&amp; list.size()&gt;0) ? list.get(0) : null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public List&lt;Dept&gt; getAll() &#123;</span><br><span class="line">		String sql = &quot;select * from t_dept&quot;;</span><br><span class="line">		List&lt;Dept&gt; list = jdbcTemplate.query(sql, new MyResult());</span><br><span class="line">		return list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	class MyResult implements RowMapper&lt;Dept&gt;&#123;</span><br><span class="line">		// 如何封装一行记录</span><br><span class="line">		@Override</span><br><span class="line">		public Dept mapRow(ResultSet rs, int index) throws SQLException &#123;</span><br><span class="line">			Dept dept = new Dept();</span><br><span class="line">			dept.setDeptId(rs.getInt(&quot;deptId&quot;));</span><br><span class="line">			dept.setDeptName(rs.getString(&quot;deptName&quot;));</span><br><span class="line">			return dept;</span><br><span class="line">		&#125;		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dept &#123;</span><br><span class="line">	private int deptId;</span><br><span class="line">	private String deptName;</span><br><span class="line">	public int getDeptId() &#123;</span><br><span class="line">		return deptId;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setDeptId(int deptId) &#123;</span><br><span class="line">		this.deptId = deptId;</span><br><span class="line">	&#125;</span><br><span class="line">	public String getDeptName() &#123;</span><br><span class="line">		return deptName;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setDeptName(String deptName) &#123;</span><br><span class="line">		this.deptName = deptName;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">public class App &#123;</span><br><span class="line">	// 容器对象</span><br><span class="line">	ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;cn/i&lt;!-- more --&gt;tcast/h_jdbc/bean.xml&quot;);</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testApp() throws Exception &#123;</span><br><span class="line">		UserDao ud = (UserDao) ac.getBean(&quot;userDao&quot;);</span><br><span class="line">//		ud.save();</span><br><span class="line">		System.out.println(ud.findById(5));</span><br><span class="line">		System.out.println(ud.getAll());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class UserDao &#123;</span><br><span class="line">    </span><br><span class="line">    private JdbcTemplate jdbcTemplate;</span><br><span class="line">	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) &#123;</span><br><span class="line">		this.jdbcTemplate = jdbcTemplate;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	public void save() &#123;</span><br><span class="line">		String sql = &quot;insert into t_dept(deptName) values(&apos;test&apos;);&quot;;</span><br><span class="line">		jdbcTemplate.update(sql);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public Dept findById(int id) &#123;</span><br><span class="line">		String sql = &quot;select * from t_dept where deptId=?&quot;;</span><br><span class="line">		List&lt;Dept&gt; list = jdbcTemplate.query(sql,new MyResult(), id);</span><br><span class="line">		return (list!=null &amp;&amp; list.size()&gt;0) ? list.get(0) : null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public List&lt;Dept&gt; getAll() &#123;</span><br><span class="line">		String sql = &quot;select * from t_dept&quot;;</span><br><span class="line">		List&lt;Dept&gt; list = jdbcTemplate.query(sql, new MyResult());</span><br><span class="line">		return list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	class MyResult implements RowMapper&lt;Dept&gt;&#123;</span><br><span class="line">		// 如何封装一行记录</span><br><span class="line">		@Override</span><br><span class="line">		public Dept mapRow(ResultSet rs, int index) throws SQLException &#123;</span><br><span class="line">			Dept dept = new Dept();</span><br><span class="line">			dept.setDeptId(rs.getInt(&quot;deptId&quot;));</span><br><span class="line">			dept.setDeptName(rs.getString(&quot;deptName&quot;));</span><br><span class="line">			return dept;</span><br><span class="line">		&#125;		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dept &#123;</span><br><span class="line">	private int deptId;</span><br><span class="line">	private String deptName;</span><br><span class="line">	public int getDeptId() &#123;</span><br><span class="line">		return deptId;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setDeptId(int deptId) &#123;</span><br><span class="line">		this.deptId = deptId;</span><br><span class="line">	&#125;</span><br><span class="line">	public String getDeptName() &#123;</span><br><span class="line">		return deptName;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setDeptName(String deptName) &#123;</span><br><span class="line">		this.deptName = deptName;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd</span><br><span class="line">        http://www.springframework.org/schema/aop</span><br><span class="line">        http://www.springframework.org/schema/aop/spring-aop.xsd&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 1. 数据源对象: C3P0连接池 --&gt;</span><br><span class="line">	&lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql:///mysql&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;user&quot; value=&quot;root&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;password&quot; value=&quot;root&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;initialPoolSize&quot; value=&quot;3&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;maxPoolSize&quot; value=&quot;10&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;maxStatements&quot; value=&quot;100&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;acquireIncrement&quot; value=&quot;2&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 2. 创建JdbcTemplate对象 --&gt;</span><br><span class="line">	&lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- dao 实例 --&gt;</span><br><span class="line">	&lt;bean id=&quot;userDao&quot; class=&quot;cn.itcast.h_jdbc.UserDao&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;jdbcTemplate&quot; ref=&quot;jdbcTemplate&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="2-Spring事务管理"><a href="#2-Spring事务管理" class="headerlink" title="2. Spring事务管理"></a>2. Spring事务管理</h2><blockquote>
 <p>Spring提供了对事务控制的实现。用户如果想用Spring的声明式事务管理，只需要在配置文件中配置即可； 不想使用时直接移除配置。这个实现了对事务控制的最大程度的解耦。</p>
@@ -399,6 +429,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/18/Spring进阶之代理与AOP编程/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/g23VQcYe.jpg" alt="Spring进阶之代理与AOP编程">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -452,6 +488,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/18/Spring初探/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/j67UAmRo.jpg" alt="Spring初探">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -481,17 +523,41 @@
             <blockquote>
 <p>可以解决对象创建以及对象之间依赖关系的一种框架</p>
 </blockquote>
-<h2 id="1-第一个Spring程序"><a href="#1-第一个Spring程序" class="headerlink" title="1.第一个Spring程序"></a>1.第一个Spring程序</h2><p></p>
+<h2 id="1-第一个Spring程序"><a href="#1-第一个Spring程序" class="headerlink" title="1.第一个Spring程序"></a>1.第一个Spring程序</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/str&lt;!-- more --&gt;ip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-1-引入jar文件-spring-framework-3-2-5-RELEASE"><a href="#1-1-引入jar文件-spring-framework-3-2-5-RELEASE" class="headerlink" title="1.1 引入jar文件 spring-framework-3.2.5.RELEASE"></a>1.1 引入jar文件 spring-framework-3.2.5.RELEASE</h3><p>commons-logging-1.1.3.jar           日志<br>spring-beans-3.2.5.RELEASE.jar        bean节点<br>spring-context-3.2.5.RELEASE.jar       spring上下文节点<br>spring-core-3.2.5.RELEASE.jar         spring核心功能<br>spring-expression-3.2.5.RELEASE.jar    spring表达式相关表</p>
+<h3 id="1-2-配置applicationContext-xml"><a href="#1-2-配置applicationContext-xml" class="headerlink" title="1.2 配置applicationContext.xml"></a>1.2 配置applicationContext.xml</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- IOC容器的配置： 要创建的所有的对象都配置在这里--&gt;</span><br><span class="line">	&lt;bean id=&quot;user&quot; class=&quot;cn.itcast.a_hello.User&quot; init-method=&quot;init_user&quot; destroy-method=&quot;destroy_user&quot; scope=&quot;singleton&quot; lazy-init=&quot;false&quot;&gt;&lt;/bean&gt;	 </span><br><span class="line">	 </span><br><span class="line">	&lt;bean id=&quot;user1&quot; class=&quot;cn.itcast.a_hello.User&quot;&gt;&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-测试"><a href="#1-3-测试" class="headerlink" title="1.3 测试"></a>1.3 测试</h3><h4 id="测试一：得到IOC容器的两种方法"><a href="#测试一：得到IOC容器的两种方法" class="headerlink" title="测试一：得到IOC容器的两种方法"></a>测试一：得到IOC容器的两种方法</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class App1_get_ioc &#123;</span><br><span class="line">	// 1. 通过工厂类得到IOC容器创建的对象</span><br><span class="line">	@Test</span><br><span class="line">	public void testIOC() throws Exception &#123;</span><br><span class="line">		// 创建对象</span><br><span class="line">		// User user = new User();		</span><br><span class="line">		// 现在，把对象的创建交给spring的IOC容器</span><br><span class="line">		Resource resource = new ClassPathResource(&quot;cn/acamy/a_hello/applicationContext.xml&quot;);</span><br><span class="line">		// 创建容器对象(Bean的工厂), IOC容器 = 工厂类 + applicationContext.xml</span><br><span class="line">		BeanFactory factory = new XmlBeanFactory(resource);</span><br><span class="line">		// 得到容器创建的对象</span><br><span class="line">		User user = (User) factory.getBean(&quot;user&quot;);		</span><br><span class="line">		System.out.println(user.getId());		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//2. （方便）直接得到IOC容器对象 </span><br><span class="line">	@Test</span><br><span class="line">	public void testAc() throws Exception &#123;</span><br><span class="line">		// 得到IOC容器对象</span><br><span class="line">		ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;cn/acamy/a_hello/applicationContext.xml&quot;);</span><br><span class="line">		// 从容器中获取bean</span><br><span class="line">		User user = (User) ac.getBean(&quot;user&quot;);		</span><br><span class="line">		System.out.println(user);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="测试二：相关参数"><a href="#测试二：相关参数" class="headerlink" title="测试二：相关参数"></a>测试二：相关参数</h4><p><strong>1) 对象创建： 单例/多例</strong><br>          scope=”singleton”, 默认值， 即 默认是单例    【service/dao/工具类】<br>      scope=”prototype”, 多例；                 【Action对象】<br>      <strong>2) 什么时候创建?</strong><br>           scope=”prototype”  在用到对象的时候，才创建对象。<br>         scope=”singleton”  在启动(容器初始化之前)， 就已经创建了bean，且整个应用只有一个。<br>    <strong> 3)是否延迟创建</strong><br>           lazy-init=”false”  默认为false,  不延迟创建，即在启动时候就创建对象<br>           lazy-init=”true”   延迟初始化， 在用到对象的时候才创建对象<br>         （只对单例有效）<br>     <strong> 4) 创建对象之后，初始化/销毁</strong><br>            init-method=”init_user”       【对应对象的init_user方法，在对象创建爱之后执行 】<br>        destroy-method=”destroy_user”  【在调用容器对象的destriy方法时候执行，(容器用实现类)】</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class App2_bean &#123;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testIOC() throws Exception &#123;</span><br><span class="line">		// 得到IOC容器对象  【用实现类，因为要调用销毁的方法】</span><br><span class="line">		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext(&quot;cn/acamy/a_hello/applicationContext.xml&quot;);</span><br><span class="line">		System.out.println(&quot;-----容器创建-----&quot;);</span><br><span class="line">		</span><br><span class="line">		// 从容器中获取bean</span><br><span class="line">		User user1 = (User) ac.getBean(&quot;user&quot;);</span><br><span class="line">		User user2 = (User) ac.getBean(&quot;user1&quot;);</span><br><span class="line">		</span><br><span class="line">		System.out.println(user1);</span><br><span class="line">		System.out.println(user2);</span><br><span class="line">		</span><br><span class="line">		// 销毁容器对象 </span><br><span class="line">		ac.destroy();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-ce7e62503da00fea.png" alt=""></p>
+<h2 id="2-SpringIOC容器"><a href="#2-SpringIOC容器" class="headerlink" title="2. SpringIOC容器"></a>2. SpringIOC容器</h2><blockquote>
+<p>spring核心内容,创建对象 &amp; 处理对象的依赖关系</p>
+</blockquote>
+<h3 id="2-1-创建对象"><a href="#2-1-创建对象" class="headerlink" title="2.1 创建对象"></a>2.1 创建对象</h3><p>1） 调用无参数构造器<br>2） 带参数构造器<br>3） 工厂创建对象(静态方法和非静态方法)</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 1. 默认无参数构造器 --&gt;</span><br><span class="line">	&lt;bean id=&quot;user1&quot; class=&quot;cn.itcast.b_create_obj.User&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 2. 带参数构造器 --&gt;</span><br><span class="line">	&lt;bean id=&quot;user2&quot; class=&quot;cn.itcast.b_create_obj.User&quot;&gt;</span><br><span class="line">		&lt;constructor-arg index=&quot;0&quot; type=&quot;int&quot; value=&quot;100&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">		&lt;constructor-arg index=&quot;1&quot; type=&quot;java.lang.String&quot; value=&quot;Jack&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 定义一个字符串，值是&quot;Jack&quot; ;  String s = new String(&quot;jack&quot;)--&gt;</span><br><span class="line">	&lt;bean id=&quot;str&quot; class=&quot;java.lang.String&quot;&gt;</span><br><span class="line">		&lt;constructor-arg value=&quot;Jacks&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	&lt;bean id=&quot;user3&quot; class=&quot;cn.itcast.b_create_obj.User&quot;&gt;</span><br><span class="line">		&lt;constructor-arg index=&quot;0&quot; type=&quot;int&quot; value=&quot;100&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">		&lt;constructor-arg index=&quot;1&quot; type=&quot;java.lang.String&quot; ref=&quot;str&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 3. 工厂类创建对象 --&gt;</span><br><span class="line">	&lt;!-- # 3.1 工厂类，实例方法 --&gt;</span><br><span class="line">	&lt;!-- 先创建工厂 --&gt;</span><br><span class="line">	&lt;bean id=&quot;factory&quot; class=&quot;cn.itcast.b_create_obj.ObjectFactory&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	&lt;!-- 在创建user对象，用factory方的实例方法 --&gt;</span><br><span class="line">	&lt;bean id=&quot;user4&quot; factory-bean=&quot;factory&quot; factory-method=&quot;getInstance&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	&lt;!-- # 3.2 工厂类： 静态方法 --&gt;</span><br><span class="line">	&lt;!-- </span><br><span class="line">		class 指定的就是工厂类型</span><br><span class="line">		factory-method  一定是工厂里面的“静态方法”</span><br><span class="line">	 --&gt;</span><br><span class="line">	&lt;bean id=&quot;user&quot; class=&quot;cn.itcast.b_create_obj.ObjectFactory&quot; factory-method=&quot;getStaticInstance&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 对象写法 --&gt;</span><br><span class="line">	&lt;!-- </span><br><span class="line">	问题：spring配置文件中，bean节点的id与name属性的区别?</span><br><span class="line">		id 不能有特殊符号, 且唯一，且不能以数字开始</span><br><span class="line">		name 可以有特殊符号</span><br><span class="line">	 --&gt;</span><br><span class="line">	&lt;bean id=&quot;1test&quot; name=&quot;test&quot;  class=&quot;cn.itcast.b_create_obj.User&quot;&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-对象依赖关系"><a href="#2-2-对象依赖关系" class="headerlink" title="2.2 对象依赖关系"></a>2.2 对象依赖关系</h3><h4 id="2-2-1-通过构造函数"><a href="#2-2-1-通过构造函数" class="headerlink" title="2.2.1 通过构造函数"></a>2.2.1 通过构造函数</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;user1&quot; class=&quot;cn.itcast.c_property.User&quot; scope=&quot;prototype&quot;&gt;</span><br><span class="line">		&lt;constructor-arg value=&quot;100&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">		&lt;constructor-arg value=&quot;Tom&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-2-通过set方法给属性注入值"><a href="#2-2-2-通过set方法给属性注入值" class="headerlink" title="2.2.2  通过set方法给属性注入值"></a>2.2.2  通过set方法给属性注入值</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;user&quot; class=&quot;cn.itcast.c_property.User&quot; scope=&quot;prototype&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;id&quot; value=&quot;101&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;name&quot; value=&quot;Jack&quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-3-bean依赖"><a href="#2-2-3-bean依赖" class="headerlink" title="2.2.3 bean依赖"></a>2.2.3 bean依赖</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- dao instance --&gt;</span><br><span class="line">	&lt;bean id=&quot;userDao&quot; class=&quot;cn.itcast.c_property.UserDao&quot;&gt;&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- service instance --&gt;</span><br><span class="line">	&lt;bean id=&quot;userService&quot; class=&quot;cn.itcast.c_property.UserService&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;userDao&quot; ref=&quot;userDao&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- action instance --&gt;</span><br><span class="line">	&lt;bean id=&quot;userAction1&quot; class=&quot;cn.itcast.c_property.UserAction&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;userService&quot; ref=&quot;userService&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	&lt;!-- ##############内部bean############## --&gt;</span><br><span class="line">	&lt;bean id=&quot;userAction2&quot; class=&quot;cn.itcast.c_property.UserAction&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;userService&quot;&gt;</span><br><span class="line">			&lt;bean class=&quot;cn.itcast.c_property.UserService&quot;&gt;</span><br><span class="line">				&lt;property name=&quot;userDao&quot;&gt;</span><br><span class="line">					&lt;bean class=&quot;cn.itcast.c_property.UserDao&quot;&gt;&lt;/bean&gt;</span><br><span class="line">				&lt;/property&gt;</span><br><span class="line">			&lt;/bean&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-4-p名称空间"><a href="#2-2-4-p名称空间" class="headerlink" title="2.2.4 p名称空间"></a>2.2.4 p名称空间</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;user&quot; class=&quot;cn.itcast.c_property.User&quot; p:name=&quot;Jack0001&quot;&gt;&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=&quot;userDao&quot; class=&quot;cn.itcast.c_property.UserDao&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	 </span><br><span class="line">&lt;bean id=&quot;userService&quot; class=&quot;cn.itcast.c_property.UserService&quot; p:userDao-ref=&quot;userDao&quot;&gt;&lt;/bean&gt;</span><br><span class="line">	 </span><br><span class="line">&lt;bean id=&quot;userAction&quot; class=&quot;cn.itcast.c_property.UserAction&quot; p:userService-ref=&quot;userService&quot;&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-5-自动装配"><a href="#2-2-5-自动装配" class="headerlink" title="2.2.5 自动装配"></a>2.2.5 自动装配</h4><blockquote>
+<p>根据名称自动装配：autowire=”byName”,自动去IOC容器中找与属性名同名的引用的对象，并自动注入,也可以定义到全局， 这样就不用每个bean节点都去写autowire=”byName”，但必须确保改类型在IOC容器中只有一个对象；否则报错。</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;bean id=&quot;userDao&quot; class=&quot;cn.itcast.d_auto.UserDao&quot;&gt;&lt;/bean&gt;	</span><br><span class="line">&lt;bean id=&quot;userService&quot; class=&quot;cn.itcast.d_auto.UserService&quot; autowire=&quot;byName&quot;&gt;&lt;/bean&gt;</span><br><span class="line">&lt;!-- 根据“名称”自动装配： userAction注入的属性，会去ioc容器中自动查找与属性同名的对象 --&gt;</span><br><span class="line">&lt;bean id=&quot;userAction&quot; class=&quot;cn.itcast.d_auto.UserAction&quot; autowire=&quot;byName&quot;&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-6-注解"><a href="#2-2-6-注解" class="headerlink" title="2.2.6 注解"></a>2.2.6 注解</h4><blockquote>
+<p>注解方式可以简化spring的IOC容器的配置!</p>
+</blockquote>
+<p><strong>需要引入context名称空间并开启注解扫描</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xmlns:context=&quot;http://www.springframework.org/schema/context&quot;	</span><br><span class="line">&lt;context:component-scan base-package=&quot;cn.itcast.e_anno2&quot;&gt;&lt;/context:component-scan&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>分类</strong><br>@Component   指定把一个对象加入IOC容器</p>
+<p>@Service      作用同@Component； 在业务逻辑层使用<br>@Controller    作用同@Component； 在控制层使用<br>@Repository   作用同@Component； 在持久层使用</p>
+<p>@Resource     属性注入</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Component(&quot;userAction&quot;)  // 加入IOC容器，也可以用@Controller</span><br><span class="line">public class UserAction &#123;</span><br><span class="line"></span><br><span class="line">	@Resource(name = &quot;userService&quot;)</span><br><span class="line">	private UserService userService;</span><br><span class="line">	</span><br><span class="line">	public void setUserService(UserService userService) &#123;</span><br><span class="line">		this.userService = userService;</span><br><span class="line">	&#125;	</span><br><span class="line"></span><br><span class="line">	public String execute() &#123;</span><br><span class="line">		userService.save();</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@Component(&quot;userService&quot;)  // userService加入ioc容器，也可以用@Service</span><br><span class="line">public class UserService &#123;</span><br><span class="line">	</span><br><span class="line">	// 会从IOC容器中找userDao对象，注入到当前字段</span><br><span class="line">	/*</span><br><span class="line">	 * &lt;bean id=&quot;&quot; class=&quot;&quot;&gt; </span><br><span class="line">	 *	  &lt;property name=&quot;userDao&quot; ref=&quot;userDao&quot; /&gt;    @Resource相当于这里的配置</span><br><span class="line">	 * &lt;/bean&gt;</span><br><span class="line">	 */</span><br><span class="line">	</span><br><span class="line">	@Resource(name = &quot;userDao&quot;)</span><br><span class="line">	private UserDao userDao;</span><br><span class="line">	</span><br><span class="line">	public void setUserDao(UserDao userDao) &#123;</span><br><span class="line">		this.userDao = userDao;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void save() &#123;</span><br><span class="line">		userDao.save();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 把当前对象加入ioc容器</span><br><span class="line">@Component(&quot;userDao&quot;)   //也可以用Repository  相当于bean.xml 【&lt;bean id=userDao class=&quot;..&quot; /&gt;】</span><br><span class="line">public class UserDao &#123;</span><br><span class="line"></span><br><span class="line">	public void save() &#123;</span><br><span class="line">		System.out.println(&quot;DB:保存用户!!!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/18/Spring初探/#more">Read More</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -502,6 +568,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/16/华为OJ初级1-10/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/lMut1Jey.jpg" alt="华为OJ初级1-10">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -532,7 +604,7 @@
             <h3 id="1-字符串最后一个单词的长度"><a href="#1-字符串最后一个单词的长度" class="headerlink" title="1. 字符串最后一个单词的长度"></a>1. 字符串最后一个单词的长度</h3><blockquote>
 <p>计算字符串最后一个单词的长度，单词以空格隔开。<br>知识点    字符串,循环<br>运行时间限制    0M<br>内存限制    0<br>输入<br>一行字符串，长度小于128。<br>输出<br>整数N，最后一个单词的长度。<br>样例输入    hello world<br>样例输出    5</p>
 </blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import ja&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt;va.util.Scanner;</span><br><span class="line">public class Main&#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Scanner sc = new Scanner(System.in);</span><br><span class="line">        while(sc.hasNextLine())&#123;</span><br><span class="line">            String tmpStr =  sc.nextLine();</span><br><span class="line">            String[] arr = tmpStr.split(&quot; &quot;);</span><br><span class="line">            System.out.println(arr[arr.length - 1].length());</span><br><span class="line">        &#125;</span><br><span class="line">        sc.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import ja&lt;!-- more --&gt;va.util.Scanner;</span><br><span class="line">public class Main&#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Scanner sc = new Scanner(System.in);</span><br><span class="line">        while(sc.hasNextLine())&#123;</span><br><span class="line">            String tmpStr =  sc.nextLine();</span><br><span class="line">            String[] arr = tmpStr.split(&quot; &quot;);</span><br><span class="line">            System.out.println(arr[arr.length - 1].length());</span><br><span class="line">        &#125;</span><br><span class="line">        sc.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="2-合唱队"><a href="#2-合唱队" class="headerlink" title="2.合唱队"></a>2.合唱队</h3><blockquote>
 <p>计算最少出列多少位同学，使得剩下的同学排成合唱队形<br>说明：<br>N位同学站成一排，音乐老师要请其中的(N-K)位同学出列，使得剩下的K位同学排成合唱队形。<br>合唱队形是指这样的一种队形：设K位同学从左到右依次编号为1，2…，K，他们的身高分别为T1，T2，…，TK，   则他们的身高满足存在i（1&lt;=i&lt;=K）使得Ti&lt;T2&lt;……&lt;Ti-1<ti>Ti+1&gt;……&gt;TK。<br>     你的任务是，已知所有N位同学的身高，计算最少需要几位同学出列，可以使得剩下的同学排成合唱队形。<br>知识点    循环<br>运行时间限制    0M<br>内存限制    0<br>输入<br>整数N<br>一行整数，空格隔开，N位同学身高<br>输出<br>最少需要几位同学出列<br>样例输入    8 186 186 150 200 160 130 197 200<br>样例输出    4</ti></p>
 </blockquote>
@@ -583,6 +655,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/15/Hibernate构架(四） 查询,连接池，二级缓存，session管理/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/R7P49CSl.jpg" alt="Hibernate构架(四） 查询,连接池，二级缓存，session管理">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -631,6 +709,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/13/Hibernate构架(三） 状态，缓存，映射/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/nFjWoDEv.jpg" alt="Hibernate构架(三） 状态，缓存，映射">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -764,7 +848,7 @@
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        19
+                        17
                     </p>
                 </div>
             </div>
@@ -774,7 +858,7 @@
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        0
                     </p>
                 </div>
             </div>
@@ -984,22 +1068,6 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/编程/">
-            <span class="level-start">
-                <span class="level-item">编程</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/编程/java/">
-            <span class="level-start">
-                <span class="level-item">java</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/计算机网络/">
             <span class="level-start">
                 <span class="level-item">计算机网络</span>
@@ -1021,7 +1089,7 @@
                 <span class="level-item">随笔</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li>
             </ul>
@@ -1035,7 +1103,7 @@
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+        
     </div>
 </div>
 
@@ -1052,18 +1120,18 @@
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -1073,7 +1141,7 @@
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -1092,7 +1160,7 @@
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -1111,7 +1179,7 @@
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -1130,7 +1198,7 @@
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1158,23 +1226,12 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1334,28 +1391,6 @@
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>
@@ -1381,18 +1416,18 @@
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -1402,7 +1437,7 @@
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -1421,7 +1456,7 @@
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -1440,7 +1475,7 @@
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -1459,7 +1494,7 @@
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1487,23 +1522,12 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1663,28 +1687,6 @@
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>

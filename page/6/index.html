@@ -147,6 +147,12 @@
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/12/Hibernate构架( 二） 映射/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/QKuHc3q0.jpg" alt="Hibernate构架( 二） 映射">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -176,7 +182,7 @@
             <h2 id="1-集合映射"><a href="#1-集合映射" class="headerlink" title="1.集合映射"></a>1.集合映射</h2><blockquote>
 <p>Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例</p>
 </blockquote>
-<p>需求：一个用户对应多个地址<br><strong>User.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// javabean设计</span><br><span class="line">public class User &#123;</span><br><span class="line">	private int userId;</span><br><span class="line">	private&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt; String userName;</span><br><span class="line">	// 一个用户，对应的多个地址</span><br><span class="line">	private Set&lt;String&gt; address;</span><br><span class="line">	private List&lt;String&gt; addressList = new ArrayList&lt;String&gt;(); </span><br><span class="line">	//private String[] addressArray; // 映射方式和list一样     &lt;array name=&quot;&quot;&gt;&lt;/array&gt;</span><br><span class="line">	private Map&lt;String,String&gt; addressMap = new HashMap&lt;String, String&gt;();</span><br><span class="line">// get,set省略...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需求：一个用户对应多个地址<br><strong>User.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// javabean设计</span><br><span class="line">public class User &#123;</span><br><span class="line">	private int userId;</span><br><span class="line">	private&lt;!-- more --&gt; String userName;</span><br><span class="line">	// 一个用户，对应的多个地址</span><br><span class="line">	private Set&lt;String&gt; address;</span><br><span class="line">	private List&lt;String&gt; addressList = new ArrayList&lt;String&gt;(); </span><br><span class="line">	//private String[] addressArray; // 映射方式和list一样     &lt;array name=&quot;&quot;&gt;&lt;/array&gt;</span><br><span class="line">	private Map&lt;String,String&gt; addressMap = new HashMap&lt;String, String&gt;();</span><br><span class="line">// get,set省略...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>User.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.a_collection&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;User&quot; table=&quot;t_user&quot;&gt;</span><br><span class="line">		&lt;id name=&quot;userId&quot; column=&quot;id&quot;&gt;</span><br><span class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</span><br><span class="line">		&lt;/id&gt;	</span><br><span class="line">		&lt;property name=&quot;userName&quot;&gt;&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- </span><br><span class="line">			set集合属性的映射</span><br><span class="line">				name 指定要映射的set集合的属性</span><br><span class="line">				table 集合属性要映射到的表</span><br><span class="line">				key  指定集合表(t_address)的外键字段</span><br><span class="line">				element 指定集合表的其他字段</span><br><span class="line">					type 元素类型，一定要指定</span><br><span class="line">		 --&gt;</span><br><span class="line">		 &lt;set name=&quot;address&quot; table=&quot;t_address&quot;&gt;</span><br><span class="line">		 	&lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		 	&lt;element column=&quot;address&quot; type=&quot;string&quot;&gt;&lt;/element&gt;</span><br><span class="line">		 &lt;/set&gt;</span><br><span class="line">		 </span><br><span class="line">		 &lt;!-- </span><br><span class="line">		 	list集合映射</span><br><span class="line">		 		list-index  指定的是排序列的名称 (因为要保证list集合的有序)</span><br><span class="line">		  --&gt;</span><br><span class="line">		  &lt;list name=&quot;addressList&quot; table=&quot;t_addressList&quot;&gt;</span><br><span class="line">		  	  &lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		  	  &lt;list-index column=&quot;idx&quot;&gt;&lt;/list-index&gt;</span><br><span class="line">		  	  &lt;element column=&quot;address&quot; type=&quot;string&quot;&gt;&lt;/element&gt;</span><br><span class="line">		  &lt;/list&gt;</span><br><span class="line">		  </span><br><span class="line">		  &lt;!-- </span><br><span class="line">		  	map集合的映射</span><br><span class="line">		  		key  指定外键字段</span><br><span class="line">		  		map-key 指定map的key </span><br><span class="line">		  		element  指定map的value</span><br><span class="line">		   --&gt;</span><br><span class="line">		  &lt;map name=&quot;addressMap&quot; table=&quot;t_addressMap&quot;&gt;</span><br><span class="line">		  	&lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		  	&lt;map-key column=&quot;shortName&quot; type=&quot;string&quot; &gt;&lt;/map-key&gt;</span><br><span class="line">		  	&lt;element column=&quot;address&quot; type=&quot;string&quot; &gt;&lt;/element&gt;</span><br><span class="line">		  &lt;/map&gt;	  		 </span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
 <p><strong>set测试</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">private static SessionFactory sf;</span><br><span class="line">	static &#123;</span><br><span class="line">		sf = new Configuration()</span><br><span class="line">			.configure()</span><br><span class="line">			.addClass(User.class)   // 测试时候使用</span><br><span class="line">			.buildSessionFactory();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 保存set</span><br><span class="line">	@Test</span><br><span class="line">	public void testSaveSet() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		//-- 保存</span><br><span class="line">		Set&lt;String&gt; addressSet = new HashSet&lt;String&gt;();</span><br><span class="line">		addressSet.add(&quot;广州&quot;);</span><br><span class="line">		addressSet.add(&quot;深圳&quot;);</span><br><span class="line">		// 用户对象</span><br><span class="line">		User user = new User();</span><br><span class="line">		user.setUserName(&quot;Jack&quot;);</span><br><span class="line">		user.setAddress(addressSet);</span><br><span class="line">		</span><br><span class="line">		// 保存</span><br><span class="line">		session.save(user);</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
 <p>效果如下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: insert into t_user (userName) values (?)</span><br><span class="line">Hibernate: insert into t_address (uid, address) values (?, ?)</span><br><span class="line">Hibernate: insert into t_address (uid, address) values (?, ?)</span><br></pre></td></tr></table></figure></p>
@@ -223,6 +229,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/11/Hibernate构架(一) 初探/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/CaJFUzjA.jpg" alt="Hibernate构架(一) 初探">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -252,17 +264,45 @@
             <blockquote>
 <p>ORM，Object Relation Mapping，即对象关系映射。Hibernate就是ORM的实现，使对象在数据库的存储和获取非常的方便。</p>
 </blockquote>
-<h2 id="1-Hibernate开发流程"><a href="#1-Hibernate开发流程" class="headerlink" title="1.Hibernate开发流程"></a>1.Hibernate开发流程</h2><p></p>
+<h2 id="1-Hibernate开发流程"><a href="#1-Hibernate开发流程" class="headerlink" title="1.Hibernate开发流程"></a>1.Hibernate开发流程</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990&lt;!-- more --&gt;755-93cc6b6d08b987fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-1-引入jar文件"><a href="#1-1-引入jar文件" class="headerlink" title="1.1 引入jar文件"></a>1.1 引入jar文件</h3><p>hibernate3.jar核心  +  required 必须引入的(6个) +  jpa 目录  + 数据库驱动包</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-29189b7a33fe1694.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-2-写对象类"><a href="#1-2-写对象类" class="headerlink" title="1.2 写对象类"></a>1.2 写对象类</h3><p><strong>Employee.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Employee &#123;</span><br><span class="line"></span><br><span class="line">	private int empId;</span><br><span class="line">	private String empName;</span><br><span class="line">	private Date workDate;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-3-配置对象的映射"><a href="#1-3-配置对象的映射" class="headerlink" title="1.3 配置对象的映射"></a>1.3 配置对象的映射</h3><p><strong>Employee.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.a_hello&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;Employee&quot; table=&quot;employee&quot;&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 主键 ，映射--&gt;</span><br><span class="line">		&lt;id name=&quot;empId&quot; column=&quot;id&quot;&gt;</span><br><span class="line">			&lt;generator class=&quot;native&quot;/&gt;</span><br><span class="line">		&lt;/id&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 非主键，映射 --&gt;</span><br><span class="line">		&lt;property name=&quot;empName&quot; column=&quot;empName&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;workDate&quot; column=&quot;workDate&quot;&gt;&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-4-主配置文件"><a href="#1-4-主配置文件" class="headerlink" title="1.4 主配置文件"></a>1.4 主配置文件</h3><p><strong>hibernate.cfg.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE hibernate-configuration PUBLIC</span><br><span class="line">	&quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-configuration&gt;</span><br><span class="line">	&lt;session-factory&gt;</span><br><span class="line">		&lt;!-- 数据库连接配置 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql:///hib_demo&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.username&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.password&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQL5Dialect&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;property name=&quot;hibernate.show_sql&quot;&gt;true&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 加载所有映射 --&gt;</span><br><span class="line">		&lt;mapping resource=&quot;cn/itcast/a_hello/Employee.hbm.xml&quot;/&gt;</span><br><span class="line">	&lt;/session-factory&gt;</span><br><span class="line">&lt;/hibernate-configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-5-测试"><a href="#1-5-测试" class="headerlink" title="1.5 测试"></a>1.5 测试</h3><p><strong>App.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">  public class App &#123;</span><br><span class="line">	@Test</span><br><span class="line">	public void testHello() throws Exception &#123;</span><br><span class="line">		// 对象</span><br><span class="line">		Employee emp = new Employee();</span><br><span class="line">		emp.setEmpName(&quot;班长&quot;);</span><br><span class="line">		emp.setWorkDate(new Date());</span><br><span class="line">		</span><br><span class="line">		// 获取加载配置文件的管理类对象</span><br><span class="line">		Configuration config = new Configuration();</span><br><span class="line">		config.configure();  // 默认加载src/hibenrate.cfg.xml文件</span><br><span class="line">		// 创建session的工厂对象</span><br><span class="line">		SessionFactory sf = config.buildSessionFactory();</span><br><span class="line">		// 创建session (代表一个会话，与数据库连接的会话)</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		// 开启事务</span><br><span class="line">		Transaction tx = session.beginTransaction();</span><br><span class="line">		//保存-数据库</span><br><span class="line">		session.save(emp);</span><br><span class="line">		// 提交事务</span><br><span class="line">		tx.commit();</span><br><span class="line">		// 关闭</span><br><span class="line">		session.close();</span><br><span class="line">		sf.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-Hibernate-Api"><a href="#2-Hibernate-Api" class="headerlink" title="2. Hibernate  Api"></a>2. Hibernate  Api</h2><h3 id="2-1-Configuration"><a href="#2-1-Configuration" class="headerlink" title="2.1 Configuration"></a>2.1 Configuration</h3><blockquote>
+<p>配置管理类对象</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   config.configure();    加载主配置文件的方法(hibernate.cfg.xml)</span><br><span class="line">					默认加载src/hibernate.cfg.xml</span><br><span class="line">config.configure(“cn/config/hibernate.cfg.xml”);   加载指定路径下指定名称的主配置文件</span><br><span class="line">config.buildSessionFactory();   创建session的工厂对象</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-SessionFactory"><a href="#2-2-SessionFactory" class="headerlink" title="2.2 SessionFactory"></a>2.2 SessionFactory</h3><blockquote>
+<p>session的工厂（或者说代表了这个hibernate.cfg.xml配置文件）</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sf.openSession();   创建一个sesison对象</span><br><span class="line">sf.getCurrentSession();  创建session或取出session对象</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-Session"><a href="#2-3-Session" class="headerlink" title="2.3 Session"></a>2.3 Session</h3><blockquote>
+<p>session对象维护了一个连接(Connection), 代表了与数据库连接的会话。<br> Hibernate最重要的对象： 只用使用hibernate与数据库操作，都用到这个对象</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">session.beginTransaction(); 开启一个事务； hibernate要求所有的与数据库的操作必须有事务的环境，否则报错！</span><br><span class="line"></span><br><span class="line">更新：</span><br><span class="line">session.save(obj);   保存一个对象</span><br><span class="line">session.update(emp);  更新一个对象</span><br><span class="line">session.saveOrUpdate(emp);  保存或者更新的方法：</span><br><span class="line">没有设置主键，执行保存；有设置主键，执行更新操作; 如果设置主键不存在报错！</span><br><span class="line"></span><br><span class="line">主键查询：</span><br><span class="line">session.get(Employee.class, 1);    主键查询</span><br><span class="line">session.load(Employee.class, 1);   主键查询 (支持懒加载)</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-Transaction"><a href="#2-4-Transaction" class="headerlink" title="2.4  Transaction"></a>2.4  Transaction</h3><blockquote>
+<p>hibernate事务对象</p>
+</blockquote>
+<h2 id="3-Hibernate-cfg-xml-主配置"><a href="#3-Hibernate-cfg-xml-主配置" class="headerlink" title="3.Hibernate.cfg.xml 主配置"></a>3.Hibernate.cfg.xml 主配置</h2><blockquote>
+<p>主配置文件中主要配置：数据库连接信息、其他参数、映射信息！</p>
+</blockquote>
+<h3 id="3-1-数据库连接参数配置"><a href="#3-1-数据库连接参数配置" class="headerlink" title="3.1 数据库连接参数配置"></a>3.1 数据库连接参数配置</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE hibernate-configuration PUBLIC</span><br><span class="line">	&quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-configuration&gt;</span><br><span class="line">	&lt;!-- 通常，一个session-factory节点代表一个数据库 --&gt;</span><br><span class="line">	&lt;session-factory&gt;</span><br><span class="line">	</span><br><span class="line">		&lt;!-- 1. 数据库连接配置 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql:///hib_demo&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.username&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.password&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;!-- </span><br><span class="line">			数据库方言配置， hibernate在运行的时候，会根据不同的方言生成符合当前数据库语法的sql</span><br><span class="line">		 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQL5Dialect&lt;/property&gt;		</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 2. 其他相关配置 --&gt;</span><br><span class="line">		&lt;!-- 2.1 显示hibernate在运行时候执行的sql语句 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.show_sql&quot;&gt;true&lt;/property&gt;</span><br><span class="line">		&lt;!-- 2.2 格式化sql --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.format_sql&quot;&gt;true&lt;/property&gt;</span><br><span class="line">		&lt;!-- 2.3 自动建表  --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.hbm2ddl.auto&quot;&gt;update&lt;/property&gt;</span><br><span class="line">				</span><br><span class="line">		&lt;!-- 3. 加载所有映射 </span><br><span class="line">		&lt;mapping resource=&quot;cn/itcast/a_hello/Employee.hbm.xml&quot;/&gt;</span><br><span class="line">		--&gt;</span><br><span class="line">	&lt;/session-factory&gt;</span><br><span class="line">&lt;/hibernate-configuration&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="4-映射配置"><a href="#4-映射配置" class="headerlink" title="4.映射配置"></a>4.映射配置</h2><blockquote>
+<ol>
+<li>普通字段类型</li>
+<li>主键映射<br> 单列主键映射<br> 多列作为主键映射<br>主键生成策略，查看api：org.hibernate.id.factory.DefaultIdentifierGeneratorFactory</li>
+</ol>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 映射文件: 映射一个实体类对象；  描述一个对象最终实现可以直接保存对象数据到数据库中。  --&gt;</span><br><span class="line">&lt;!-- </span><br><span class="line">	package: 要映射的对象所在的包(可选,如果不指定,此文件所有的类都要指定全路径)</span><br><span class="line">	auto-import 默认为true， 在写hql的时候自动导入包名</span><br><span class="line">				如果指定为false, 再写hql的时候必须要写上类的全名；</span><br><span class="line">				  如：session.createQuery(&quot;from cn.itcast.c_hbm_config.Employee&quot;).list();</span><br><span class="line"> --&gt;</span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.c_hbm_config&quot; auto-import=&quot;true&quot;&gt;	</span><br><span class="line">	&lt;!-- </span><br><span class="line">		class 映射某一个对象的(一般情况，一个对象写一个映射文件，即一个class节点)</span><br><span class="line">			name 指定要映射的对象的类型</span><br><span class="line">			table 指定对象对应的表；</span><br><span class="line">				  如果没有指定表名，默认与对象名称一样 </span><br><span class="line">	 --&gt;</span><br><span class="line">	&lt;class name=&quot;Employee&quot; table=&quot;employee&quot;&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 主键 ，映射--&gt;</span><br><span class="line">		&lt;id name=&quot;empId&quot; column=&quot;id&quot;&gt;</span><br><span class="line">			&lt;!-- </span><br><span class="line">				主键的生成策略</span><br><span class="line">					identity  自增长(mysql,db2)</span><br><span class="line">					sequence  自增长(序列)， oracle中自增长是以序列方法实现</span><br><span class="line">					native  自增长【会根据底层数据库自增长的方式选择identity或sequence】</span><br><span class="line">							如果是mysql数据库, 采用的自增长方式是identity</span><br><span class="line">							如果是oracle数据库， 使用sequence序列的方式实现自增长</span><br><span class="line">					</span><br><span class="line">					increment  自增长(会有并发访问的问题，一般在服务器集群环境使用会存在问题。)</span><br><span class="line">					</span><br><span class="line">					assigned  指定主键生成策略为手动指定主键的值</span><br><span class="line">					uuid      指定uuid随机生成的唯一的值</span><br><span class="line">					foreign   (外键的方式， one-to-one讲)</span><br><span class="line">			 --&gt;</span><br><span class="line">			&lt;generator class=&quot;uuid&quot;/&gt;</span><br><span class="line">		&lt;/id&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- </span><br><span class="line">			普通字段映射</span><br><span class="line">			property</span><br><span class="line">				name  指定对象的属性名称</span><br><span class="line">				column 指定对象属性对应的表的字段名称，如果不写默认与对象属性一致。</span><br><span class="line">				length 指定字符的长度, 默认为255</span><br><span class="line">				type   指定映射表的字段的类型，如果不指定会匹配属性的类型</span><br><span class="line">					java类型：     必须写全名</span><br><span class="line">					hibernate类型：  直接写类型，都是小写</span><br><span class="line">		--&gt;</span><br><span class="line">		&lt;property name=&quot;empName&quot; column=&quot;empName&quot; type=&quot;java.lang.String&quot; length=&quot;20&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;workDate&quot; type=&quot;java.util.Date&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 如果列名称为数据库关键字，需要用反引号或改列名。 --&gt;</span><br><span class="line">		&lt;property name=&quot;desc&quot; column=&quot;`desc`&quot; type=&quot;java.lang.String&quot;&gt;&lt;/property&gt;		</span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="5-复合主键映射"><a href="#5-复合主键映射" class="headerlink" title="5.复合主键映射"></a>5.复合主键映射</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 复合主键类</span><br><span class="line">public class CompositeKeys implements Serializable&#123;</span><br><span class="line">	private String userName;</span><br><span class="line">	private String address;</span><br><span class="line">   // .. get/set</span><br><span class="line">&#125;</span><br><span class="line">public class User &#123;</span><br><span class="line">	// 名字跟地址，作为复合主键，不会重复</span><br><span class="line">	private CompositeKeys keys;</span><br><span class="line">	private int age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>User.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.d_compositeKey&quot; auto-import=&quot;true&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;User&quot;&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 复合主键映射 --&gt;</span><br><span class="line">		&lt;composite-id name=&quot;keys&quot;&gt;</span><br><span class="line">			&lt;key-property name=&quot;userName&quot; type=&quot;string&quot;&gt;&lt;/key-property&gt;</span><br><span class="line">			&lt;key-property name=&quot;address&quot; type=&quot;string&quot;&gt;&lt;/key-property&gt;</span><br><span class="line">		&lt;/composite-id&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;property name=&quot;age&quot; type=&quot;int&quot;&gt;&lt;/property&gt;		</span><br><span class="line">		</span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>App2.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">public class App2 &#123;</span><br><span class="line">	</span><br><span class="line">	private static SessionFactory sf;</span><br><span class="line">	static  &#123;		</span><br><span class="line">		// 创建sf对象</span><br><span class="line">		sf = new Configuration()</span><br><span class="line">			.configure()</span><br><span class="line">			.addClass(User.class)  //（测试） 会自动加载映射文件：Employee.hbm.xml</span><br><span class="line">			.buildSessionFactory();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//1. 保存对象</span><br><span class="line">	@Test</span><br><span class="line">	public void testSave() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		Transaction tx = session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		// 对象</span><br><span class="line">		CompositeKeys keys = new CompositeKeys();</span><br><span class="line">		keys.setAddress(&quot;广州棠东&quot;);</span><br><span class="line">		keys.setUserName(&quot;Jack&quot;);</span><br><span class="line">		User user = new User();</span><br><span class="line">		user.setAge(20);</span><br><span class="line">		user.setKeys(keys);</span><br><span class="line">		</span><br><span class="line">		// 保存</span><br><span class="line">		session.save(user);</span><br><span class="line">		</span><br><span class="line">		tx.commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testGet() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		Transaction tx = session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		//构建主键再查询</span><br><span class="line">		CompositeKeys keys = new CompositeKeys();</span><br><span class="line">		keys.setAddress(&quot;广州棠东&quot;);</span><br><span class="line">		keys.setUserName(&quot;Jack&quot;);</span><br><span class="line">		</span><br><span class="line">		// 主键查询</span><br><span class="line">		User user = (User) session.get(User.class, keys);</span><br><span class="line">		// 测试输出</span><br><span class="line">		if (user != null)&#123;</span><br><span class="line">			System.out.println(user.getKeys().getUserName());</span><br><span class="line">			System.out.println(user.getKeys().getAddress());</span><br><span class="line">			System.out.println(user.getAge());</span><br><span class="line">		&#125;	</span><br><span class="line">		</span><br><span class="line">		tx.commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/11/Hibernate构架(一) 初探/#more">Read More</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -273,6 +313,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/11/struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/GbYeDsWy.jpg" alt="struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -325,6 +371,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/11/struts2框架(一) 初探/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/tRESP7ro.jpg" alt="struts2框架(一) 初探">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -355,17 +407,62 @@
 <p>Struts2 是一个用来开发 MVC应用程序的框架. 它提供了 Web 应用程序开发过程中的一些常见问题的解决方案:<br><strong>Struts2 = Struts1 + WebWork</strong>     1和2没有本质的关系</p>
 </blockquote>
 <p>##1.Struts2开发流程</p>
-<p></p>
+<p><img src="http://upload-im&lt;!-- more --&gt;ages.jianshu.io/upload_images/5990755-6d29de6d3b9a6f26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-1-引入jar文件"><a href="#1-1-引入jar文件" class="headerlink" title="1.1 引入jar文件"></a>1.1 引入jar文件</h3><blockquote>
+<p>commons-fileupload-1.2.2.jar      【文件上传相关包】<br>commons-io-2.0.1.jar              【io操作相关的包】<br>struts2-core-2.3.4.1.jar           【struts2核心功能包】<br>xwork-core-2.3.4.1.jar           【Xwork核心包】<br>ognl-3.0.5.jar                     【Ognl表达式功能支持表】<br>commons-lang3-3.1.jar          【struts对java.lang包的扩展】<br>freemarker-2.3.19.jar            【struts的标签模板库jar文件】<br>javassist-3.11.0.GA.jar           【struts对字节码的处理相关jar】</p>
+</blockquote>
+<h3 id="1-2-配置web-xml"><a href="#1-2-配置web-xml" class="headerlink" title="1.2 配置web.xml"></a>1.2 配置web.xml</h3><blockquote>
+<p>tomcat服务器在启动时，首先会加载自身的web.xml，然后加载所有项目的web.xml。struts2通过在web.xml中引入过滤器来作为入口，在学习过滤器的时候我们知道过滤器的init方法会在tomcat服务器启动时调用。</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  &lt;!-- 引入struts核心过滤器 --&gt;</span><br><span class="line">&lt;filter&gt;</span><br><span class="line">	&lt;filter-name&gt;struts2&lt;/filter-name&gt;</span><br><span class="line">	&lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">	&lt;filter-name&gt;struts2&lt;/filter-name&gt;</span><br><span class="line">	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-编写Action类"><a href="#1-3-编写Action类" class="headerlink" title="1.3 编写Action类"></a>1.3 编写Action类</h3><blockquote>
+<p>action类，也叫做动作类; 一般继承ActionSupport类,即处理请求的类  (struts中的action类取代之前的servlet).<br>注意： action中的业务方法不能有参数，且必须返回String</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import com.opensymphony.xwork2.ActionSupport;</span><br><span class="line"></span><br><span class="line">// 开发action： 处理请求</span><br><span class="line">public class HelloAction extends ActionSupport &#123;	</span><br><span class="line">	// 处理请求</span><br><span class="line">	public String execute() throws Exception &#123;</span><br><span class="line">		System.out.println(&quot;访问到了action，正在处理请求&quot;);</span><br><span class="line">		return &quot;success&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-配置struts-xml"><a href="#1-4-配置struts-xml" class="headerlink" title="1.4    配置struts.xml"></a>1.4    配置struts.xml</h3><blockquote>
+<p>该配置文件的头部可以参照struts2-core-2.3.4.1.jar包下面的struts-default.xml来写。该配置文件的主要作用是将提供action的访问名称，并且和action类进行关联。</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE struts PUBLIC</span><br><span class="line">          &quot;-//Apache Software Foundation//DTD Struts Configuration 2.0//EN&quot;</span><br><span class="line">          &quot;http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;</span><br><span class="line">&lt;struts&gt;</span><br><span class="line">    &lt;package name=&quot;xxxx&quot; extends=&quot;struts-default&quot;&gt;</span><br><span class="line">    	&lt;action name=&quot;hello&quot; class=&quot;cn.acamy.action.HelloAction&quot; method=&quot;execute&quot;&gt;</span><br><span class="line">    		&lt;result name=&quot;success&quot;&gt;/success.jsp&lt;/result&gt;</span><br><span class="line">    	&lt;/action&gt;</span><br><span class="line">    &lt;/package&gt; </span><br><span class="line">&lt;/struts&gt;</span><br></pre></td></tr></table></figure>
+<p>##2.Struts2执行流程</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-df2bfec10955f1eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="2-1-服务器启动"><a href="#2-1-服务器启动" class="headerlink" title="2.1 服务器启动"></a>2.1 服务器启动</h3><ol>
+<li>加载项目web.xml</li>
+<li>创建Struts核心过滤器对象， 执行filter的init()<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struts-default.xml,    核心功能的初始化</span><br><span class="line">struts-plugin.xml,     struts相关插件</span><br><span class="line">struts.xml			   用户编写的配置文件</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="2-2-用户访问"><a href="#2-2-用户访问" class="headerlink" title="2.2 用户访问"></a>2.2 用户访问</h2><p>3.用户访问Action, 服务器根据访问路径名称，找对应的aciton配置, 创建action对象<br>4.执行默认拦截器栈中定义的18个拦截器<br>5.执行action的业务处理方法<br>6.根据action返回的Result来跳转到相应的页面</p>
+<h2 id="3-三大配置文件的加载"><a href="#3-三大配置文件的加载" class="headerlink" title="3. 三大配置文件的加载"></a>3. 三大配置文件的加载</h2><blockquote>
+<p>从上面可以知道核心过滤器是Struts的入口，tomcat服务器在启动时会执行过滤器的init()方法，现在通过源码展示三大配置文件是如何加载的。</p>
+</blockquote>
+<h3 id="3-1-首先是执行web-xml引入的StrutsPrepareAndExecuteFilter初始化方法"><a href="#3-1-首先是执行web-xml引入的StrutsPrepareAndExecuteFilter初始化方法" class="headerlink" title="3.1 首先是执行web.xml引入的StrutsPrepareAndExecuteFilter初始化方法"></a>3.1 首先是执行web.xml引入的StrutsPrepareAndExecuteFilter初始化方法</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line">      InitOperations init = new InitOperations();</span><br><span class="line">      try &#123;</span><br><span class="line">          FilterHostConfig config = new FilterHostConfig(filterConfig);</span><br><span class="line">          init.initLogging(config);</span><br><span class="line">          Dispatcher dispatcher = init.initDispatcher(config);// 在这里跳转</span><br><span class="line">          init.initStaticContentLoader(config, dispatcher);</span><br><span class="line"></span><br><span class="line">          prepare = new PrepareOperations(filterConfig.getServletContext(), dispatcher);</span><br><span class="line">          execute = new ExecuteOperations(filterConfig.getServletContext(), dispatcher);</span><br><span class="line">	this.excludedPatterns = init.buildExcludedPatternsList(dispatcher);</span><br><span class="line"></span><br><span class="line">          postInit(dispatcher, filterConfig);</span><br><span class="line">      &#125; finally &#123;</span><br><span class="line">          init.cleanup();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>###3.2 然后执行InitOperations的initDispatcher方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public Dispatcher initDispatcher( HostConfig filterConfig ) &#123;</span><br><span class="line">        Dispatcher dispatcher = createDispatcher(filterConfig);</span><br><span class="line">        dispatcher.init();</span><br><span class="line">        return dispatcher;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-3-最后执行Dispatcher的init方法"><a href="#3-3-最后执行Dispatcher的init方法" class="headerlink" title="3.3 最后执行Dispatcher的init方法"></a>3.3 最后执行Dispatcher的init方法</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line">     * Load configurations, including both XML and zero-configuration strategies,</span><br><span class="line">     * and update optional settings, including whether to reload configurations and resource files.</span><br><span class="line">     */</span><br><span class="line">    public void init() &#123;</span><br><span class="line"></span><br><span class="line">    	if (configurationManager == null) &#123;</span><br><span class="line">    		configurationManager = createConfigurationManager(BeanSelectionProvider.DEFAULT_BEAN_NAME);</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            init_DefaultProperties(); // [1]</span><br><span class="line">            init_TraditionalXmlConfigurations(); // [2]跳转到三大配置文件的相关方法</span><br><span class="line">            init_LegacyStrutsProperties(); // [3]</span><br><span class="line">            init_CustomConfigurationProviders(); // [5]</span><br><span class="line">            init_FilterInitParameters() ; // [6]</span><br><span class="line">            init_AliasStandardObjects() ; // [7]</span><br><span class="line"></span><br><span class="line">            Container container = init_PreloadConfiguration();</span><br><span class="line">            container.inject(this);</span><br><span class="line">            init_CheckConfigurationReloading(container);</span><br><span class="line">            init_CheckWebLogicWorkaround(container);</span><br><span class="line"></span><br><span class="line">            if (!dispatcherListeners.isEmpty()) &#123;</span><br><span class="line">                for (DispatcherListener l : dispatcherListeners) &#123;</span><br><span class="line">                    l.dispatcherInitialized(this);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (Exception ex) &#123;</span><br><span class="line">            if (LOG.isErrorEnabled())</span><br><span class="line">                LOG.error(&quot;Dispatcher initialization failed&quot;, ex);</span><br><span class="line">            throw new StrutsException(ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">//三大配置文件</span><br><span class="line">private static final String DEFAULT_CONFIGURATION_PATHS = &quot;struts-default.xml,struts-plugin.xml,struts.xml&quot;;</span><br><span class="line"></span><br><span class="line">private void init_TraditionalXmlConfigurations() &#123;</span><br><span class="line">        String configPaths = initParams.get(&quot;config&quot;);</span><br><span class="line">        if (configPaths == null) &#123;</span><br><span class="line">            configPaths = DEFAULT_CONFIGURATION_PATHS;</span><br><span class="line">        &#125;</span><br><span class="line">        String[] files = configPaths.split(&quot;\\s*[,]\\s*&quot;);</span><br><span class="line">       //骤个初始化</span><br><span class="line">        for (String file : files) &#123;</span><br><span class="line">            if (file.endsWith(&quot;.xml&quot;)) &#123;</span><br><span class="line">                if (&quot;xwork.xml&quot;.equals(file)) &#123;</span><br><span class="line">                    configurationManager.addContainerProvider(createXmlConfigurationProvider(file, false));</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    configurationManager.addContainerProvider(createStrutsXmlConfigurationProvider(file, false, servletContext));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                throw new IllegalArgumentException(&quot;Invalid configuration file name&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-struts-default-xml-详解"><a href="#4-struts-default-xml-详解" class="headerlink" title="4.struts-default.xml, 详解"></a>4.struts-default.xml, 详解</h2><p> <strong>位置：</strong>struts2-core-2.3.4.1.jar/ struts-default.xml<br> <strong>内容：</strong></p>
+<pre><code>1. bean节点指定struts在运行的时候创建的对象类型
+2.指定struts-default包  【用户写的package(struts.xml)一样要继承此包 】
+    package  struts-default  包中定义了：
+        a.  跳转的结果类型
+            dispatcher    转发，不指定默认为转发
+            redirect       重定向
+            redirectAction  重定向到action资源
+            stream        (文件下载的时候用)
+        b. 定义了所有的拦截器
+              定义了32个拦截器！
+              为了拦截器引用方便，可以通过定义栈的方式引用拦截器，
+            此时如果引用了栈，栈中的拦截器都会被引用!
+
+            defaultStack
+                默认的栈，其中定义默认要执行的18个拦截器！
+
+
+        c. 默认执行的拦截器栈、默认执行的action
+            &lt;default-interceptor-ref name=&quot;defaultStack&quot;/&gt;
+           &lt;default-class-ref class=&quot;com.opensymphony.xwork2.ActionSupport&quot; /&gt;
+</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;interceptor name=&quot;prepare&quot; </span><br><span class="line">class=&quot;com.opensymphony.xwork2.interceptor.PrepareInterceptor&quot;/&gt;</span><br><span class="line">&lt;interceptor name=&quot;params&quot; </span><br><span class="line">class=&quot;com.opensymphony.xwork2.interceptor.ParametersInterceptor&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>拦截器功能与过滤器功能类似，都拦截资源，但它是struts的概念，只能在struts中用，只拦截action请求;而过滤器是servlet的概念，可以在struts项目、servlet项目用，可以拦截所有的web资源(/index.jsp/servlet/action/img/css/js)。</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/11/struts2框架(一) 初探/#more">Read More</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -376,6 +473,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/11/struts2框架(四)拦截器，国际化，Ognl表达式/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/62wv0kjD.jpg" alt="struts2框架(四)拦截器，国际化，Ognl表达式">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -425,6 +528,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/10/struts2框架(三)文件上传与下载/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/jRiH1K4S.jpg" alt="struts2框架(三)文件上传与下载">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -476,6 +585,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/10/struts2框架(二)通配符，动态方法调用，全局结果，resultType/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/N5mbLKch.jpg" alt="struts2框架(二)通配符，动态方法调用，全局结果，resultType">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -530,6 +645,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/09/JavaWeb基础之Internationalization/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/tkIF1vRw.jpg" alt="JavaWeb基础之Internationalization">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -562,7 +683,7 @@
 <h2 id="1-Locale"><a href="#1-Locale" class="headerlink" title="1.Locale"></a>1.Locale</h2><blockquote>
 <p>本地化对象,封装语言、国家信息的对象，由java.util提供</p>
 </blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">      // 模拟中国语言等环境</span><br><span class="line">// Locale locale = Locale.CHI&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt;NA;</span><br><span class="line">Locale locale = Locale.getDefault(); // 当前系统默认的语言环境</span><br><span class="line">System.out.println(locale.getCountry()); // CN 国家的简称</span><br><span class="line">System.out.println(locale.getDisplayCountry()); //中国  国家名称</span><br><span class="line">System.out.println(locale.getLanguage()); // zh 语言简称</span><br><span class="line"></span><br><span class="line">// 模拟美国国家</span><br><span class="line">Locale l_us = Locale.US;</span><br><span class="line">System.out.println(l_us.getCountry()); //US</span><br><span class="line">System.out.println(l_us.getDisplayCountry());//美国</span><br><span class="line">System.out.println(l_us.getLanguage());//en</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">      // 模拟中国语言等环境</span><br><span class="line">// Locale locale = Locale.CHI&lt;!-- more --&gt;NA;</span><br><span class="line">Locale locale = Locale.getDefault(); // 当前系统默认的语言环境</span><br><span class="line">System.out.println(locale.getCountry()); // CN 国家的简称</span><br><span class="line">System.out.println(locale.getDisplayCountry()); //中国  国家名称</span><br><span class="line">System.out.println(locale.getLanguage()); // zh 语言简称</span><br><span class="line"></span><br><span class="line">// 模拟美国国家</span><br><span class="line">Locale l_us = Locale.US;</span><br><span class="line">System.out.println(l_us.getCountry()); //US</span><br><span class="line">System.out.println(l_us.getDisplayCountry());//美国</span><br><span class="line">System.out.println(l_us.getLanguage());//en</span><br></pre></td></tr></table></figure>
 <h2 id="2-ResourceBundle"><a href="#2-ResourceBundle" class="headerlink" title="2.ResourceBundle"></a>2.ResourceBundle</h2><blockquote>
 <p>用于描述一个资源包，并且 ResourceBundle类提供了相应的方法getBundle，这个方法可以根据来访者的国家地区自动获取与之对应的资源文件予以显示</p>
 </blockquote>
@@ -588,6 +709,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/09/JavaWeb基础之Listener基本用法/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/3mS4FXaA.jpg" alt="JavaWeb基础之Listener基本用法">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -619,17 +746,23 @@
 <p>用来监听特定对象的创建或销毁、属性的变化</p>
 </blockquote>
 <h2 id="1-监听器接口的分类"><a href="#1-监听器接口的分类" class="headerlink" title="1.监听器接口的分类"></a>1.监听器接口的分类</h2><h3 id="1-1、监听对象创建-销毁的监听器接口"><a href="#1-1、监听对象创建-销毁的监听器接口" class="headerlink" title="1.1、监听对象创建/销毁的监听器接口"></a>1.1、监听对象创建/销毁的监听器接口</h3><pre><code>Interface ServletRequestListener     监听request对象的创建或销毁
-Interface HttpSessionListener</code></pre>
+Interface HttpSessionListener  &lt;!-- more --&gt;      监听session对象的创建或销毁
+Interface ServletContextListener     监听servletContext对象的创建或销毁
+</code></pre><p>###1.2、监听对象属性的变化<br>    Interface ServletRequestAttributeListener 监听request对象属性变化: 添加、移除、修改<br>    Interface HttpSessionAttributeListener    监听session对象属性变化: 添加、移除、修改<br>Interface ServletContextAttributeListener  监听servletContext对象属性变化</p>
+<p>###1.3、session相关监听器<br>    Interface HttpSessionBindingListener   监听对象绑定到session上的事件<br>    Interface HttpSessionActivationListener(了解) 监听session序列化及反序列化的事件</p>
+<h2 id="2-监听器的开发"><a href="#2-监听器的开发" class="headerlink" title="2.监听器的开发"></a>2.监听器的开发</h2><h3 id="2-1-步骤："><a href="#2-1-步骤：" class="headerlink" title="2.1 步骤："></a>2.1 步骤：</h3><p>2.1.1.写一个普通java类，实现相关接口；<br>2.1.2.配置(web.xml)</p>
+<h3 id="2-2-实例"><a href="#2-2-实例" class="headerlink" title="2.2 实例"></a>2.2 实例</h3><h4 id="A-监听request对象的创建或销毁"><a href="#A-监听request对象的创建或销毁" class="headerlink" title="A.监听request对象的创建或销毁"></a>A.监听request对象的创建或销毁</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.ServletRequestEvent;</span><br><span class="line">import javax.servlet.ServletRequestListener;</span><br><span class="line">public class MyRequestListener implements ServletRequestListener&#123;</span><br><span class="line"></span><br><span class="line">	// 对象销毁</span><br><span class="line">	@Override</span><br><span class="line">	public void requestDestroyed(ServletRequestEvent sre) &#123;</span><br><span class="line">		// 获取request中存放的数据</span><br><span class="line">		Object obj = sre.getServletRequest().getAttribute(&quot;cn&quot;);</span><br><span class="line">		System.out.println(obj);</span><br><span class="line">		System.out.println(&quot;MyRequestListener.requestDestroyed()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 对象创建</span><br><span class="line">	@Override</span><br><span class="line">	public void requestInitialized(ServletRequestEvent sre) &#123;</span><br><span class="line">		System.out.println(&quot;MyRequestListener.requestInitialized()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>+<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 监听request对象创建、销毁 --&gt;</span><br><span class="line">	&lt;listener&gt;</span><br><span class="line">		&lt;listener-class&gt;cn.acamy.a_life.MyRequestListener&lt;/listener-class&gt;</span><br><span class="line">	&lt;/listener&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="B-监听ServletContext对象创建或销毁"><a href="#B-监听ServletContext对象创建或销毁" class="headerlink" title="B. 监听ServletContext对象创建或销毁"></a>B. 监听ServletContext对象创建或销毁</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.ServletContextEvent;</span><br><span class="line">import javax.servlet.ServletContextListener;</span><br><span class="line"></span><br><span class="line">public class MyServletContextListener implements ServletContextListener&#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void contextDestroyed(ServletContextEvent sce) &#123;</span><br><span class="line">		System.out.println(&quot;MyServletContextListener.contextDestroyed()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void contextInitialized(ServletContextEvent sce) &#123;</span><br><span class="line">		System.out.println(&quot;1..........MyServletContextListener.contextInitialized()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>+<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 监听servletContext对象创建、销毁 --&gt;</span><br><span class="line">	&lt;listener&gt;</span><br><span class="line">		&lt;listener-class&gt;cn.acamy.a_life.MyServletContextListener&lt;/listener-class&gt;</span><br><span class="line">	&lt;/listener&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="C-监听Session对象创建、销毁"><a href="#C-监听Session对象创建、销毁" class="headerlink" title="C.监听Session对象创建、销毁"></a>C.监听Session对象创建、销毁</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.http.HttpSessionEvent;</span><br><span class="line">import javax.servlet.http.HttpSessionListener;</span><br><span class="line"></span><br><span class="line">public class MySessionListener implements HttpSessionListener&#123;</span><br><span class="line"></span><br><span class="line">	// 创建</span><br><span class="line">	@Override</span><br><span class="line">	public void sessionCreated(HttpSessionEvent se) &#123;</span><br><span class="line">		System.out.println(&quot;MySessionListener.sessionCreated()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 销毁</span><br><span class="line">	@Override</span><br><span class="line">	public void sessionDestroyed(HttpSessionEvent se) &#123;</span><br><span class="line">		System.out.println(&quot;MySessionListener.sessionDestroyed()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>+<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 监听session对象创建、销毁 --&gt;</span><br><span class="line">	&lt;listener&gt;</span><br><span class="line">		&lt;listener-class&gt;cn.itcast.a_life.MySessionListener&lt;/listener-class&gt;</span><br><span class="line">	&lt;/listener&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="D-监听session对象属性的变化"><a href="#D-监听session对象属性的变化" class="headerlink" title="D.监听session对象属性的变化"></a>D.监听session对象属性的变化</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.http.HttpSession;</span><br><span class="line">import javax.servlet.http.HttpSessionAttributeListener;</span><br><span class="line">import javax.servlet.http.HttpSessionBindingEvent;</span><br><span class="line"></span><br><span class="line">public class MySessionAttrListener implements HttpSessionAttributeListener &#123;</span><br><span class="line"></span><br><span class="line">	// 属性添加</span><br><span class="line">	@Override</span><br><span class="line">	public void attributeAdded(HttpSessionBindingEvent se) &#123;</span><br><span class="line">		// 先获取session对象</span><br><span class="line">		HttpSession session = se.getSession();</span><br><span class="line">		// 获取添加的属性</span><br><span class="line">		Object obj = session.getAttribute(&quot;userName&quot;);</span><br><span class="line">		// 测试</span><br><span class="line">		System.out.println(&quot;添加的属性：&quot; + obj);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 属性移除</span><br><span class="line">	@Override</span><br><span class="line">	public void attributeRemoved(HttpSessionBindingEvent se) &#123;</span><br><span class="line">		System.out.println(&quot;属性移除&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 属性被替换</span><br><span class="line">	@Override</span><br><span class="line">	public void attributeReplaced(HttpSessionBindingEvent se) &#123;</span><br><span class="line">		// 获取sesison对象</span><br><span class="line">		HttpSession session = se.getSession();</span><br><span class="line">		</span><br><span class="line">		// 获取替换前的值</span><br><span class="line">		Object old = se.getValue();</span><br><span class="line">		System.out.println(&quot;原来的值：&quot; + old);</span><br><span class="line">		</span><br><span class="line">		// 获取新值</span><br><span class="line">		Object obj_new = session.getAttribute(&quot;userName&quot;);</span><br><span class="line">		System.out.println(&quot;新值：&quot; + obj_new);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="E-监听此对象绑定到session上的过程"><a href="#E-监听此对象绑定到session上的过程" class="headerlink" title="E.监听此对象绑定到session上的过程"></a>E.监听此对象绑定到session上的过程</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.http.HttpSessionBindingEvent;</span><br><span class="line">import javax.servlet.http.HttpSessionBindingListener;</span><br><span class="line"></span><br><span class="line">public class Admin implements HttpSessionBindingListener &#123;</span><br><span class="line"></span><br><span class="line">	private int id;</span><br><span class="line">	private String name;</span><br><span class="line">	</span><br><span class="line">	public Admin() &#123;</span><br><span class="line">		super();</span><br><span class="line">	&#125;</span><br><span class="line">	public Admin(int id, String name) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.id = id;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	// 构造函数</span><br><span class="line">	public int getId() &#123;</span><br><span class="line">		return id;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setId(int id) &#123;</span><br><span class="line">		this.id = id;</span><br><span class="line">	&#125;</span><br><span class="line">	public String getName() &#123;</span><br><span class="line">		return name;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setName(String name) &#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	// 对象放入session</span><br><span class="line">	@Override</span><br><span class="line">	public void valueBound(HttpSessionBindingEvent event) &#123;</span><br><span class="line">		System.out.println(&quot;Admin对象已经放入session&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	// 对象从session中移除</span><br><span class="line">	@Override</span><br><span class="line">	public void valueUnbound(HttpSessionBindingEvent event) &#123;</span><br><span class="line">		System.out.println(&quot;Admin对象从session中移除！&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong><br>因为监听的对象是自己创建的对象，不是服务器对象,所以不用再进行web.xml配置</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/09/JavaWeb基础之Listener基本用法/#more">Read More</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -640,6 +773,12 @@ Interface HttpSessionListener</code></pre>
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/09/JavaWeb基础之Filter详解/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/yTYHJROm.jpg" alt="JavaWeb基础之Filter详解">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -670,17 +809,43 @@ Interface HttpSessionListener</code></pre>
             <blockquote>
 <p>Filter也称之为过滤器，如下图所示，浏览器在访问web资源时，如果服务器配置了过滤器，则该访问在获取到web资源之间会经过过滤器，在访问完后又会回到过滤器，最后经过服务器才返回浏览器。通过这种方法，我们可以实现权限访问控制、过滤敏感词汇、压缩响应信息等一些高级功能。</p>
 </blockquote>
-<p></p>
+<p><img src="http://&lt;!-- more --&gt;upload-images.jianshu.io/upload_images/5990755-645c5e7b90c99e5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="1-Filter开发步骤"><a href="#1-Filter开发步骤" class="headerlink" title="1.Filter开发步骤"></a>1.Filter开发步骤</h2><p>开发过滤器很简单，只需要经过编写java类，进行相关配置，就可以使用了。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-222f6a3c44884f01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="1-1-编写java类"><a href="#1-1-编写java类" class="headerlink" title="1.1 编写java类"></a>1.1 编写java类</h2><blockquote>
+<p>Servlet API中提供了一个Filter接口,我们通过实现该接口重写里面的方法就可以实现过滤器的功能。</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Enumeration;</span><br><span class="line"></span><br><span class="line">import javax.servlet.Filter;</span><br><span class="line">import javax.servlet.FilterChain;</span><br><span class="line">import javax.servlet.FilterConfig;</span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.ServletRequest;</span><br><span class="line">import javax.servlet.ServletResponse;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class HelloFilter implements Filter&#123;</span><br><span class="line">	</span><br><span class="line">	// 创建实例</span><br><span class="line">	public HelloFilter()&#123;</span><br><span class="line">		System.out.println(&quot;1. 创建过滤器实例&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line">		System.out.println(&quot;2. 执行过滤器初始化方法&quot;);</span><br><span class="line">		</span><br><span class="line">		// 获取过滤器在web.xml中配置的初始化参数</span><br><span class="line">		String encoding = filterConfig.getInitParameter(&quot;encoding&quot;);</span><br><span class="line">		System.out.println(encoding);</span><br><span class="line">		</span><br><span class="line">		// 获取过滤器在web.xml中配置的初始化参数 的名称</span><br><span class="line">		Enumeration&lt;String&gt; enums =  filterConfig.getInitParameterNames();</span><br><span class="line">		while (enums.hasMoreElements())&#123;</span><br><span class="line">			// 获取所有参数名称：encoding、path</span><br><span class="line">			String name = enums.nextElement();</span><br><span class="line">			// 获取名称对应的值</span><br><span class="line">			String value = filterConfig.getInitParameter(name);</span><br><span class="line">			System.out.println(name + &quot;\t&quot; + value);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 过滤器业务处理方法： 在请求到达servlet之前先进入此方法处理公用的业务逻辑操作</span><br><span class="line">	@Override</span><br><span class="line">	public void doFilter(ServletRequest request, ServletResponse response,</span><br><span class="line">			FilterChain chain) throws IOException, ServletException &#123;</span><br><span class="line">		System.out.println(&quot;3. 执行过滤器业务处理方法&quot;);</span><br><span class="line">		// 放行 (去到Servlet)</span><br><span class="line">		// 如果有下一个过滤器，进入下一个过滤器，否则就执行访问servlet</span><br><span class="line">		chain.doFilter(request, response);</span><br><span class="line">		</span><br><span class="line">		System.out.println(&quot;5. Servlet处理完成，又回到过滤器&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void destroy() &#123;</span><br><span class="line">		System.out.println(&quot;6. 销毁过滤器实例&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-进行相关配置"><a href="#1-2-进行相关配置" class="headerlink" title="1.2 进行相关配置"></a>1.2 进行相关配置</h2><blockquote>
+<p>在web.xml中添加如下内容：</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">   &lt;filter&gt;</span><br><span class="line">    &lt;!-- 过滤器名称 	--&gt;</span><br><span class="line">	&lt;filter-name&gt;hello_filter&lt;/filter-name&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 过滤器对应的实现类 	--&gt;</span><br><span class="line">	&lt;filter-class&gt;cn.itcast.a_filter_hello.HelloFilter&lt;/filter-class&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 过滤器初始化参数 	--&gt;</span><br><span class="line">	&lt;init-param&gt;</span><br><span class="line">		&lt;param-name&gt;encoding&lt;/param-name&gt;</span><br><span class="line">		&lt;param-value&gt;UTF-8&lt;/param-value&gt;</span><br><span class="line">	&lt;/init-param&gt;</span><br><span class="line">	&lt;init-param&gt;</span><br><span class="line">		&lt;param-name&gt;path&lt;/param-name&gt;</span><br><span class="line">		&lt;param-value&gt;c:/...&lt;/param-value&gt;</span><br><span class="line">	&lt;/init-param&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">	&lt;filter-name&gt;hello_filter&lt;/filter-name&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 过滤器过滤模式，/* 表示过滤所有资源 	--&gt;</span><br><span class="line">	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+<p><strong> 辅助servlet:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class ServletTest extends HttpServlet &#123;</span><br><span class="line">	public void doGet(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		System.out.println(&quot;I&apos;m a test servlet!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当我们两次访问辅助测试servlet时效果如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-a2624a268ca42b5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="2-FilterChain"><a href="#2-FilterChain" class="headerlink" title="2.FilterChain"></a>2.FilterChain</h2><blockquote>
+<p>即Filter链，在一个web应用中，可以开发编写多个Filter，这些Filter组合起来称之为一个Filter链。web服务器根据Filter在web.xml文件中的注册顺序，决定先调用哪个Filter，当第一个Filter的doFilter方法被调用时，web服务器会创建一个代表Filter链的FilterChain对象传递给该方法。在doFilter方法中，开发人员如果调用了FilterChain对象的doFilter方法，则web服务器会检查FilterChain对象中是否还有filter，如果有，则调用第2个filter，如果没有，则调用目标资源。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-1d8ede595ceae181.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="3-Filter生命周期"><a href="#3-Filter生命周期" class="headerlink" title="3.Filter生命周期"></a>3.Filter生命周期</h2><blockquote>
+<p>通过上面实例， 可以看到在启动tomcat服务器时就执行了过滤器的构造方法和初始化方法，在每次访问servlet时都会进入doFilter()方法，访问完servlet方法后又会返回到doFilter()方法，而destroy()方法只在停止服务器时才会执行一次。</p>
+</blockquote>
+<p>下图通过时序图展示了有两个过滤器的Filter执行流程：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-39ad483344d96dc3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="4-Filter映射"><a href="#4-Filter映射" class="headerlink" title="4.Filter映射"></a>4.Filter映射</h2><blockquote>
+<p><strong><filter-mapping></filter-mapping></strong>元素用于设置一个 Filter 所负责拦截的资源。一个Filter拦截的资源可通过两种方式来指定：Servlet 名称和资源访问的请求路径</p>
+</blockquote>
+<p><strong><filter-name></filter-name></strong>子元素用于设置filter的注册名称。该值必须是在<filter>元素中声明过的过滤器的名字<br><code>&lt;filter-name&gt;hello_filter&lt;/filter-name&gt;</code></filter></p>
+<p><strong><url-pattern></url-pattern></strong>设置 filter 所拦截的请求路径(过滤器关联的URL样式)<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 拦截指定的jsp  --&gt;</span><br><span class="line">	 &lt;url-pattern&gt;/index.jsp&lt;/url-pattern&gt;</span><br><span class="line">	 &lt;url-pattern&gt;/list.jsp&lt;/url-pattern&gt;</span><br><span class="line">		 </span><br><span class="line">&lt;!-- 拦截所有的jsp --&gt;</span><br><span class="line">	 &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong><servlet-name></servlet-name></strong>指定过滤器所拦截的Servlet名称。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 3. 根据servlet的内部名称拦截 --&gt;</span><br><span class="line">	 &lt;servlet-name&gt;IndexServlet&lt;/servlet-name&gt;		   </span><br><span class="line">&lt;!-- 拦截指定的servlet  --&gt;</span><br><span class="line">	 &lt;url-pattern&gt;/index&lt;/url-pattern&gt;</span><br><span class="line">```		 </span><br><span class="line"></span><br><span class="line">**&lt;dispatcher&gt;**指定过滤器所拦截的资源被 Servlet 容器调用的方式，可以是REQUEST,INCLUDE,FORWARD和ERROR之一，默认REQUEST。用户可以设置多个&lt;dispatcher&gt; 子元素用来指定 Filter 对资源的多种调用方式进行拦截。</span><br></pre></td></tr></table></figure></p>
+<!-- 拦截直接访问的请求或者重定向的资源  -->
+<pre><code>&lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;
+&lt;dispatcher&gt;FORWARD&lt;/dispatcher&gt;
+</code></pre><p><code>`</code></p>
+<p><dispatcher> 子元素可以设置的值及其意义：<br><strong>REQUEST：</strong>当用户直接访问页面时，Web容器将会调用过滤器。如果目标资源是通过RequestDispatcher的include()或forward()方法访问时，那么该过滤器就不会被调用。<br><strong>INCLUDE</strong>：如果目标资源是通过RequestDispatcher的include()方法访问时，那么该过滤器将被调用。除此之外，该过滤器不会被调用。<br><strong>FORWARD</strong>：如果目标资源是通过RequestDispatcher的forward()方法访问时，那么该过滤器将被调用，除此之外，该过滤器不会被调用。<br><strong>ERROR</strong>：如果目标资源是通过声明式异常处理机制调用时，那么该过滤器将被调用。除此之外，过滤器不会被调用。</dispatcher></p>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/09/JavaWeb基础之Filter详解/#more">Read More</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -767,7 +932,7 @@ Interface HttpSessionListener</code></pre>
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        19
+                        17
                     </p>
                 </div>
             </div>
@@ -777,7 +942,7 @@ Interface HttpSessionListener</code></pre>
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        0
                     </p>
                 </div>
             </div>
@@ -987,22 +1152,6 @@ Interface HttpSessionListener</code></pre>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/编程/">
-            <span class="level-start">
-                <span class="level-item">编程</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/编程/java/">
-            <span class="level-start">
-                <span class="level-item">java</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/计算机网络/">
             <span class="level-start">
                 <span class="level-item">计算机网络</span>
@@ -1024,7 +1173,7 @@ Interface HttpSessionListener</code></pre>
                 <span class="level-item">随笔</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li>
             </ul>
@@ -1038,7 +1187,7 @@ Interface HttpSessionListener</code></pre>
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+        
     </div>
 </div>
 
@@ -1055,18 +1204,18 @@ Interface HttpSessionListener</code></pre>
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -1076,7 +1225,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -1095,7 +1244,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -1114,7 +1263,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -1133,7 +1282,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1161,23 +1310,12 @@ Interface HttpSessionListener</code></pre>
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1337,28 +1475,6 @@ Interface HttpSessionListener</code></pre>
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>
@@ -1384,18 +1500,18 @@ Interface HttpSessionListener</code></pre>
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -1405,7 +1521,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -1424,7 +1540,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -1443,7 +1559,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -1462,7 +1578,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1490,23 +1606,12 @@ Interface HttpSessionListener</code></pre>
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1666,28 +1771,6 @@ Interface HttpSessionListener</code></pre>
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>

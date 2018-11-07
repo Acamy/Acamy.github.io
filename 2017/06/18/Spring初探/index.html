@@ -7,20 +7,20 @@
 
 
 
-    <meta name="description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序">
+    <meta name="description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序 1.1 引入jar文件 spring-framework-3.2.5.RELEASEcommons-logging-1.1.3.jar           日志spring-beans-3.2.5.RELEASE.jar        bean节点spring-context-3.2.5.RELEASE.jar">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring初探">
 <meta property="og:url" content="http://yoursite.com/2017/06/18/Spring初探/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序">
+<meta property="og:description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序 1.1 引入jar文件 spring-framework-3.2.5.RELEASEcommons-logging-1.1.3.jar           日志spring-beans-3.2.5.RELEASE.jar        bean节点spring-context-3.2.5.RELEASE.jar">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/str<a id=">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/str<!-- more -->ip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-ce7e62503da00fea.png">
-<meta property="og:updated_time" content="2018-11-06T15:51:49.742Z">
+<meta property="og:updated_time" content="2018-11-07T01:46:33.586Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring初探">
-<meta name="twitter:description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/str<a id=">
+<meta name="twitter:description" content="可以解决对象创建以及对象之间依赖关系的一种框架  1.第一个Spring程序 1.1 引入jar文件 spring-framework-3.2.5.RELEASEcommons-logging-1.1.3.jar           日志spring-beans-3.2.5.RELEASE.jar        bean节点spring-context-3.2.5.RELEASE.jar">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/str<!-- more -->ip%7CimageView2/2/w/1240">
 
 
 
@@ -153,6 +153,12 @@
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/gallery/j67UAmRo.jpg" alt="Spring初探">
+        </span>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -182,7 +188,7 @@
             <blockquote>
 <p>可以解决对象创建以及对象之间依赖关系的一种框架</p>
 </blockquote>
-<h2 id="1-第一个Spring程序"><a href="#1-第一个Spring程序" class="headerlink" title="1.第一个Spring程序"></a>1.第一个Spring程序</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/str<a id=" more"="">ip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="1-第一个Spring程序"><a href="#1-第一个Spring程序" class="headerlink" title="1.第一个Spring程序"></a>1.第一个Spring程序</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990755-be72ba1938962dbb.png?imageMogr2/auto-orient/str&lt;!-- more --&gt;ip%7CimageView2/2/w/1240" alt=""></p>
 <h3 id="1-1-引入jar文件-spring-framework-3-2-5-RELEASE"><a href="#1-1-引入jar文件-spring-framework-3-2-5-RELEASE" class="headerlink" title="1.1 引入jar文件 spring-framework-3.2.5.RELEASE"></a>1.1 引入jar文件 spring-framework-3.2.5.RELEASE</h3><p>commons-logging-1.1.3.jar           日志<br>spring-beans-3.2.5.RELEASE.jar        bean节点<br>spring-context-3.2.5.RELEASE.jar       spring上下文节点<br>spring-core-3.2.5.RELEASE.jar         spring核心功能<br>spring-expression-3.2.5.RELEASE.jar    spring表达式相关表</p>
 <h3 id="1-2-配置applicationContext-xml"><a href="#1-2-配置applicationContext-xml" class="headerlink" title="1.2 配置applicationContext.xml"></a>1.2 配置applicationContext.xml</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- IOC容器的配置： 要创建的所有的对象都配置在这里--&gt;</span><br><span class="line">	&lt;bean id=&quot;user&quot; class=&quot;cn.itcast.a_hello.User&quot; init-method=&quot;init_user&quot; destroy-method=&quot;destroy_user&quot; scope=&quot;singleton&quot; lazy-init=&quot;false&quot;&gt;&lt;/bean&gt;	 </span><br><span class="line">	 </span><br><span class="line">	&lt;bean id=&quot;user1&quot; class=&quot;cn.itcast.a_hello.User&quot;&gt;&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="1-3-测试"><a href="#1-3-测试" class="headerlink" title="1.3 测试"></a>1.3 测试</h3><h4 id="测试一：得到IOC容器的两种方法"><a href="#测试一：得到IOC容器的两种方法" class="headerlink" title="测试一：得到IOC容器的两种方法"></a>测试一：得到IOC容器的两种方法</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class App1_get_ioc &#123;</span><br><span class="line">	// 1. 通过工厂类得到IOC容器创建的对象</span><br><span class="line">	@Test</span><br><span class="line">	public void testIOC() throws Exception &#123;</span><br><span class="line">		// 创建对象</span><br><span class="line">		// User user = new User();		</span><br><span class="line">		// 现在，把对象的创建交给spring的IOC容器</span><br><span class="line">		Resource resource = new ClassPathResource(&quot;cn/acamy/a_hello/applicationContext.xml&quot;);</span><br><span class="line">		// 创建容器对象(Bean的工厂), IOC容器 = 工厂类 + applicationContext.xml</span><br><span class="line">		BeanFactory factory = new XmlBeanFactory(resource);</span><br><span class="line">		// 得到容器创建的对象</span><br><span class="line">		User user = (User) factory.getBean(&quot;user&quot;);		</span><br><span class="line">		System.out.println(user.getId());		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//2. （方便）直接得到IOC容器对象 </span><br><span class="line">	@Test</span><br><span class="line">	public void testAc() throws Exception &#123;</span><br><span class="line">		// 得到IOC容器对象</span><br><span class="line">		ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;cn/acamy/a_hello/applicationContext.xml&quot;);</span><br><span class="line">		// 从容器中获取bean</span><br><span class="line">		User user = (User) ac.getBean(&quot;user&quot;);		</span><br><span class="line">		System.out.println(user);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -311,7 +317,7 @@ window.changyan.api.config({
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        19
+                        17
                     </p>
                 </div>
             </div>
@@ -321,7 +327,7 @@ window.changyan.api.config({
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        0
                     </p>
                 </div>
             </div>
@@ -531,22 +537,6 @@ window.changyan.api.config({
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/编程/">
-            <span class="level-start">
-                <span class="level-item">编程</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/编程/java/">
-            <span class="level-start">
-                <span class="level-item">java</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/计算机网络/">
             <span class="level-start">
                 <span class="level-item">计算机网络</span>
@@ -568,7 +558,7 @@ window.changyan.api.config({
                 <span class="level-item">随笔</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li>
             </ul>
@@ -582,7 +572,7 @@ window.changyan.api.config({
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+        
     </div>
 </div>
 
@@ -599,18 +589,18 @@ window.changyan.api.config({
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -620,7 +610,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -639,7 +629,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -658,7 +648,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -677,7 +667,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -705,23 +695,12 @@ window.changyan.api.config({
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -881,28 +860,6 @@ window.changyan.api.config({
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>
@@ -928,18 +885,18 @@ window.changyan.api.config({
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -949,7 +906,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -968,7 +925,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -987,7 +944,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -1006,7 +963,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1034,23 +991,12 @@ window.changyan.api.config({
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1210,28 +1156,6 @@ window.changyan.api.config({
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>

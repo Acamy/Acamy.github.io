@@ -7,18 +7,18 @@
 
 
 
-    <meta name="description" content="触发器是当某个事件发生时自动地隐式运行。DML触发器指的是在对表进行增删改操作引发的自动执行事件。  创建触发器的一般语法：123456789CREATE [OR REPLACE] TRIGGER trigger_name&amp;#123;BEFORE | AFTER &amp;#125;&amp;#123;INSERT | DELETE | UPD&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;">
+    <meta name="description" content="触发器是当某个事件发生时自动地隐式运行。DML触发器指的是在对表进行增删改操作引发的自动执行事件。  创建触发器的一般语法：123456789CREATE [OR REPLACE] TRIGGER trigger_name&amp;#123;BEFORE | AFTER &amp;#125;&amp;#123;INSERT | DELETE | UPD&amp;lt;!-- more --&amp;gt;ATE [OF column">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle之DML触发器基本使用">
 <meta property="og:url" content="http://yoursite.com/2017/06/07/Oracle之DML触发器基本使用/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="触发器是当某个事件发生时自动地隐式运行。DML触发器指的是在对表进行增删改操作引发的自动执行事件。  创建触发器的一般语法：123456789CREATE [OR REPLACE] TRIGGER trigger_name&amp;#123;BEFORE | AFTER &amp;#125;&amp;#123;INSERT | DELETE | UPD&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;">
+<meta property="og:description" content="触发器是当某个事件发生时自动地隐式运行。DML触发器指的是在对表进行增删改操作引发的自动执行事件。  创建触发器的一般语法：123456789CREATE [OR REPLACE] TRIGGER trigger_name&amp;#123;BEFORE | AFTER &amp;#125;&amp;#123;INSERT | DELETE | UPD&amp;lt;!-- more --&amp;gt;ATE [OF column">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-1904ac020f663cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-06T15:52:02.157Z">
+<meta property="og:updated_time" content="2018-11-07T01:47:53.566Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle之DML触发器基本使用">
-<meta name="twitter:description" content="触发器是当某个事件发生时自动地隐式运行。DML触发器指的是在对表进行增删改操作引发的自动执行事件。  创建触发器的一般语法：123456789CREATE [OR REPLACE] TRIGGER trigger_name&amp;#123;BEFORE | AFTER &amp;#125;&amp;#123;INSERT | DELETE | UPD&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;">
+<meta name="twitter:description" content="触发器是当某个事件发生时自动地隐式运行。DML触发器指的是在对表进行增删改操作引发的自动执行事件。  创建触发器的一般语法：123456789CREATE [OR REPLACE] TRIGGER trigger_name&amp;#123;BEFORE | AFTER &amp;#125;&amp;#123;INSERT | DELETE | UPD&amp;lt;!-- more --&amp;gt;ATE [OF column">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-1904ac020f663cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -152,6 +152,12 @@
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/gallery/Ua3oEADq.jpg" alt="Oracle之DML触发器基本使用">
+        </span>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -181,7 +187,7 @@
             <blockquote>
 <p>触发器是当某个事件发生时自动地隐式运行。DML触发器指的是在对表进行增删改操作引发的自动执行事件。</p>
 </blockquote>
-<p>创建触发器的一般语法：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE [OR REPLACE] TRIGGER trigger_name</span><br><span class="line">&#123;BEFORE | AFTER &#125;</span><br><span class="line">&#123;INSERT | DELETE | UPD&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt;ATE [OF column [, column …]]&#125;</span><br><span class="line">[OR &#123;INSERT | DELETE | UPDATE [OF column [, column …]]&#125;...]</span><br><span class="line">ON [schema.]table_name | [schema.]view_name</span><br><span class="line">[REFERENCING &#123;OLD [AS] old | NEW [AS] new| PARENT as parent&#125;]</span><br><span class="line">[FOR EACH ROW ]</span><br><span class="line">[WHEN condition]</span><br><span class="line">PL/SQL_BLOCK | CALL procedure_name;</span><br></pre></td></tr></table></figure></p>
+<p>创建触发器的一般语法：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE [OR REPLACE] TRIGGER trigger_name</span><br><span class="line">&#123;BEFORE | AFTER &#125;</span><br><span class="line">&#123;INSERT | DELETE | UPD&lt;!-- more --&gt;ATE [OF column [, column …]]&#125;</span><br><span class="line">[OR &#123;INSERT | DELETE | UPDATE [OF column [, column …]]&#125;...]</span><br><span class="line">ON [schema.]table_name | [schema.]view_name</span><br><span class="line">[REFERENCING &#123;OLD [AS] old | NEW [AS] new| PARENT as parent&#125;]</span><br><span class="line">[FOR EACH ROW ]</span><br><span class="line">[WHEN condition]</span><br><span class="line">PL/SQL_BLOCK | CALL procedure_name;</span><br></pre></td></tr></table></figure></p>
 <p>其中：<br>BEFORE 和AFTER指出触发器的触发时序分别为前触发和后触发方式。<br>FOR EACH ROW选项说明触发器为行触发器。<br>REFERENCING 子句说明相关名称，在行触发器的PL/SQL块和WHEN 子句中可以使用相关名称参照当前的新、旧列值，默认的相关名称分别为OLD和NEW。触发器的PL/SQL块中应用相关名称时，必须在它们之前加冒号(:)，但在WHEN子句中则不能加冒号。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-1904ac020f663cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>WHEN 子句说明触发约束条件。</p>
@@ -285,7 +291,7 @@ window.changyan.api.config({
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        19
+                        17
                     </p>
                 </div>
             </div>
@@ -295,7 +301,7 @@ window.changyan.api.config({
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        0
                     </p>
                 </div>
             </div>
@@ -505,22 +511,6 @@ window.changyan.api.config({
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/编程/">
-            <span class="level-start">
-                <span class="level-item">编程</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/编程/java/">
-            <span class="level-start">
-                <span class="level-item">java</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/计算机网络/">
             <span class="level-start">
                 <span class="level-item">计算机网络</span>
@@ -542,7 +532,7 @@ window.changyan.api.config({
                 <span class="level-item">随笔</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li>
             </ul>
@@ -556,7 +546,7 @@ window.changyan.api.config({
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+        
     </div>
 </div>
 
@@ -573,18 +563,18 @@ window.changyan.api.config({
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -594,7 +584,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -613,7 +603,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -632,7 +622,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -651,7 +641,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -679,23 +669,12 @@ window.changyan.api.config({
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -855,28 +834,6 @@ window.changyan.api.config({
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>
@@ -902,18 +859,18 @@ window.changyan.api.config({
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -923,7 +880,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -942,7 +899,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -961,7 +918,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -980,7 +937,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1008,23 +965,12 @@ window.changyan.api.config({
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1184,28 +1130,6 @@ window.changyan.api.config({
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>

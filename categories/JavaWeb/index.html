@@ -158,6 +158,12 @@
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/09/JavaWeb基础之Internationalization/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/tkIF1vRw.jpg" alt="JavaWeb基础之Internationalization">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -190,7 +196,7 @@
 <h2 id="1-Locale"><a href="#1-Locale" class="headerlink" title="1.Locale"></a>1.Locale</h2><blockquote>
 <p>本地化对象,封装语言、国家信息的对象，由java.util提供</p>
 </blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">      // 模拟中国语言等环境</span><br><span class="line">// Locale locale = Locale.CHI&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt;NA;</span><br><span class="line">Locale locale = Locale.getDefault(); // 当前系统默认的语言环境</span><br><span class="line">System.out.println(locale.getCountry()); // CN 国家的简称</span><br><span class="line">System.out.println(locale.getDisplayCountry()); //中国  国家名称</span><br><span class="line">System.out.println(locale.getLanguage()); // zh 语言简称</span><br><span class="line"></span><br><span class="line">// 模拟美国国家</span><br><span class="line">Locale l_us = Locale.US;</span><br><span class="line">System.out.println(l_us.getCountry()); //US</span><br><span class="line">System.out.println(l_us.getDisplayCountry());//美国</span><br><span class="line">System.out.println(l_us.getLanguage());//en</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">      // 模拟中国语言等环境</span><br><span class="line">// Locale locale = Locale.CHI&lt;!-- more --&gt;NA;</span><br><span class="line">Locale locale = Locale.getDefault(); // 当前系统默认的语言环境</span><br><span class="line">System.out.println(locale.getCountry()); // CN 国家的简称</span><br><span class="line">System.out.println(locale.getDisplayCountry()); //中国  国家名称</span><br><span class="line">System.out.println(locale.getLanguage()); // zh 语言简称</span><br><span class="line"></span><br><span class="line">// 模拟美国国家</span><br><span class="line">Locale l_us = Locale.US;</span><br><span class="line">System.out.println(l_us.getCountry()); //US</span><br><span class="line">System.out.println(l_us.getDisplayCountry());//美国</span><br><span class="line">System.out.println(l_us.getLanguage());//en</span><br></pre></td></tr></table></figure>
 <h2 id="2-ResourceBundle"><a href="#2-ResourceBundle" class="headerlink" title="2.ResourceBundle"></a>2.ResourceBundle</h2><blockquote>
 <p>用于描述一个资源包，并且 ResourceBundle类提供了相应的方法getBundle，这个方法可以根据来访者的国家地区自动获取与之对应的资源文件予以显示</p>
 </blockquote>
@@ -216,6 +222,12 @@
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/09/JavaWeb基础之Listener基本用法/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/3mS4FXaA.jpg" alt="JavaWeb基础之Listener基本用法">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -247,17 +259,23 @@
 <p>用来监听特定对象的创建或销毁、属性的变化</p>
 </blockquote>
 <h2 id="1-监听器接口的分类"><a href="#1-监听器接口的分类" class="headerlink" title="1.监听器接口的分类"></a>1.监听器接口的分类</h2><h3 id="1-1、监听对象创建-销毁的监听器接口"><a href="#1-1、监听对象创建-销毁的监听器接口" class="headerlink" title="1.1、监听对象创建/销毁的监听器接口"></a>1.1、监听对象创建/销毁的监听器接口</h3><pre><code>Interface ServletRequestListener     监听request对象的创建或销毁
-Interface HttpSessionListener</code></pre>
+Interface HttpSessionListener  &lt;!-- more --&gt;      监听session对象的创建或销毁
+Interface ServletContextListener     监听servletContext对象的创建或销毁
+</code></pre><p>###1.2、监听对象属性的变化<br>    Interface ServletRequestAttributeListener 监听request对象属性变化: 添加、移除、修改<br>    Interface HttpSessionAttributeListener    监听session对象属性变化: 添加、移除、修改<br>Interface ServletContextAttributeListener  监听servletContext对象属性变化</p>
+<p>###1.3、session相关监听器<br>    Interface HttpSessionBindingListener   监听对象绑定到session上的事件<br>    Interface HttpSessionActivationListener(了解) 监听session序列化及反序列化的事件</p>
+<h2 id="2-监听器的开发"><a href="#2-监听器的开发" class="headerlink" title="2.监听器的开发"></a>2.监听器的开发</h2><h3 id="2-1-步骤："><a href="#2-1-步骤：" class="headerlink" title="2.1 步骤："></a>2.1 步骤：</h3><p>2.1.1.写一个普通java类，实现相关接口；<br>2.1.2.配置(web.xml)</p>
+<h3 id="2-2-实例"><a href="#2-2-实例" class="headerlink" title="2.2 实例"></a>2.2 实例</h3><h4 id="A-监听request对象的创建或销毁"><a href="#A-监听request对象的创建或销毁" class="headerlink" title="A.监听request对象的创建或销毁"></a>A.监听request对象的创建或销毁</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.ServletRequestEvent;</span><br><span class="line">import javax.servlet.ServletRequestListener;</span><br><span class="line">public class MyRequestListener implements ServletRequestListener&#123;</span><br><span class="line"></span><br><span class="line">	// 对象销毁</span><br><span class="line">	@Override</span><br><span class="line">	public void requestDestroyed(ServletRequestEvent sre) &#123;</span><br><span class="line">		// 获取request中存放的数据</span><br><span class="line">		Object obj = sre.getServletRequest().getAttribute(&quot;cn&quot;);</span><br><span class="line">		System.out.println(obj);</span><br><span class="line">		System.out.println(&quot;MyRequestListener.requestDestroyed()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 对象创建</span><br><span class="line">	@Override</span><br><span class="line">	public void requestInitialized(ServletRequestEvent sre) &#123;</span><br><span class="line">		System.out.println(&quot;MyRequestListener.requestInitialized()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>+<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 监听request对象创建、销毁 --&gt;</span><br><span class="line">	&lt;listener&gt;</span><br><span class="line">		&lt;listener-class&gt;cn.acamy.a_life.MyRequestListener&lt;/listener-class&gt;</span><br><span class="line">	&lt;/listener&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="B-监听ServletContext对象创建或销毁"><a href="#B-监听ServletContext对象创建或销毁" class="headerlink" title="B. 监听ServletContext对象创建或销毁"></a>B. 监听ServletContext对象创建或销毁</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.ServletContextEvent;</span><br><span class="line">import javax.servlet.ServletContextListener;</span><br><span class="line"></span><br><span class="line">public class MyServletContextListener implements ServletContextListener&#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void contextDestroyed(ServletContextEvent sce) &#123;</span><br><span class="line">		System.out.println(&quot;MyServletContextListener.contextDestroyed()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void contextInitialized(ServletContextEvent sce) &#123;</span><br><span class="line">		System.out.println(&quot;1..........MyServletContextListener.contextInitialized()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>+<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 监听servletContext对象创建、销毁 --&gt;</span><br><span class="line">	&lt;listener&gt;</span><br><span class="line">		&lt;listener-class&gt;cn.acamy.a_life.MyServletContextListener&lt;/listener-class&gt;</span><br><span class="line">	&lt;/listener&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="C-监听Session对象创建、销毁"><a href="#C-监听Session对象创建、销毁" class="headerlink" title="C.监听Session对象创建、销毁"></a>C.监听Session对象创建、销毁</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.http.HttpSessionEvent;</span><br><span class="line">import javax.servlet.http.HttpSessionListener;</span><br><span class="line"></span><br><span class="line">public class MySessionListener implements HttpSessionListener&#123;</span><br><span class="line"></span><br><span class="line">	// 创建</span><br><span class="line">	@Override</span><br><span class="line">	public void sessionCreated(HttpSessionEvent se) &#123;</span><br><span class="line">		System.out.println(&quot;MySessionListener.sessionCreated()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 销毁</span><br><span class="line">	@Override</span><br><span class="line">	public void sessionDestroyed(HttpSessionEvent se) &#123;</span><br><span class="line">		System.out.println(&quot;MySessionListener.sessionDestroyed()&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>+<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 监听session对象创建、销毁 --&gt;</span><br><span class="line">	&lt;listener&gt;</span><br><span class="line">		&lt;listener-class&gt;cn.itcast.a_life.MySessionListener&lt;/listener-class&gt;</span><br><span class="line">	&lt;/listener&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="D-监听session对象属性的变化"><a href="#D-监听session对象属性的变化" class="headerlink" title="D.监听session对象属性的变化"></a>D.监听session对象属性的变化</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.http.HttpSession;</span><br><span class="line">import javax.servlet.http.HttpSessionAttributeListener;</span><br><span class="line">import javax.servlet.http.HttpSessionBindingEvent;</span><br><span class="line"></span><br><span class="line">public class MySessionAttrListener implements HttpSessionAttributeListener &#123;</span><br><span class="line"></span><br><span class="line">	// 属性添加</span><br><span class="line">	@Override</span><br><span class="line">	public void attributeAdded(HttpSessionBindingEvent se) &#123;</span><br><span class="line">		// 先获取session对象</span><br><span class="line">		HttpSession session = se.getSession();</span><br><span class="line">		// 获取添加的属性</span><br><span class="line">		Object obj = session.getAttribute(&quot;userName&quot;);</span><br><span class="line">		// 测试</span><br><span class="line">		System.out.println(&quot;添加的属性：&quot; + obj);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 属性移除</span><br><span class="line">	@Override</span><br><span class="line">	public void attributeRemoved(HttpSessionBindingEvent se) &#123;</span><br><span class="line">		System.out.println(&quot;属性移除&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 属性被替换</span><br><span class="line">	@Override</span><br><span class="line">	public void attributeReplaced(HttpSessionBindingEvent se) &#123;</span><br><span class="line">		// 获取sesison对象</span><br><span class="line">		HttpSession session = se.getSession();</span><br><span class="line">		</span><br><span class="line">		// 获取替换前的值</span><br><span class="line">		Object old = se.getValue();</span><br><span class="line">		System.out.println(&quot;原来的值：&quot; + old);</span><br><span class="line">		</span><br><span class="line">		// 获取新值</span><br><span class="line">		Object obj_new = session.getAttribute(&quot;userName&quot;);</span><br><span class="line">		System.out.println(&quot;新值：&quot; + obj_new);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="E-监听此对象绑定到session上的过程"><a href="#E-监听此对象绑定到session上的过程" class="headerlink" title="E.监听此对象绑定到session上的过程"></a>E.监听此对象绑定到session上的过程</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.http.HttpSessionBindingEvent;</span><br><span class="line">import javax.servlet.http.HttpSessionBindingListener;</span><br><span class="line"></span><br><span class="line">public class Admin implements HttpSessionBindingListener &#123;</span><br><span class="line"></span><br><span class="line">	private int id;</span><br><span class="line">	private String name;</span><br><span class="line">	</span><br><span class="line">	public Admin() &#123;</span><br><span class="line">		super();</span><br><span class="line">	&#125;</span><br><span class="line">	public Admin(int id, String name) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.id = id;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	// 构造函数</span><br><span class="line">	public int getId() &#123;</span><br><span class="line">		return id;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setId(int id) &#123;</span><br><span class="line">		this.id = id;</span><br><span class="line">	&#125;</span><br><span class="line">	public String getName() &#123;</span><br><span class="line">		return name;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setName(String name) &#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	// 对象放入session</span><br><span class="line">	@Override</span><br><span class="line">	public void valueBound(HttpSessionBindingEvent event) &#123;</span><br><span class="line">		System.out.println(&quot;Admin对象已经放入session&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	// 对象从session中移除</span><br><span class="line">	@Override</span><br><span class="line">	public void valueUnbound(HttpSessionBindingEvent event) &#123;</span><br><span class="line">		System.out.println(&quot;Admin对象从session中移除！&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong><br>因为监听的对象是自己创建的对象，不是服务器对象,所以不用再进行web.xml配置</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/09/JavaWeb基础之Listener基本用法/#more">Read More</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -268,6 +286,12 @@ Interface HttpSessionListener</code></pre>
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/09/JavaWeb基础之Filter详解/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/yTYHJROm.jpg" alt="JavaWeb基础之Filter详解">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -298,17 +322,43 @@ Interface HttpSessionListener</code></pre>
             <blockquote>
 <p>Filter也称之为过滤器，如下图所示，浏览器在访问web资源时，如果服务器配置了过滤器，则该访问在获取到web资源之间会经过过滤器，在访问完后又会回到过滤器，最后经过服务器才返回浏览器。通过这种方法，我们可以实现权限访问控制、过滤敏感词汇、压缩响应信息等一些高级功能。</p>
 </blockquote>
-<p></p>
+<p><img src="http://&lt;!-- more --&gt;upload-images.jianshu.io/upload_images/5990755-645c5e7b90c99e5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="1-Filter开发步骤"><a href="#1-Filter开发步骤" class="headerlink" title="1.Filter开发步骤"></a>1.Filter开发步骤</h2><p>开发过滤器很简单，只需要经过编写java类，进行相关配置，就可以使用了。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-222f6a3c44884f01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="1-1-编写java类"><a href="#1-1-编写java类" class="headerlink" title="1.1 编写java类"></a>1.1 编写java类</h2><blockquote>
+<p>Servlet API中提供了一个Filter接口,我们通过实现该接口重写里面的方法就可以实现过滤器的功能。</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Enumeration;</span><br><span class="line"></span><br><span class="line">import javax.servlet.Filter;</span><br><span class="line">import javax.servlet.FilterChain;</span><br><span class="line">import javax.servlet.FilterConfig;</span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.ServletRequest;</span><br><span class="line">import javax.servlet.ServletResponse;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class HelloFilter implements Filter&#123;</span><br><span class="line">	</span><br><span class="line">	// 创建实例</span><br><span class="line">	public HelloFilter()&#123;</span><br><span class="line">		System.out.println(&quot;1. 创建过滤器实例&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line">		System.out.println(&quot;2. 执行过滤器初始化方法&quot;);</span><br><span class="line">		</span><br><span class="line">		// 获取过滤器在web.xml中配置的初始化参数</span><br><span class="line">		String encoding = filterConfig.getInitParameter(&quot;encoding&quot;);</span><br><span class="line">		System.out.println(encoding);</span><br><span class="line">		</span><br><span class="line">		// 获取过滤器在web.xml中配置的初始化参数 的名称</span><br><span class="line">		Enumeration&lt;String&gt; enums =  filterConfig.getInitParameterNames();</span><br><span class="line">		while (enums.hasMoreElements())&#123;</span><br><span class="line">			// 获取所有参数名称：encoding、path</span><br><span class="line">			String name = enums.nextElement();</span><br><span class="line">			// 获取名称对应的值</span><br><span class="line">			String value = filterConfig.getInitParameter(name);</span><br><span class="line">			System.out.println(name + &quot;\t&quot; + value);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 过滤器业务处理方法： 在请求到达servlet之前先进入此方法处理公用的业务逻辑操作</span><br><span class="line">	@Override</span><br><span class="line">	public void doFilter(ServletRequest request, ServletResponse response,</span><br><span class="line">			FilterChain chain) throws IOException, ServletException &#123;</span><br><span class="line">		System.out.println(&quot;3. 执行过滤器业务处理方法&quot;);</span><br><span class="line">		// 放行 (去到Servlet)</span><br><span class="line">		// 如果有下一个过滤器，进入下一个过滤器，否则就执行访问servlet</span><br><span class="line">		chain.doFilter(request, response);</span><br><span class="line">		</span><br><span class="line">		System.out.println(&quot;5. Servlet处理完成，又回到过滤器&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void destroy() &#123;</span><br><span class="line">		System.out.println(&quot;6. 销毁过滤器实例&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-进行相关配置"><a href="#1-2-进行相关配置" class="headerlink" title="1.2 进行相关配置"></a>1.2 进行相关配置</h2><blockquote>
+<p>在web.xml中添加如下内容：</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">   &lt;filter&gt;</span><br><span class="line">    &lt;!-- 过滤器名称 	--&gt;</span><br><span class="line">	&lt;filter-name&gt;hello_filter&lt;/filter-name&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 过滤器对应的实现类 	--&gt;</span><br><span class="line">	&lt;filter-class&gt;cn.itcast.a_filter_hello.HelloFilter&lt;/filter-class&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 过滤器初始化参数 	--&gt;</span><br><span class="line">	&lt;init-param&gt;</span><br><span class="line">		&lt;param-name&gt;encoding&lt;/param-name&gt;</span><br><span class="line">		&lt;param-value&gt;UTF-8&lt;/param-value&gt;</span><br><span class="line">	&lt;/init-param&gt;</span><br><span class="line">	&lt;init-param&gt;</span><br><span class="line">		&lt;param-name&gt;path&lt;/param-name&gt;</span><br><span class="line">		&lt;param-value&gt;c:/...&lt;/param-value&gt;</span><br><span class="line">	&lt;/init-param&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">	&lt;filter-name&gt;hello_filter&lt;/filter-name&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 过滤器过滤模式，/* 表示过滤所有资源 	--&gt;</span><br><span class="line">	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+<p><strong> 辅助servlet:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class ServletTest extends HttpServlet &#123;</span><br><span class="line">	public void doGet(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		System.out.println(&quot;I&apos;m a test servlet!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当我们两次访问辅助测试servlet时效果如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-a2624a268ca42b5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="2-FilterChain"><a href="#2-FilterChain" class="headerlink" title="2.FilterChain"></a>2.FilterChain</h2><blockquote>
+<p>即Filter链，在一个web应用中，可以开发编写多个Filter，这些Filter组合起来称之为一个Filter链。web服务器根据Filter在web.xml文件中的注册顺序，决定先调用哪个Filter，当第一个Filter的doFilter方法被调用时，web服务器会创建一个代表Filter链的FilterChain对象传递给该方法。在doFilter方法中，开发人员如果调用了FilterChain对象的doFilter方法，则web服务器会检查FilterChain对象中是否还有filter，如果有，则调用第2个filter，如果没有，则调用目标资源。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-1d8ede595ceae181.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="3-Filter生命周期"><a href="#3-Filter生命周期" class="headerlink" title="3.Filter生命周期"></a>3.Filter生命周期</h2><blockquote>
+<p>通过上面实例， 可以看到在启动tomcat服务器时就执行了过滤器的构造方法和初始化方法，在每次访问servlet时都会进入doFilter()方法，访问完servlet方法后又会返回到doFilter()方法，而destroy()方法只在停止服务器时才会执行一次。</p>
+</blockquote>
+<p>下图通过时序图展示了有两个过滤器的Filter执行流程：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-39ad483344d96dc3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="4-Filter映射"><a href="#4-Filter映射" class="headerlink" title="4.Filter映射"></a>4.Filter映射</h2><blockquote>
+<p><strong><filter-mapping></filter-mapping></strong>元素用于设置一个 Filter 所负责拦截的资源。一个Filter拦截的资源可通过两种方式来指定：Servlet 名称和资源访问的请求路径</p>
+</blockquote>
+<p><strong><filter-name></filter-name></strong>子元素用于设置filter的注册名称。该值必须是在<filter>元素中声明过的过滤器的名字<br><code>&lt;filter-name&gt;hello_filter&lt;/filter-name&gt;</code></filter></p>
+<p><strong><url-pattern></url-pattern></strong>设置 filter 所拦截的请求路径(过滤器关联的URL样式)<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 拦截指定的jsp  --&gt;</span><br><span class="line">	 &lt;url-pattern&gt;/index.jsp&lt;/url-pattern&gt;</span><br><span class="line">	 &lt;url-pattern&gt;/list.jsp&lt;/url-pattern&gt;</span><br><span class="line">		 </span><br><span class="line">&lt;!-- 拦截所有的jsp --&gt;</span><br><span class="line">	 &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong><servlet-name></servlet-name></strong>指定过滤器所拦截的Servlet名称。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 3. 根据servlet的内部名称拦截 --&gt;</span><br><span class="line">	 &lt;servlet-name&gt;IndexServlet&lt;/servlet-name&gt;		   </span><br><span class="line">&lt;!-- 拦截指定的servlet  --&gt;</span><br><span class="line">	 &lt;url-pattern&gt;/index&lt;/url-pattern&gt;</span><br><span class="line">```		 </span><br><span class="line"></span><br><span class="line">**&lt;dispatcher&gt;**指定过滤器所拦截的资源被 Servlet 容器调用的方式，可以是REQUEST,INCLUDE,FORWARD和ERROR之一，默认REQUEST。用户可以设置多个&lt;dispatcher&gt; 子元素用来指定 Filter 对资源的多种调用方式进行拦截。</span><br></pre></td></tr></table></figure></p>
+<!-- 拦截直接访问的请求或者重定向的资源  -->
+<pre><code>&lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;
+&lt;dispatcher&gt;FORWARD&lt;/dispatcher&gt;
+</code></pre><p><code>`</code></p>
+<p><dispatcher> 子元素可以设置的值及其意义：<br><strong>REQUEST：</strong>当用户直接访问页面时，Web容器将会调用过滤器。如果目标资源是通过RequestDispatcher的include()或forward()方法访问时，那么该过滤器就不会被调用。<br><strong>INCLUDE</strong>：如果目标资源是通过RequestDispatcher的include()方法访问时，那么该过滤器将被调用。除此之外，该过滤器不会被调用。<br><strong>FORWARD</strong>：如果目标资源是通过RequestDispatcher的forward()方法访问时，那么该过滤器将被调用，除此之外，该过滤器不会被调用。<br><strong>ERROR</strong>：如果目标资源是通过声明式异常处理机制调用时，那么该过滤器将被调用。除此之外，过滤器不会被调用。</dispatcher></p>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/09/JavaWeb基础之Filter详解/#more">Read More</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -319,6 +369,12 @@ Interface HttpSessionListener</code></pre>
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/08/JavaWeb基础之JSP标签/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/Z20OxtXh.jpg" alt="JavaWeb基础之JSP标签">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -352,7 +408,7 @@ Interface HttpSessionListener</code></pre>
 <h2 id="1-内置标签"><a href="#1-内置标签" class="headerlink" title="1.内置标签"></a>1.内置标签</h2><blockquote>
 <p>也称动作标签，不需要在jsp页面导入，分为转发标签，参数标签，包含标签，具体使用语法如下：</p>
 </blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  &lt;%--转发标签和参数标签</span><br><span class="line">  &lt;jsp:forward page=&quot;forward.jsp&quot;&gt;</span><br><span class="line">&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt;  	&lt;jsp:param value=&quot;jacky&quot; name=&quot;name&quot;/&gt;</span><br><span class="line">  	&lt;jsp:param value=&quot;123456&quot; name=&quot;password&quot;/&gt;</span><br><span class="line">  &lt;/jsp:forward&gt;</span><br><span class="line">  --%&gt;</span><br><span class="line">    </span><br><span class="line">  &lt;%--包含标签 --%&gt;</span><br><span class="line">  &lt;%--</span><br><span class="line">  &lt;jsp:include page=&quot;/common/header.jsp&quot;&gt;</span><br><span class="line"> 		&lt;jsp:param value=&quot;lucy&quot; name=&quot;name&quot;/&gt;</span><br><span class="line">  &lt;/jsp:include&gt;</span><br><span class="line">  --%&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  &lt;%--转发标签和参数标签</span><br><span class="line">  &lt;jsp:forward page=&quot;forward.jsp&quot;&gt;</span><br><span class="line">&lt;!-- more --&gt;  	&lt;jsp:param value=&quot;jacky&quot; name=&quot;name&quot;/&gt;</span><br><span class="line">  	&lt;jsp:param value=&quot;123456&quot; name=&quot;password&quot;/&gt;</span><br><span class="line">  &lt;/jsp:forward&gt;</span><br><span class="line">  --%&gt;</span><br><span class="line">    </span><br><span class="line">  &lt;%--包含标签 --%&gt;</span><br><span class="line">  &lt;%--</span><br><span class="line">  &lt;jsp:include page=&quot;/common/header.jsp&quot;&gt;</span><br><span class="line"> 		&lt;jsp:param value=&quot;lucy&quot; name=&quot;name&quot;/&gt;</span><br><span class="line">  &lt;/jsp:include&gt;</span><br><span class="line">  --%&gt;</span><br></pre></td></tr></table></figure>
 <p>注意：这里面的包含标签称为动态包含，而前面讲的jsp指定中的include指定为静态包含。两者区分如下：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/5990755-a89524d86687259a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <h2 id="2-jstl标签"><a href="#2-jstl标签" class="headerlink" title="2.jstl标签"></a>2.jstl标签</h2><blockquote>
@@ -384,6 +440,12 @@ Interface HttpSessionListener</code></pre>
 
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2017/06/07/JavaWeb基础之JSP初探/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/EPr8563T.jpg" alt="JavaWeb基础之JSP初探">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -435,6 +497,12 @@ Interface HttpSessionListener</code></pre>
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/07/JavaWeb基础之JSP进阶/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/EIlQyNC7.jpg" alt="JavaWeb基础之JSP进阶">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -464,7 +532,7 @@ Interface HttpSessionListener</code></pre>
             <h2 id="1-九大内置对象"><a href="#1-九大内置对象" class="headerlink" title="1.九大内置对象"></a>1.九大内置对象</h2><blockquote>
 <p>在一篇中我们知道tomcat服务器翻译成了java源文件，每次说jsp文件时都会调用_jspService方法，当该方法中我们可以看到：</p>
 </blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">final javax.servlet.jsp.PageContext pageContext;</span><br><span class="line">javax&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt;.servlet.http.HttpSession session = null;   </span><br><span class="line">final javax.servlet.ServletContext application;</span><br><span class="line">final javax.servlet.ServletConfig config;</span><br><span class="line">javax.servlet.jsp.JspWriter out = null;</span><br><span class="line">final java.lang.Object page = this;</span><br><span class="line">javax.servlet.jsp.JspWriter _jspx_out = null;</span><br><span class="line">javax.servlet.jsp.PageContext _jspx_page_context = null;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">final javax.servlet.jsp.PageContext pageContext;</span><br><span class="line">javax&lt;!-- more --&gt;.servlet.http.HttpSession session = null;   </span><br><span class="line">final javax.servlet.ServletContext application;</span><br><span class="line">final javax.servlet.ServletConfig config;</span><br><span class="line">javax.servlet.jsp.JspWriter out = null;</span><br><span class="line">final java.lang.Object page = this;</span><br><span class="line">javax.servlet.jsp.JspWriter _jspx_out = null;</span><br><span class="line">javax.servlet.jsp.PageContext _jspx_page_context = null;</span><br></pre></td></tr></table></figure>
 <p>当用page指定指定当前页面是否为错误处理页面时还会多几行：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Throwable exception = org.apache.jasper.runtime.JspRuntimeLibrary.getThrowable(request);</span><br><span class="line">if (exception != null) &#123;</span><br><span class="line">     response.setStatus(javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>以上即为我们所说的JSP九大内置对象，JSP技术的设计者为便于开发人员在编写JSP页面时获得这些web对象的引用，特意定义了9个相应的变量，开发人员在JSP页面中通过这些变量就可以快速获得这9大对象的引用。<br>概括如下：</p>
@@ -523,6 +591,12 @@ Interface HttpSessionListener</code></pre>
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/06/JavaWeb基础之Cookie与Session/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/TaHPcm8f.jpg" alt="JavaWeb基础之Cookie与Session">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -572,6 +646,12 @@ Interface HttpSessionListener</code></pre>
 
     <div class="card">
     
+    <div class="card-image">
+        <a href="/2017/06/05/JavaWeb基础之Servlet全解析/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/bzkB0vWj.jpg" alt="JavaWeb基础之Servlet全解析">
+        </a>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -601,17 +681,90 @@ Interface HttpSessionListener</code></pre>
             <blockquote>
 <p>Servlet 是在服务器上运行的小程序,其主要功能在于交互式地浏览和修改数据，生成动态Web内容。狭义的Servlet是指Java语言实现的一个接口，广义的Servlet是指任何实现了这个Servlet接口的类。</p>
 </blockquote>
-<p>本文内容：<br></p>
+<p>本文内容：<br><img src="http://upload-images.jianshu.&lt;!-- more --&gt;io/upload_images/5990755-3f546e9130c347fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="1-Servlet开发步骤"><a href="#1-Servlet开发步骤" class="headerlink" title="1.Servlet开发步骤"></a>1.Servlet开发步骤</h2><blockquote>
+<p>学习Servlet，我们先看一下Servlet程序怎么开发，大体上可以分为五步，如下所示：</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-50d913abd71a036b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>1）编写java类，继承HttpServlet类，重写doGet和doPost方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class FirstServlet extends HttpServlet&#123;	</span><br><span class="line">	@Override</span><br><span class="line">	protected void doGet(HttpServletRequest req, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		//向浏览器输出内容</span><br><span class="line">		response.getWriter().write(&quot;this is first servlet！&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2）在web.xml文件中进行配置<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置一个servlet --&gt;</span><br><span class="line">  &lt;!-- servlet的配置 --&gt;</span><br><span class="line">  &lt;servlet&gt;</span><br><span class="line">  	&lt;!-- servlet的内部名称，自定义。尽量有意义 --&gt;</span><br><span class="line">  	&lt;servlet-name&gt;FirstServlet&lt;/servlet-name&gt;</span><br><span class="line">  	&lt;!-- servlet的类全名： 包名+简单类名 --&gt;</span><br><span class="line">  	&lt;servlet-class&gt;cn.acamy.FirstServlet&lt;/servlet-class&gt;</span><br><span class="line">  &lt;/servlet&gt;</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  &lt;!-- servlet的映射配置 --&gt;</span><br><span class="line">  &lt;servlet-mapping&gt;</span><br><span class="line">  	&lt;!-- servlet的内部名称，一定要和上面的内部名称保持一致！！ --&gt;</span><br><span class="line">  	&lt;servlet-name&gt;FirstServlet&lt;/servlet-name&gt;</span><br><span class="line">  	&lt;!-- servlet的映射路径（访问servlet的名称） --&gt;</span><br><span class="line">  	&lt;url-pattern&gt;/first&lt;/url-pattern&gt;</span><br><span class="line">  &lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<p>3）部署，servlet程序的class码拷贝到WEB-INF/classes目录<br>4）启动tomcat服务器<br>5）通过URL访问<br><a href="http://localhost:8080/demo/first" target="_blank" rel="noopener">http://localhost:8080/demo/first</a>  </p>
+<blockquote>
+<p><strong>http://</strong> :http协议<br><strong>localhost:</strong> :到本地的hosts文件中查找是否存在该域名对应的IP地址(127.0.0.1)<br><strong>8080</strong> :   找到tomcat服务器<br><strong>/demo</strong> :   在tomcat的webapps目录下找 demo的目录<br><strong>/first</strong>:    资源名称。<br>1）在demo的web.xml中查找是否有匹配的url-pattern的内容（/first）<br>2）如果找到匹配的url-pattern,则使用当前servlet-name的名称到web.xml文件中查询是否相同名称的servlet配置<br>3）如果找到，则取出对应的servlet配置信息中的servlet-class内容：<br>            字符串： cn.acamy.FirstServlet<br><strong>通过反射：</strong><br>    a）构造FirstServlet的对象<br>    b）然后调用FirstServlet里面的方法</p>
+</blockquote>
+<h2 id="2-本文涉及到的相关类"><a href="#2-本文涉及到的相关类" class="headerlink" title="2.本文涉及到的相关类"></a>2.本文涉及到的相关类</h2><h3 id="2-1-HttpServlet继承体系"><a href="#2-1-HttpServlet继承体系" class="headerlink" title="2.1 HttpServlet继承体系"></a>2.1 HttpServlet继承体系</h3><blockquote>
+<p>我们写的Servlet程序都是要直接继续HttpServlet,由下面的类图可以看出该类有service方法的重写和重载，以及doGet,doPost…方法，继承于抽象类GenericServlet，GenericServlet实现了接口Servlet和ServletConfig，Servlet接口里面定义了init，service,destroy,getServletConfig,getServletInfo方法，ServletConfig里面定义了获取配置信息的相关方法。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-21a8d93a32764aad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="2-2-HttpServletRequest与HttpServletResponse"><a href="#2-2-HttpServletRequest与HttpServletResponse" class="headerlink" title="2.2 HttpServletRequest与HttpServletResponse"></a>2.2 HttpServletRequest与HttpServletResponse</h3><blockquote>
+<p>HttpServletRequest继承于ServletRequest,封装了Servlet程序的请求信息，HttpServletResponse继承于ServletResponse，封装了Servlet程序的响应信息。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-2146ea5d70806637.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="2-3-ServletContext"><a href="#2-3-ServletContext" class="headerlink" title="2.3 ServletContext"></a>2.3 ServletContext</h3><blockquote>
+<p>ServletContext是Servlet上下文对象，封装了当前的web应用环境。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-3653c826f6535c51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="3-Servlet的生命周期"><a href="#3-Servlet的生命周期" class="headerlink" title="3. Servlet的生命周期"></a>3. Servlet的生命周期</h2><blockquote>
+<p>Servlet程序的生命周期是由tomcat服务器控制的！</p>
+</blockquote>
+<p>我们先来看一个Demo:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class LifeDemo extends HttpServlet &#123;</span><br><span class="line"></span><br><span class="line">	/**</span><br><span class="line">	 * 1.构造方法</span><br><span class="line">	 */</span><br><span class="line">	public LifeDemo()&#123;</span><br><span class="line">		System.out.println(&quot;1.servlet对象被创建了。&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	/**</span><br><span class="line">	 * 2.init方法</span><br><span class="line">	 */</span><br><span class="line">	@Override</span><br><span class="line">	public void init(ServletConfig config) throws ServletException &#123;</span><br><span class="line">		System.out.println(&quot;2.init方法被调用&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	/**</span><br><span class="line">	 * 3.service方法</span><br><span class="line">	 */</span><br><span class="line">	@Override			</span><br><span class="line">	public void service(ServletRequest req, ServletResponse res)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		System.out.println(&quot;3.service方法被调用&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	/**</span><br><span class="line">	 * 4.destroy方法</span><br><span class="line">	 */</span><br><span class="line">	@Override</span><br><span class="line">	public void destroy() &#123;</span><br><span class="line">		System.out.println(&quot;4.servlet对象销毁了&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/5990755-080046d1f32eb33e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><strong>1. 构造方法：</strong> 创建servlet对象的时候调用。默认情况下，第一次访问servlet的时候创建servlet对象。只调用1次。证明servlet对象在tomcat是单实例的。<br><strong>2. init方法：</strong> 创建完servlet对象的时候调用。只调用1次。<br><strong>3. service方法：</strong> 每次发出请求时调用。调用n次。<br><strong>4. destroy方法：</strong> 销毁servlet对象的时候调用。停止服务器或者重新部署web应用时销毁servlet对象。 只调用1次。</p>
+<p>Servlet生命周期如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-52d4b0675b06ef9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="4-HttpServlet的service方法源码"><a href="#4-HttpServlet的service方法源码" class="headerlink" title="4.HttpServlet的service方法源码"></a>4.HttpServlet的service方法源码</h2><blockquote>
+<p>从上面的生命周期可以看出，service方法在浏览器每发送一次请求就被调用一次。但我如果要调用doGet,doPost,doHead等方法时，又该怎么实现呢？先看一下HttpServlet里面与该方法相关的源码：</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">private static final String METHOD_DELETE = &quot;DELETE&quot;;</span><br><span class="line">private static final String METHOD_HEAD = &quot;HEAD&quot;;</span><br><span class="line">private static final String METHOD_GET = &quot;GET&quot;;</span><br><span class="line">   private static final String METHOD_OPTIONS = &quot;OPTIONS&quot;;</span><br><span class="line">   private static final String METHOD_POST = &quot;POST&quot;;</span><br><span class="line">   private static final String METHOD_PUT = &quot;PUT&quot;;</span><br><span class="line">   private static final String METHOD_TRACE = &quot;TRACE&quot;;</span><br><span class="line"></span><br><span class="line">   //该方法是重写Servlet接口中的方法，可以看到先把ServletRequest和</span><br><span class="line">   //ServletResponse转化为其子类HttpServletRequest，HttpServletResponse</span><br><span class="line">   //然后调用重载的service(HttpServletRequest req, HttpServletResponse resp)</span><br><span class="line">   @Override</span><br><span class="line">   public void service(ServletRequest req, ServletResponse res)</span><br><span class="line">       throws ServletException, IOException &#123;</span><br><span class="line"></span><br><span class="line">       HttpServletRequest  request;</span><br><span class="line">       HttpServletResponse response;</span><br><span class="line"></span><br><span class="line">       try &#123;</span><br><span class="line">           request = (HttpServletRequest) req;</span><br><span class="line">           response = (HttpServletResponse) res;</span><br><span class="line">       &#125; catch (ClassCastException e) &#123;</span><br><span class="line">           throw new ServletException(&quot;non-HTTP request or response&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">       service(request, response);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //注意这个方法是上面service方法的重载，并且是protected面不是public修饰符修</span><br><span class="line">   //饰,说明该方法只能被自身或子类来调用。</span><br><span class="line">   protected void service(HttpServletRequest req, HttpServletResponse resp)</span><br><span class="line">       throws ServletException, IOException &#123;</span><br><span class="line">      </span><br><span class="line">       //首先得到方法名</span><br><span class="line">       String method = req.getMethod();</span><br><span class="line">       </span><br><span class="line">       // 然后看该方法名与实现的哪个方法相对应，就执行哪个方法</span><br><span class="line">       // 如得到的方法名为POST,则对应到METHOD_POST，</span><br><span class="line">       // 执行doPost(req, resp);</span><br><span class="line">       if (method.equals(METHOD_GET)) &#123;</span><br><span class="line">           long lastModified = getLastModified(req);</span><br><span class="line">           if (lastModified == -1) &#123;</span><br><span class="line">               // servlet doesn&apos;t support if-modified-since, no reason</span><br><span class="line">               // to go through further expensive logic</span><br><span class="line">               doGet(req, resp);</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               long ifModifiedSince;</span><br><span class="line">               try &#123;</span><br><span class="line">                   ifModifiedSince = req.getDateHeader(HEADER_IFMODSINCE);</span><br><span class="line">               &#125; catch (IllegalArgumentException iae) &#123;</span><br><span class="line">                   // Invalid date header - proceed as if none was set</span><br><span class="line">                   ifModifiedSince = -1;</span><br><span class="line">               &#125;</span><br><span class="line">               if (ifModifiedSince &lt; (lastModified / 1000 * 1000)) &#123;</span><br><span class="line">                   // If the servlet mod time is later, call doGet()</span><br><span class="line">                   // Round down to the nearest second for a proper compare</span><br><span class="line">                   // A ifModifiedSince of -1 will always be less</span><br><span class="line">                   maybeSetLastModified(resp, lastModified);</span><br><span class="line">                   doGet(req, resp);</span><br><span class="line">               &#125; else &#123;</span><br><span class="line">                   resp.setStatus(HttpServletResponse.SC_NOT_MODIFIED);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">       &#125; else if (method.equals(METHOD_HEAD)) &#123;</span><br><span class="line">           long lastModified = getLastModified(req);</span><br><span class="line">           maybeSetLastModified(resp, lastModified);</span><br><span class="line">           doHead(req, resp);</span><br><span class="line"></span><br><span class="line">       &#125; else if (method.equals(METHOD_POST)) &#123;</span><br><span class="line">           doPost(req, resp);</span><br><span class="line"></span><br><span class="line">       &#125; else if (method.equals(METHOD_PUT)) &#123;</span><br><span class="line">           doPut(req, resp);</span><br><span class="line"></span><br><span class="line">       &#125; else if (method.equals(METHOD_DELETE)) &#123;</span><br><span class="line">           doDelete(req, resp);</span><br><span class="line"></span><br><span class="line">       &#125; else if (method.equals(METHOD_OPTIONS)) &#123;</span><br><span class="line">           doOptions(req,resp);</span><br><span class="line"></span><br><span class="line">       &#125; else if (method.equals(METHOD_TRACE)) &#123;</span><br><span class="line">           doTrace(req,resp);</span><br><span class="line"></span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           //</span><br><span class="line">           // Note that this means NO servlet supports whatever</span><br><span class="line">           // method was requested, anywhere on this server.</span><br><span class="line">           //</span><br><span class="line">          //如果没有找到则说明没有该方法的实现，给出错误提示</span><br><span class="line">           String errMsg = lStrings.getString(&quot;http.method_not_implemented&quot;);</span><br><span class="line">           Object[] errArgs = new Object[1];</span><br><span class="line">           errArgs[0] = method;</span><br><span class="line">           errMsg = MessageFormat.format(errMsg, errArgs);</span><br><span class="line"></span><br><span class="line">           resp.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, errMsg);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>结论</strong>：无论我们需要调用的是GET，POST还是其它方法，我们首先通过调用service(ServletRequest req, ServletResponse res)，然后指向service(HttpServletRequest req, HttpServletResponse resp)，最终通过方法名来进行匹配，实现转向，调用想doGET或POST或其它的方法。</p>
+<p>##5.Servlet的路径问题与自动加载</p>
+<p>###5.1 Servlet 的映射路径<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">  	&lt;!-- servlet的内部名称，一定要和上面的内部名称保持一致！！ --&gt;</span><br><span class="line">  	&lt;servlet-name&gt;FirstServlet&lt;/servlet-name&gt;</span><br><span class="line">  	&lt;!-- servlet的映射路径（访问servlet的名称） --&gt;</span><br><span class="line">  	&lt;url-pattern&gt;/first&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Servlet的映射路径分为精确匹配和模糊匹配</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-9d470d731c79ec6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><strong>注意：</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1）url-pattern要么以 / 开头，要么以*开头。  例如， itcast是非法路径。</span><br><span class="line">2）不能同时使用两种模糊匹配，例如 /demo/*.do是非法路径</span><br><span class="line">3）当有输入的URL有多个servlet同时被匹配的情况下：</span><br><span class="line">3.1 精确匹配优先。（长的最像优先被匹配）</span><br><span class="line">3.2 以后缀名结尾的模糊url-pattern优先级最低！！！</span><br></pre></td></tr></table></figure></p>
+<p>###5.2 Servlet 的缺省路径</p>
+<blockquote>
+<p>servlet的缺省路径（<url-pattern>/</url-pattern>）是在tomcat服务器内置的一个路径。该路径对应的是一个DefaultServlet（缺省Servlet）。这个缺省的Servlet的作用是用于解析web应用的静态资源文件。</p>
+</blockquote>
+<p>问题： URL输入<a href="http://localhost:8080/demo/index.html" target="_blank" rel="noopener">http://localhost:8080/demo/index.html</a> 如何读取文件？<br>1）到当前demo应用下的web.xml文件查找是否有匹配的url-pattern。<br>2）如果没有匹配的url-pattern，则交给tomcat的内置的DefaultServlet处理<br>3）DefaultServlet程序到demo应用的根目录下查找是存在一个名称为index.html的静态文件。<br>4）如果找到该文件，则读取该文件内容，返回给浏览器。<br>5）如果找不到该文件，则返回404错误页面。<br><strong>结论：</strong> 先找动态资源，再找静态资源。</p>
+<p>###5.3 Servlet 的自动加载</p>
+<blockquote>
+<p>默认情况下，第一次访问servlet的时候创建servlet对象。如果servlet的构造方法或init方法中执行了比较多的逻辑代码，那么导致用户第一次访问sevrlet的时候比较慢。<br>改变servlet创建对象的时机： 提前到加载web应用的时候！<br>在servlet的配置信息中，加上一个<load-on-startup>即可！</load-on-startup></p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;LifeDemo&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;gz.itcast.c_life.LifeDemo&lt;/servlet-class&gt;</span><br><span class="line">    &lt;!-- 让servlet对象自动加载 --&gt;</span><br><span class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;  注意： 整数值越大，创建优先级越低！！</span><br><span class="line">&lt;/servlet&gt;</span><br></pre></td></tr></table></figure>
+<p>自动加载效果如下图所示，可以看到Servlet在Tomcat服务器启动时就执行了构造方法和init方法：<br><img src="http://upload-images.jianshu.io/upload_images/5990755-3109a51480f8298d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="6-Servlet的有参和无参init方法"><a href="#6-Servlet的有参和无参init方法" class="headerlink" title="6. Servlet的有参和无参init方法"></a>6. Servlet的有参和无参init方法</h2><blockquote>
+<p> 有参数的init方法是servlet的生命周期方法，一定会被tomcat服务器调用。如果要编写初始代码，不需要覆盖。无参数的init方法是servlet的编写初始化代码的方法。是Sun公司设计出来专门给开发者进行覆盖，然后在里面编写servlet的初始逻辑代码的方法。</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class InitDemo extends HttpServlet &#123;</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * @Override public void init(ServletConfig config) throws ServletException</span><br><span class="line">	 * &#123; System.out.println(&quot;有参数的init方法&quot;); &#125;</span><br><span class="line">	 */</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void init() throws ServletException &#123;</span><br><span class="line">		// System.out.println(&quot;无参数的init方法&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="7-Servlet的多线程并发问题"><a href="#7-Servlet的多线程并发问题" class="headerlink" title="7.Servlet的多线程并发问题"></a>7.Servlet的多线程并发问题</h2><blockquote>
+<p>servlet对象在tomcat服务器是单实例多线程的。因为servlet是多线程的，所以当多个servlet的线程同时访问了servlet的共享数据，如成员变量，可能会引发线程安全问题。</p>
+</blockquote>
+<p>解决办法：<br>1）把使用到共享数据的代码块进行同步（使用synchronized关键字进行同步）<br>2）建议在servlet类中尽量不要使用成员变量。如果确实要使用成员，必须同步。而且尽量缩小同步代码块的范围。（哪里使用到了成员变量，就同步哪里！！），以避免因为同步而导致并发效率降低。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class TheradDemo extends HttpServlet &#123;</span><br><span class="line">	</span><br><span class="line">	int count = 1;</span><br><span class="line"></span><br><span class="line">	public void doGet(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		response.setContentType(&quot;text/html;charset=utf-8&quot;);</span><br><span class="line">		</span><br><span class="line">		synchronized (TheradDemo.class) &#123;//锁对象必须唯一。建议使用类对象</span><br><span class="line">			response.getWriter().write(&quot;你现在是当前网站的第&quot;+count+&quot;个访客&quot;);   //线程1执行完  ， 线程2执行</span><br><span class="line">		</span><br><span class="line">		//线程1还没有执行count++</span><br><span class="line">		/*try &#123;</span><br><span class="line">			Thread.sleep(5000);</span><br><span class="line">		&#125; catch (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;*/</span><br><span class="line">			count++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>##8.ServletConfig对象</p>
+<blockquote>
+<p>ServletConfig对象: 主要是用于加载servlet的初始化参数。在一个web应用可以存在多个ServletConfig对象（一个Servlet对应一个ServletConfig对象）</p>
+</blockquote>
+<p>###8.1 对象创建和得到<br>创建时机： 在创建完servlet对象之后，在调用init方法之前创建。<br>得到对象： 直接从有参数的init方法中得到！！！</p>
+<p>###8.2 servlet的初始化参数配置<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">   &lt;servlet-name&gt;ConfigDemo&lt;/servlet-name&gt;</span><br><span class="line">   &lt;servlet-class&gt;gz.itcast.f_config.ConfigDemo&lt;/servlet-class&gt;</span><br><span class="line">   &lt;!-- 初始参数： 这些参数会在加载web应用的时候，封装到ServletConfig对象中 --&gt;</span><br><span class="line">   &lt;init-param&gt;</span><br><span class="line">   	&lt;param-name&gt;path&lt;/param-name&gt;</span><br><span class="line">   	&lt;param-value&gt;e:/b.txt&lt;/param-value&gt;</span><br><span class="line">   &lt;/init-param&gt;</span><br><span class="line"> &lt;/servlet&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong> Demo:</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public class ConfigDemo extends HttpServlet &#123;</span><br><span class="line">	/**</span><br><span class="line">	 * 以下两段代码GenericServlet已经写了，我们无需编写！！</span><br><span class="line">	 */</span><br><span class="line">	/*private ServletConfig config;*/</span><br><span class="line">	</span><br><span class="line">	/**</span><br><span class="line">	 *  1）tomcat服务器把这些参数会在加载web应用的时候，封装到ServletConfig对象中 </span><br><span class="line">	 *  2）tomcat服务器调用init方法传入ServletConfig对象</span><br><span class="line">	 */</span><br><span class="line">	/*@Override</span><br><span class="line">	public void init(ServletConfig config) throws ServletException &#123;</span><br><span class="line">		this.config = config;</span><br><span class="line">	&#125;*/</span><br><span class="line">	public void doGet(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		/**</span><br><span class="line">		 * 读取servlet的初始参数</span><br><span class="line">		 */</span><br><span class="line">		String path = this.getServletConfig().getInitParameter(&quot;path&quot;);</span><br><span class="line"></span><br><span class="line">		File file = new File(path);</span><br><span class="line">		//读取内容</span><br><span class="line">		BufferedReader br = new BufferedReader(new FileReader(file));</span><br><span class="line">		String str = null;</span><br><span class="line">		while( (str=br.readLine())!=null )&#123;</span><br><span class="line">			System.out.println(str);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		//查询当前servlet的所有初始化参数</span><br><span class="line">		Enumeration&lt;String&gt; enums = this.getServletConfig().getInitParameterNames();</span><br><span class="line">		while(enums.hasMoreElements())&#123;</span><br><span class="line">			String paramName = enums.nextElement();</span><br><span class="line">			String paramValue = this.getServletConfig().getInitParameter(paramName);</span><br><span class="line">			System.out.println(paramName+&quot;=&quot;+paramValue);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		//得到servlet的名称</span><br><span class="line">		String servletName = this.getServletConfig().getServletName();</span><br><span class="line">		System.out.println(servletName);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="9-ServletContext对象"><a href="#9-ServletContext对象" class="headerlink" title="9.ServletContext对象"></a>9.ServletContext对象</h2><blockquote>
+<p>Servlet的上下文对象。表示一个当前的web应用环境。一个web应用中只有一个ServletContext对象。</p>
+</blockquote>
+<h3 id="9-1-对象创建和得到"><a href="#9-1-对象创建和得到" class="headerlink" title="9.1 对象创建和得到"></a>9.1 对象创建和得到</h3><p>创建时机：加载web应用时创建ServletContext对象。<br>得到对象： 从当前Servlet或者ServletConfig对象的getServletContext方法得到</p>
+<p><strong> Demo:</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public class ContextDemo extends HttpServlet &#123;</span><br><span class="line"></span><br><span class="line">	public void doGet(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		// 1.得到ServletContext对象</span><br><span class="line">		// ServletContext context = this.getServletConfig().getServletContext();</span><br><span class="line">		ServletContext context = this.getServletContext(); // （推荐使用）</span><br><span class="line"></span><br><span class="line">		// 2.得到web应用路径 </span><br><span class="line">		/**</span><br><span class="line">		 * web应用路径：部署到tomcat服务器上运行的web应用名称</span><br><span class="line">		 */</span><br><span class="line">		String contextPath = context.getContextPath();</span><br><span class="line"></span><br><span class="line">		System.out.println(contextPath);</span><br><span class="line"></span><br><span class="line">		System.out.println(&quot;参数&quot; + context.getInitParameter(&quot;AAA&quot;));</span><br><span class="line"></span><br><span class="line">		Enumeration&lt;String&gt; enums = context.getInitParameterNames();</span><br><span class="line">		while (enums.hasMoreElements()) &#123;</span><br><span class="line">			String paramName = enums.nextElement();</span><br><span class="line">			String paramValue = context.getInitParameter(paramName);</span><br><span class="line">			System.out.println(paramName + &quot;=&quot; + paramValue);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		// 尝试得到ConfigDemo中的servlet参数</span><br><span class="line">		String path = this.getServletConfig().getInitParameter(&quot;path&quot;);</span><br><span class="line">		System.out.println(&quot;path=&quot; + path);</span><br><span class="line"></span><br><span class="line">		// 2.把数据保存到域对象中</span><br><span class="line">		context.setAttribute(&quot;name&quot;, &quot;eric&quot;);</span><br><span class="line"></span><br><span class="line">		// 2.从域对象中取出数据</span><br><span class="line">		// String name = (String) context.getAttribute(&quot;name&quot;);</span><br><span class="line"></span><br><span class="line">		/**</span><br><span class="line">		 * 案例：应用到请求重定向</span><br><span class="line">		 */</span><br><span class="line">		response.sendRedirect(contextPath + &quot;/index.html&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="9-2-转发与重定向"><a href="#9-2-转发与重定向" class="headerlink" title="9.2 转发与重定向"></a>9.2 转发与重定向</h2><blockquote>
+<p>转发与重定向都能实现页面的跳转，但在实际应用中大不相同，比较如下;</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-58834c52aa38d6ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><strong>注意：</strong> 如果要使用request域对象进行数据共享，只能用转发技术！！！</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/05/JavaWeb基础之Servlet全解析/#more">Read More</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -671,7 +824,7 @@ Interface HttpSessionListener</code></pre>
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        19
+                        17
                     </p>
                 </div>
             </div>
@@ -681,7 +834,7 @@ Interface HttpSessionListener</code></pre>
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        0
                     </p>
                 </div>
             </div>
@@ -891,22 +1044,6 @@ Interface HttpSessionListener</code></pre>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/编程/">
-            <span class="level-start">
-                <span class="level-item">编程</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/编程/java/">
-            <span class="level-start">
-                <span class="level-item">java</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/计算机网络/">
             <span class="level-start">
                 <span class="level-item">计算机网络</span>
@@ -928,7 +1065,7 @@ Interface HttpSessionListener</code></pre>
                 <span class="level-item">随笔</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li>
             </ul>
@@ -942,7 +1079,7 @@ Interface HttpSessionListener</code></pre>
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+        
     </div>
 </div>
 
@@ -959,18 +1096,18 @@ Interface HttpSessionListener</code></pre>
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -980,7 +1117,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -999,7 +1136,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -1018,7 +1155,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -1037,7 +1174,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1065,23 +1202,12 @@ Interface HttpSessionListener</code></pre>
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1241,28 +1367,6 @@ Interface HttpSessionListener</code></pre>
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>
@@ -1288,18 +1392,18 @@ Interface HttpSessionListener</code></pre>
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -1309,7 +1413,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -1328,7 +1432,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -1347,7 +1451,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -1366,7 +1470,7 @@ Interface HttpSessionListener</code></pre>
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1394,23 +1498,12 @@ Interface HttpSessionListener</code></pre>
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1570,28 +1663,6 @@ Interface HttpSessionListener</code></pre>
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>

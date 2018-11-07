@@ -7,24 +7,24 @@
 
 
 
-    <meta name="description" content="正则表达式是用来简洁表达一组字符串的表达式  1. 正则表达式的常用操作符">
+    <meta name="description" content="正则表达式是用来简洁表达一组字符串的表达式  1. 正则表达式的常用操作符 2. 经典正则表达式实例 3. Re库使用3.1 两种用法12345678910111213141516import re#函数式用法：一次性操作match = re.search(r&amp;apos;[1‐9]\d&amp;#123;5&amp;#125;&amp;apos;,&amp;apos;BIT 100081&amp;apos;)if match:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python正则表达式">
 <meta property="og:url" content="http://yoursite.com/2017/12/07/Python正则表达式/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="正则表达式是用来简洁表达一组字符串的表达式  1. 正则表达式的常用操作符">
+<meta property="og:description" content="正则表达式是用来简洁表达一组字符串的表达式  1. 正则表达式的常用操作符 2. 经典正则表达式实例 3. Re库使用3.1 两种用法12345678910111213141516import re#函数式用法：一次性操作match = re.search(r&amp;apos;[1‐9]\d&amp;#123;5&amp;#125;&amp;apos;,&amp;apos;BIT 100081&amp;apos;)if match:">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-82239b191298eb64.png?imageMogr2/auto-orient/strip<a id=">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-82239b191298eb64.png?imageMogr2/auto-orient/strip<!-- more -->%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-58c0358342657f67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-f4beedf0400b1be7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-cb0f6da6d48152df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-c5416365b98f882e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-dd49aa7f4b8a06f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-11-06T15:51:48.542Z">
+<meta property="og:updated_time" content="2018-11-07T01:46:23.145Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python正则表达式">
-<meta name="twitter:description" content="正则表达式是用来简洁表达一组字符串的表达式  1. 正则表达式的常用操作符">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-82239b191298eb64.png?imageMogr2/auto-orient/strip<a id=">
+<meta name="twitter:description" content="正则表达式是用来简洁表达一组字符串的表达式  1. 正则表达式的常用操作符 2. 经典正则表达式实例 3. Re库使用3.1 两种用法12345678910111213141516import re#函数式用法：一次性操作match = re.search(r&amp;apos;[1‐9]\d&amp;#123;5&amp;#125;&amp;apos;,&amp;apos;BIT 100081&amp;apos;)if match:">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-82239b191298eb64.png?imageMogr2/auto-orient/strip<!-- more -->%7CimageView2/2/w/1240">
 
 
 
@@ -157,6 +157,12 @@
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/gallery/fdVHjuXv.jpg" alt="Python正则表达式">
+        </span>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -186,7 +192,7 @@
             <blockquote>
 <p>正则表达式是用来简洁表达一组字符串的表达式</p>
 </blockquote>
-<h2 id="1-正则表达式的常用操作符"><a href="#1-正则表达式的常用操作符" class="headerlink" title="1. 正则表达式的常用操作符"></a>1. 正则表达式的常用操作符</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990755-82239b191298eb64.png?imageMogr2/auto-orient/strip<a id=" more"="">%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="1-正则表达式的常用操作符"><a href="#1-正则表达式的常用操作符" class="headerlink" title="1. 正则表达式的常用操作符"></a>1. 正则表达式的常用操作符</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990755-82239b191298eb64.png?imageMogr2/auto-orient/strip&lt;!-- more --&gt;%7CimageView2/2/w/1240" alt=""></p>
 <h2 id="2-经典正则表达式实例"><a href="#2-经典正则表达式实例" class="headerlink" title="2. 经典正则表达式实例"></a>2. 经典正则表达式实例</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990755-58c0358342657f67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <h2 id="3-Re库使用"><a href="#3-Re库使用" class="headerlink" title="3. Re库使用"></a>3. Re库使用</h2><h4 id="3-1-两种用法"><a href="#3-1-两种用法" class="headerlink" title="3.1 两种用法"></a>3.1 两种用法</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">#函数式用法：一次性操作</span><br><span class="line">match = re.search(r&apos;[1‐9]\d&#123;5&#125;&apos;,&apos;BIT 100081&apos;)</span><br><span class="line">if match:</span><br><span class="line">    print(match.group(0))</span><br><span class="line"></span><br><span class="line">#面向对象用法：编译后的多次操作</span><br><span class="line">pat = re.compile(r&apos;[1‐9]\d&#123;5&#125;&apos;)</span><br><span class="line">match = pat.search(&apos;BIT 100081&apos;)</span><br><span class="line">if match:</span><br><span class="line">    print(match.group(0))</span><br><span class="line"></span><br><span class="line">match = pat.search(&apos;100082 BIT 100081&apos;)</span><br><span class="line">if match:</span><br><span class="line">    print(match.group(0))</span><br></pre></td></tr></table></figure>
 <p>输出结果：<br><img src="http://upload-images.jianshu.io/upload_images/5990755-f4beedf0400b1be7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
@@ -292,7 +298,7 @@ window.changyan.api.config({
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        19
+                        17
                     </p>
                 </div>
             </div>
@@ -302,7 +308,7 @@ window.changyan.api.config({
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        0
                     </p>
                 </div>
             </div>
@@ -512,22 +518,6 @@ window.changyan.api.config({
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/编程/">
-            <span class="level-start">
-                <span class="level-item">编程</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/编程/java/">
-            <span class="level-start">
-                <span class="level-item">java</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/计算机网络/">
             <span class="level-start">
                 <span class="level-item">计算机网络</span>
@@ -549,7 +539,7 @@ window.changyan.api.config({
                 <span class="level-item">随笔</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li>
             </ul>
@@ -563,7 +553,7 @@ window.changyan.api.config({
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+        
     </div>
 </div>
 
@@ -580,18 +570,18 @@ window.changyan.api.config({
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -601,7 +591,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -620,7 +610,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -639,7 +629,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -658,7 +648,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -686,23 +676,12 @@ window.changyan.api.config({
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -862,28 +841,6 @@ window.changyan.api.config({
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>
@@ -909,18 +866,18 @@ window.changyan.api.config({
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -930,7 +887,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -949,7 +906,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -968,7 +925,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -987,7 +944,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1015,23 +972,12 @@ window.changyan.api.config({
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1191,28 +1137,6 @@ window.changyan.api.config({
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>

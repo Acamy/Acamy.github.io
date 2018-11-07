@@ -7,17 +7,17 @@
 
 
 
-    <meta name="description" content="1.集合映射 Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例  需求：一个用户对应多个地址User.java1234567891011// javabean设计public class User &amp;#123;	private int userId;	private&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;lt;/escape&amp;gt; S">
+    <meta name="description" content="1.集合映射 Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例  需求：一个用户对应多个地址User.java1234567891011// javabean设计public class User &amp;#123;	private int userId;	private&amp;lt;!-- more --&amp;gt; String userName;	// 一个用户，对应的多个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hibernate构架( 二） 映射">
 <meta property="og:url" content="http://yoursite.com/2017/06/12/Hibernate构架( 二） 映射/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.集合映射 Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例  需求：一个用户对应多个地址User.java1234567891011// javabean设计public class User &amp;#123;	private int userId;	private&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;lt;/escape&amp;gt; S">
+<meta property="og:description" content="1.集合映射 Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例  需求：一个用户对应多个地址User.java1234567891011// javabean设计public class User &amp;#123;	private int userId;	private&amp;lt;!-- more --&amp;gt; String userName;	// 一个用户，对应的多个">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-06T15:51:51.967Z">
+<meta property="og:updated_time" content="2018-11-07T01:46:50.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hibernate构架( 二） 映射">
-<meta name="twitter:description" content="1.集合映射 Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例  需求：一个用户对应多个地址User.java1234567891011// javabean设计public class User &amp;#123;	private int userId;	private&amp;lt;escape&amp;gt;&amp;lt;!-- more --&amp;gt;&amp;lt;/escape&amp;gt; S">
+<meta name="twitter:description" content="1.集合映射 Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例  需求：一个用户对应多个地址User.java1234567891011// javabean设计public class User &amp;#123;	private int userId;	private&amp;lt;!-- more --&amp;gt; String userName;	// 一个用户，对应的多个">
 
 
 
@@ -150,6 +150,12 @@
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/gallery/QKuHc3q0.jpg" alt="Hibernate构架( 二） 映射">
+        </span>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -179,7 +185,7 @@
             <h2 id="1-集合映射"><a href="#1-集合映射" class="headerlink" title="1.集合映射"></a>1.集合映射</h2><blockquote>
 <p>Hibernate集合映射里面有set,list,map，具体的用法可以参见如下例</p>
 </blockquote>
-<p>需求：一个用户对应多个地址<br><strong>User.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// javabean设计</span><br><span class="line">public class User &#123;</span><br><span class="line">	private int userId;</span><br><span class="line">	private&lt;escape&gt;&lt;!-- more --&gt;&lt;/escape&gt; String userName;</span><br><span class="line">	// 一个用户，对应的多个地址</span><br><span class="line">	private Set&lt;String&gt; address;</span><br><span class="line">	private List&lt;String&gt; addressList = new ArrayList&lt;String&gt;(); </span><br><span class="line">	//private String[] addressArray; // 映射方式和list一样     &lt;array name=&quot;&quot;&gt;&lt;/array&gt;</span><br><span class="line">	private Map&lt;String,String&gt; addressMap = new HashMap&lt;String, String&gt;();</span><br><span class="line">// get,set省略...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需求：一个用户对应多个地址<br><strong>User.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// javabean设计</span><br><span class="line">public class User &#123;</span><br><span class="line">	private int userId;</span><br><span class="line">	private&lt;!-- more --&gt; String userName;</span><br><span class="line">	// 一个用户，对应的多个地址</span><br><span class="line">	private Set&lt;String&gt; address;</span><br><span class="line">	private List&lt;String&gt; addressList = new ArrayList&lt;String&gt;(); </span><br><span class="line">	//private String[] addressArray; // 映射方式和list一样     &lt;array name=&quot;&quot;&gt;&lt;/array&gt;</span><br><span class="line">	private Map&lt;String,String&gt; addressMap = new HashMap&lt;String, String&gt;();</span><br><span class="line">// get,set省略...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>User.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.a_collection&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;User&quot; table=&quot;t_user&quot;&gt;</span><br><span class="line">		&lt;id name=&quot;userId&quot; column=&quot;id&quot;&gt;</span><br><span class="line">			&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</span><br><span class="line">		&lt;/id&gt;	</span><br><span class="line">		&lt;property name=&quot;userName&quot;&gt;&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- </span><br><span class="line">			set集合属性的映射</span><br><span class="line">				name 指定要映射的set集合的属性</span><br><span class="line">				table 集合属性要映射到的表</span><br><span class="line">				key  指定集合表(t_address)的外键字段</span><br><span class="line">				element 指定集合表的其他字段</span><br><span class="line">					type 元素类型，一定要指定</span><br><span class="line">		 --&gt;</span><br><span class="line">		 &lt;set name=&quot;address&quot; table=&quot;t_address&quot;&gt;</span><br><span class="line">		 	&lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		 	&lt;element column=&quot;address&quot; type=&quot;string&quot;&gt;&lt;/element&gt;</span><br><span class="line">		 &lt;/set&gt;</span><br><span class="line">		 </span><br><span class="line">		 &lt;!-- </span><br><span class="line">		 	list集合映射</span><br><span class="line">		 		list-index  指定的是排序列的名称 (因为要保证list集合的有序)</span><br><span class="line">		  --&gt;</span><br><span class="line">		  &lt;list name=&quot;addressList&quot; table=&quot;t_addressList&quot;&gt;</span><br><span class="line">		  	  &lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		  	  &lt;list-index column=&quot;idx&quot;&gt;&lt;/list-index&gt;</span><br><span class="line">		  	  &lt;element column=&quot;address&quot; type=&quot;string&quot;&gt;&lt;/element&gt;</span><br><span class="line">		  &lt;/list&gt;</span><br><span class="line">		  </span><br><span class="line">		  &lt;!-- </span><br><span class="line">		  	map集合的映射</span><br><span class="line">		  		key  指定外键字段</span><br><span class="line">		  		map-key 指定map的key </span><br><span class="line">		  		element  指定map的value</span><br><span class="line">		   --&gt;</span><br><span class="line">		  &lt;map name=&quot;addressMap&quot; table=&quot;t_addressMap&quot;&gt;</span><br><span class="line">		  	&lt;key column=&quot;uid&quot;&gt;&lt;/key&gt;</span><br><span class="line">		  	&lt;map-key column=&quot;shortName&quot; type=&quot;string&quot; &gt;&lt;/map-key&gt;</span><br><span class="line">		  	&lt;element column=&quot;address&quot; type=&quot;string&quot; &gt;&lt;/element&gt;</span><br><span class="line">		  &lt;/map&gt;	  		 </span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
 <p><strong>set测试</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">private static SessionFactory sf;</span><br><span class="line">	static &#123;</span><br><span class="line">		sf = new Configuration()</span><br><span class="line">			.configure()</span><br><span class="line">			.addClass(User.class)   // 测试时候使用</span><br><span class="line">			.buildSessionFactory();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 保存set</span><br><span class="line">	@Test</span><br><span class="line">	public void testSaveSet() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		//-- 保存</span><br><span class="line">		Set&lt;String&gt; addressSet = new HashSet&lt;String&gt;();</span><br><span class="line">		addressSet.add(&quot;广州&quot;);</span><br><span class="line">		addressSet.add(&quot;深圳&quot;);</span><br><span class="line">		// 用户对象</span><br><span class="line">		User user = new User();</span><br><span class="line">		user.setUserName(&quot;Jack&quot;);</span><br><span class="line">		user.setAddress(addressSet);</span><br><span class="line">		</span><br><span class="line">		// 保存</span><br><span class="line">		session.save(user);</span><br><span class="line">		</span><br><span class="line">		session.getTransaction().commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
 <p>效果如下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: insert into t_user (userName) values (?)</span><br><span class="line">Hibernate: insert into t_address (uid, address) values (?, ?)</span><br><span class="line">Hibernate: insert into t_address (uid, address) values (?, ?)</span><br></pre></td></tr></table></figure></p>
@@ -309,7 +315,7 @@ window.changyan.api.config({
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        19
+                        17
                     </p>
                 </div>
             </div>
@@ -319,7 +325,7 @@ window.changyan.api.config({
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        0
                     </p>
                 </div>
             </div>
@@ -529,22 +535,6 @@ window.changyan.api.config({
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/编程/">
-            <span class="level-start">
-                <span class="level-item">编程</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/编程/java/">
-            <span class="level-start">
-                <span class="level-item">java</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/计算机网络/">
             <span class="level-start">
                 <span class="level-item">计算机网络</span>
@@ -566,7 +556,7 @@ window.changyan.api.config({
                 <span class="level-item">随笔</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li>
             </ul>
@@ -580,7 +570,7 @@ window.changyan.api.config({
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a>
+        
     </div>
 </div>
 
@@ -597,18 +587,18 @@ window.changyan.api.config({
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -618,7 +608,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -637,7 +627,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -656,7 +646,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -675,7 +665,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -703,23 +693,12 @@ window.changyan.api.config({
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -879,28 +858,6 @@ window.changyan.api.config({
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>
@@ -926,18 +883,18 @@ window.changyan.api.config({
         
         <article class="media">
             
-            <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="media-left">
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/plant.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/WtCxNKjd.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T15:44:39.000Z">2018-11-03</time></div>
-                    <a href="/2018/11/03/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/编程/">编程</a> / <a class="has-link-grey -link" href="/categories/编程/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
                     </p>
                 </div>
             </div>
@@ -947,7 +904,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="记一次不太成功的频繁full gc排查过程">
+                    <img class="thumbnail" src="/gallery/sBIncN9g.jpg" alt="记一次不太成功的频繁full gc排查过程">
                 </p>
             </a>
             
@@ -966,7 +923,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac下编译OpenJDK10">
+                    <img class="thumbnail" src="/gallery/Jj0YR9yA.jpg" alt="mac下编译OpenJDK10">
                 </p>
             </a>
             
@@ -985,7 +942,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AWS V4签名认证(Java实现)">
+                    <img class="thumbnail" src="/gallery/BY29xJop.jpg" alt="AWS V4签名认证(Java实现)">
                 </p>
             </a>
             
@@ -1004,7 +961,7 @@ window.changyan.api.config({
             
             <a href="/2018/10/10/git常用命令/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git常用命令">
+                    <img class="thumbnail" src="/gallery/9SwbujDG.jpg" alt="git常用命令">
                 </p>
             </a>
             
@@ -1032,23 +989,12 @@ window.changyan.api.config({
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
                     <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1208,28 +1154,6 @@ window.changyan.api.config({
                 Tags
             </h3>
             <ul class="menu-list">
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/优化/">
-                        <span class="level-start">
-                            <span class="level-item">优化</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a class="level is-marginless" href="/tags/线程池/">
-                        <span class="level-start">
-                            <span class="level-item">线程池</span>
-                        </span>
-                        <span class="level-end">
-                            <span class="level-item tag">1</span>
-                        </span>
-                    </a>
-                </li>
                 
             </ul>
         </div>
