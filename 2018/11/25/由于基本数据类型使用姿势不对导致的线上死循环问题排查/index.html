@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查 - 何宝华的个人博客</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="本文要讲的是本周我在线上排查的一个”死循环”问题，由于前人的疏忽，导致线上在某一时间段内疯狂调用第三方服务，并没有在预期时间内结束。  线上代码为采用多线程校验批量任务，如下所示为模拟场景，很容易可以看出，该段代码的逻辑如下：  首先采用一个大小为100的线程安全队列来模拟待校验任务2.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="由于基本数据类型使用姿势不对导致的线上&quot;死循环&quot;问题排查">
+<meta property="og:url" content="http://yoursite.com/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/index.html">
+<meta property="og:site_name" content="何宝华的个人博客">
+<meta property="og:description" content="本文要讲的是本周我在线上排查的一个”死循环”问题，由于前人的疏忽，导致线上在某一时间段内疯狂调用第三方服务，并没有在预期时间内结束。  线上代码为采用多线程校验批量任务，如下所示为模拟场景，很容易可以看出，该段代码的逻辑如下：  首先采用一个大小为100的线程安全队列来模拟待校验任务2.">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-562a1d680dff4ea8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5990755-7affcd5e6fe4ca60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-d1586681b543e854.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-15T14:34:58.448Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="由于基本数据类型使用姿势不对导致的线上&quot;死循环&quot;问题排查">
+<meta name="twitter:description" content="本文要讲的是本周我在线上排查的一个”死循环”问题，由于前人的疏忽，导致线上在某一时间段内疯狂调用第三方服务，并没有在预期时间内结束。  线上代码为采用多线程校验批量任务，如下所示为模拟场景，很容易可以看出，该段代码的逻辑如下：  首先采用一个大小为100的线程安全队列来模拟待校验任务2.">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-562a1d680dff4ea8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/dracula.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/gallery/A5Fbx8IT.jpg" alt="由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-11-25T13:12:51.000Z">2018-11-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    17 minutes read (About 2482 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>本文要讲的是本周我在线上排查的一个”死循环”问题，由于前人的疏忽，导致线上在某一时间段内疯狂调用第三方服务，并没有在预期时间内结束。</p>
+</blockquote>
+<p>线上代码为采用多线程校验批量任务，如下所示为模拟场景，很容易可以看出，该段代码的逻辑如下：</p>
+<ol>
+<li>首先采用一个大小为100的线程安全队列来模拟待校验任务<br>2.<a id="more"></a> 然后起10个线程，每个线程都有10s时间不断的取队列中的任务进行校验</li>
+<li>每次校验都先从队列中取一个任务出来，校验不成功就把任务放回待校验队列，且每次校验完后会休息0.1s</li>
+<li>编号为44的校验任务是一个永远都过不去的坎</li>
+</ol>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">multiThreadCheckTest</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    <span class="hljs-comment">//初始化待校验队列,大小为100</span></span><br><span class="line">    ConcurrentLinkedQueue&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> ConcurrentLinkedQueue&lt;&gt;();</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++) &#123;</span><br><span class="line">        queue.add(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">int</span> threads = <span class="hljs-number">10</span>; <span class="hljs-comment">//起10个线程来做校验任务</span></span><br><span class="line">    <span class="hljs-keyword">float</span> maxCheckMillis = <span class="hljs-number">10</span> * <span class="hljs-number">1000</span>;<span class="hljs-comment">// 单个线程最长校验时间为10s</span></span><br><span class="line">    <span class="hljs-keyword">try</span>&#123;</span><br><span class="line">        <span class="hljs-keyword">final</span> CountDownLatch latch = <span class="hljs-keyword">new</span> CountDownLatch(threads);</span><br><span class="line">        <span class="hljs-keyword">float</span> startCheckTime = System.currentTimeMillis();</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; threads; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">                <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                    <span class="hljs-comment">// 每个线程循环执行校验</span></span><br><span class="line">                    <span class="hljs-keyword">while</span> (!queue.isEmpty() &amp;&amp; System.currentTimeMillis() - startCheckTime &lt; maxCheckMillis) &#123;</span><br><span class="line">                        Integer ii = queue.poll();</span><br><span class="line"></span><br><span class="line">                        <span class="hljs-comment">// 模拟线上出现的问题，卡在44这里执行不过去</span></span><br><span class="line">                        <span class="hljs-keyword">boolean</span> checkResult = (ii == <span class="hljs-number">44</span> ? <span class="hljs-keyword">false</span> : <span class="hljs-keyword">true</span>);</span><br><span class="line"></span><br><span class="line">                        <span class="hljs-keyword">if</span>(!checkResult)&#123;</span><br><span class="line">                            queue.add(ii); <span class="hljs-comment">//校验不成功则把任务重新加入到队列中</span></span><br><span class="line">                        &#125;</span><br><span class="line">                        Thread.sleep(<span class="hljs-number">100</span>);<span class="hljs-comment">//休息0.1s</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    <span class="hljs-comment">//异常处理</span></span><br><span class="line">                &#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">                    latch.countDown();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">        latch.await();</span><br><span class="line">        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            Integer iii = queue.poll();</span><br><span class="line">            System.out.println(<span class="hljs-string">"No."</span> + iii+ <span class="hljs-string">" task check failed within "</span> + (System.currentTimeMillis() - startCheckTime) / <span class="hljs-number">1000</span> + <span class="hljs-string">"s"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="hljs-keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        <span class="hljs-comment">//异常处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>依上可知，每个线程每秒的检验能力为10次，所在在10秒时间10个线程的校验能力为: 10<em>10 </em>10 = 1000, 足以处理100个任务，所以这段代码的理想情况应该在10s左右的时间结束，可是实际执行情况如下:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-562a1d680dff4ea8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20181201192159038"></p>
+<p>竟然用了131s，比预期的10倍还多。</p>
+<p>而我遇到线上的实际每个线程有4分钟时间来校验任务，且每次校验完后没有休息直接下一次校验!!!把这个4分钟如果放大10倍，如果有个任务一直校验不成功的话，相当于40分钟时间10个线程在不间断的执行校验任务(相当于死循环)，且这个校验是调用第三方的接口，不仅会把自己给累死，还给了别人很大的压力。还好我们接收到了机器报警，及时重启了应用。</p>
+<p>为什么会出现这种情况??? </p>
+<p>第一眼看到用了多线程，队列，还有CountDownLatch类，我还以为是哪里用得不当导致代码中产生了死锁，但不管是看代码还是分析线程堆栈，都发现不了问题。</p>
+<p>只有另辟溪径了，除了上面的线程并发问题，接下来只可能是while循环的判断有问题了。这段代码有两个while循环，很明显每二个while没问题，所以只有第一个while的问题了:</p>
+<p><code>while (!queue.isEmpty() &amp;&amp; System.currentTimeMillis() - startCheckTime &lt; maxCheckMillis)</code></p>
+<p>这个while循环当队列为空或到执行了指定的时间后就会停止，队列明显不会为空，所以只能靠第二个条件了。</p>
+<p>既然和线程并发无关，和队列无关，为了便于分析，对代码进行简化如下:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">multiThreadCheckTest</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">float</span> maxCheckMillis = <span class="hljs-number">10</span> * <span class="hljs-number">1000</span>;</span><br><span class="line">            <span class="hljs-keyword">float</span> startCheckTime = System.currentTimeMillis();</span><br><span class="line">            <span class="hljs-keyword">while</span> (System.currentTimeMillis() - startCheckTime &lt; maxCheckMillis) &#123;</span><br><span class="line">                Thread.sleep(<span class="hljs-number">100</span>);<span class="hljs-comment">//每校验一次休息0.1s</span></span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println((System.currentTimeMillis() - startCheckTime) / <span class="hljs-number">1000</span>);</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="hljs-comment">//异常处理</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>理想情况是输出一个接近10左右的值，可实际上输出的是131.072.</p>
+<p>果不其然，出问题的就在这几行代码里了。对while循环里的左边的值进行打印:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">multiThreadCheckTest</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">float</span> maxCheckMillis = <span class="hljs-number">10</span> * <span class="hljs-number">1000</span>;</span><br><span class="line">            <span class="hljs-keyword">float</span> startCheckTime = System.currentTimeMillis();</span><br><span class="line">            <span class="hljs-keyword">while</span> (System.currentTimeMillis() - startCheckTime &lt; maxCheckMillis) &#123;</span><br><span class="line">                System.out.println(System.currentTimeMillis() - startCheckTime);</span><br><span class="line">                Thread.sleep(<span class="hljs-number">100</span>);<span class="hljs-comment">//每校验一次休息0.1s</span></span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println((System.currentTimeMillis() - startCheckTime) / <span class="hljs-number">1000</span>);</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="hljs-comment">//异常处理</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>输出却和预想中并不一样:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">0.0</span></span><br><span class="line"><span class="hljs-number">0.0</span></span><br><span class="line"><span class="hljs-number">0.0</span></span><br><span class="line">...</span><br><span class="line"><span class="hljs-number">0.0</span></span><br><span class="line"><span class="hljs-number">0.0</span></span><br><span class="line"><span class="hljs-number">0.0</span></span><br><span class="line"><span class="hljs-number">131.072</span></span><br></pre></td></tr></table></figure>
+<p>全部为0.0直到最后用了100多秒时间结束，所以问题只能出现在startCheckTime变量的初始化上了，System.currentTimeMillis()返回的是一个long类型的值，但这里却利用java基本数据类型的自动转换用一个float类型的值来接收，我们将float改为long后输出如下:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">0</span></span><br><span class="line"><span class="hljs-number">102</span></span><br><span class="line"><span class="hljs-number">204</span></span><br><span class="line"><span class="hljs-number">306</span></span><br><span class="line"><span class="hljs-number">409</span></span><br><span class="line">...</span><br><span class="line"><span class="hljs-number">9790</span></span><br><span class="line"><span class="hljs-number">9890</span></span><br><span class="line"><span class="hljs-number">9991</span></span><br><span class="line"><span class="hljs-number">10</span></span><br></pre></td></tr></table></figure>
+<p>最后就是在10秒结束，问题解决。</p>
+<p>接着又试了一下将float改为double，输出如下:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">0.0</span></span><br><span class="line"><span class="hljs-number">102.0</span></span><br><span class="line"><span class="hljs-number">208.0</span></span><br><span class="line"><span class="hljs-number">311.0</span></span><br><span class="line">...</span><br><span class="line"><span class="hljs-number">9774.0</span></span><br><span class="line"><span class="hljs-number">9879.0</span></span><br><span class="line"><span class="hljs-number">9980.0</span></span><br><span class="line"><span class="hljs-number">10.081</span></span><br></pre></td></tr></table></figure>
+<p>结果也符合预期!!!</p>
+<p>看到这里你或许和我开始一样产生了如下的疑问:</p>
+<ol>
+<li><p>long类型占用8个字节，double只占用4个字节，为什么long类型能转换为double?</p>
+</li>
+<li><p>为什么将startCheckTime变量类型改为long和double都可以，偏偏用float就不行呢?</p>
+</li>
+</ol>
+<p>接下来就带着这两个疑问来复习下基础知识了。</p>
+<p>首先看看java中基本数据类型分类和占用的字节数:<br><img src="https://upload-images.jianshu.io/upload_images/5990755-7affcd5e6fe4ca60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>支持的自动类型转换规则如下:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-d1586681b543e854.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20181201204142952"></p>
+<ul>
+<li>首先解决第一个疑问。</li>
+</ul>
+<p>对于byte, short, int和long四个整数类而言，它们在内存中都是直接换算成二进制存储的， 下面以byte为例:</p>
+<p>占用1字节即8bit，每一位都是二进制的0或1，且第一位为表示正负的符号位，最大为0111 1111，转换为10进制为127，最小为1111 1111，转换为十进制为-128(1000 000, 用补码计算, 负数的袚即原码非符号位取反加1, -128 = (-1) + (-127) = [1000 0001]原 + [1111 1111]原 = [1111 1111]补 + [1000 0001]补 = [1000 0000]补 ), 所以byte的取值范围为-128~127。同理</p>
+<p>short(-32768~32767),</p>
+<p>int(-2147483648~2147483647)</p>
+<p>long(-9223372036854774808~9223372036854774807)</p>
+<p>而浮点数是以科学计数法的形式存储，以单精度类型float为例，占用4个字节即32bit，第一个bit为符号位，接下来8bits为指数位(取值班范围为-128-127)，剩下23bits为小数位。所以float的取值范围为3.402823e+38 ~ 1.401298e-45（e+38表示是乘以10的38次方，e-45表示乘以10的负45次方），同理double双精度有11个指数位52个小数位，取值范围为1.797693e+308~ 4.9000000e-324。</p>
+<p>由于可知，因为在内存中的存储形式不同，虽然float类型只占4个字节，但是表示的数值范围远远大于long的数值范围， 所以long类型能转换为float类型。</p>
+<ul>
+<li>接下来解决第二个问题。</li>
+</ul>
+<p>浮点数之所以称为浮点，是因为它会产生精度丢失。计算机世界只能用二进制的小数来表达小数，而我们现实世界是用十进制的小数来表达。对于二进制小数，小数点右边能表达的值是 1/2, 1/4, 1/8, 1/16, 1/32, 1/64, 1/128 … 1/(2^n）。所有这些小数都是一点一点的拼凑出来的一个近似的数值, 所有才会不准确的。</p>
+<p>举个例子, 现在用二进制来表示十进制的1.2:<br>1.01 = 1 + 1/4 = 0.25 , 偏大<br>1.001 = 1 + 1/8 = 0.125 , 偏小<br>1.0011 = 1 + 1/8 + 1/16 = 0.1875 ,<br>1.001101 = 1 + 1/8+ 1/16 + 1/64 = 0.203125 , 又偏大<br>1.0011001 = 1 + 1/8 + 1/16 + 1/128 = 0.1953125 ,<br>1.00110011 = 1 + 1/8+1/16+1/128+1/256 = 0.19921875 , 这个很接近<br>越来越接近…<br>这就是所谓的用二进制小数没法精确表达10进制小数的意思。</p>
+<p>因为浮点数表示的小数位不同所以精度不同。</p>
+<p>float：2^23 = 8388608，一共七位，这意味着最多能有7位有效数字，但绝对能保证的为6位，也即float的精度为6~7位有效数字；</p>
+<p>double：2^52 = 4503599627370496，一共16位，同理，double的精度为15~16位。</p>
+<p>回到我们要解决的问题，打印出System.currentTimeMillis()的一个值:</p>
+<p>1543671830108 = 1.543671830108E+12</p>
+<p>转换为float: 10 ^ 12 / 2^ 23 = 119209 ms = 119s (java中为131072ms = 131s, 有待考究)</p>
+<p>转换为double: 10 ^ 12 / 2^ 52 = 0 可以忽略</p>
+<p>通过上面计算把时时间戳转换为float后会损失精度，有一百多秒的精度损失, 转换为double后几乎没有精度损失，这就是为什么可以将时间戳转换为double而不能转换为float了， 当然最好还是直接使用long， 因为long已经足以表达时间戳。</p>
+<p>调整后的代码如下, 不管怎样都不会再出现执行时间与预期时间不符的”死循环”了:</p>
+<ol>
+<li>将maxCheckMillis， startCheckTime变量类型都改为long</li>
+<li>while循环里只有在校验不成功才暂停0.1s</li>
+</ol>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">multiThreadCheckTest</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        <span class="hljs-comment">//初始化待校验队列,大小为100</span></span><br><span class="line">        ConcurrentLinkedQueue&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> ConcurrentLinkedQueue&lt;&gt;();</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++) &#123;</span><br><span class="line">            queue.add(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">int</span> threads = <span class="hljs-number">10</span>; <span class="hljs-comment">//起10个线程来做校验任务</span></span><br><span class="line">        <span class="hljs-keyword">long</span> maxCheckMillis = <span class="hljs-number">10</span> * <span class="hljs-number">1000</span>;<span class="hljs-comment">// 单个线程最长校验时间为10s</span></span><br><span class="line">        <span class="hljs-keyword">try</span>&#123;</span><br><span class="line">            <span class="hljs-keyword">final</span> CountDownLatch latch = <span class="hljs-keyword">new</span> CountDownLatch(threads);</span><br><span class="line">            <span class="hljs-keyword">long</span> startCheckTime = System.currentTimeMillis();</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; threads; i++) &#123;</span><br><span class="line">                <span class="hljs-keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">                    <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                        <span class="hljs-comment">// 每个线程循环执行校验</span></span><br><span class="line">                        <span class="hljs-keyword">while</span> (!queue.isEmpty() &amp;&amp; System.currentTimeMillis() - startCheckTime &lt; maxCheckMillis) &#123;</span><br><span class="line">                            Integer ii = queue.poll();</span><br><span class="line"></span><br><span class="line">                            <span class="hljs-comment">// 模拟线上出现的问题，卡在44这里执行不过去</span></span><br><span class="line">                            <span class="hljs-keyword">boolean</span> checkResult = (ii == <span class="hljs-number">44</span> ? <span class="hljs-keyword">false</span> : <span class="hljs-keyword">true</span>);</span><br><span class="line"></span><br><span class="line">                            <span class="hljs-keyword">if</span>(!checkResult)&#123;</span><br><span class="line">                                <span class="hljs-comment">//校验不成功则记录日志，并休息0.1s, 然后把任务重新加入到队列中</span></span><br><span class="line">                                System.out.println(Thread.currentThread() + <span class="hljs-string">" check "</span> + ii + <span class="hljs-string">" failed!"</span>);</span><br><span class="line">                                Thread.sleep(<span class="hljs-number">100</span>);<span class="hljs-comment">//校验不成功则休息0.1s</span></span><br><span class="line">                                queue.add(ii);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        <span class="hljs-comment">//异常处理</span></span><br><span class="line">                    &#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">                        latch.countDown();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).start();</span><br><span class="line">            &#125;</span><br><span class="line">            latch.await();</span><br><span class="line">            <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">                Integer iii = queue.poll();</span><br><span class="line">                System.out.println(<span class="hljs-string">"No."</span> + iii+ <span class="hljs-string">" task check failed within "</span> + (System.currentTimeMillis() - startCheckTime) / <span class="hljs-number">1000</span> + <span class="hljs-string">"s"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="hljs-keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            <span class="hljs-comment">//异常处理</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>总结: 由于疏忽大意使用基本数据类型姿势不对，while循环内的条件判断没有在预期时间内为非，最多多出100多s， 也就是两分钟的时间一直在重复执行，让人误以为出现的死循环。所以平时写代码时还是要严于律己，不要给以后或后来人留坑。</p>
+
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/12/05/责任链模式及其在flowable源码中的应用/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">责任链模式及其在flowable源码中的应用</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/11/11/jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查/">
+                <span class="level-item">jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<div id="SOHUCS" sid="2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/"></div>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+    appid: 'cytoOY6km',
+    conf: 'prod_256dd977beeed0de5b2626a6127e098d'
+});
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png">
+                    
+                    <p class="is-size-4 is-block">
+                        Acamy
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Stay Hungry, Stay foolish
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>HangZhou China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        83
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        17
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://www.hebh.me">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/Acamy">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://www.hebh.me" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Site</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://www.hebh.me</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/Acamy" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Github</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/Acamy</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ElasticSearch/">
+            <span class="level-start">
+                <span class="level-item">ElasticSearch</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Git/">
+            <span class="level-start">
+                <span class="level-item">Git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hadoop/">
+            <span class="level-start">
+                <span class="level-item">Hadoop</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA基础系列/">
+            <span class="level-start">
+                <span class="level-item">JAVA基础系列</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JVM/">
+            <span class="level-start">
+                <span class="level-item">JVM</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaWeb框架/">
+            <span class="level-start">
+                <span class="level-item">JavaWeb框架</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Oracle/">
+            <span class="level-start">
+                <span class="level-item">Oracle</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/SpringBoot2-0/">
+            <span class="level-start">
+                <span class="level-item">SpringBoot2.0</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/flowable/">
+            <span class="level-start">
+                <span class="level-item">flowable</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/在线编程/">
+            <span class="level-start">
+                <span class="level-item">在线编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构与算法/">
+            <span class="level-start">
+                <span class="level-item">数据结构与算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/源码/">
+            <span class="level-start">
+                <span class="level-item">源码</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/计算机网络/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/设计模式/">
+            <span class="level-start">
+                <span class="level-item">设计模式</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">14</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/MKAXiZf7.jpg" alt="flowable流程引擎在Spring环境中的启动源码分析">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-08T06:55:50.000Z">2018-12-08</time></div>
+                    <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="has-link-black-ter is-size-6">flowable流程引擎在Spring环境中的启动源码分析</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/U9EcadSI.jpg" alt="责任链模式及其在flowable源码中的应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-05T13:09:01.000Z">2018-12-05</time></div>
+                    <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="has-link-black-ter is-size-6">责任链模式及其在flowable源码中的应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/A5Fbx8IT.jpg" alt="由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T13:12:51.000Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="has-link-black-ter is-size-6">由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/11/jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/6jHZgo5b.jpg" alt="jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-11T03:12:28.000Z">2018-11-11</time></div>
+                    <a href="/2018/11/11/jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查/" class="has-link-black-ter is-size-6">jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/4L95iFyC.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hadoop/">
+                        <span class="level-start">
+                            <span class="level-item">Hadoop</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/frp/">
+                        <span class="level-start">
+                            <span class="level-item">frp</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/java/">
+                        <span class="level-start">
+                            <span class="level-item">java</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">7</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/jvm/">
+                        <span class="level-start">
+                            <span class="level-item">jvm</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/linux/">
+                        <span class="level-start">
+                            <span class="level-item">linux</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/python/">
+                        <span class="level-start">
+                            <span class="level-item">python</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/MKAXiZf7.jpg" alt="flowable流程引擎在Spring环境中的启动源码分析">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-08T06:55:50.000Z">2018-12-08</time></div>
+                    <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="has-link-black-ter is-size-6">flowable流程引擎在Spring环境中的启动源码分析</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/U9EcadSI.jpg" alt="责任链模式及其在flowable源码中的应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-05T13:09:01.000Z">2018-12-05</time></div>
+                    <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="has-link-black-ter is-size-6">责任链模式及其在flowable源码中的应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/A5Fbx8IT.jpg" alt="由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T13:12:51.000Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="has-link-black-ter is-size-6">由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/11/jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/6jHZgo5b.jpg" alt="jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-11T03:12:28.000Z">2018-11-11</time></div>
+                    <a href="/2018/11/11/jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查/" class="has-link-black-ter is-size-6">jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/4L95iFyC.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-31T15:22:55.000Z">2018-10-31</time></div>
+                    <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hadoop/">
+                        <span class="level-start">
+                            <span class="level-item">Hadoop</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/frp/">
+                        <span class="level-start">
+                            <span class="level-item">frp</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/java/">
+                        <span class="level-start">
+                            <span class="level-item">java</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">7</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/jvm/">
+                        <span class="level-start">
+                            <span class="level-item">jvm</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/linux/">
+                        <span class="level-start">
+                            <span class="level-item">linux</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/python/">
+                        <span class="level-start">
+                            <span class="level-item">python</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 Acamy&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://www.hebh.me/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://www.hebh.me/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/Acamy">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+<script src="/js/back-to-top.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

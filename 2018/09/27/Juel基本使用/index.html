@@ -2,20 +2,19 @@
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Juel基本使用 - Hexo</title>
+<title>Juel基本使用 - 何宝华的个人博客</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
     <meta name="description" content="Juel是Java Unified Expression Language的简称，即Java统一表达语言，在JSP2.1标准(JSR-245)中定义的一部分。尽管EL表达式是伴随着JSP而生，但现在已经可以在非JSP应用中使用，相关的API放在javax.el包里面。  Juel是统一表达语言轻">
-<meta name="keywords" content="java,juel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Juel基本使用">
 <meta property="og:url" content="http://yoursite.com/2018/09/27/Juel基本使用/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="何宝华的个人博客">
 <meta property="og:description" content="Juel是Java Unified Expression Language的简称，即Java统一表达语言，在JSP2.1标准(JSR-245)中定义的一部分。尽管EL表达式是伴随着JSP而生，但现在已经可以在非JSP应用中使用，相关的API放在javax.el包里面。  Juel是统一表达语言轻">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-07T10:43:53.946Z">
+<meta property="og:updated_time" content="2018-12-15T14:19:24.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Juel基本使用">
 <meta name="twitter:description" content="Juel是Java Unified Expression Language的简称，即Java统一表达语言，在JSP2.1标准(JSR-245)中定义的一部分。尽管EL表达式是伴随着JSP而生，但现在已经可以在非JSP应用中使用，相关的API放在javax.el包里面。  Juel是统一表达语言轻">
@@ -121,7 +120,7 @@
                 
                 <a class="navbar-item" href="/tags">Tags</a>
                 
-                <a class="navbar-item" href="/about">About</a>
+                <a class="navbar-item" href="/">About</a>
                 
             </div>
             
@@ -153,7 +152,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="/gallery/XcIwB7M0.jpg" alt="Juel基本使用">
+            <img class="thumbnail" src="/gallery/ySLD2WiQ.jpg" alt="Juel基本使用">
         </span>
     </div>
     
@@ -200,15 +199,6 @@
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// the ExpressionFactory implementation is de.odysseus.el.ExpressionFactoryImpl</span><br><span class="line">ExpressionFactory factory = new ExpressionFactoryImpl();</span><br><span class="line"></span><br><span class="line">// package de.odysseus.el.util provides a ready-to-use subclass of ELContext</span><br><span class="line">SimpleContext context = new SimpleContext();</span><br><span class="line"></span><br><span class="line">// map function math:max(int, int) to java.lang.Math.max(int, int)</span><br><span class="line">context.setFunction(&quot;math&quot;, &quot;max&quot;, Math.class.getMethod(&quot;max&quot;, int.class, int.class));</span><br><span class="line"></span><br><span class="line">// map variable foo to 0</span><br><span class="line">context.setVariable(&quot;foo&quot;, factory.createValueExpression(0, int.class));</span><br><span class="line"></span><br><span class="line">// parse our expression</span><br><span class="line">ValueExpression e = factory.createValueExpression(context, &quot;$&#123;math:max(foo,bar)&#125;&quot;, int.class);</span><br><span class="line"></span><br><span class="line">// set value for top-level property &quot;bar&quot; to 1</span><br><span class="line">factory.createValueExpression(context, &quot;$&#123;bar&#125;&quot;, int.class).setValue(context, 1);</span><br><span class="line"></span><br><span class="line">// get value for our expression</span><br><span class="line">System.out.println(e.getValue(context)); // --&gt; 1</span><br></pre></td></tr></table></figure>
 <h4 id="4-简单解析器"><a href="#4-简单解析器" class="headerlink" title="4. 简单解析器"></a>4. 简单解析器</h4><p>Juel提供SimpleResolver类作为基本的解析器来解析表达式中的属性，如下所示，既可以解析top-level属性，也可以解析bean。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ExpressionFactory factory = new ExpressionFactoryImpl();</span><br><span class="line">SimpleContext context = new SimpleContext(new SimpleResolver());</span><br><span class="line">// resolve top-level property</span><br><span class="line">factory.createValueExpression(context, &quot;#&#123;pi&#125;&quot;, double.class).setValue(context, Math.PI);</span><br><span class="line">ValueExpression expr1 = factory.createValueExpression(context, &quot;$&#123;pi/2&#125;&quot;, double.class);</span><br><span class="line">System.out.println(&quot;pi/2 = &quot; + expr1.getValue(context));  // pi/2 = 1.5707963267948966</span><br><span class="line"></span><br><span class="line">// resolve bean property</span><br><span class="line">factory.createValueExpression(context, &quot;#&#123;current&#125;&quot;, Date.class).setValue(context, new Date());</span><br><span class="line">ValueExpression expr2 = factory.createValueExpression(context, &quot;$&#123;current.time&#125;&quot;, long.class);</span><br><span class="line">System.out.println(&quot;current.time = &quot; + expr2.getValue(context));// --&gt; current.time = 1538048848843</span><br></pre></td></tr></table></figure></p>
 
-        </div>
-        
-        <div class="level is-size-7 is-uppercase">
-            <div class="level-start">
-                <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/java/">java</a>, <a class="has-link-grey -link" href="/tags/juel/">juel</a>
-                </div>
-            </div>
         </div>
         
         
@@ -299,7 +289,7 @@ window.changyan.api.config({
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        79
+                        83
                     </p>
                 </div>
             </div>
@@ -319,7 +309,7 @@ window.changyan.api.config({
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        4
+                        6
                     </p>
                 </div>
             </div>
@@ -454,7 +444,7 @@ window.changyan.api.config({
                 <span class="level-item">JVM</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/JavaWeb/">
@@ -502,7 +492,7 @@ window.changyan.api.config({
                 <span class="level-item">flowable</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/在线编程/">
@@ -550,7 +540,7 @@ window.changyan.api.config({
                 <span class="level-item">随笔</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">13</span>
+                <span class="level-item tag">14</span>
             </span>
         </a></li>
             </ul>
@@ -564,7 +554,7 @@ window.changyan.api.config({
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/juel/" style="font-size: 10px;">juel</a> <a href="/tags/编程/" style="font-size: 10px;">编程</a>
+        <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
     </div>
 </div>
 
@@ -581,9 +571,85 @@ window.changyan.api.config({
         
         <article class="media">
             
+            <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/MKAXiZf7.jpg" alt="flowable流程引擎在Spring环境中的启动源码分析">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-08T06:55:50.000Z">2018-12-08</time></div>
+                    <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="has-link-black-ter is-size-6">flowable流程引擎在Spring环境中的启动源码分析</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/U9EcadSI.jpg" alt="责任链模式及其在flowable源码中的应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-05T13:09:01.000Z">2018-12-05</time></div>
+                    <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="has-link-black-ter is-size-6">责任链模式及其在flowable源码中的应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/A5Fbx8IT.jpg" alt="由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T13:12:51.000Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="has-link-black-ter is-size-6">由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/11/jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/6jHZgo5b.jpg" alt="jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-11T03:12:28.000Z">2018-11-11</time></div>
+                    <a href="/2018/11/11/jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查/" class="has-link-black-ter is-size-6">jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/iQkKl9gO.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/4L95iFyC.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
@@ -593,82 +659,6 @@ window.changyan.api.config({
                     <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/gt5PX0kZ.jpg" alt="记一次不太成功的频繁full gc排查过程">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
-                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/CsL2gJwa.jpg" alt="mac下编译OpenJDK10">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
-                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/4Sfq9dVE.jpg" alt="AWS V4签名认证(Java实现)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
-                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2018/10/10/git常用命令/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/Knb8FHxe.jpg" alt="git常用命令">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
-                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
                     </p>
                 </div>
             </div>
@@ -685,6 +675,28 @@ window.changyan.api.config({
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2018/10/">
@@ -854,9 +866,20 @@ window.changyan.api.config({
             <ul class="menu-list">
                 
                 <li>
-                    <a class="level is-marginless" href="/tags/git/">
+                    <a class="level is-marginless" href="/tags/Hadoop/">
                         <span class="level-start">
-                            <span class="level-item">git</span>
+                            <span class="level-item">Hadoop</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/frp/">
+                        <span class="level-start">
+                            <span class="level-item">frp</span>
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">1</span>
@@ -870,26 +893,37 @@ window.changyan.api.config({
                             <span class="level-item">java</span>
                         </span>
                         <span class="level-end">
+                            <span class="level-item tag">7</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/jvm/">
+                        <span class="level-start">
+                            <span class="level-item">jvm</span>
+                        </span>
+                        <span class="level-end">
                             <span class="level-item tag">2</span>
                         </span>
                     </a>
                 </li>
                 
                 <li>
-                    <a class="level is-marginless" href="/tags/juel/">
+                    <a class="level is-marginless" href="/tags/linux/">
                         <span class="level-start">
-                            <span class="level-item">juel</span>
+                            <span class="level-item">linux</span>
                         </span>
                         <span class="level-end">
-                            <span class="level-item tag">1</span>
+                            <span class="level-item tag">3</span>
                         </span>
                     </a>
                 </li>
                 
                 <li>
-                    <a class="level is-marginless" href="/tags/编程/">
+                    <a class="level is-marginless" href="/tags/python/">
                         <span class="level-start">
-                            <span class="level-item">编程</span>
+                            <span class="level-item">python</span>
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">1</span>
@@ -921,9 +955,85 @@ window.changyan.api.config({
         
         <article class="media">
             
+            <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/MKAXiZf7.jpg" alt="flowable流程引擎在Spring环境中的启动源码分析">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-08T06:55:50.000Z">2018-12-08</time></div>
+                    <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="has-link-black-ter is-size-6">flowable流程引擎在Spring环境中的启动源码分析</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/U9EcadSI.jpg" alt="责任链模式及其在flowable源码中的应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-05T13:09:01.000Z">2018-12-05</time></div>
+                    <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="has-link-black-ter is-size-6">责任链模式及其在flowable源码中的应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/A5Fbx8IT.jpg" alt="由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T13:12:51.000Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="has-link-black-ter is-size-6">由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/11/jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/6jHZgo5b.jpg" alt="jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-11T03:12:28.000Z">2018-11-11</time></div>
+                    <a href="/2018/11/11/jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查/" class="has-link-black-ter is-size-6">jstack分析线程快照的三步曲及CPU占用过高和死锁问题的排查</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/iQkKl9gO.jpg" alt="采用线程池处理异步任务并获取最终结果">
+                    <img class="thumbnail" src="/gallery/4L95iFyC.jpg" alt="采用线程池处理异步任务并获取最终结果">
                 </p>
             </a>
             
@@ -933,82 +1043,6 @@ window.changyan.api.config({
                     <a href="/2018/10/31/采用线程池处理异步任务并获取最终结果/" class="has-link-black-ter is-size-6">采用线程池处理异步任务并获取最终结果</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/gt5PX0kZ.jpg" alt="记一次不太成功的频繁full gc排查过程">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-21T14:00:49.000Z">2018-10-21</time></div>
-                    <a href="/2018/10/21/记一次不太成功的频繁full gc排查过程/" class="has-link-black-ter is-size-6">记一次不太成功的频繁full gc排查过程</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2018/10/19/mac下编译OpenJDK10/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/CsL2gJwa.jpg" alt="mac下编译OpenJDK10">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-19T12:21:37.000Z">2018-10-19</time></div>
-                    <a href="/2018/10/19/mac下编译OpenJDK10/" class="has-link-black-ter is-size-6">mac下编译OpenJDK10</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/4Sfq9dVE.jpg" alt="AWS V4签名认证(Java实现)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-14T05:00:50.000Z">2018-10-14</time></div>
-                    <a href="/2018/10/14/AWS V4签名认证(Java实现)/" class="has-link-black-ter is-size-6">AWS V4签名认证(Java实现)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2018/10/10/git常用命令/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/Knb8FHxe.jpg" alt="git常用命令">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-10T03:46:23.000Z">2018-10-10</time></div>
-                    <a href="/2018/10/10/git常用命令/" class="has-link-black-ter is-size-6">git常用命令</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Git/">Git</a>
                     </p>
                 </div>
             </div>
@@ -1025,6 +1059,28 @@ window.changyan.api.config({
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2018/10/">
@@ -1194,9 +1250,20 @@ window.changyan.api.config({
             <ul class="menu-list">
                 
                 <li>
-                    <a class="level is-marginless" href="/tags/git/">
+                    <a class="level is-marginless" href="/tags/Hadoop/">
                         <span class="level-start">
-                            <span class="level-item">git</span>
+                            <span class="level-item">Hadoop</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/frp/">
+                        <span class="level-start">
+                            <span class="level-item">frp</span>
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">1</span>
@@ -1210,26 +1277,37 @@ window.changyan.api.config({
                             <span class="level-item">java</span>
                         </span>
                         <span class="level-end">
+                            <span class="level-item tag">7</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/jvm/">
+                        <span class="level-start">
+                            <span class="level-item">jvm</span>
+                        </span>
+                        <span class="level-end">
                             <span class="level-item tag">2</span>
                         </span>
                     </a>
                 </li>
                 
                 <li>
-                    <a class="level is-marginless" href="/tags/juel/">
+                    <a class="level is-marginless" href="/tags/linux/">
                         <span class="level-start">
-                            <span class="level-item">juel</span>
+                            <span class="level-item">linux</span>
                         </span>
                         <span class="level-end">
-                            <span class="level-item tag">1</span>
+                            <span class="level-item tag">3</span>
                         </span>
                     </a>
                 </li>
                 
                 <li>
-                    <a class="level is-marginless" href="/tags/编程/">
+                    <a class="level is-marginless" href="/tags/python/">
                         <span class="level-start">
-                            <span class="level-item">编程</span>
+                            <span class="level-item">python</span>
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">1</span>
@@ -1258,7 +1336,7 @@ window.changyan.api.config({
                 
                 </a>
                 <p class="is-size-7">
-                &copy; 2018 John Doe&nbsp;
+                &copy; 2018 Acamy&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
                 </p>
             </div>
