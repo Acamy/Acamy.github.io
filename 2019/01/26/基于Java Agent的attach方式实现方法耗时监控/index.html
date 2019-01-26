@@ -2,18 +2,25 @@
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Archives: 2017 - 何宝华的个人博客</title>
+<title>基于Java Agent的attach方式实现方法耗时监控 - 何宝华的个人博客</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="何宝华的个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/2017/page/3/index.html">
+    <meta name="description" content="在上一篇中我们已经介绍了java agent的相关概念和思想，给出了premain方式的实现代码。本篇主要是实现了attach方式，不同之处主要如下:  premain是静态修改，在类加载之前修改; attach是动态修改，在类加载后修改 要使premain生效重启应用，而">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Java Agent的attach方式实现方法耗时监控">
+<meta property="og:url" content="http://yoursite.com/2019/01/26/基于Java Agent的attach方式实现方法耗时监控/index.html">
 <meta property="og:site_name" content="何宝华的个人博客">
+<meta property="og:description" content="在上一篇中我们已经介绍了java agent的相关概念和思想，给出了premain方式的实现代码。本篇主要是实现了attach方式，不同之处主要如下:  premain是静态修改，在类加载之前修改; attach是动态修改，在类加载后修改 要使premain生效重启应用，而">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-126d4bd642b22b3d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-bb431d63c5e6ff76.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-01-26T13:08:01.519Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="何宝华的个人博客">
+<meta name="twitter:title" content="基于Java Agent的attach方式实现方法耗时监控">
+<meta name="twitter:description" content="在上一篇中我们已经介绍了java agent的相关概念和思想，给出了premain方式的实现代码。本篇主要是实现了attach方式，不同之处主要如下:  premain是静态修改，在类加载之前修改; attach是动态修改，在类加载后修改 要使premain生效重启应用，而">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-126d4bd642b22b3d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -79,7 +86,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="何宝华的个人博客" height="28">
+                <img src="/images/logo.svg" alt="基于Java Agent的attach方式实现方法耗时监控" height="28">
             
             </a>
         </div>
@@ -124,296 +131,123 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="tag is-link">
-        2017
-        </h3>
-        <div class="timeline">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/gallery/DtEqLRo0.jpg" alt="基于Java Agent的attach方式实现方法耗时监控">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
         
-            <article class="media">
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-01-26T13:02:00.000Z">2019-01-26</time>
                 
-                <a href="/2017/06/19/从源码看ArrayList的实现/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/y7CR3rvi.jpg" alt="从源码看ArrayList的实现">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-06-19T15:11:46.000Z">2017-06-19</time>
-                        <a href="/2017/06/19/从源码看ArrayList的实现/" class="has-link-black-ter is-size-6">从源码看ArrayList的实现</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/源码/">源码</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
                 </div>
-            </article>
-        
-            <article class="media">
                 
-                <a href="/2017/06/18/Spring进阶之对jdbc的支持以及事物管理/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/0IJixAo8.jpg" alt="Spring进阶之对jdbc的支持以及事物管理">
-                    </p>
-                </a>
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-06-18T00:45:18.000Z">2017-06-18</time>
-                        <a href="/2017/06/18/Spring进阶之对jdbc的支持以及事物管理/" class="has-link-black-ter is-size-6">Spring进阶之对jdbc的支持以及事物管理</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
+                <span class="level-item has-text-grey">
+                    
+                    
+                    8 minutes read (About 1242 words)
+                </span>
                 
-                <a href="/2017/06/18/Spring进阶之代理与AOP编程/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/AzTBFpuJ.jpg" alt="Spring进阶之代理与AOP编程">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-06-18T00:44:53.000Z">2017-06-18</time>
-                        <a href="/2017/06/18/Spring进阶之代理与AOP编程/" class="has-link-black-ter is-size-6">Spring进阶之代理与AOP编程</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2017/06/18/Spring初探/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/qf7GMP38.jpg" alt="Spring初探">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-06-18T00:22:45.000Z">2017-06-18</time>
-                        <a href="/2017/06/18/Spring初探/" class="has-link-black-ter is-size-6">Spring初探</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2017/06/16/华为OJ初级1-10/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/O2XA6TBV.jpg" alt="华为OJ初级1-10">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-06-16T13:15:52.000Z">2017-06-16</time>
-                        <a href="/2017/06/16/华为OJ初级1-10/" class="has-link-black-ter is-size-6">华为OJ初级1-10</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/在线编程/">在线编程</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2017/06/15/Hibernate构架(四） 查询,连接池，二级缓存，session管理/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/d1FzDPQZ.jpg" alt="Hibernate构架(四） 查询,连接池，二级缓存，session管理">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-06-15T13:10:35.000Z">2017-06-15</time>
-                        <a href="/2017/06/15/Hibernate构架(四） 查询,连接池，二级缓存，session管理/" class="has-link-black-ter is-size-6">Hibernate构架(四） 查询,连接池，二级缓存，session管理</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2017/06/13/Hibernate构架(三） 状态，缓存，映射/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/dPg1bQ8k.jpg" alt="Hibernate构架(三） 状态，缓存，映射">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-06-13T14:16:15.000Z">2017-06-13</time>
-                        <a href="/2017/06/13/Hibernate构架(三） 状态，缓存，映射/" class="has-link-black-ter is-size-6">Hibernate构架(三） 状态，缓存，映射</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2017/06/12/Hibernate构架( 二） 映射/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/kmj2Kqzs.jpg" alt="Hibernate构架( 二） 映射">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-06-12T12:04:25.000Z">2017-06-12</time>
-                        <a href="/2017/06/12/Hibernate构架( 二） 映射/" class="has-link-black-ter is-size-6">Hibernate构架( 二） 映射</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2017/06/11/Hibernate构架(一) 初探/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/maMQLBec.jpg" alt="Hibernate构架(一) 初探">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-06-11T14:21:51.000Z">2017-06-11</time>
-                        <a href="/2017/06/11/Hibernate构架(一) 初探/" class="has-link-black-ter is-size-6">Hibernate构架(一) 初探</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2017/06/11/struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/EFZlgQaq.jpg" alt="struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-06-11T11:45:51.000Z">2017-06-11</time>
-                        <a href="/2017/06/11/struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交/" class="has-link-black-ter is-size-6">struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
+            </div>
         </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                基于Java Agent的attach方式实现方法耗时监控
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>在上一篇中我们已经介绍了java agent的相关概念和思想，给出了premain方式的实现代码。本篇主要是实现了attach方式，不同之处主要如下:</p>
+<ol>
+<li>premain是静态修改，在类加载之前修改; attach是动态修改，在类加载后修改</li>
+<li>要使premain生效重启应用，而<a id="more"></a>attach不重启应用即可修改字节码并让其重新加载</li>
+</ol>
+<p>可以看到attach的方式更加强大，其核心原理首先是找到相关的进程id, 然后根据进程id去动态修改相关字节码，具体的修改方式和premain无差，下面就直接给出详细实现。</p>
+</blockquote>
+<p>项目结构(此处为了方便把主程序和Agent程序放在一起, 实际生产中肯定是分开的):</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">agentdemo</span><br><span class="line">├── pom.xml</span><br><span class="line">└── src</span><br><span class="line">    └── main</span><br><span class="line">        ├── java</span><br><span class="line">        │   └── com</span><br><span class="line">        │       └── hebh</span><br><span class="line">        │           └── demo</span><br><span class="line">        │               ├── agent</span><br><span class="line">        │               │   ├── MyInstrumentationAgent.java</span><br><span class="line">        │               │   └── MyTransformer.java</span><br><span class="line">        │               └── application</span><br><span class="line">        │                   ├── AgentLoader.java</span><br><span class="line">        │                   ├── Launcher.java</span><br><span class="line">        │                   ├── MyApplication.java</span><br><span class="line">        │                   └── Runner.java</span><br><span class="line">        └── resources</span><br><span class="line">            ├── META-INF</span><br><span class="line">            │   └── MANIFEST.MF</span><br><span class="line">            └── log4j2.xml</span><br></pre></td></tr></table></figure>
+<p>先看测试结果:</p>
+<ol>
+<li><p>打成jar包</p>
+<p><code>mvn clean package</code></p>
+</li>
+<li><p>运行主程序</p>
+<p><code>java -jar target/myAgent-jar-with-dependencies.jar</code></p>
+</li>
+<li><p>运行agent程序, 注意带上系统的lib目录</p>
+<p><code>java -Djava.ext.dirs=${JAVA_HOME}/lib -jar target/myAgent-jar-with-dependencies.jar LoadAgent</code></p>
+<p>如下图所示，可以看到首先找到主程序的进程id为4477，然后再attach上去</p>
+</li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-126d4bd642b22b3d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190126202600306"></p>
+<p>然后此时再看主程序的运行日志, 可以看到在attach后动态增加的字节码生效了，实现了方法耗时监控:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-bb431d63c5e6ff76.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190126203002824"></p>
+<p>详细代码:</p>
+<p>MANIFEST.MF</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Main-Class: com.hebh.demo.application.Launcher</span><br><span class="line">Agent-Class: com.hebh.demo.agent.MyInstrumentationAgent</span><br><span class="line">Can-Redefine-Classes: true</span><br><span class="line">Can-Retransform-Classes: true</span><br></pre></td></tr></table></figure>
+<p>pom</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">    &lt;groupId&gt;com.hebh&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;agent-demo&lt;/artifactId&gt;</span><br><span class="line">    &lt;packaging&gt;jar&lt;/packaging&gt;</span><br><span class="line">    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">    &lt;name&gt;A custom project using myfaces&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://www.myorganization.org&lt;/url&gt;</span><br><span class="line"></span><br><span class="line">    &lt;build&gt;</span><br><span class="line">        &lt;finalName&gt;myAgent&lt;/finalName&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;configuration&gt;</span><br><span class="line">                    &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">                    &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">                &lt;/configuration&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;configuration&gt;</span><br><span class="line">                    &lt;archive&gt;</span><br><span class="line">                        &lt;!--避免MANIFEST.MF被覆盖--&gt;</span><br><span class="line">                        &lt;manifestFile&gt;src/main/resources/META-INF/MANIFEST.MF&lt;/manifestFile&gt;</span><br><span class="line">                    &lt;/archive&gt;</span><br><span class="line">                    &lt;descriptorRefs&gt;</span><br><span class="line">                        &lt;!--打包时加入依赖--&gt;</span><br><span class="line">                        &lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt;</span><br><span class="line">                    &lt;/descriptorRefs&gt;</span><br><span class="line">                &lt;/configuration&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;id&gt;make-assembly&lt;/id&gt; &lt;!-- this is used for inheritance merges --&gt;</span><br><span class="line">                        &lt;phase&gt;package&lt;/phase&gt; &lt;!-- bind to the packaging phase --&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;single&lt;/goal&gt;</span><br><span class="line">                        &lt;/goals&gt;</span><br><span class="line">                    &lt;/execution&gt;</span><br><span class="line">                &lt;/executions&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">        &lt;/plugins&gt;</span><br><span class="line">    &lt;/build&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- Project dependencies --&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.sun&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;tools&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.8&lt;/version&gt;</span><br><span class="line">            &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">            &lt;systemPath&gt;$&#123;java.home&#125;/../lib/tools.jar&lt;/systemPath&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- https://mvnrepository.com/artifact/org.javassist/javassist --&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.javassist&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;javassist&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.24.1-GA&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;log4j-api&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.11.1&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.11.1&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<p>主程序和Agent程序的路由:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Launcher</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(args != <span class="hljs-keyword">null</span> &amp;&amp; args.length &gt; <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-string">"LoadAgent"</span>.equals(args[<span class="hljs-number">0</span>])) &#123;</span><br><span class="line">            <span class="hljs-keyword">new</span> AgentLoader().run();</span><br><span class="line">        &#125;<span class="hljs-keyword">else</span>&#123;</span><br><span class="line">            <span class="hljs-keyword">new</span> MyApplication().run();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主程序部分:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApplication</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Logger logger = LogManager.getLogger(MyApplication.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        logger.info(<span class="hljs-string">"[Application] Starting My application"</span>);</span><br><span class="line">        Runner runner = <span class="hljs-keyword">new</span> Runner();</span><br><span class="line">        <span class="hljs-keyword">for</span>(;;)&#123;</span><br><span class="line">            runner.run();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Runner</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger logger = LogManager.getLogger(Runner.class);</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">        <span class="hljs-keyword">long</span> sleep = (<span class="hljs-keyword">long</span>)(Math.random() * <span class="hljs-number">1000</span> + <span class="hljs-number">200</span>);</span><br><span class="line">        Thread.sleep(sleep);</span><br><span class="line">        logger.info(<span class="hljs-string">"run in [&#123;&#125;] millis!"</span>, sleep);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Agent部分:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AgentLoader</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Logger logger = LogManager.getLogger(AgentLoader.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">//指定jar路径</span></span><br><span class="line">        String agentFilePath = <span class="hljs-string">"/Users/baohuahe/demos/agentdemo/target/myAgent-jar-with-dependencies.jar"</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-comment">//需要attach的进程标识</span></span><br><span class="line">        String applicationName = <span class="hljs-string">"myAgent"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">//查到需要监控的进程</span></span><br><span class="line">        Optional&lt;String&gt; jvmProcessOpt = Optional.ofNullable(VirtualMachine.list()</span><br><span class="line">                .stream()</span><br><span class="line">                .filter(jvm -&gt; &#123;</span><br><span class="line">                    logger.info(<span class="hljs-string">"jvm:&#123;&#125;"</span>, jvm.displayName());</span><br><span class="line">                    <span class="hljs-keyword">return</span> jvm.displayName().contains(applicationName);</span><br><span class="line">                &#125;)</span><br><span class="line">                .findFirst().get().id());</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span>(!jvmProcessOpt.isPresent()) &#123;</span><br><span class="line">            logger.error(<span class="hljs-string">"Target Application not found"</span>);</span><br><span class="line">            <span class="hljs-keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        File agentFile = <span class="hljs-keyword">new</span> File(agentFilePath);</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            String jvmPid = jvmProcessOpt.get();</span><br><span class="line">            logger.info(<span class="hljs-string">"Attaching to target JVM with PID: "</span> + jvmPid);</span><br><span class="line">            VirtualMachine jvm = VirtualMachine.attach(jvmPid);</span><br><span class="line">            jvm.loadAgent(agentFile.getAbsolutePath());</span><br><span class="line">            jvm.detach();</span><br><span class="line">            logger.info(<span class="hljs-string">"Attached to target JVM and loaded Java agent successfully"</span>);</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyInstrumentationAgent</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Logger logger = LogManager.getLogger(MyInstrumentationAgent.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">agentmain</span><span class="hljs-params">(String agentArgs, Instrumentation inst)</span> </span>&#123;</span><br><span class="line">        logger.info(<span class="hljs-string">"[Agent] In agentmain method"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">//需要监控的类</span></span><br><span class="line">        String className = <span class="hljs-string">"com.hebh.demo.application.Runner"</span>;</span><br><span class="line">        transformClass(className, inst);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">transformClass</span><span class="hljs-params">(String className, Instrumentation instrumentation)</span> </span>&#123;</span><br><span class="line">        Class&lt;?&gt; targetCls = <span class="hljs-keyword">null</span>;</span><br><span class="line">        ClassLoader targetClassLoader = <span class="hljs-keyword">null</span>;</span><br><span class="line">        <span class="hljs-comment">// see if we can get the class using forName</span></span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            targetCls = Class.forName(className);</span><br><span class="line">            targetClassLoader = targetCls.getClassLoader();</span><br><span class="line">            transform(targetCls, targetClassLoader, instrumentation);</span><br><span class="line">            <span class="hljs-keyword">return</span>;</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            logger.error(<span class="hljs-string">"Class [&#123;&#125;] not found with Class.forName"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-comment">// otherwise iterate all loaded classes and find what we want</span></span><br><span class="line">        <span class="hljs-keyword">for</span>(Class&lt;?&gt; clazz: instrumentation.getAllLoadedClasses()) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span>(clazz.getName().equals(className)) &#123;</span><br><span class="line">                targetCls = clazz;</span><br><span class="line">                targetClassLoader = targetCls.getClassLoader();</span><br><span class="line">                transform(targetCls, targetClassLoader, instrumentation);</span><br><span class="line">                <span class="hljs-keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">"Failed to find class ["</span> + className + <span class="hljs-string">"]"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">transform</span><span class="hljs-params">(Class&lt;?&gt; clazz, ClassLoader classLoader, Instrumentation instrumentation)</span> </span>&#123;</span><br><span class="line">        MyTransformer dt = <span class="hljs-keyword">new</span> MyTransformer(clazz.getName(), classLoader);</span><br><span class="line">        instrumentation.addTransformer(dt, <span class="hljs-keyword">true</span>);</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            instrumentation.retransformClasses(clazz);</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">"Transform failed for class: ["</span> + clazz.getName() + <span class="hljs-string">"]"</span>, ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyTransformer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ClassFileTransformer</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Logger logger = LogManager.getLogger(MyTransformer.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">//需要监控的方法</span></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String WITHDRAW_MONEY_METHOD = <span class="hljs-string">"run"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/** The internal form class name of the class to transform */</span></span><br><span class="line">    <span class="hljs-keyword">private</span> String targetClassName;</span><br><span class="line">    <span class="hljs-comment">/** The class loader of the class we want to transform */</span></span><br><span class="line">    <span class="hljs-keyword">private</span> ClassLoader targetClassLoader;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyTransformer</span><span class="hljs-params">(String targetClassName, ClassLoader targetClassLoader)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.targetClassName = targetClassName;</span><br><span class="line">        <span class="hljs-keyword">this</span>.targetClassLoader = targetClassLoader;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">byte</span>[] transform(ClassLoader loader, String className, Class&lt;?&gt; classBeingRedefined,</span><br><span class="line">                            ProtectionDomain protectionDomain, <span class="hljs-keyword">byte</span>[] classfileBuffer) <span class="hljs-keyword">throws</span> IllegalClassFormatException &#123;</span><br><span class="line">        <span class="hljs-keyword">byte</span>[] byteCode = classfileBuffer;</span><br><span class="line">        String finalTargetClassName = <span class="hljs-keyword">this</span>.targetClassName.replaceAll(<span class="hljs-string">"\\."</span>, <span class="hljs-string">"/"</span>); <span class="hljs-comment">//replace . with /</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (!className.equals(finalTargetClassName)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> byteCode;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span> (className.equals(finalTargetClassName) &amp;&amp; loader.equals(targetClassLoader)) &#123;</span><br><span class="line">            logger.info(<span class="hljs-string">"[Agent] Transforming class"</span> + className);</span><br><span class="line">            <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                ClassPool cp = ClassPool.getDefault();</span><br><span class="line">                CtClass cc = cp.get(targetClassName);</span><br><span class="line">                CtMethod m = cc.getDeclaredMethod(WITHDRAW_MONEY_METHOD);</span><br><span class="line"></span><br><span class="line">                <span class="hljs-comment">// 开始时间</span></span><br><span class="line">                m.addLocalVariable(<span class="hljs-string">"startTime"</span>, CtClass.longType);</span><br><span class="line">                m.insertBefore(<span class="hljs-string">"startTime = System.currentTimeMillis();"</span>);</span><br><span class="line"></span><br><span class="line">                StringBuilder endBlock = <span class="hljs-keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">                <span class="hljs-comment">// 结束时间</span></span><br><span class="line">                m.addLocalVariable(<span class="hljs-string">"endTime"</span>, CtClass.longType);</span><br><span class="line">                endBlock.append(<span class="hljs-string">"endTime = System.currentTimeMillis();"</span>);</span><br><span class="line"></span><br><span class="line">                <span class="hljs-comment">// 时间差</span></span><br><span class="line">                m.addLocalVariable(<span class="hljs-string">"opTime"</span>, CtClass.longType);</span><br><span class="line">                endBlock.append(<span class="hljs-string">"opTime = endTime-startTime;"</span>);</span><br><span class="line"></span><br><span class="line">                <span class="hljs-comment">// 打印方法耗时</span></span><br><span class="line">                endBlock.append(<span class="hljs-string">"logger.info(\"completed in:\" + opTime + \" millis!\");"</span>);</span><br><span class="line"></span><br><span class="line">                m.insertAfter(endBlock.toString());</span><br><span class="line"></span><br><span class="line">                byteCode = cc.toBytecode();</span><br><span class="line">                cc.detach();</span><br><span class="line">            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                logger.error(<span class="hljs-string">"Exception"</span>, e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> byteCode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/01/05/基于Java Agent的premain方式实现方法耗时监控/">
+                <span class="level-item">基于Java Agent的premain方式实现方法耗时监控</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
     </div>
 </div>
 
 
 
-    
-<div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/2017/page/2/">Previous</a>
-        </div>
-        <div class="pagination-next">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/2017/page/4/">Next</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2017/">1</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2017/page/2/">2</a></li>
-            
-            <li><a class="pagination-link is-current" href="/archives/2017/page/3/">3</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2017/page/4/">4</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2017/page/5/">5</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2017/page/6/">6</a></li>
-            
-        </ul>
-    </nav>
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<div id="SOHUCS" sid="2019/01/26/基于Java Agent的attach方式实现方法耗时监控/"></div>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+    appid: 'cytoOY6km',
+    conf: 'prod_256dd977beeed0de5b2626a6127e098d'
+});
+</script>
+
+    </div>
 </div>
 </div>
                 
@@ -1522,7 +1356,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="何宝华的个人博客" height="28">
+                    <img src="/images/logo.svg" alt="基于Java Agent的attach方式实现方法耗时监控" height="28">
                 
                 </a>
                 <p class="is-size-7">
