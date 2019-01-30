@@ -128,6 +128,60 @@
     <div class="card">
     
     <div class="card-image">
+        <a href="/2017/06/19/从源码看ArrayList的实现/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/y7CR3rvi.jpg" alt="从源码看ArrayList的实现">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-06-19T15:11:46.000Z">2017-06-19</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/源码/">源码</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 minutes read (About 1026 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2017/06/19/从源码看ArrayList的实现/">从源码看ArrayList的实现</a>
+            
+        </h1>
+        <div class="content">
+            <p>在<a href="http://www.jianshu.com/p/23349118d620" target="_blank" rel="noopener">JAVA基础系列（五） 集合</a>这篇文章中已经系统性的总结了JAVA中的集合体系，ArrayList是基于数组的List实现，查询快，增删慢，效率高，非线程安全。本文从源码的层面上来看一下ArrayList的构造，扩容与</p>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2017/06/19/从源码看ArrayList的实现/#more">Read More</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-image">
         <a href="/2017/06/18/Spring进阶之对jdbc的支持以及事物管理/" class="image is-7by1">
             <img class="thumbnail" src="/gallery/0IJixAo8.jpg" alt="Spring进阶之对jdbc的支持以及事物管理">
         </a>
@@ -752,118 +806,15 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2017/06/11/struts2框架(一) 初探/" class="image is-7by1">
-            <img class="thumbnail" src="/gallery/eLPvrGaT.jpg" alt="struts2框架(一) 初探">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2017-06-11T08:35:26.000Z">2017-06-11</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    8 minutes read (About 1273 words)
-                </span>
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2017/06/11/struts2框架(一) 初探/">struts2框架(一) 初探</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>Struts2 是一个用来开发 MVC应用程序的框架. 它提供了 Web 应用程序开发过程中的一些常见问题的解决方案:<br><strong>Struts2 = Struts1 + WebWork</strong>     1和2没有本质的关系</p>
-</blockquote>
-<p>##1.Struts2开发流程</p>
-<p><img src="http://upload-im&lt;!-- more --&gt;ages.jianshu.io/upload_images/5990755-6d29de6d3b9a6f26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h3 id="1-1-引入jar文件"><a href="#1-1-引入jar文件" class="headerlink" title="1.1 引入jar文件"></a>1.1 引入jar文件</h3><blockquote>
-<p>commons-fileupload-1.2.2.jar      【文件上传相关包】<br>commons-io-2.0.1.jar              【io操作相关的包】<br>struts2-core-2.3.4.1.jar           【struts2核心功能包】<br>xwork-core-2.3.4.1.jar           【Xwork核心包】<br>ognl-3.0.5.jar                     【Ognl表达式功能支持表】<br>commons-lang3-3.1.jar          【struts对java.lang包的扩展】<br>freemarker-2.3.19.jar            【struts的标签模板库jar文件】<br>javassist-3.11.0.GA.jar           【struts对字节码的处理相关jar】</p>
-</blockquote>
-<h3 id="1-2-配置web-xml"><a href="#1-2-配置web-xml" class="headerlink" title="1.2 配置web.xml"></a>1.2 配置web.xml</h3><blockquote>
-<p>tomcat服务器在启动时，首先会加载自身的web.xml，然后加载所有项目的web.xml。struts2通过在web.xml中引入过滤器来作为入口，在学习过滤器的时候我们知道过滤器的init方法会在tomcat服务器启动时调用。</p>
-</blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  &lt;!-- 引入struts核心过滤器 --&gt;</span><br><span class="line">&lt;filter&gt;</span><br><span class="line">	&lt;filter-name&gt;struts2&lt;/filter-name&gt;</span><br><span class="line">	&lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">	&lt;filter-name&gt;struts2&lt;/filter-name&gt;</span><br><span class="line">	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="1-3-编写Action类"><a href="#1-3-编写Action类" class="headerlink" title="1.3 编写Action类"></a>1.3 编写Action类</h3><blockquote>
-<p>action类，也叫做动作类; 一般继承ActionSupport类,即处理请求的类  (struts中的action类取代之前的servlet).<br>注意： action中的业务方法不能有参数，且必须返回String</p>
-</blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import com.opensymphony.xwork2.ActionSupport;</span><br><span class="line"></span><br><span class="line">// 开发action： 处理请求</span><br><span class="line">public class HelloAction extends ActionSupport &#123;	</span><br><span class="line">	// 处理请求</span><br><span class="line">	public String execute() throws Exception &#123;</span><br><span class="line">		System.out.println(&quot;访问到了action，正在处理请求&quot;);</span><br><span class="line">		return &quot;success&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-4-配置struts-xml"><a href="#1-4-配置struts-xml" class="headerlink" title="1.4    配置struts.xml"></a>1.4    配置struts.xml</h3><blockquote>
-<p>该配置文件的头部可以参照struts2-core-2.3.4.1.jar包下面的struts-default.xml来写。该配置文件的主要作用是将提供action的访问名称，并且和action类进行关联。</p>
-</blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE struts PUBLIC</span><br><span class="line">          &quot;-//Apache Software Foundation//DTD Struts Configuration 2.0//EN&quot;</span><br><span class="line">          &quot;http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;</span><br><span class="line">&lt;struts&gt;</span><br><span class="line">    &lt;package name=&quot;xxxx&quot; extends=&quot;struts-default&quot;&gt;</span><br><span class="line">    	&lt;action name=&quot;hello&quot; class=&quot;cn.acamy.action.HelloAction&quot; method=&quot;execute&quot;&gt;</span><br><span class="line">    		&lt;result name=&quot;success&quot;&gt;/success.jsp&lt;/result&gt;</span><br><span class="line">    	&lt;/action&gt;</span><br><span class="line">    &lt;/package&gt; </span><br><span class="line">&lt;/struts&gt;</span><br></pre></td></tr></table></figure>
-<p>##2.Struts2执行流程</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-df2bfec10955f1eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h3 id="2-1-服务器启动"><a href="#2-1-服务器启动" class="headerlink" title="2.1 服务器启动"></a>2.1 服务器启动</h3><ol>
-<li>加载项目web.xml</li>
-<li>创建Struts核心过滤器对象， 执行filter的init()<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struts-default.xml,    核心功能的初始化</span><br><span class="line">struts-plugin.xml,     struts相关插件</span><br><span class="line">struts.xml			   用户编写的配置文件</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="2-2-用户访问"><a href="#2-2-用户访问" class="headerlink" title="2.2 用户访问"></a>2.2 用户访问</h2><p>3.用户访问Action, 服务器根据访问路径名称，找对应的aciton配置, 创建action对象<br>4.执行默认拦截器栈中定义的18个拦截器<br>5.执行action的业务处理方法<br>6.根据action返回的Result来跳转到相应的页面</p>
-<h2 id="3-三大配置文件的加载"><a href="#3-三大配置文件的加载" class="headerlink" title="3. 三大配置文件的加载"></a>3. 三大配置文件的加载</h2><blockquote>
-<p>从上面可以知道核心过滤器是Struts的入口，tomcat服务器在启动时会执行过滤器的init()方法，现在通过源码展示三大配置文件是如何加载的。</p>
-</blockquote>
-<h3 id="3-1-首先是执行web-xml引入的StrutsPrepareAndExecuteFilter初始化方法"><a href="#3-1-首先是执行web-xml引入的StrutsPrepareAndExecuteFilter初始化方法" class="headerlink" title="3.1 首先是执行web.xml引入的StrutsPrepareAndExecuteFilter初始化方法"></a>3.1 首先是执行web.xml引入的StrutsPrepareAndExecuteFilter初始化方法</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line">      InitOperations init = new InitOperations();</span><br><span class="line">      try &#123;</span><br><span class="line">          FilterHostConfig config = new FilterHostConfig(filterConfig);</span><br><span class="line">          init.initLogging(config);</span><br><span class="line">          Dispatcher dispatcher = init.initDispatcher(config);// 在这里跳转</span><br><span class="line">          init.initStaticContentLoader(config, dispatcher);</span><br><span class="line"></span><br><span class="line">          prepare = new PrepareOperations(filterConfig.getServletContext(), dispatcher);</span><br><span class="line">          execute = new ExecuteOperations(filterConfig.getServletContext(), dispatcher);</span><br><span class="line">	this.excludedPatterns = init.buildExcludedPatternsList(dispatcher);</span><br><span class="line"></span><br><span class="line">          postInit(dispatcher, filterConfig);</span><br><span class="line">      &#125; finally &#123;</span><br><span class="line">          init.cleanup();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>###3.2 然后执行InitOperations的initDispatcher方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public Dispatcher initDispatcher( HostConfig filterConfig ) &#123;</span><br><span class="line">        Dispatcher dispatcher = createDispatcher(filterConfig);</span><br><span class="line">        dispatcher.init();</span><br><span class="line">        return dispatcher;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="3-3-最后执行Dispatcher的init方法"><a href="#3-3-最后执行Dispatcher的init方法" class="headerlink" title="3.3 最后执行Dispatcher的init方法"></a>3.3 最后执行Dispatcher的init方法</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line">     * Load configurations, including both XML and zero-configuration strategies,</span><br><span class="line">     * and update optional settings, including whether to reload configurations and resource files.</span><br><span class="line">     */</span><br><span class="line">    public void init() &#123;</span><br><span class="line"></span><br><span class="line">    	if (configurationManager == null) &#123;</span><br><span class="line">    		configurationManager = createConfigurationManager(BeanSelectionProvider.DEFAULT_BEAN_NAME);</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            init_DefaultProperties(); // [1]</span><br><span class="line">            init_TraditionalXmlConfigurations(); // [2]跳转到三大配置文件的相关方法</span><br><span class="line">            init_LegacyStrutsProperties(); // [3]</span><br><span class="line">            init_CustomConfigurationProviders(); // [5]</span><br><span class="line">            init_FilterInitParameters() ; // [6]</span><br><span class="line">            init_AliasStandardObjects() ; // [7]</span><br><span class="line"></span><br><span class="line">            Container container = init_PreloadConfiguration();</span><br><span class="line">            container.inject(this);</span><br><span class="line">            init_CheckConfigurationReloading(container);</span><br><span class="line">            init_CheckWebLogicWorkaround(container);</span><br><span class="line"></span><br><span class="line">            if (!dispatcherListeners.isEmpty()) &#123;</span><br><span class="line">                for (DispatcherListener l : dispatcherListeners) &#123;</span><br><span class="line">                    l.dispatcherInitialized(this);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (Exception ex) &#123;</span><br><span class="line">            if (LOG.isErrorEnabled())</span><br><span class="line">                LOG.error(&quot;Dispatcher initialization failed&quot;, ex);</span><br><span class="line">            throw new StrutsException(ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">//三大配置文件</span><br><span class="line">private static final String DEFAULT_CONFIGURATION_PATHS = &quot;struts-default.xml,struts-plugin.xml,struts.xml&quot;;</span><br><span class="line"></span><br><span class="line">private void init_TraditionalXmlConfigurations() &#123;</span><br><span class="line">        String configPaths = initParams.get(&quot;config&quot;);</span><br><span class="line">        if (configPaths == null) &#123;</span><br><span class="line">            configPaths = DEFAULT_CONFIGURATION_PATHS;</span><br><span class="line">        &#125;</span><br><span class="line">        String[] files = configPaths.split(&quot;\\s*[,]\\s*&quot;);</span><br><span class="line">       //骤个初始化</span><br><span class="line">        for (String file : files) &#123;</span><br><span class="line">            if (file.endsWith(&quot;.xml&quot;)) &#123;</span><br><span class="line">                if (&quot;xwork.xml&quot;.equals(file)) &#123;</span><br><span class="line">                    configurationManager.addContainerProvider(createXmlConfigurationProvider(file, false));</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    configurationManager.addContainerProvider(createStrutsXmlConfigurationProvider(file, false, servletContext));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                throw new IllegalArgumentException(&quot;Invalid configuration file name&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="4-struts-default-xml-详解"><a href="#4-struts-default-xml-详解" class="headerlink" title="4.struts-default.xml, 详解"></a>4.struts-default.xml, 详解</h2><p> <strong>位置：</strong>struts2-core-2.3.4.1.jar/ struts-default.xml<br> <strong>内容：</strong></p>
-<pre><code>1. bean节点指定struts在运行的时候创建的对象类型
-2.指定struts-default包  【用户写的package(struts.xml)一样要继承此包 】
-    package  struts-default  包中定义了：
-        a.  跳转的结果类型
-            dispatcher    转发，不指定默认为转发
-            redirect       重定向
-            redirectAction  重定向到action资源
-            stream        (文件下载的时候用)
-        b. 定义了所有的拦截器
-              定义了32个拦截器！
-              为了拦截器引用方便，可以通过定义栈的方式引用拦截器，
-            此时如果引用了栈，栈中的拦截器都会被引用!
-
-            defaultStack
-                默认的栈，其中定义默认要执行的18个拦截器！
-
-
-        c. 默认执行的拦截器栈、默认执行的action
-            &lt;default-interceptor-ref name=&quot;defaultStack&quot;/&gt;
-           &lt;default-class-ref class=&quot;com.opensymphony.xwork2.ActionSupport&quot; /&gt;
-</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;interceptor name=&quot;prepare&quot; </span><br><span class="line">class=&quot;com.opensymphony.xwork2.interceptor.PrepareInterceptor&quot;/&gt;</span><br><span class="line">&lt;interceptor name=&quot;params&quot; </span><br><span class="line">class=&quot;com.opensymphony.xwork2.interceptor.ParametersInterceptor&quot;/&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>注意：</strong>拦截器功能与过滤器功能类似，都拦截资源，但它是struts的概念，只能在struts中用，只拦截action请求;而过滤器是servlet的概念，可以在struts项目、servlet项目用，可以拦截所有的web资源(/index.jsp/servlet/action/img/css/js)。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
 
     
 <div class="card card-transparent">
     <nav class="pagination is-centered" role="navigation" aria-label="pagination">
         <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/page/5/">Previous</a>
+            <a class="is-flex-grow has-text-black-ter" href="/page/5/">Anterior</a>
         </div>
         <div class="pagination-next">
-            <a class="is-flex-grow has-text-black-ter" href="/page/7/">Next</a>
+            <a class="is-flex-grow has-text-black-ter" href="/page/7/">Siguiente</a>
         </div>
         <ul class="pagination-list is-hidden-mobile">
             
@@ -922,17 +873,17 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Posts
+                        Entradas
                     </p>
                     <p class="title has-text-weight-normal">
-                        85
+                        86
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categories
+                        Categorias
                     </p>
                     <p class="title has-text-weight-normal">
                         17
@@ -942,7 +893,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Tags
+                        Etiquetas
                     </p>
                     <p class="title has-text-weight-normal">
                         6
@@ -952,7 +903,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://www.hebh.me">
-                Follow</a>
+                SEGUIR</a>
         </div>
         
         
@@ -1039,7 +990,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categories
+                Categorias
             </h3>
             <ul class="menu-list">
             <li>
@@ -1080,7 +1031,7 @@
                 <span class="level-item">JVM</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">6</span>
+                <span class="level-item tag">7</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/JavaWeb/">
@@ -1188,7 +1139,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Tag Cloud
+            Nube de etiquetas
         </h3>
         <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
     </div>
@@ -1202,8 +1153,27 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recent
+            Recientes
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/01/29/插拔式处理注解Api及仿lombok Getter注解实现/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/JmTNPFCh.jpg" alt="插拔式处理注解Api及仿lombok Getter注解实现">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-29T12:54:07.000Z">2019-01-29</time></div>
+                    <a href="/2019/01/29/插拔式处理注解Api及仿lombok Getter注解实现/" class="has-link-black-ter is-size-6">插拔式处理注解Api及仿lombok Getter注解实现</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1281,25 +1251,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/A5Fbx8IT.jpg" alt="由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T13:12:51.000Z">2018-11-25</time></div>
-                    <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="has-link-black-ter is-size-6">由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1308,7 +1259,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            Archivos
         </h3>
         <ul class="menu-list">
         
@@ -1318,7 +1269,7 @@
                     <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -1508,7 +1459,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                Etiquetas
             </h3>
             <ul class="menu-list">
                 
@@ -1598,8 +1549,27 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recent
+            Recientes
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/01/29/插拔式处理注解Api及仿lombok Getter注解实现/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/JmTNPFCh.jpg" alt="插拔式处理注解Api及仿lombok Getter注解实现">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-29T12:54:07.000Z">2019-01-29</time></div>
+                    <a href="/2019/01/29/插拔式处理注解Api及仿lombok Getter注解实现/" class="has-link-black-ter is-size-6">插拔式处理注解Api及仿lombok Getter注解实现</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1677,25 +1647,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/A5Fbx8IT.jpg" alt="由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T13:12:51.000Z">2018-11-25</time></div>
-                    <a href="/2018/11/25/由于基本数据类型使用姿势不对导致的线上死循环问题排查/" class="has-link-black-ter is-size-6">由于基本数据类型使用姿势不对导致的线上&#34;死循环&#34;问题排查</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1704,7 +1655,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            Archivos
         </h3>
         <ul class="menu-list">
         
@@ -1714,7 +1665,7 @@
                     <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -1904,7 +1855,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                Etiquetas
             </h3>
             <ul class="menu-list">
                 
@@ -2127,10 +2078,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Posts',
+                POSTS: 'Entradas',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Etiquetas',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
