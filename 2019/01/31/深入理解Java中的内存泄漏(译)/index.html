@@ -2,18 +2,36 @@
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Archives: 2017/11 - 何宝华的个人博客</title>
+<title>深入理解Java中的内存泄漏(译) - 何宝华的个人博客</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="何宝华的个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/2017/11/index.html">
+    <meta name="description" content="原文地址 ##1. 介绍 使用内建的垃圾收集器(或者是短暂的GC)来进行内存自动管理是使用Java的核心好处之一，GC机制在后台自动进行内存分配和回收，因此能够对大部分内存泄漏的情况进行处理。 尽管GC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解Java中的内存泄漏(译)">
+<meta property="og:url" content="http://yoursite.com/2019/01/31/深入理解Java中的内存泄漏(译)/index.html">
 <meta property="og:site_name" content="何宝华的个人博客">
+<meta property="og:description" content="原文地址 ##1. 介绍 使用内建的垃圾收集器(或者是短暂的GC)来进行内存自动管理是使用Java的核心好处之一，GC机制在后台自动进行内存分配和回收，因此能够对大部分内存泄漏的情况进行处理。 尽管GC">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-9f904a5a149d3897.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-2d5402385eac3d17.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-661fc2f79da88cd8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-5750ed355847207d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-8be5e11d9a84e911.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-54fe97a91d52a18f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-78205936d35e4800.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-dff74cc0f62ad0d5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-8fa0c77b1e3f58ff.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-b0349b98a8460a6d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-8a10db3762c488ea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-5c65439d99713408.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5990755-373ba0da76a32147.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-01-31T14:27:05.140Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="何宝华的个人博客">
+<meta name="twitter:title" content="深入理解Java中的内存泄漏(译)">
+<meta name="twitter:description" content="原文地址 ##1. 介绍 使用内建的垃圾收集器(或者是短暂的GC)来进行内存自动管理是使用Java的核心好处之一，GC机制在后台自动进行内存分配和回收，因此能够对大部分内存泄漏的情况进行处理。 尽管GC">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5990755-9f904a5a149d3897.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -79,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="何宝华的个人博客" height="28">
+                <img src="/images/logo.svg" alt="深入理解Java中的内存泄漏(译)" height="28">
             
             </a>
         </div>
@@ -124,70 +142,244 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="tag is-link">
-        November 2017
-        </h3>
-        <div class="timeline">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/gallery/NL6dhITk.jpg" alt="深入理解Java中的内存泄漏(译)">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
         
-            <article class="media">
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-01-31T14:23:07.000Z">2019-01-31</time>
                 
-                <a href="/2017/11/11/解决win下SSH Secure Shell无法远程登录ubuntu的问题/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/Je9lKYVw.jpg" alt="解决win下SSH Secure Shell无法远程登录ubuntu的问题">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-11-11T13:46:05.000Z">2017-11-11</time>
-                        <a href="/2017/11/11/解决win下SSH Secure Shell无法远程登录ubuntu的问题/" class="has-link-black-ter is-size-6">解决win下SSH Secure Shell无法远程登录ubuntu的问题</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
                 </div>
-            </article>
-        
-            <article class="media">
                 
-                <a href="/2017/11/11/Scrapy爬取西刺网站代理IP并写入MySQL/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/a9yUFGK6.jpg" alt="Scrapy爬取西刺网站代理IP并写入MySQL">
-                    </p>
-                </a>
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-11-11T08:11:13.000Z">2017-11-11</time>
-                        <a href="/2017/11/11/Scrapy爬取西刺网站代理IP并写入MySQL/" class="has-link-black-ter is-size-6">Scrapy爬取西刺网站代理IP并写入MySQL</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/Python/">Python</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
+                <span class="level-item has-text-grey">
+                    
+                    
+                    30 minutes read (About 4455 words)
+                </span>
+                
+            </div>
         </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                深入理解Java中的内存泄漏(译)
+            
+        </h1>
+        <div class="content">
+            <p><a href="https://www.baeldung.com/java-memory-leaks" target="_blank" rel="noopener">原文地址</a></p>
+<p>##1. 介绍</p>
+<p>使用内建的垃圾收集器(或者是短暂的GC)来进行内存自动管理是使用Java的核心好处之一，GC机制在后台自动进行内存分配和回收，因此能够对大部分内存泄漏的情况进行处理。</p>
+<p>尽管GC<a id="more"></a>机制能够高效地管理一部分内存，但并不意味着它能简化内存泄漏的处理。GC很智能， 但并不是万能的。就处是一个细致的开发者写的应用也有可能出现内存泄漏。</p>
+<p>有些情况下应用程序会产生大量的多余对象，导致占用了很多内存资源，甚至会导致应用程序的崩溃。</p>
+<p>内存在Java中是一个真正的问题，在本篇教程中我们可以看到产生内存泄漏的场景，怎样在运行时发现它们以及怎么在程序中去处理这些问题。</p>
+<p>##2. 什么是内存泄漏</p>
+<p>内存泄漏就是某些场景下有些对象在堆中不再被用到，但是垃圾收集器并不能回收它们，因此它们没有被合理的管理。</p>
+<p>内存泄漏不仅会占用内存资源而且随着时间推移还会影响程序的性能，如果对其不采取任何措施，最终会耗尽系统资源产生 <em>java.lang.OutOfMemoryError</em>异常导致程序终止。</p>
+<p>在堆内存中有被引用和无引用两种类型的对象，被引用的对象在程序中会有有效的引用指向，无引用对象则没有。</p>
+<p><strong>垃圾回收器能够回收阶段性地回收没有被引用的对象，但是并不会回收那些被引用的资源</strong>， 这也是内存泄漏出现的根本原因。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-9f904a5a149d3897.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131193807625"></p>
+<p><strong>内存泄漏的表现</strong></p>
+<ul>
+<li>应用在长期运行期间出现严重的性能降级</li>
+<li>应用中出现OutOfMemoryError堆内存错误</li>
+<li>自发或者是莫名其妙的应用崩溃</li>
+<li>应用偶尔性出现对象连接被占满</li>
+</ul>
+<p>接下来让我们具体看看这些场景以及如何去应对。</p>
+<p>##3. Java中内存泄漏的类型</p>
+<p>在任何应用中，内存泄漏的出现都有若干的可能。这里我们会讨论经常会出现的场景。</p>
+<p>###3.1 静态字段导致的内存泄漏</p>
+<p>第一个常见出现内存泄漏的场景就是大量使用静态变量。</p>
+<p>Java中静态字段会有和运行中应用程序同样长的生命周期(除非是类加载器被垃圾回收器回收)。</p>
+<p>下面这段代码就用了一个静态的List成员变量:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StaticTest</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Double&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"> </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">populateList</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000000</span>; i++) &#123;</span><br><span class="line">            list.add(Math.random());</span><br><span class="line">        &#125;</span><br><span class="line">        Log.info(<span class="hljs-string">"Debug Point 2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Log.info(<span class="hljs-string">"Debug Point 1"</span>);</span><br><span class="line">        <span class="hljs-keyword">new</span> StaticTest().populateList();</span><br><span class="line">        Log.info(<span class="hljs-string">"Debug Point 3"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在如果我们在这段程序运行时分析堆内存的使用情况，我们会发现在points 1和points 2之间堆内存的使用会增加。</p>
+<p>然后执行完方法populateList运行到Points 3是使用的内存并没有被回收，通过VisualVM可以看到下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-2d5402385eac3d17.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131195332463"></p>
+<p>然而如果我们去掉上段代码中第2行的static修饰关键字，内存使用情况会出现很大的改观，通过VisualVM可以看到:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-661fc2f79da88cd8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131195537792"></p>
+<p>通过两幅图的对比我们可以看到代码的前半部分执行情况基本一样，但是去掉static关键字后当程序执行完populateList方法，list占用的内存由于没有任何引用因此全部被垃圾回收器回收了。</p>
+<p>因此我们对使用静态变量应要非常小心。如果集合或者大对象被static关键字修饰，那么在应用的整个生命周期中它们都会被保存在内存中，导致占用了其它地方需要用到的宝贵内存。</p>
+<p>那么如何避免这种情况？</p>
+<ul>
+<li>减少静态变量的使用</li>
+<li>当使用单例时，采用懒加载来迭代提前加载</li>
+</ul>
+<p>###3.2 没有被关闭的资源</p>
+<p>当我们打开一个连接或者是创建一个流是地，JVM会给这些资源分配内存。例如数据库的连接，输入i流和session对象。</p>
+<p>如果忘了关闭这些资源将会一直占用系统内存，导致GC不能回收这些对象。甚至在现在异常时也会出现，因为程序会因为抛出异常直接跳过关闭资源的代码。</p>
+<p>在某些场景下，打开的资源连接会占用着内存，如果我们不对其进行处理，会严重影响性能甚至导致<em>OutOfMemoryError</em>异常。</p>
+<p>那么如何避免这种情况:</p>
+<ul>
+<li>必须使用finally块来关闭资源</li>
+<li>关闭资源的代码块(即使是finally代码块)自身不能抛出任何异常</li>
+<li>如果使用Java 7 以一的版本，可以使用<em>try</em>-with-resources代码块</li>
+</ul>
+<p>###3.3 对equals和hashCode进行了不恰当的实现</p>
+<p>当我们定义一个新类时，一种常见的问题就是不恰当地重写equals和hashCode方法。</p>
+<p>对HashSet和HashMap的许多操作都会用到这些方法，如果我们不正常地重写了它们，也有可能导致内存泄漏。</p>
+<p>那么我们以Person类作为示例，并且将其作为HashMap的一个key:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">public</span> String name;</span><br><span class="line">     </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来往以Person作为key的Map中插入重复的Person对象</p>
+<p>注意Map中并不能有重复的key:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">givenMap_whenEqualsAndHashCodeNotOverridden_thenMemoryLeak</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    Map&lt;Person, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">100</span>; i++) &#123;</span><br><span class="line">        map.put(<span class="hljs-keyword">new</span> Person(<span class="hljs-string">"jon"</span>), <span class="hljs-number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Assert.assertFalse(map.size() == <span class="hljs-number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们在这里将Person作为Map的key，由于Map不允许重复的key，因此重复的我们插入重复的Person不应该增加内存的占用。</p>
+<p>但是因为我们没有定义合适的equals方法，这些重复的对象累积起来导致内存的增加，因此我们在内存中不只看到一个对象。VisualVM的堆内存使用情况如下:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-5750ed355847207d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131202229689"></p>
+<p>然而如果我们对equals和hashCode方法进行了恰当的重写，那么在Map中只会存在一个Person对象。</p>
+<p>那么接下来就看看恰当的equals和hashCode重写应该是怎样的:</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">public</span> String name;</span><br><span class="line">     </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">equals</span><span class="hljs-params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (o == <span class="hljs-keyword">this</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span> (!(o <span class="hljs-keyword">instanceof</span> Person)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Person person = (Person) o;</span><br><span class="line">        <span class="hljs-keyword">return</span> person.name.equals(name);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hashCode</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> result = <span class="hljs-number">17</span>;</span><br><span class="line">        result = <span class="hljs-number">31</span> * result + name.hashCode();</span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，下面的断言就会为true：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">givenMap_whenEqualsAndHashCodeNotOverridden_thenMemoryLeak</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    Map&lt;Person, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">2</span>; i++) &#123;</span><br><span class="line">        map.put(<span class="hljs-keyword">new</span> Person(<span class="hljs-string">"jon"</span>), <span class="hljs-number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Assert.assertTrue(map.size() == <span class="hljs-number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当对equals和hashCode代码进行了合适的重写后，同样的程序执行堆内存占用情况会如下:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-8be5e11d9a84e911.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131202639392"></p>
+<p>另外一个例子就是使用ORM工具如Hibernate，会用equals和hashCode方法来分析对象</p>
+<p>并且将其保存在缓存中。</p>
+<p>如果没有对这些方法进行恰当的重写就很有可能导致内存泄漏，因为Hibernate就不能区别这些对象从而在缓存中保存了重复的对象。</p>
+<p>那么如何避免这种情况？</p>
+<ul>
+<li>当定义一个实体类时，第一件事就是要重写equals的hashCode方法</li>
+<li>不仅要重写，而且要进行恰当的重写</li>
+</ul>
+<p>更多的信息可以阅读教程 <a href="https://www.baeldung.com/java-eclipse-equals-and-hashcode" target="_blank" rel="noopener">Generate <em>equals()</em> and <em>hashCode()</em> with Eclipse</a>和 <a href="https://www.baeldung.com/java-hashcode" target="_blank" rel="noopener">Guide to <em>hashCode()</em> in Java</a>.</p>
+<p>###3.4 内部类引用外部类</p>
+<p>在非静态类(匿名类)中会出现这种情况。在初始化时，这些内部类总是需要一个完整类的实例。</p>
+<p>在默认情况下，非静态内部类对其外部类会有隐式的引。当在应用程序中用这些内存类时，即使引用外部类的对象已经失效了，但并不会被垃圾回收。</p>
+<p>当一个类引用了有许多大对象并且有一个非静态内部类，就算只是创建一个内部类，内存占用情况会如下:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-54fe97a91d52a18f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131204345455"></p>
+<p>然而我们只是需要将这个内部类声明为静态的内存占用情况就会如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-78205936d35e4800.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131204509626"></p>
+<p>出现这种情况的原因是因为内部类持有对外部类的引用, 从而导致垃圾回收器不能回收外部类。在匿名类中同样会出现这样的情况。</p>
+<p>那么如何避免这种情况:</p>
+<ul>
+<li>如果内部类不需要用到外部类的成员对象，考虑将其改为静态类</li>
+</ul>
+<p>###3.5 使用finalize方法</p>
+<p>当使用finalize方法时也会产生内存泄漏。任何时候当对象的finalize方法被调用时，垃圾回收器并不会立即回收它而是将其放入到回收队列，等到合适时机才回收。</p>
+<p>除此之外，如果重写的finalize方法并不是最佳导致finalizer队列跟不上垃圾回收器的速度，或早或迟会导致程序出现<em>OutOfMemoryError</em>。</p>
+<p>为了演示这种情况，我们可以重写一个对象的finalize方法并且在该方法的执行需要一定的时间。当大量持有该类的对象被垃圾回收时，在VisualVM中表现如下:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-dff74cc0f62ad0d5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131205545337"></p>
+<p>然而当我们去掉重写的finalize方法后同样的程序表现如下:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-8fa0c77b1e3f58ff.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131205637710"></p>
+<p>那么如何避免这种情况？</p>
+<ul>
+<li>尽量避免重写finalize方法</li>
+</ul>
+<p>更多的信息可能阅读<a href="https://www.baeldung.com/java-finalize" target="_blank" rel="noopener">Guide to the finalize Method in Java</a></p>
+<p>###3.6 Interned 字符串</p>
+<p>在Java7中Java 字符串常量池从永久代移到了堆空间中，但是对时使用java6以及更低版本的应用来说，我们在使用大量字符串时要非常小心。</p>
+<p>当我们读取大量的长字符串并且调用intern方法，那么这些字符串就会被放到永久代的字符串常量池，只要程序在运行它将会一直存在。这将占用很多内存并且导致内存泄漏。</p>
+<p>在java1.6中永久代的使用情况通过VisualVM观察如下:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-b0349b98a8460a6d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131210408433"></p>
+<p>相对这种情况，如果我们只是从一个文件中读取字符串而不调用intern方法，那么永久代的使用情况就是这样:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-8a10db3762c488ea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131210548663"></p>
+<p>那么如何避免这种情况？</p>
+<ul>
+<li>最简单的方法就是将java升级到7及以上的版本，因为将字符串常量池移到了堆区</li>
+<li>如果使用了大量了字符串，那么就可以通过增加永久代的大小来避免<em>OutOfMemoryErrors</em></li>
+</ul>
+<p><code>-XX:MaxPermSize=512m</code></p>
+<p>###3.7 使用本地线程变量</p>
+<p>通过使用<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ThreadLocal.html" target="_blank" rel="noopener"><em>ThreadLocal</em></a> (更多可阅读 <a href="https://www.baeldung.com/java-threadlocal" target="_blank" rel="noopener">Introduction to <em>ThreadLocal</em> in Java</a> 教程) 本地线程变量可以对线程进行隔离从而达到线程安全的目的。</p>
+<p>当使用本地线程变量时，每个线程在存活期间都会持有一份对该变量拷贝的引用并且会自己维护这份拷贝，而不是在多线程之间共享。</p>
+<p>尽管使用ThreadLocal有如此大的好处，但是却有很多争论的，因为如果使用不当很容易导致内存泄漏。Joshua Bloch对ThreadLocal的使用作过如下评论:</p>
+<blockquote>
+<p>在许多地方都写到，过于分散的线程池使用和过于分散的本地线程变量使用会导致意想不到对象存留。但归罪于本地线程亦是是莫须有的罪名。</p>
+</blockquote>
+<p>ThreadLocal中的内存泄漏</p>
+<p>当线程不再存活时，那么它引用的ThreadLocal对象也会被垃圾回收。但是当今应用服务器的使用导致ThreadLocal的使用出现了问题。</p>
+<p>当今服务器应用通过使用线程池来传递请求而不是创建新的线程(比如Apache Tomcat服务器就是使用Executor框架)。此外，它们使用独立的类加载器。</p>
+<p>由于线程池采取的是线程复用的理念，因此它们从不会被垃圾回收，而是被其它的请求复用。</p>
+<p>这种情况下如果任何一个类创建了一个ThreadLocal变量但没有显示移除它，那么这个对象的拷贝就会一直被工作线程持有直到应用程序终止，导致对应不能被垃圾回收器回收。</p>
+<p>那么如何避免这种情况？</p>
+<ul>
+<li><p>ThreadLocal提供了remove方法，该方法会移除当前线程对它的拷贝。所以养成当ThreadLocal对象不再使用就清除它的好习惯。</p>
+</li>
+<li><p>不要使用 <strong>ThreadLocal.set(null)</strong> 来清理值。因为它不会清理这个合二为一而是将ThreadLocalMap中的kv分别设置为空</p>
+</li>
+<li><p>更好的解决办法可以考虑将ThreadLocal作为一个资源对象将释放代码放在finally块中从而保证总是能被回收，即使发生异常:</p>
+</li>
+<li><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">try</span> &#123;</span><br><span class="line">    threadLocal.set(System.nanoTime());</span><br><span class="line">    <span class="hljs-comment">//... further processing</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">    threadLocal.remove();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>##4. 处理内存泄漏的其它策略</p>
+<p>尽管对处理内存泄漏没有能用的方法，但不是有一些方式可以减少这些泄漏。</p>
+<p>###4.1 启用分析器</p>
+<p>Java分析器就是一些监控和诊断应用内存泄漏的工具。通过它可以分析我们应用程序内存的运行情况, 比如说内存的分配。</p>
+<p>通过使用分析器，我们可以对比不同的情形从而对资源进行最佳的使用。</p>
+<p>在本文第3部分中我们使用了Java VisualVM.可以阅读 <a href="https://www.baeldung.com/java-profilers" target="_blank" rel="noopener">Guide to Java Profilers</a>这篇文章来学更多的分析器，如Mission Control, JProfiler, YourKit, Java VisualVM, 和the Netbeans Profiler.</p>
+<p>###4.2 打印详细的垃圾回收情况</p>
+<p>通过打印增援回收情况， 我们可以追踪GC的具体情况。通过使用如下JVM参数即可:</p>
+<p><code>-verbose:gc</code></p>
+<p>加上这个参数后，我们就可以看到GC的具体情况:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-5c65439d99713408.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131215507630"></p>
+<p>###4.3 使用引用对象来避免内存泄漏</p>
+<p>通过使用<em>java.lang.ref</em> 包中的一些类而不是直接引用对象，使用不同的引用类型让它们能更好的被垃圾回收。引用队列的设计就是让我们知道我们引用的对象是否被回收了，更多信息可以阅读<a href="https://www.baeldung.com/java-soft-references" target="_blank" rel="noopener">Soft References in Java</a> 。</p>
+<p>###4.4 Eclipse内存泄漏的警告</p>
+<p>对于使用JDK 1.5及以上版本的应用, Eclipse在我们程序出现明显的内存泄漏时会显示警告和错误。因此，当使用Eclipse进行开发时我们要多关注”Problems”标签页并且对内存泄漏警告(如果有的话)更加警惕。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-373ba0da76a32147.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190131215937615"></p>
+<p>###4.5 Benchmarking</p>
+<p>通过执行benchmark我们可以衡量和分析Java代码的性能。这种方式我们可以对同一任务的不同实现进行对比， 从而帮助我们选择更好的方式并且节约内存。</p>
+<p>可以阅读<a href="https://www.baeldung.com/java-microbenchmark-harness" target="_blank" rel="noopener">Microbenchmarking with Java</a> 教程获取关于benchmarking的更多资料。</p>
+<p>##5. 总结</p>
+<p>用外行人的话来说，我们可以将内存泄漏当作占用重要内存资源从而导致应用程序性能下降的一种疾病，像其它疾病一样，如果没有治愈它，那么随着时间推移会导致应用以崩溃而失败。</p>
+<p>使用Java时找到并解决内存泄漏需要很高的技巧和丰富的经验，在很多情况下都会现在泄漏，因此并没有一种通过的方法来处理内存泄漏。</p>
+<p>然而，如果通过采用分析等手段以使用最佳的方式和执行严格的代码测试，我们就可以减少应用中的内存泄漏。</p>
+<p>一如既往，本文中产生VisualVM效果图的代码在<a href="https://github.com/eugenp/tutorials/tree/master/core-java-perf" target="_blank" rel="noopener">GitHub</a>都可以找到。</p>
+
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
     </div>
 </div>
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/01/30/插拔式处理注解Api及仿lombok Getter注解实现/">
+                <span class="level-item">插拔式处理注解Api及仿lombok Getter注解实现</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<div id="SOHUCS" sid="2019/01/31/深入理解Java中的内存泄漏(译)/"></div>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+    appid: 'cytoOY6km',
+    conf: 'prod_256dd977beeed0de5b2626a6127e098d'
+});
+</script>
+
+    </div>
+</div>
 </div>
                 
 
@@ -1295,7 +1487,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="何宝华的个人博客" height="28">
+                    <img src="/images/logo.svg" alt="深入理解Java中的内存泄漏(译)" height="28">
                 
                 </a>
                 <p class="is-size-7">

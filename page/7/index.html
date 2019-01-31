@@ -128,6 +128,63 @@
     <div class="card">
     
     <div class="card-image">
+        <a href="/2017/06/11/struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/EFZlgQaq.jpg" alt="struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-06-11T11:45:51.000Z">2017-06-11</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    15 minutes read (About 2208 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2017/06/11/struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交/">struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="1-数据校验"><a href="#1-数据校验" class="headerlink" title="1.数据校验"></a>1.数据校验</h2><blockquote>
+<p>Struts数据效验， 通过拦截器完成</p>
+</blockquote>
+<p><code>&lt;interceptor name=&quot;validation&quot; class=&quot;org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor&quot;/&gt;</code><br></p>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2017/06/11/struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交/#more">Read More</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-image">
         <a href="/2017/06/11/struts2框架(一) 初探/" class="image is-7by1">
             <img class="thumbnail" src="/gallery/eLPvrGaT.jpg" alt="struts2框架(一) 初探">
         </a>
@@ -738,100 +795,6 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
 
 
 
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2017/06/07/JavaWeb基础之JSP进阶/" class="image is-7by1">
-            <img class="thumbnail" src="/gallery/KBWeCwDr.jpg" alt="JavaWeb基础之JSP进阶">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2017-06-07T15:03:44.000Z">2017-06-07</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/JavaWeb/">JavaWeb</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    8 minutes read (About 1236 words)
-                </span>
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2017/06/07/JavaWeb基础之JSP进阶/">JavaWeb基础之JSP进阶</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="1-九大内置对象"><a href="#1-九大内置对象" class="headerlink" title="1.九大内置对象"></a>1.九大内置对象</h2><blockquote>
-<p>在一篇中我们知道tomcat服务器翻译成了java源文件，每次说jsp文件时都会调用_jspService方法，当该方法中我们可以看到：</p>
-</blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">final javax.servlet.jsp.PageContext pageContext;</span><br><span class="line">javax&lt;!-- more --&gt;.servlet.http.HttpSession session = null;   </span><br><span class="line">final javax.servlet.ServletContext application;</span><br><span class="line">final javax.servlet.ServletConfig config;</span><br><span class="line">javax.servlet.jsp.JspWriter out = null;</span><br><span class="line">final java.lang.Object page = this;</span><br><span class="line">javax.servlet.jsp.JspWriter _jspx_out = null;</span><br><span class="line">javax.servlet.jsp.PageContext _jspx_page_context = null;</span><br></pre></td></tr></table></figure>
-<p>当用page指定指定当前页面是否为错误处理页面时还会多几行：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Throwable exception = org.apache.jasper.runtime.JspRuntimeLibrary.getThrowable(request);</span><br><span class="line">if (exception != null) &#123;</span><br><span class="line">     response.setStatus(javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p>以上即为我们所说的JSP九大内置对象，JSP技术的设计者为便于开发人员在编写JSP页面时获得这些web对象的引用，特意定义了9个相应的变量，开发人员在JSP页面中通过这些变量就可以快速获得这9大对象的引用。<br>概括如下：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-f6dac3767a89b9a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>注意：<br><strong>out隐式对象：</strong></p>
-<blockquote>
-<p>out隐式对象用于向客户端发送文本数据。<br>out对象是通过调用pageContext对象的getOut方法返回的，其作用和用法ServletResponse.getWriter方法返回的PrintWriter对象非常相似。<br>JSP页面中的out隐式对象的类型为JspWriter，JspWriter相当于一种带缓存功能的PrintWriter，设置JSP页面的page指令的buffer属性可以调整它的缓存大小，甚至关闭它的缓存。<br>只有向out对象中写入了内容，且满足如下任何一个条件时，out对象才去调用ServletResponse.getWriter方法，并通过该方法返回的PrintWriter对象将out对象的缓冲区中的内容真正写入到Servlet引擎提供的缓冲区中：</p>
-<ul>
-<li>1.设置page指令的buffer属性关闭了out对象的缓存功能</li>
-<li>2.out对象的缓冲区已满</li>
-<li>3.刷新缓存区</li>
-<li>4.整个JSP页面结束</li>
-</ul>
-</blockquote>
-<p><strong>pageContext对象:</strong></p>
-<blockquote>
-<p>pageContext对象的类型是PageContext，叫jsp的上下文对象<br>封装了其它8大隐式对象的引用,代表当前JSP页面的运行环境,可以通过pageContext获取其他八个内置对象</p>
-<ul>
-<li>1.getException方法返回exception隐式对象 </li>
-<li>2.getPage方法返回page隐式对象</li>
-<li>3.getRequest方法返回request隐式对象 </li>
-<li>4.getResponse方法返回response隐式对象 </li>
-<li>5.getServletConfig方法返回config隐式对象</li>
-<li>6.getServletContext方法返回application隐式对象</li>
-<li>7.getSession方法返回session隐式对象 </li>
-<li>8.getOut方法返回out隐式对象</li>
-</ul>
-</blockquote>
-<h2 id="2-四大域对象"><a href="#2-四大域对象" class="headerlink" title="2. 四大域对象"></a>2. 四大域对象</h2><blockquote>
-<p>用于保存数据、获取数据和共享数据</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/5990755-b1d742ef9ef7a052.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h3 id="2-1-域对象方法："><a href="#2-1-域对象方法：" class="headerlink" title="2.1 域对象方法："></a>2.1 域对象方法：</h3><h4 id="2-1-1-保存数据"><a href="#2-1-1-保存数据" class="headerlink" title="2.1.1 保存数据"></a>2.1.1 保存数据</h4><p>setAttribute(“name”,Object); //pageContext对象还可以保存数据到指定域，默认为page域</p>
-<h4 id="2-1-1-获取数据"><a href="#2-1-1-获取数据" class="headerlink" title="2.1.1 获取数据"></a>2.1.1 获取数据</h4><p>getAttribute(“name”) ; //pageContext对象还可以获取指定域的数据，默认为page域</p>
-<h4 id="2-1-1-清除数据"><a href="#2-1-1-清除数据" class="headerlink" title="2.1.1 清除数据"></a>2.1.1 清除数据</h4><p>removeAttribute(“name”) </p>
-<h4 id="2-1-1-搜索数据"><a href="#2-1-1-搜索数据" class="headerlink" title="2.1.1 搜索数据"></a>2.1.1 搜索数据</h4><p>pageContext.findAttribute(“name”);  //pageContext特有,自动在四个域中搜索数据<br>顺序： page域 -&gt; request域 -&gt; session域- &gt; context域（application域）</p>
-<p>##3.EL表达式</p>
-<blockquote>
-<p>全名为Expression Language，用于向浏览器输出域对象中的变量值或表达式计算的结果</p>
-</blockquote>
-<p>语法： <strong>${变量或表达式}</strong><br>1）输出基本数据类型变量<br>                        1.1 从四个域获取<br>                            ${name}<br>                        1.2 指定域获取<br>                            ${pageScope.name}<br>                    域范围： pageScope/ requestScope / sessionScope / applicationScope<br>2）输出对象的属性值<br>                        Student<br>                3）输出集合对象<br>                       List  和 Map<br>                4）EL表达式计算</p>
-<p>举例1：获取域中的变量<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line">1)从四个域自动搜索</span><br><span class="line"> --%&gt;</span><br><span class="line"></span><br><span class="line"> $&#123;name &#125;</span><br><span class="line">&lt;%--</span><br><span class="line">$&#123;name &#125; 等价于</span><br><span class="line"> &lt;%=pageContext.findAttribute(&quot;name&quot;)%&gt;</span><br><span class="line">--%&gt;</span><br><span class="line"></span><br><span class="line">&lt;%--</span><br><span class="line"> 2） 从指定的域中获取数据</span><br><span class="line"> --%&gt;</span><br><span class="line"></span><br><span class="line"> $&#123;pageScope.name &#125;</span><br><span class="line">&lt;%--</span><br><span class="line">pageScope为EL中的隐含对象，像这样的还有requestScope，sessionScope，applicationScope，pageContext等十一个</span><br><span class="line">$&#123;pageScope.name &#125; 等价于</span><br><span class="line">&lt;%= pageContext.getAttribute(&quot;name&quot;,PageContext.PAGE_SCOPE)%&gt;	    	</span><br><span class="line"> --%&gt;</span><br></pre></td></tr></table></figure></p>
-<p>举例2：获取域中的对象<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">    	//保存数据</span><br><span class="line">    	Student student = new Student(&quot;eric&quot;,20);</span><br><span class="line">    	//放入域中</span><br><span class="line">    	pageContext.setAttribute(&quot;student&quot;,student);</span><br><span class="line">    	</span><br><span class="line">    	//List</span><br><span class="line">    	List&lt;Student&gt;  list = new ArrayList&lt;Student&gt;();</span><br><span class="line">    	list.add(new Student(&quot;rose&quot;,18));</span><br><span class="line">    	list.add(new Student(&quot;jack&quot;,28));</span><br><span class="line">    	list.add(new Student(&quot;lucy&quot;,38));</span><br><span class="line">    	//放入域中</span><br><span class="line">    	pageContext.setAttribute(&quot;list&quot;,list);</span><br><span class="line">    	</span><br><span class="line">    	//Map</span><br><span class="line">    	Map&lt;String,Student&gt; map = new HashMap&lt;String,Student&gt;();</span><br><span class="line">    	map.put(&quot;100&quot;,new Student(&quot;mark&quot;,20));</span><br><span class="line">    	map.put(&quot;101&quot;,new Student(&quot;maxwell&quot;,30));</span><br><span class="line">    	map.put(&quot;102&quot;,new Student(&quot;narci&quot;,40));</span><br><span class="line">    	//放入域中</span><br><span class="line">    	pageContext.setAttribute(&quot;map&quot;,map);</span><br><span class="line">    	</span><br><span class="line">%&gt;</span><br><span class="line">     </span><br><span class="line">     &lt;%--使用EL获取对象 --%&gt;</span><br><span class="line">     $&#123;student.name&#125; - $&#123;student.age &#125;</span><br><span class="line">     &lt;%--</span><br><span class="line">      $&#123;student.name&#125; 等价于     （点相对于调用getXX（）方法）</span><br><span class="line">         &lt;%=((Student)pageContext.findAttribute(&quot;student&quot;)).getName()%&gt;</span><br><span class="line">      --%&gt;</span><br><span class="line">      </span><br><span class="line">      &lt;hr/&gt;</span><br><span class="line">      &lt;%--使用EL获取List对象 --%&gt;</span><br><span class="line">      $&#123;list[0].name &#125; - $&#123;list[0].age &#125;&lt;br/&gt;</span><br><span class="line">      $&#123;list[1].name &#125; - $&#123;list[1].age &#125;&lt;br/&gt;</span><br><span class="line">      $&#123;list[2].name &#125; - $&#123;list[2].age &#125;</span><br><span class="line">      &lt;%--</span><br><span class="line">      list[0]等价于       (中括号相对于调用get(参数)方法)</span><br><span class="line">      		((List)pageContext.findAttribute(&quot;list&quot;)).get(0)</span><br><span class="line">       --%&gt;</span><br><span class="line">       &lt;hr/&gt;</span><br><span class="line">       &lt;%--使用EL获取Map对象 --%&gt;</span><br><span class="line">       $&#123;map[&apos;100&apos;].name &#125; -  $&#123;map[&apos;100&apos;].age &#125;&lt;br/&gt;</span><br><span class="line">       $&#123;map[&apos;101&apos;].name &#125; -  $&#123;map[&apos;101&apos;].age &#125;&lt;br/&gt;</span><br><span class="line">       $&#123;map[&apos;102&apos;].name &#125; -  $&#123;map[&apos;102&apos;].age &#125;&lt;br/&gt;</span><br></pre></td></tr></table></figure></p>
-<p>举例3：表达式计算<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line">  	1)算术表达式</span><br><span class="line">  	  +  -  *  /</span><br><span class="line">   --%&gt;</span><br><span class="line">   $&#123;10+5 &#125;&lt;br/&gt;</span><br><span class="line">   $&#123;10*5 &#125;</span><br><span class="line">   &lt;hr/&gt;</span><br><span class="line">   &lt;%--</span><br><span class="line">  	2)比较运算</span><br><span class="line">  	&gt;  &lt;  &gt;=  &lt;=  ==   !=</span><br><span class="line">   --%&gt;</span><br><span class="line">   $&#123;10&gt;5 &#125;&lt;br/&gt;</span><br><span class="line">   $&#123;10&lt;5 &#125;&lt;br/&gt;</span><br><span class="line">   $&#123;10!=10 &#125;</span><br><span class="line">   &lt;hr/&gt;</span><br><span class="line">   &lt;%--</span><br><span class="line">  	3)逻辑运算</span><br><span class="line">  	 &amp;&amp;  ||  !</span><br><span class="line">   --%&gt;</span><br><span class="line">   $&#123;true &amp;&amp; false &#125;&lt;br/&gt;</span><br><span class="line">   $&#123;true || false &#125;&lt;br/&gt;</span><br><span class="line">   $&#123;!false &#125;&lt;br/&gt;</span><br><span class="line">   &lt;hr/&gt;</span><br><span class="line">    &lt;%--</span><br><span class="line">  	4)判空</span><br><span class="line">  	null 或 空字符串:  empty</span><br><span class="line">   --%&gt;</span><br><span class="line">   &lt;%</span><br><span class="line">   	//String name = &quot;eric&quot;;</span><br><span class="line">   	//String name = null;</span><br><span class="line">   	String name = &quot;&quot;;</span><br><span class="line">   	pageContext.setAttribute(&quot;name&quot;,name);</span><br><span class="line">    %&gt;</span><br><span class="line">    判断null： $&#123;name==null &#125;&lt;br/&gt;</span><br><span class="line">    判断空字符： $&#123;name==&quot;&quot; &#125;&lt;br/&gt;</span><br><span class="line">   判空：  $&#123;name==null || name==&quot;&quot; &#125;</span><br><span class="line">   另一种判空写法： $&#123;empty name &#125;</span><br></pre></td></tr></table></figure></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -900,7 +863,7 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        86
+                        87
                     </p>
                 </div>
             </div>
@@ -1055,7 +1018,7 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
                 <span class="level-item">JVM</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">7</span>
+                <span class="level-item tag">8</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/JavaWeb/">
@@ -1182,6 +1145,25 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
         
         <article class="media">
             
+            <a href="/2019/01/31/深入理解Java中的内存泄漏(译)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/NL6dhITk.jpg" alt="深入理解Java中的内存泄漏(译)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-31T14:23:07.000Z">2019-01-31</time></div>
+                    <a href="/2019/01/31/深入理解Java中的内存泄漏(译)/" class="has-link-black-ter is-size-6">深入理解Java中的内存泄漏(译)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/01/30/插拔式处理注解Api及仿lombok Getter注解实现/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/gallery/JmTNPFCh.jpg" alt="插拔式处理注解Api及仿lombok Getter注解实现">
@@ -1256,25 +1238,6 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/U9EcadSI.jpg" alt="责任链模式及其在flowable源码中的应用">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-05T13:09:01.000Z">2018-12-05</time></div>
-                    <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="has-link-black-ter is-size-6">责任链模式及其在flowable源码中的应用</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1293,7 +1256,7 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
                     <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -1578,6 +1541,25 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
         
         <article class="media">
             
+            <a href="/2019/01/31/深入理解Java中的内存泄漏(译)/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/NL6dhITk.jpg" alt="深入理解Java中的内存泄漏(译)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-31T14:23:07.000Z">2019-01-31</time></div>
+                    <a href="/2019/01/31/深入理解Java中的内存泄漏(译)/" class="has-link-black-ter is-size-6">深入理解Java中的内存泄漏(译)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/01/30/插拔式处理注解Api及仿lombok Getter注解实现/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/gallery/JmTNPFCh.jpg" alt="插拔式处理注解Api及仿lombok Getter注解实现">
@@ -1652,25 +1634,6 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/U9EcadSI.jpg" alt="责任链模式及其在flowable源码中的应用">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-05T13:09:01.000Z">2018-12-05</time></div>
-                    <a href="/2018/12/05/责任链模式及其在flowable源码中的应用/" class="has-link-black-ter is-size-6">责任链模式及其在flowable源码中的应用</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1689,7 +1652,7 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
                     <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
