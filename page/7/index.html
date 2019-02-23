@@ -128,6 +128,91 @@
     <div class="card">
     
     <div class="card-image">
+        <a href="/2017/06/11/Hibernate构架(一) 初探/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/maMQLBec.jpg" alt="Hibernate构架(一) 初探">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-06-11T14:21:51.000Z">2017-06-11</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/JavaWeb框架/">JavaWeb框架</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11 minutes read (About 1624 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2017/06/11/Hibernate构架(一) 初探/">Hibernate构架(一) 初探</a>
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>ORM，Object Relation Mapping，即对象关系映射。Hibernate就是ORM的实现，使对象在数据库的存储和获取非常的方便。</p>
+</blockquote>
+<h2 id="1-Hibernate开发流程"><a href="#1-Hibernate开发流程" class="headerlink" title="1.Hibernate开发流程"></a>1.Hibernate开发流程</h2><p><img src="http://upload-images.jianshu.io/upload_images/5990&lt;!-- more --&gt;755-93cc6b6d08b987fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-1-引入jar文件"><a href="#1-1-引入jar文件" class="headerlink" title="1.1 引入jar文件"></a>1.1 引入jar文件</h3><p>hibernate3.jar核心  +  required 必须引入的(6个) +  jpa 目录  + 数据库驱动包</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5990755-29189b7a33fe1694.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-2-写对象类"><a href="#1-2-写对象类" class="headerlink" title="1.2 写对象类"></a>1.2 写对象类</h3><p><strong>Employee.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Employee &#123;</span><br><span class="line"></span><br><span class="line">	private int empId;</span><br><span class="line">	private String empName;</span><br><span class="line">	private Date workDate;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-3-配置对象的映射"><a href="#1-3-配置对象的映射" class="headerlink" title="1.3 配置对象的映射"></a>1.3 配置对象的映射</h3><p><strong>Employee.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.a_hello&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;Employee&quot; table=&quot;employee&quot;&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 主键 ，映射--&gt;</span><br><span class="line">		&lt;id name=&quot;empId&quot; column=&quot;id&quot;&gt;</span><br><span class="line">			&lt;generator class=&quot;native&quot;/&gt;</span><br><span class="line">		&lt;/id&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 非主键，映射 --&gt;</span><br><span class="line">		&lt;property name=&quot;empName&quot; column=&quot;empName&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;workDate&quot; column=&quot;workDate&quot;&gt;&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-4-主配置文件"><a href="#1-4-主配置文件" class="headerlink" title="1.4 主配置文件"></a>1.4 主配置文件</h3><p><strong>hibernate.cfg.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE hibernate-configuration PUBLIC</span><br><span class="line">	&quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-configuration&gt;</span><br><span class="line">	&lt;session-factory&gt;</span><br><span class="line">		&lt;!-- 数据库连接配置 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql:///hib_demo&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.username&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.password&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQL5Dialect&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;property name=&quot;hibernate.show_sql&quot;&gt;true&lt;/property&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 加载所有映射 --&gt;</span><br><span class="line">		&lt;mapping resource=&quot;cn/itcast/a_hello/Employee.hbm.xml&quot;/&gt;</span><br><span class="line">	&lt;/session-factory&gt;</span><br><span class="line">&lt;/hibernate-configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-5-测试"><a href="#1-5-测试" class="headerlink" title="1.5 测试"></a>1.5 测试</h3><p><strong>App.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">  public class App &#123;</span><br><span class="line">	@Test</span><br><span class="line">	public void testHello() throws Exception &#123;</span><br><span class="line">		// 对象</span><br><span class="line">		Employee emp = new Employee();</span><br><span class="line">		emp.setEmpName(&quot;班长&quot;);</span><br><span class="line">		emp.setWorkDate(new Date());</span><br><span class="line">		</span><br><span class="line">		// 获取加载配置文件的管理类对象</span><br><span class="line">		Configuration config = new Configuration();</span><br><span class="line">		config.configure();  // 默认加载src/hibenrate.cfg.xml文件</span><br><span class="line">		// 创建session的工厂对象</span><br><span class="line">		SessionFactory sf = config.buildSessionFactory();</span><br><span class="line">		// 创建session (代表一个会话，与数据库连接的会话)</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		// 开启事务</span><br><span class="line">		Transaction tx = session.beginTransaction();</span><br><span class="line">		//保存-数据库</span><br><span class="line">		session.save(emp);</span><br><span class="line">		// 提交事务</span><br><span class="line">		tx.commit();</span><br><span class="line">		// 关闭</span><br><span class="line">		session.close();</span><br><span class="line">		sf.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-Hibernate-Api"><a href="#2-Hibernate-Api" class="headerlink" title="2. Hibernate  Api"></a>2. Hibernate  Api</h2><h3 id="2-1-Configuration"><a href="#2-1-Configuration" class="headerlink" title="2.1 Configuration"></a>2.1 Configuration</h3><blockquote>
+<p>配置管理类对象</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   config.configure();    加载主配置文件的方法(hibernate.cfg.xml)</span><br><span class="line">					默认加载src/hibernate.cfg.xml</span><br><span class="line">config.configure(“cn/config/hibernate.cfg.xml”);   加载指定路径下指定名称的主配置文件</span><br><span class="line">config.buildSessionFactory();   创建session的工厂对象</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-SessionFactory"><a href="#2-2-SessionFactory" class="headerlink" title="2.2 SessionFactory"></a>2.2 SessionFactory</h3><blockquote>
+<p>session的工厂（或者说代表了这个hibernate.cfg.xml配置文件）</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sf.openSession();   创建一个sesison对象</span><br><span class="line">sf.getCurrentSession();  创建session或取出session对象</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-Session"><a href="#2-3-Session" class="headerlink" title="2.3 Session"></a>2.3 Session</h3><blockquote>
+<p>session对象维护了一个连接(Connection), 代表了与数据库连接的会话。<br> Hibernate最重要的对象： 只用使用hibernate与数据库操作，都用到这个对象</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">session.beginTransaction(); 开启一个事务； hibernate要求所有的与数据库的操作必须有事务的环境，否则报错！</span><br><span class="line"></span><br><span class="line">更新：</span><br><span class="line">session.save(obj);   保存一个对象</span><br><span class="line">session.update(emp);  更新一个对象</span><br><span class="line">session.saveOrUpdate(emp);  保存或者更新的方法：</span><br><span class="line">没有设置主键，执行保存；有设置主键，执行更新操作; 如果设置主键不存在报错！</span><br><span class="line"></span><br><span class="line">主键查询：</span><br><span class="line">session.get(Employee.class, 1);    主键查询</span><br><span class="line">session.load(Employee.class, 1);   主键查询 (支持懒加载)</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-Transaction"><a href="#2-4-Transaction" class="headerlink" title="2.4  Transaction"></a>2.4  Transaction</h3><blockquote>
+<p>hibernate事务对象</p>
+</blockquote>
+<h2 id="3-Hibernate-cfg-xml-主配置"><a href="#3-Hibernate-cfg-xml-主配置" class="headerlink" title="3.Hibernate.cfg.xml 主配置"></a>3.Hibernate.cfg.xml 主配置</h2><blockquote>
+<p>主配置文件中主要配置：数据库连接信息、其他参数、映射信息！</p>
+</blockquote>
+<h3 id="3-1-数据库连接参数配置"><a href="#3-1-数据库连接参数配置" class="headerlink" title="3.1 数据库连接参数配置"></a>3.1 数据库连接参数配置</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE hibernate-configuration PUBLIC</span><br><span class="line">	&quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-configuration&gt;</span><br><span class="line">	&lt;!-- 通常，一个session-factory节点代表一个数据库 --&gt;</span><br><span class="line">	&lt;session-factory&gt;</span><br><span class="line">	</span><br><span class="line">		&lt;!-- 1. 数据库连接配置 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql:///hib_demo&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.username&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.connection.password&quot;&gt;root&lt;/property&gt;</span><br><span class="line">		&lt;!-- </span><br><span class="line">			数据库方言配置， hibernate在运行的时候，会根据不同的方言生成符合当前数据库语法的sql</span><br><span class="line">		 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQL5Dialect&lt;/property&gt;		</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 2. 其他相关配置 --&gt;</span><br><span class="line">		&lt;!-- 2.1 显示hibernate在运行时候执行的sql语句 --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.show_sql&quot;&gt;true&lt;/property&gt;</span><br><span class="line">		&lt;!-- 2.2 格式化sql --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.format_sql&quot;&gt;true&lt;/property&gt;</span><br><span class="line">		&lt;!-- 2.3 自动建表  --&gt;</span><br><span class="line">		&lt;property name=&quot;hibernate.hbm2ddl.auto&quot;&gt;update&lt;/property&gt;</span><br><span class="line">				</span><br><span class="line">		&lt;!-- 3. 加载所有映射 </span><br><span class="line">		&lt;mapping resource=&quot;cn/itcast/a_hello/Employee.hbm.xml&quot;/&gt;</span><br><span class="line">		--&gt;</span><br><span class="line">	&lt;/session-factory&gt;</span><br><span class="line">&lt;/hibernate-configuration&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="4-映射配置"><a href="#4-映射配置" class="headerlink" title="4.映射配置"></a>4.映射配置</h2><blockquote>
+<ol>
+<li>普通字段类型</li>
+<li>主键映射<br> 单列主键映射<br> 多列作为主键映射<br>主键生成策略，查看api：org.hibernate.id.factory.DefaultIdentifierGeneratorFactory</li>
+</ol>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 映射文件: 映射一个实体类对象；  描述一个对象最终实现可以直接保存对象数据到数据库中。  --&gt;</span><br><span class="line">&lt;!-- </span><br><span class="line">	package: 要映射的对象所在的包(可选,如果不指定,此文件所有的类都要指定全路径)</span><br><span class="line">	auto-import 默认为true， 在写hql的时候自动导入包名</span><br><span class="line">				如果指定为false, 再写hql的时候必须要写上类的全名；</span><br><span class="line">				  如：session.createQuery(&quot;from cn.itcast.c_hbm_config.Employee&quot;).list();</span><br><span class="line"> --&gt;</span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.c_hbm_config&quot; auto-import=&quot;true&quot;&gt;	</span><br><span class="line">	&lt;!-- </span><br><span class="line">		class 映射某一个对象的(一般情况，一个对象写一个映射文件，即一个class节点)</span><br><span class="line">			name 指定要映射的对象的类型</span><br><span class="line">			table 指定对象对应的表；</span><br><span class="line">				  如果没有指定表名，默认与对象名称一样 </span><br><span class="line">	 --&gt;</span><br><span class="line">	&lt;class name=&quot;Employee&quot; table=&quot;employee&quot;&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 主键 ，映射--&gt;</span><br><span class="line">		&lt;id name=&quot;empId&quot; column=&quot;id&quot;&gt;</span><br><span class="line">			&lt;!-- </span><br><span class="line">				主键的生成策略</span><br><span class="line">					identity  自增长(mysql,db2)</span><br><span class="line">					sequence  自增长(序列)， oracle中自增长是以序列方法实现</span><br><span class="line">					native  自增长【会根据底层数据库自增长的方式选择identity或sequence】</span><br><span class="line">							如果是mysql数据库, 采用的自增长方式是identity</span><br><span class="line">							如果是oracle数据库， 使用sequence序列的方式实现自增长</span><br><span class="line">					</span><br><span class="line">					increment  自增长(会有并发访问的问题，一般在服务器集群环境使用会存在问题。)</span><br><span class="line">					</span><br><span class="line">					assigned  指定主键生成策略为手动指定主键的值</span><br><span class="line">					uuid      指定uuid随机生成的唯一的值</span><br><span class="line">					foreign   (外键的方式， one-to-one讲)</span><br><span class="line">			 --&gt;</span><br><span class="line">			&lt;generator class=&quot;uuid&quot;/&gt;</span><br><span class="line">		&lt;/id&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- </span><br><span class="line">			普通字段映射</span><br><span class="line">			property</span><br><span class="line">				name  指定对象的属性名称</span><br><span class="line">				column 指定对象属性对应的表的字段名称，如果不写默认与对象属性一致。</span><br><span class="line">				length 指定字符的长度, 默认为255</span><br><span class="line">				type   指定映射表的字段的类型，如果不指定会匹配属性的类型</span><br><span class="line">					java类型：     必须写全名</span><br><span class="line">					hibernate类型：  直接写类型，都是小写</span><br><span class="line">		--&gt;</span><br><span class="line">		&lt;property name=&quot;empName&quot; column=&quot;empName&quot; type=&quot;java.lang.String&quot; length=&quot;20&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;workDate&quot; type=&quot;java.util.Date&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 如果列名称为数据库关键字，需要用反引号或改列名。 --&gt;</span><br><span class="line">		&lt;property name=&quot;desc&quot; column=&quot;`desc`&quot; type=&quot;java.lang.String&quot;&gt;&lt;/property&gt;		</span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="5-复合主键映射"><a href="#5-复合主键映射" class="headerlink" title="5.复合主键映射"></a>5.复合主键映射</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 复合主键类</span><br><span class="line">public class CompositeKeys implements Serializable&#123;</span><br><span class="line">	private String userName;</span><br><span class="line">	private String address;</span><br><span class="line">   // .. get/set</span><br><span class="line">&#125;</span><br><span class="line">public class User &#123;</span><br><span class="line">	// 名字跟地址，作为复合主键，不会重复</span><br><span class="line">	private CompositeKeys keys;</span><br><span class="line">	private int age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>User.hbm.xml</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">	&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;cn.itcast.d_compositeKey&quot; auto-import=&quot;true&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;class name=&quot;User&quot;&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- 复合主键映射 --&gt;</span><br><span class="line">		&lt;composite-id name=&quot;keys&quot;&gt;</span><br><span class="line">			&lt;key-property name=&quot;userName&quot; type=&quot;string&quot;&gt;&lt;/key-property&gt;</span><br><span class="line">			&lt;key-property name=&quot;address&quot; type=&quot;string&quot;&gt;&lt;/key-property&gt;</span><br><span class="line">		&lt;/composite-id&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;property name=&quot;age&quot; type=&quot;int&quot;&gt;&lt;/property&gt;		</span><br><span class="line">		</span><br><span class="line">	&lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>App2.java</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">public class App2 &#123;</span><br><span class="line">	</span><br><span class="line">	private static SessionFactory sf;</span><br><span class="line">	static  &#123;		</span><br><span class="line">		// 创建sf对象</span><br><span class="line">		sf = new Configuration()</span><br><span class="line">			.configure()</span><br><span class="line">			.addClass(User.class)  //（测试） 会自动加载映射文件：Employee.hbm.xml</span><br><span class="line">			.buildSessionFactory();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//1. 保存对象</span><br><span class="line">	@Test</span><br><span class="line">	public void testSave() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		Transaction tx = session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		// 对象</span><br><span class="line">		CompositeKeys keys = new CompositeKeys();</span><br><span class="line">		keys.setAddress(&quot;广州棠东&quot;);</span><br><span class="line">		keys.setUserName(&quot;Jack&quot;);</span><br><span class="line">		User user = new User();</span><br><span class="line">		user.setAge(20);</span><br><span class="line">		user.setKeys(keys);</span><br><span class="line">		</span><br><span class="line">		// 保存</span><br><span class="line">		session.save(user);</span><br><span class="line">		</span><br><span class="line">		tx.commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testGet() throws Exception &#123;</span><br><span class="line">		Session session = sf.openSession();</span><br><span class="line">		Transaction tx = session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		//构建主键再查询</span><br><span class="line">		CompositeKeys keys = new CompositeKeys();</span><br><span class="line">		keys.setAddress(&quot;广州棠东&quot;);</span><br><span class="line">		keys.setUserName(&quot;Jack&quot;);</span><br><span class="line">		</span><br><span class="line">		// 主键查询</span><br><span class="line">		User user = (User) session.get(User.class, keys);</span><br><span class="line">		// 测试输出</span><br><span class="line">		if (user != null)&#123;</span><br><span class="line">			System.out.println(user.getKeys().getUserName());</span><br><span class="line">			System.out.println(user.getKeys().getAddress());</span><br><span class="line">			System.out.println(user.getAge());</span><br><span class="line">		&#125;	</span><br><span class="line">		</span><br><span class="line">		tx.commit();</span><br><span class="line">		session.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-image">
         <a href="/2017/06/11/struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交/" class="image is-7by1">
             <img class="thumbnail" src="/gallery/EFZlgQaq.jpg" alt="struts2框架(五) 数据校验,数据回显，模型驱动，防止表单重复提交">
         </a>
@@ -739,62 +824,6 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
 
 
 
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2017/06/07/JavaWeb基础之JSP初探/" class="image is-7by1">
-            <img class="thumbnail" src="/gallery/5h4OLJro.jpg" alt="JavaWeb基础之JSP初探">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2017-06-07T15:23:32.000Z">2017-06-07</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/JavaWeb/">JavaWeb</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    13 minutes read (About 1910 words)
-                </span>
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2017/06/07/JavaWeb基础之JSP初探/">JavaWeb基础之JSP初探</a>
-            
-        </h1>
-        <div class="content">
-            <p>JSP全称是Java Server Pages，它和servle技术一样，都是SUN公司定义的一种用于开发动态web资源的技术，jsp文件相当于在html页面嵌套java代码，即方便排版又为用户提供了动态数据。</p>
-<h2 id="1-第一个JSP页面"><a href="#1-第一个JSP页面" class="headerlink" title="1. 第一个JSP页面"></a>1. 第一个JSP页面</h2><blockquote>
-<p>如下所示，我们在..WebRoot目录下面定义fir</p></blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2017/06/07/JavaWeb基础之JSP初探/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -863,7 +892,7 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        87
+                        88
                     </p>
                 </div>
             </div>
@@ -1066,7 +1095,7 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
                 <span class="level-item">flowable</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/在线编程/">
@@ -1145,6 +1174,25 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
         
         <article class="media">
             
+            <a href="/2019/02/23/flowable源码解读之LRU缓存设计/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/QPnES6Fd.jpg" alt="flowable源码解读之LRU缓存设计">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-23T14:23:07.000Z">2019-02-23</time></div>
+                    <a href="/2019/02/23/flowable源码解读之LRU缓存设计/" class="has-link-black-ter is-size-6">flowable源码解读之LRU缓存设计</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/01/31/深入理解Java中的内存泄漏(译)/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/gallery/NL6dhITk.jpg" alt="深入理解Java中的内存泄漏(译)">
@@ -1219,25 +1267,6 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/MKAXiZf7.jpg" alt="flowable流程引擎在Spring环境中的启动源码分析">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-08T06:55:50.000Z">2018-12-08</time></div>
-                    <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="has-link-black-ter is-size-6">flowable流程引擎在Spring环境中的启动源码分析</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1249,6 +1278,17 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/01/">
@@ -1541,6 +1581,25 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
         
         <article class="media">
             
+            <a href="/2019/02/23/flowable源码解读之LRU缓存设计/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/QPnES6Fd.jpg" alt="flowable源码解读之LRU缓存设计">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-23T14:23:07.000Z">2019-02-23</time></div>
+                    <a href="/2019/02/23/flowable源码解读之LRU缓存设计/" class="has-link-black-ter is-size-6">flowable源码解读之LRU缓存设计</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/01/31/深入理解Java中的内存泄漏(译)/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/gallery/NL6dhITk.jpg" alt="深入理解Java中的内存泄漏(译)">
@@ -1615,25 +1674,6 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/MKAXiZf7.jpg" alt="flowable流程引擎在Spring环境中的启动源码分析">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-08T06:55:50.000Z">2018-12-08</time></div>
-                    <a href="/2018/12/08/flowable流程引擎在Spring环境中的启动源码分析/" class="has-link-black-ter is-size-6">flowable流程引擎在Spring环境中的启动源码分析</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/flowable/">flowable</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1645,6 +1685,17 @@ Interface ServletContextListener     监听servletContext对象的创建或销�
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/01/">
